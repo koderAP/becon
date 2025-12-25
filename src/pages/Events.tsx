@@ -188,35 +188,35 @@ export const Events: React.FC = () => {
                             </div>
 
                             {/* Events List */}
-                            <div className="space-y-6">
+                            <div className="space-y-8">
                                 {day.events.map((event, eventIndex) => (
                                     <div
                                         key={eventIndex}
-                                        className="flex flex-col md:flex-row gap-4 md:gap-8"
+                                        className="flex flex-col md:flex-row gap-6 md:gap-12"
                                     >
                                         {/* Time */}
-                                        <div className="md:w-[140px] shrink-0">
-                                            <span className="text-gray-400 text-sm font-medium">{event.time}</span>
+                                        <div className="md:w-[160px] shrink-0 pt-2">
+                                            <span className="text-gray-400 text-base font-medium">{event.time}</span>
                                         </div>
 
                                         {/* Event Card */}
-                                        <div className="flex-1 bg-[#0f0a1a] rounded-xl p-5 sm:p-6 border border-white/5">
-                                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                                        <div className="flex-1 bg-[#0f0a1a] rounded-2xl p-6 sm:p-8 border border-white/5">
+                                            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 leading-tight">
                                                 {event.title}
                                             </h3>
-                                            <p className="text-gray-400 text-sm mb-4">
+                                            <p className="text-gray-400 text-base mb-6">
                                                 {event.description}
                                             </p>
 
                                             {/* Speakers */}
                                             {event.speakers && event.speakers.length > 0 && (
-                                                <div className="flex flex-wrap gap-6 mt-4">
+                                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
                                                     {event.speakers.map((speaker, speakerIndex) => (
-                                                        <div key={speakerIndex} className="flex items-center gap-3">
+                                                        <div key={speakerIndex} className="flex items-center gap-4">
                                                             <img
                                                                 src={speaker.image}
                                                                 alt={speaker.name}
-                                                                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover"
+                                                                className="w-16 h-16 rounded-full object-cover ring-2 ring-purple-500/50"
                                                             />
                                                             <div>
                                                                 <p className="text-white text-sm font-medium">{speaker.name}</p>
