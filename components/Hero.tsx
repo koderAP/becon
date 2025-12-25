@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { PlasmaBackground } from './PlasmaBackground';
+import { FramerBackground } from './FramerBackground';
 import { GearWithPlasma } from './GearWithPlasma';
 
 export const Hero: React.FC = () => {
@@ -11,9 +11,9 @@ export const Hero: React.FC = () => {
   return (
     <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-[#05020a]">
 
-      {/* 1. Plasma Background */}
+      {/* 1. Framer Background */}
       <div className="absolute inset-0 z-0">
-        <PlasmaBackground />
+        <FramerBackground />
       </div>
 
       {/* 2. Right Middle Gear with purple plasma shade */}
