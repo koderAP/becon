@@ -28,31 +28,36 @@ export const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
       if (!ticking.current) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
           const scrollDelta = currentScrollY - lastScrollY.current;
 
+          // Clear any pending timeout
+          if (scrollTimeout) clearTimeout(scrollTimeout);
+
           // At top of page - always expanded
-          if (currentScrollY < 50) {
+          if (currentScrollY < 80) {
             if (isCompact) {
               setShowCompactContent(false);
-              setTimeout(() => setIsCompact(false), 150);
+              setTimeout(() => setIsCompact(false), 100);
             }
           }
-          // Scrolling DOWN - contract
-          else if (scrollDelta > 5) {
+          // Scrolling DOWN significantly - contract (needs more scroll to trigger)
+          else if (scrollDelta > 15 && currentScrollY > 150) {
             if (!isCompact) {
               setIsCompact(true);
-              setTimeout(() => setShowCompactContent(true), 300);
+              setTimeout(() => setShowCompactContent(true), 250);
             }
           }
-          // Scrolling UP - expand
-          else if (scrollDelta < -5) {
+          // Scrolling UP - expand immediately
+          else if (scrollDelta < -8) {
             if (isCompact) {
               setShowCompactContent(false);
-              setTimeout(() => setIsCompact(false), 150);
+              setTimeout(() => setIsCompact(false), 100);
             }
           }
 
@@ -64,7 +69,10 @@ export const Navbar: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
   }, [isCompact]);
 
   const isActive = (path: string) => {
@@ -96,7 +104,7 @@ export const Navbar: React.FC = () => {
       <motion.div
         initial={false}
         animate={{
-          width: isCompact ? 220 : "min(95%, 1280px)",
+          width: isCompact ? 240 : "min(95%, 1280px)",
         }}
         transition={{
           duration: 0.4,
