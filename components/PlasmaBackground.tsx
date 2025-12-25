@@ -81,19 +81,19 @@ void main() {
   float intensity = (rgb.r + rgb.g + rgb.b) / 3.0;
   
   vec3 finalColor;
-  // Adjusted gradient: Deep Dark Base -> Vibrant Mid -> Bright Highlight -> White Hot
-  if (intensity < 0.45) {
-     // Deep dark base - spread out the darks
-    finalColor = mix(uColor1, uColor2, intensity * 2.0);
-  } else if (intensity < 0.75) {
-     // Transition to vibrant mid-tones
-    finalColor = mix(uColor2, uColor3, (intensity - 0.45) * 3.0);
+  // Adjusted gradient for DEEP BLACKS
+  // Aggressively crush shadows: if intensity < 0.55, it will be very dark
+  if (intensity < 0.55) {
+    // Non-linear mix to keep it darker for longer (pow)
+    float t = pow(intensity / 0.55, 1.5);
+    finalColor = mix(vec3(0.02, 0.01, 0.05), uColor1, t);
+  } else if (intensity < 0.8) {
+    // Transition to mid-tones
+    finalColor = mix(uColor1, uColor2, (intensity - 0.55) * 4.0);
   } else {
-    // Only very high intensity areas fade to white
-    finalColor = mix(uColor3, vec3(1.0, 1.0, 1.0), (intensity - 0.75) * 2.5);
+    // Only the very peaks get the bright violet/white treatment
+    finalColor = mix(uColor2, vec3(0.9, 0.8, 1.0), (intensity - 0.8) * 5.0);
   }
-  
-  // Removed global white wash to keep blacks deep
   
   fragColor = vec4(finalColor, 1.0);
 }`;
