@@ -86,10 +86,10 @@ export const Contact: React.FC = () => {
                             <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
                                 {/* Replace this with actual Google Maps iframe */}
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.3869279401735!2d77.19069697621406!3d28.52809797576435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sIndian%20Institute%20of%20Technology%20Delhi!5e0!3m2!1sen!2sin!4v1703668128362!5m2!1sen!2sin"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.3860578641147!2d77.1906669!3d28.5280802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sIndian%20Institute%20of%20Technology%20Delhi!5e0!3m2!1sen!2sin!4v1703668128362!5m2!1sen!2sin"
                                     width="100%"
                                     height="100%"
-                                    style={{ border: 0, filter: 'grayscale(100%) invert(90%)' }}
+                                    style={{ border: 0 }}
                                     allowFullScreen
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
