@@ -9,6 +9,7 @@ import { SponsorsPage } from './src/pages/SponsorsPage';
 import { Agenda } from './src/pages/Agenda';
 import { Contact } from './src/pages/Contact';
 import { TicketsPage } from './src/pages/TicketsPage';
+import { TeamPage } from './src/pages/TeamPage';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 
@@ -32,6 +33,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/tickets" element={<TicketsPage />} />
+          <Route path="/team" element={<TeamPage />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
