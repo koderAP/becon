@@ -81,28 +81,17 @@ export const Hero: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* 3. Left Top Gear with purple plasma shade - more 2D-like rotation */}
+      {/* 3. Left Top Gear with purple plasma shade - 2D rotation */}
       <motion.div
-        className="absolute -left-28 top-[8%] md:-left-36 md:top-[12%] pointer-events-none z-20"
-        style={{
-          perspective: '2000px',
-          perspectiveOrigin: 'center center',
-        }}
+        className="absolute -left-16 top-[10%] md:-left-24 md:top-[15%] pointer-events-none z-20"
       >
         <motion.div
           className="relative w-[180px] h-[180px] md:w-[280px] md:h-[280px]"
           animate={{
-            rotateY: [5, -5, 5],
-            rotateX: [-3, 3, -3],
             rotateZ: [360, 0],
           }}
           transition={{
-            rotateY: { duration: 12, repeat: Infinity, ease: "easeInOut" },
-            rotateX: { duration: 10, repeat: Infinity, ease: "easeInOut" },
-            rotateZ: { duration: 15, repeat: Infinity, ease: "linear" },
-          }}
-          style={{
-            transformStyle: 'preserve-3d',
+            rotateZ: { duration: 20, repeat: Infinity, ease: "linear" },
           }}
         >
           <img
