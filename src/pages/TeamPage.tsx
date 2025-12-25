@@ -221,7 +221,7 @@ export const TeamPage: React.FC = () => {
                     className="text-center"
                 >
                     <div className="flex items-end justify-center gap-2">
-                        <img src="/logo.png" alt="BECon" className="h-16 sm:h-20 md:h-24 w-auto" />
+                        <img src="/logo.avif" alt="BECon" className="h-16 sm:h-20 md:h-24 w-auto" />
                         <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-purple-500 -mb-1">2026</span>
                     </div>
                 </motion.div>

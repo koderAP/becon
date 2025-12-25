@@ -237,7 +237,7 @@ export const Hero: React.FC = () => {
           className="relative flex items-center justify-center mb-8"
         >
           <img
-            src="/logo.png"
+            src="/logo.avif"
             alt="BECon 2026"
             className="w-[320px] md:w-[550px] lg:w-[700px] h-auto object-contain"
           />
