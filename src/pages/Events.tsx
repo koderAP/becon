@@ -1,244 +1,201 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PlasmaBackground } from '../../components/PlasmaBackground';
+import { HeroBackground } from '../../components/HeroBackground';
 import { Footer } from '../../components/Footer';
-import { ArrowUpRight } from 'lucide-react';
+import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-interface Speaker {
-    name: string;
-    designation: string;
-    company: string;
-    image: string;
-}
-
-interface EventItem {
-    time: string;
+interface EventCard {
+    id: string;
     title: string;
     description: string;
-    speakers?: Speaker[];
+    date: string;
+    location: string;
+    category: 'hackathon' | 'keynote' | 'workshop' | 'competition' | 'networking';
+    image?: string;
+    featured?: boolean;
 }
 
-interface DaySchedule {
-    label: string;
-    labelColor: string;
-    title: string;
-    introDescription: string; // First description shown inline with header
-    events: EventItem[];
-}
-
-const scheduleData: DaySchedule[] = [
+const eventsData: EventCard[] = [
     {
-        label: 'Kickoff',
-        labelColor: 'bg-purple-600',
-        title: 'Day 1: Main Conference',
-        introDescription: 'Welcome to the Becon Tech Summit. Kick off the day with an introduction from the event organizers and a sneak peek of what\'s in store.',
-        events: [
-            {
-                time: '10.30-11.30 AM',
-                title: 'Keynote Address: Revolutionizing the Future with AI',
-                description: 'By [Name], [Designation, Company] at [Event Name]. Explore the transformative impact of AI on industries and society.',
-                speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/64/100/100' },
-                ],
-            },
-            {
-                time: '12.30-01.30 AM',
-                title: 'Grand Moonshot: Pitch before 20+ global VCs and 4,000+ audience',
-                description: 'A lively discussion on how AI is being implemented in sectors like healthcare, finance, and logistics, with industry experts.',
-                speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/65/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/91/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/129/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/177/100/100' },
-                ],
-            },
-        ],
+        id: '100x-hackathon',
+        title: '100X Hackathon',
+        description: "Asia's largest deep-tech hackathon aimed at building breakthrough solutions for real-world problems. Join 500+ developers.",
+        date: 'Jan 31 - Feb 2, 2026',
+        location: 'Lecture Hall Complex',
+        category: 'hackathon',
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1504384308090-c54be3852f33?auto=format&fit=crop&q=80&w=800',
     },
     {
-        label: 'Main Day',
-        labelColor: 'bg-purple-600',
-        title: 'Day 2: Deep Dive Sessions',
-        introDescription: 'Catch up with fellow attendees over coffee before diving into another exciting day of learning.',
-        events: [
-            {
-                time: '11.30-12.30 PM',
-                title: 'Keynote Address: Revolutionizing the Future with AI',
-                description: 'By [Name], [Designation, Company] at [Event Name]. Explore the transformative impact of AI on industries and society.',
-                speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/338/100/100' },
-                ],
-            },
-            {
-                time: '2.30-04.30 PM',
-                title: 'Start-Up Clinic: 1-on-1 Sessions with industry experts',
-                description: 'Panelists explore how AI-powered automation is driving the future of manufacturing and supply chain.',
-                speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/342/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/399/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/433/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/447/100/100' },
-                ],
-            },
-        ],
+        id: 'keynote-ai',
+        title: 'Keynote: Future of AI',
+        description: 'An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets.',
+        date: 'Jan 31, 2026 | 10:30 AM',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=800',
     },
     {
-        label: 'Sumup',
-        labelColor: 'bg-purple-600',
-        title: 'Day 3: Networking Day',
-        introDescription: 'Learn how businesses can use AI to optimize operations, increase profitability, and drive growth.',
-        events: [
-            {
-                time: '09.30-11.30 AM',
-                title: '100X Hackathon: Asia\'s largest deep-tech hackathon building breakthrough solutions.',
-                description: 'Learn how businesses can use AI to optimize operations, increase profitability, and drive growth.',
-            },
-            {
-                time: '02.30-03.30 PM',
-                title: 'Policysphere: Connecting startups with policymakers',
-                description: 'Join [Name], [Designation Company] at [Event Name], as she discusses the role of AI in creating personalized consumer experiences.',
-                speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/453/100/100' },
-                ],
-            },
-        ],
+        id: 'startup-clinic',
+        title: 'Start-Up Clinic',
+        description: 'One-on-one mentorship sessions with top VCs and angel investors to refine your pitch and business model.',
+        date: 'Feb 1, 2026 | 02:00 PM',
+        location: 'Seminar Hall',
+        category: 'workshop',
+        image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+        id: 'grand-moonshot',
+        title: 'Grand Moonshot Pitch',
+        description: 'The ultimate pitch competition where finalists present their startups to a panel of global investors for funding.',
+        date: 'Feb 1, 2026 | 05:00 PM',
+        location: 'Main Auditorium',
+        category: 'competition',
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1559223606-3b292fdd18a9?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+        id: 'networking-night',
+        title: 'Founders Networking',
+        description: 'An evening dedicated to connecting with fellow founders, investors, and industry experts over dinner.',
+        date: 'Feb 1, 2026 | 08:00 PM',
+        location: 'Faculty House',
+        category: 'networking',
+        image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+        id: 'workshop-web3',
+        title: 'Web3 & Blockchain Workshop',
+        description: 'Hands-on workshop on building decentralized applications (dApps) on the latest blockchain protocols.',
+        date: 'Feb 2, 2026 | 11:00 AM',
+        location: 'LH 101',
+        category: 'workshop',
+        image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800',
     },
 ];
 
+const categoryConfig = {
+    hackathon: { icon: Zap, color: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/20' },
+    keynote: { icon: Mic, color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
+    workshop: { icon: Code, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
+    competition: { icon: Trophy, color: 'text-yellow-400', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
+    networking: { icon: Handshake, color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
+};
+
 export const Events: React.FC = () => {
     return (
-        <div className="min-h-screen bg-[#05020a] text-white">
-            {/* Hero Section */}
-            <div className="relative h-[50vh] min-h-[400px] overflow-hidden">
-                <PlasmaBackground />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05020a] z-10" />
+        <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
+            <HeroBackground />
 
-                <div className="relative z-20 h-full flex items-center justify-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-7xl sm:text-8xl md:text-9xl font-bold italic tracking-tight text-white"
-                    >
-                        EVENTS
-                    </motion.h1>
-                </div>
-            </div>
-
-            {/* Agenda Section */}
-            <div className="relative z-20 px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-16">
-                {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="flex items-center gap-4 mb-4"
-                >
-                    <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-                    <span className="text-sm sm:text-base text-gray-300 uppercase tracking-widest">Agenda</span>
-                </motion.div>
-
-                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+            <div className="relative z-20 pt-32 pb-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="text-center mb-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6"
                     >
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-                            Explore Events at BECon
-                        </h2>
-                        <p className="text-2xl sm:text-3xl md:text-4xl text-gray-500 font-light italic">
-                            Summit Opportunity
-                        </p>
+                        <Sparkles className="w-4 h-4 text-purple-400" />
+                        <span className="text-sm text-purple-200">BECon'26 Event Lineup</span>
                     </motion.div>
 
-                    <motion.button
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="mt-4 sm:mt-0 flex items-center gap-2 px-6 py-2.5 border border-white/30 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-all group"
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
                     >
-                        REGISTER NOW
-                        <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </motion.button>
+                        Explore All <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Events</span>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-gray-400 text-lg max-w-2xl mx-auto"
+                    >
+                        Discover workshops, hackathons, talks, and competitions designed to ignite your entrepreneurial spirit using our world-class platform.
+                    </motion.p>
                 </div>
 
-                {/* Day Sections */}
-                <div className="space-y-16">
-                    {scheduleData.map((day, dayIndex) => (
-                        <motion.div
-                            key={dayIndex}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: dayIndex * 0.1 }}
-                        >
-                            {/* Day Header with inline intro description - Sticky */}
-                            <div className="sticky top-24 z-30 mb-12 shadow-2xl shadow-black/50">
-                                <div className="flex rounded-2xl overflow-hidden border border-white/10 backdrop-blur-md bg-[#05020a]/90">
-                                    <div className={`${day.labelColor} px-8 py-5 text-white font-bold text-lg sm:text-xl min-w-[140px] flex items-center justify-center`}>
-                                        {day.label}
-                                    </div>
-                                    <div className="flex-1 px-8 py-5 flex flex-col justify-center">
-                                        <p className="text-white text-xl font-medium mb-1">
-                                            {day.title}
-                                        </p>
-                                        <p className="text-gray-400 text-sm">
-                                            {day.introDescription}
-                                        </p>
+                {/* Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    {eventsData.map((event, index) => {
+                        const style = categoryConfig[event.category];
+                        const Icon = style.icon;
+
+                        return (
+                            <motion.div
+                                key={event.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
+                            >
+                                {/* Image Container */}
+                                <div className="h-48 overflow-hidden relative">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#05020a] via-transparent to-transparent z-10" />
+                                    {event.image ? (
+                                        <img
+                                            src={event.image}
+                                            alt={event.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                    ) : (
+                                        <div className={`w-full h-full flex items-center justify-center ${style.bg}`}>
+                                            <Icon className={`w-12 h-12 ${style.color}`} />
+                                        </div>
+                                    )}
+
+                                    {/* Badges */}
+                                    <div className="absolute top-4 left-4 z-20 flex gap-2">
+                                        <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${style.border} ${style.bg} ${style.color} backdrop-blur-md uppercase tracking-wider flex items-center gap-1`}>
+                                            <Icon size={12} />
+                                            {event.category}
+                                        </span>
+                                        {event.featured && (
+                                            <span className="px-3 py-1 text-xs font-semibold rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-400 backdrop-blur-md uppercase tracking-wider flex items-center gap-1">
+                                                <Sparkles size={12} />
+                                                Featured
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Events List */}
-                            <div className="space-y-8 pl-0 md:pl-4">
-                                {day.events.map((event, eventIndex) => (
-                                    <div
-                                        key={eventIndex}
-                                        className="flex flex-col md:flex-row gap-6 md:gap-16 relative"
-                                    >
-                                        {/* Time */}
-                                        <div className="md:w-[180px] shrink-0 pt-4 text-right hidden md:block">
-                                            <span className="text-gray-400 text-lg font-medium tracking-wide sticky top-48">{event.time}</span>
+                                {/* Content */}
+                                <div className="p-6">
+                                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                                        {event.title}
+                                    </h3>
+
+                                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
+                                        <div className="flex items-center gap-1.5">
+                                            <Calendar size={14} className="text-purple-400" />
+                                            {event.date}
                                         </div>
-                                        {/* Mobile Time */}
-                                        <div className="md:hidden pb-2">
-                                            <span className="text-gray-400 text-base font-medium tracking-wide">{event.time}</span>
-                                        </div>
-
-                                        {/* Event Card */}
-                                        <div className="flex-1 bg-[#0a0a0a] rounded-[2rem] p-8 sm:p-10 border border-white/10 hover:border-white/20 transition-colors group">
-                                            <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
-                                                {event.title}
-                                            </h3>
-                                            <p className="text-gray-400 text-lg mb-8 leading-relaxed max-w-3xl">
-                                                {event.description}
-                                            </p>
-
-                                            {/* Speakers */}
-                                            {event.speakers && event.speakers.length > 0 && (
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-                                                    {event.speakers.map((speaker, speakerIndex) => (
-                                                        <div key={speakerIndex} className="flex items-center gap-5">
-                                                            <img
-                                                                src={speaker.image}
-                                                                alt={speaker.name}
-                                                                className="w-20 h-20 rounded-2xl object-cover shadow-lg bg-gray-800"
-                                                            />
-                                                            <div>
-                                                                <p className="text-white text-lg font-semibold">{speaker.name}</p>
-                                                                <p className="text-gray-500 text-sm leading-snug">{speaker.designation},</p>
-                                                                <p className="text-gray-500 text-sm leading-snug">{speaker.company}</p>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            )}
+                                        <div className="flex items-center gap-1.5">
+                                            <MapPin size={14} className="text-blue-400" />
+                                            {event.location}
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
+
+                                    <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">
+                                        {event.description}
+                                    </p>
+
+                                    <Link
+                                        to={`/events/${event.id}`}
+                                        className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:gap-3 transition-all"
+                                    >
+                                        View Details <ArrowRight size={16} className="text-purple-400" />
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
 
