@@ -81,18 +81,19 @@ void main() {
   float intensity = (rgb.r + rgb.g + rgb.b) / 3.0;
   
   vec3 finalColor;
-  // Create a 3-stop gradient: Color1 -> Color2 -> Color3 -> White
-  if (intensity < 0.33) {
-    finalColor = mix(uColor1, uColor2, intensity * 3.0);
-  } else if (intensity < 0.66) {
-    finalColor = mix(uColor2, uColor3, (intensity - 0.33) * 3.0);
+  // Adjusted gradient: Deep Dark Base -> Vibrant Mid -> Bright Highlight -> White Hot
+  if (intensity < 0.45) {
+     // Deep dark base - spread out the darks
+    finalColor = mix(uColor1, uColor2, intensity * 2.0);
+  } else if (intensity < 0.75) {
+     // Transition to vibrant mid-tones
+    finalColor = mix(uColor2, uColor3, (intensity - 0.45) * 3.0);
   } else {
-    // High intensity areas fade to white for that "hot plasma" look
-    finalColor = mix(uColor3, vec3(1.0, 1.0, 1.0), (intensity - 0.66) * 1.5);
+    // Only very high intensity areas fade to white
+    finalColor = mix(uColor3, vec3(1.0, 1.0, 1.0), (intensity - 0.75) * 2.5);
   }
   
-  // Add a subtle white wash over everything to brighten it up
-  finalColor += vec3(0.05);
+  // Removed global white wash to keep blacks deep
   
   fragColor = vec4(finalColor, 1.0);
 }`;
