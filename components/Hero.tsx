@@ -84,7 +84,7 @@ export const Hero: React.FC = () => {
 
       {/* 3. Left Gear with purple plasma shade */}
       <motion.div
-        className="absolute -left-28 top-1/4 md:-left-36 md:top-1/3 pointer-events-none z-20"
+        className="absolute -left-28 top-[20%] md:-left-36 md:top-[25%] pointer-events-none z-20"
         style={{
           perspective: '1200px',
           perspectiveOrigin: 'center center',
@@ -190,7 +190,7 @@ export const Hero: React.FC = () => {
 
       {/* Bottom Left Gear - 2D rotation with plasma reflection */}
       <motion.div
-        className="absolute -left-20 -bottom-16 md:-left-28 md:-bottom-20 pointer-events-none z-20"
+        className="absolute -left-12 bottom-[5%] md:-left-16 md:bottom-[10%] pointer-events-none z-20"
       >
         <motion.div
           className="relative w-[160px] h-[160px] md:w-[240px] md:h-[240px]"
