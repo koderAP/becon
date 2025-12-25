@@ -172,56 +172,62 @@ export const Events: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ delay: dayIndex * 0.1 }}
                         >
-                            {/* Day Header with inline intro description */}
-                            <div className="flex rounded-xl overflow-hidden border border-purple-500/30 mb-8">
-                                <div className={`${day.labelColor} px-6 py-4 text-white font-semibold text-sm sm:text-base min-w-[100px] sm:min-w-[120px] flex items-center`}>
-                                    {day.label}
-                                </div>
-                                <div className="flex-1 bg-[#0a0612] px-6 py-4">
-                                    <p className="text-white font-medium text-sm sm:text-base mb-2">
-                                        {day.title}
-                                    </p>
-                                    <p className="text-gray-400 text-sm">
-                                        {day.introDescription}
-                                    </p>
+                            {/* Day Header with inline intro description - Sticky */}
+                            <div className="sticky top-24 z-30 mb-12 shadow-2xl shadow-black/50">
+                                <div className="flex rounded-2xl overflow-hidden border border-white/10 backdrop-blur-md bg-[#05020a]/90">
+                                    <div className={`${day.labelColor} px-8 py-5 text-white font-bold text-lg sm:text-xl min-w-[140px] flex items-center justify-center`}>
+                                        {day.label}
+                                    </div>
+                                    <div className="flex-1 px-8 py-5 flex flex-col justify-center">
+                                        <p className="text-white text-xl font-medium mb-1">
+                                            {day.title}
+                                        </p>
+                                        <p className="text-gray-400 text-sm">
+                                            {day.introDescription}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Events List */}
-                            <div className="space-y-8">
+                            <div className="space-y-8 pl-0 md:pl-4">
                                 {day.events.map((event, eventIndex) => (
                                     <div
                                         key={eventIndex}
-                                        className="flex flex-col md:flex-row gap-6 md:gap-12"
+                                        className="flex flex-col md:flex-row gap-6 md:gap-16 relative"
                                     >
                                         {/* Time */}
-                                        <div className="md:w-[160px] shrink-0 pt-2">
-                                            <span className="text-gray-400 text-base font-medium">{event.time}</span>
+                                        <div className="md:w-[180px] shrink-0 pt-4 text-right hidden md:block">
+                                            <span className="text-gray-400 text-lg font-medium tracking-wide sticky top-48">{event.time}</span>
+                                        </div>
+                                        {/* Mobile Time */}
+                                        <div className="md:hidden pb-2">
+                                            <span className="text-gray-400 text-base font-medium tracking-wide">{event.time}</span>
                                         </div>
 
                                         {/* Event Card */}
-                                        <div className="flex-1 bg-[#0f0a1a] rounded-2xl p-6 sm:p-8 border border-white/5">
-                                            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 leading-tight">
+                                        <div className="flex-1 bg-[#0a0a0a] rounded-[2rem] p-8 sm:p-10 border border-white/10 hover:border-white/20 transition-colors group">
+                                            <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
                                                 {event.title}
                                             </h3>
-                                            <p className="text-gray-400 text-base mb-6">
+                                            <p className="text-gray-400 text-lg mb-8 leading-relaxed max-w-3xl">
                                                 {event.description}
                                             </p>
 
                                             {/* Speakers */}
                                             {event.speakers && event.speakers.length > 0 && (
-                                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                                                     {event.speakers.map((speaker, speakerIndex) => (
-                                                        <div key={speakerIndex} className="flex items-center gap-4">
+                                                        <div key={speakerIndex} className="flex items-center gap-5">
                                                             <img
                                                                 src={speaker.image}
                                                                 alt={speaker.name}
-                                                                className="w-16 h-16 rounded-full object-cover ring-2 ring-purple-500/50"
+                                                                className="w-20 h-20 rounded-2xl object-cover shadow-lg bg-gray-800"
                                                             />
                                                             <div>
-                                                                <p className="text-white text-sm font-medium">{speaker.name}</p>
-                                                                <p className="text-gray-500 text-xs">{speaker.designation},</p>
-                                                                <p className="text-gray-500 text-xs">{speaker.company}</p>
+                                                                <p className="text-white text-lg font-semibold">{speaker.name}</p>
+                                                                <p className="text-gray-500 text-sm leading-snug">{speaker.designation},</p>
+                                                                <p className="text-gray-500 text-sm leading-snug">{speaker.company}</p>
                                                             </div>
                                                         </div>
                                                     ))}
