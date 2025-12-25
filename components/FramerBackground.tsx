@@ -49,12 +49,34 @@ export const FramerBackground: React.FC = () => {
                 }}
             />
 
-            {/* Subtle White Highlight (The "White - FFFFFF" requested) */}
+            {/* Subtle White Highlight (The "White - FFFFFF" requested) - Made much more prominent */}
             <motion.div
-                className="absolute inset-0 opacity-20"
+                className="absolute inset-0"
                 animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.1, 0.2, 0.1],
+                    scale: [1, 1.2, 1],
+                    opacity: [0.5, 0.8, 0.5], // Increased form 0.1-0.2 to 0.5-0.8
+                }}
+                transition={{
+                    duration: 10,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                }}
+                style={{
+                    // Moved slightly right and down to match reference spotlight
+                    backgroundImage: `
+            radial-gradient(circle at 65% 45%, rgba(255, 255, 255, 0.25) 0%, rgba(139, 92, 246, 0.15) 35%, transparent 70%)
+          `,
+                    filter: "blur(80px)",
+                    mixBlendMode: "screen", // Changed from soft-light to screen for visibility
+                }}
+            />
+
+            {/* Additional "Beam" effect for the white lighting */}
+            <motion.div
+                className="absolute inset-0"
+                animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                    rotate: [0, 5, 0],
                 }}
                 transition={{
                     duration: 15,
@@ -62,12 +84,13 @@ export const FramerBackground: React.FC = () => {
                     repeat: Infinity,
                 }}
                 style={{
-                    backgroundImage: `radial-gradient(circle at 60% 40%, rgba(255,255,255,0.15), transparent 60%)`,
-                    filter: "blur(100px)",
-                    mixBlendMode: "soft-light",
+                    backgroundImage: `
+            conic-gradient(from 230deg at 70% 30%, transparent 0deg, rgba(255, 255, 255, 0.1) 60deg, transparent 120deg)
+           `,
+                    filter: "blur(60px)",
+                    mixBlendMode: "lighten",
                 }}
             />
-
             {/* Deep Overlay for contrast */}
             <div className="absolute inset-0 bg-[#151326] opacity-30 mix-blend-overlay pointer-events-none" />
         </div>
