@@ -176,6 +176,9 @@ export const TeamPage: React.FC = () => {
                     </div>
                 </div>
 
+            </div>
+
+            <div className="relative z-50">
                 <Footer />
             </div>
         </div>
