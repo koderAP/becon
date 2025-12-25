@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 import { Footer } from '../../components/Footer';
-import { PlasmaBackground } from '../../components/PlasmaBackground';
+import { HeroBackground } from '../../components/HeroBackground';
 
 const teamMembers = [
     { id: 1, name: "Anubhav", role: "President", img: "https://picsum.photos/id/64/400/400" },
@@ -25,11 +25,10 @@ export const TeamPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#05020a] text-white">
             {/* Hero Section with Plasma Background */}
-            <div className="relative min-h-[60vh] sm:min-h-[70vh] overflow-hidden">
-                <PlasmaBackground />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05020a] z-10" />
+            <HeroBackground />
 
-                <div className="relative z-20 pt-24 sm:pt-32 px-4 sm:px-6 md:px-12 lg:px-20">
+            <div className="relative min-h-[50vh] flex items-center justify-center">
+                <div className="relative z-20 pt-32 px-4 sm:px-6 md:px-12 lg:px-20">
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}

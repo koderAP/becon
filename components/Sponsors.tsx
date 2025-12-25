@@ -13,28 +13,37 @@ const sponsors: Sponsor[] = [
     { id: 8, name: "Y Combinator", tier: "Partner", logo: "YC" },
 ];
 
-export const Sponsors: React.FC = () => {
-    return (
-        <div className="min-h-screen pt-20 sm:pt-24 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 lg:px-20 bg-[#05020a]">
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
-            >
-                <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-                <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Our Partners</span>
-            </motion.div>
+interface SponsorsProps {
+    showHeader?: boolean;
+    className?: string;
+}
 
-            <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-10 sm:mb-12 lg:mb-16"
-            >
-                Powering the <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Deep Tech Revolution</span>
-            </motion.h1>
+export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className = "" }) => {
+    return (
+        <div className={`px-4 sm:px-6 md:px-12 lg:px-20 ${showHeader ? 'pt-20 sm:pt-24 pb-16 sm:pb-20' : 'pb-20'} ${className} ${!className.includes('bg-') ? 'bg-[#05020a]' : ''}`}>
+            {showHeader && (
+                <>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
+                    >
+                        <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
+                        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Our Partners</span>
+                    </motion.div>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-10 sm:mb-12 lg:mb-16"
+                    >
+                        Powering the <br className="hidden sm:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Deep Tech Revolution</span>
+                    </motion.h1>
+                </>
+            )}
 
             {/* Platinum Tier */}
             <div className="mb-12 sm:mb-16 lg:mb-20">
