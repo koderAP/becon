@@ -74,19 +74,19 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
   const selectedData = verticals.find(v => v.id === selectedVertical);
 
   return (
-    <div className={`min-h-screen ${preview ? 'pt-10 pb-10' : 'pt-24 pb-20'} px-6 md:px-20 bg-black`}>
+    <div className={`min-h-screen ${preview ? 'py-10' : 'pt-20 sm:pt-24 pb-16 sm:pb-20'} px-4 sm:px-6 md:px-12 lg:px-20 bg-black`}>
       {/* Hero Image Section within Events - Only on full page */}
       {!preview && (
-        <div className="relative w-full h-[40vh] rounded-3xl overflow-hidden mb-20 group border border-white/10">
+        <div className="relative w-full h-[30vh] sm:h-[35vh] lg:h-[40vh] rounded-2xl sm:rounded-3xl overflow-hidden mb-10 sm:mb-16 lg:mb-20 group border border-white/10">
           <img
             src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2000"
             alt="Audience"
             className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-          <div className="absolute bottom-10 left-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">Events & Tracks</h1>
-            <p className="text-gray-300 max-w-lg">Explore the cutting-edge domains and scheduled activities for BECon 2026.</p>
+          <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 lg:bottom-10 lg:left-10">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-1 sm:mb-2">Events & Tracks</h1>
+            <p className="text-gray-300 text-sm sm:text-base max-w-lg">Explore the cutting-edge domains and scheduled activities for BECon 2026.</p>
           </div>
         </div>
       )}
@@ -96,16 +96,16 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="flex items-center justify-between mb-4"
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3"
       >
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-[2px] bg-white"></div>
-          <span className="text-lg text-gray-300 uppercase tracking-widest">Core Verticals</span>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
+          <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Core Verticals</span>
         </div>
         {preview && onViewAll && (
           <button
             onClick={onViewAll}
-            className="flex items-center gap-2 text-white hover:text-purple-400 transition-colors group"
+            className="flex items-center gap-2 text-sm sm:text-base text-white hover:text-purple-400 transition-colors group"
           >
             Explore Events <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </button>
@@ -117,15 +117,15 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-bold leading-tight mb-12"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold leading-tight mb-8 sm:mb-10 lg:mb-12"
         >
-          Domains to Explore in <br />
+          Domains to Explore in <br className="hidden sm:block" />
           <span className="text-gray-500">BECon Deep Tech Summit</span>
         </motion.h1>
       )}
 
       {/* Vertical Cards Grid - Responsive for 5 items */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
         {(preview ? verticals.slice(0, 5) : verticals).map((v, i) => (
           <motion.div
             key={v.id}
