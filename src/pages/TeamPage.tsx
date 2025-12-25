@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { Footer } from '../../components/Footer';
 import { PlasmaBackground } from '../../components/PlasmaBackground';
 
 const teamMembers = [
@@ -184,48 +185,7 @@ export const TeamPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Social Section */}
-            <div className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-white/10">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="flex items-center gap-3 sm:gap-4 mb-6"
-                >
-                    <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-                    <span className="text-sm sm:text-base text-gray-300 uppercase tracking-widest">Social</span>
-                </motion.div>
-
-                <div className="flex gap-3 sm:gap-4">
-                    <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                        <Twitter size={18} className="sm:w-5 sm:h-5" />
-                    </a>
-                    <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                        <Instagram size={18} className="sm:w-5 sm:h-5" />
-                    </a>
-                    <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                        <Linkedin size={18} className="sm:w-5 sm:h-5" />
-                    </a>
-                    <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                        <Youtube size={18} className="sm:w-5 sm:h-5" />
-                    </a>
-                </div>
-            </div>
-
-            {/* BECon 2026 Section */}
-            <div className="py-16 sm:py-20 px-4 sm:px-6 md:px-12 lg:px-20 flex justify-center">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                >
-                    <div className="flex items-end justify-center gap-2">
-                        <img src="/logo.avif" alt="BECon" className="h-16 sm:h-20 md:h-24 w-auto" />
-                        <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-purple-500 -mb-1">2026</span>
-                    </div>
-                </motion.div>
-            </div>
+            <Footer />
         </div>
     );
 };
