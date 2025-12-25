@@ -270,25 +270,31 @@ export const Hero: React.FC = () => {
 
       </div>
 
-      {/* 4. Bottom Info Bar & Register CTA */}
+      {/* 4. Bottom Info Bar - Date & Venue */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8 }}
-        className="absolute bottom-16 w-full px-6 md:px-20 flex items-center justify-center z-20"
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="absolute bottom-32 w-full flex items-center justify-center z-20"
       >
-        <div className="flex items-center gap-6 text-lg md:text-xl font-light text-white">
-          <span>31 Jan - 2 Feb 2026</span>
-          <div className="h-[1px] w-20 md:w-40 bg-white/30"></div>
-          <span>IIT Delhi, Hauz Khas</span>
+        <div className="flex items-center gap-4 md:gap-8 px-8 py-4 rounded-full bg-white/5 backdrop-blur-md border border-white/10">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+            <span className="text-white font-medium text-sm md:text-base">31 Jan - 2 Feb 2026</span>
+          </div>
+          <div className="h-4 w-[1px] bg-white/30"></div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+            <span className="text-white font-medium text-sm md:text-base">IIT Delhi, Hauz Khas</span>
+          </div>
         </div>
       </motion.div>
 
-      {/* Bottom blur gradient overlay */}
+      {/* Bottom blur gradient overlay - more prominent */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-30"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-30"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(5, 2, 10, 0.5) 40%, rgba(5, 2, 10, 0.9) 70%, #05020a 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(5, 2, 10, 0.3) 20%, rgba(5, 2, 10, 0.7) 50%, rgba(5, 2, 10, 0.95) 80%, #05020a 100%)',
         }}
       />
     </div>
