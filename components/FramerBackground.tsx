@@ -11,140 +11,118 @@ export const FramerBackground: React.FC = () => {
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-[#151326]">
-            {/* Base Gradient Layer - Deep Purple/Blue */}
+            {/*
+              SVG TURBULENCE FILTER
+              This creates the "silky fabric" / "liquid" distortion effect
+              that makes the gradients look like they are flowing/rippling.
+            */}
+            <svg style={{ display: 'none' }}>
+                <defs>
+                    <filter id="silkFlow">
+                        <feTurbulence
+                            type="fractalNoise"
+                            baseFrequency="0.005"
+                            numOctaves="3"
+                            result="noise"
+                        />
+                        <feDisplacementMap
+                            in="SourceGraphic"
+                            in2="noise"
+                            scale="180"
+                            xChannelSelector="R"
+                            yChannelSelector="G"
+                        />
+                        <feGaussianBlur stdDeviation="15" />
+                        <feColorMatrix type="matrix" values="
+                            1 0 0 0 0
+                            0 1 0 0 0
+                            0 0 1 0 0
+                            0 0 0 20 -10
+                        " />
+                    </filter>
+                </defs>
+            </svg>
+
+            {/* MAIN GRADIENT CONTAINER WITH DISTORTION */}
             <motion.div
-                className="absolute inset-0 opacity-80"
-                animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                    duration: 25,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                }}
-                style={{
-                    backgroundImage: `
-            radial-gradient(circle at 50% 50%, #24006D 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, #24006D 0%, transparent 35%),
-            radial-gradient(circle at 20% 80%, #3b0764 0%, transparent 35%)
-          `,
-                    backgroundSize: "160% 160%",
-                    filter: "blur(70px)",
-                }}
-            />
+                className="absolute inset-0 z-0"
+                style={{ filter: "url(#silkFlow) blur(30px)" }} // Apply the distortion filter here
+            >
+                {/* 1. Deep Base Flow */}
+                <motion.div
+                    className="absolute inset-0 opacity-90"
+                    animate={{
+                        backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+                        rotate: [0, 5, -5, 0],
+                        scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                        duration: 30,
+                        repeat: Infinity,
+                        ease: "linear",
+                    }}
+                    style={{
+                        backgroundImage: `
+                            conic-gradient(from 0deg at 50% 50%, #151326 0deg, #24006D 120deg, #05020a 240deg, #151326 360deg),
+                            radial-gradient(circle at 50% 50%, #4c1d95 0%, transparent 60%)
+                        `,
+                        backgroundSize: "200% 200%",
+                    }}
+                />
 
-            {/* Silky Water Wave Animation Layer - ROBUST SLIDING IMPLEMENTATION */}
-            <div className="absolute inset-0 z-0 opacity-60 mix-blend-screen pointer-events-none">
-                <svg className="w-full h-full" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                    <defs>
-                        <linearGradient id="waveGradient1" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="rgba(139, 92, 246, 0)" />
-                            <stop offset="95%" stopColor="rgba(139, 92, 246, 0.3)" />
-                        </linearGradient>
-                        <linearGradient id="waveGradient2" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="rgba(56, 189, 248, 0)" />
-                            <stop offset="95%" stopColor="rgba(56, 189, 248, 0.2)" />
-                        </linearGradient>
-                    </defs>
+                {/* 2. Lighter "Silk Folds" - Difference Blend */}
+                <motion.div
+                    className="absolute inset-0 opacity-50"
+                    animate={{
+                        backgroundPosition: ["100% 0%", "0% 100%", "100% 0%"],
+                        scale: [1.2, 1, 1.2],
+                    }}
+                    transition={{
+                        duration: 25,
+                        repeat: Infinity,
+                        ease: "linear",
+                    }}
+                    style={{
+                        backgroundImage: `
+                            radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.4), transparent 50%),
+                            radial-gradient(circle at 70% 70%, rgba(56, 189, 248, 0.2), transparent 50%)
+                        `,
+                        backgroundSize: "150% 150%",
+                        mixBlendMode: "screen",
+                    }}
+                />
+            </motion.div>
 
-                    {/* Wave 1: Back layer, slower */}
-                    <motion.path
-                        fill="url(#waveGradient1)"
-                        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                        animate={{
-                            x: ["0%", "-100%", "0%"],
-                            scaleY: [1, 1.1, 1],
-                        }}
-                        transition={{
-                            x: { duration: 30, repeat: Infinity, ease: "linear" },
-                            scaleY: { duration: 10, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        style={{ transformOrigin: "bottom" }}
-                    />
-
-                    {/* Unique Wave 2: Middle layer, different phase */}
-                    <motion.path
-                        fill="url(#waveGradient2)"
-                        d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,165.3C672,149,768,139,864,154.7C960,171,1056,213,1152,218.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                        animate={{
-                            x: ["0%", "50%", "0%"],
-                            y: [0, 15, 0],
-                        }}
-                        transition={{
-                            x: { duration: 25, repeat: Infinity, ease: "linear" },
-                            y: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        style={{ opacity: 0.7 }}
-                    />
-
-                    {/* Wave 3: Front layer, fastest */}
-                    <motion.path
-                        fill="rgba(255, 255, 255, 0.05)"
-                        d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                        animate={{
-                            x: ["-50%", "0%", "-50%"],
-                        }}
-                        transition={{
-                            duration: 20,
-                            repeat: Infinity,
-                            ease: "linear",
-                        }}
-                    />
-                </svg>
-            </div>
-
-
-            {/* Moving Blobs Layer - for fluidity */}
-            <motion.div
-                className="absolute inset-0"
-                animate={{
-                    backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-                }}
-                transition={{
-                    duration: 35,
-                    ease: "linear",
-                    repeat: Infinity,
-                }}
-                style={{
-                    backgroundImage: `
-            radial-gradient(circle at 20% 30%, rgba(58, 12, 163, 0.4), transparent 45%),
-            radial-gradient(circle at 80% 70%, rgba(247, 37, 133, 0.15), transparent 45%),
-            radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.02), transparent 30%)
-          `,
-                    backgroundSize: "200% 200%",
-                    filter: "blur(90px)",
-                    mixBlendMode: "overlay",
-                }}
-            />
+            {/* OVERLAYS (Spotlight should NOT be distorted) */}
 
             {/* PRIMARY SPOTLIGHT - The strong white beam */}
             <motion.div
-                className="absolute inset-0"
+                className="absolute inset-0 pointer-events-none"
                 initial={{ opacity: 0.8 }}
                 animate={{
-                    scale: [1, 1.1, 1],
+                    scale: [1, 1.05, 1],
                     opacity: [0.8, 1, 0.8],
                 }}
                 transition={{
-                    duration: 8,
+                    duration: 6, // Faster pulse
                     ease: "easeInOut",
                     repeat: Infinity,
                 }}
                 style={{
                     // Main bright spot - brighter and more central
                     backgroundImage: `
-            radial-gradient(circle at 60% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 60%)
+            radial-gradient(circle at 60% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(139, 92, 246, 0.15) 35%, transparent 65%)
           `,
-                    filter: "blur(60px)",
+                    filter: "blur(50px)",
                     mixBlendMode: "screen",
                 }}
             />
 
-            {/* CORE HOTSPOT - Pure white center for "front" feel */}
+            {/* CORE HOTSPOT */}
             <motion.div
-                className="absolute inset-0"
+                className="absolute inset-0 pointer-events-none"
                 animate={{
-                    scale: [0.9, 1, 0.9],
+                    scale: [0.95, 1, 0.95],
                     opacity: [0.5, 0.7, 0.5],
                 }}
                 transition={{
@@ -157,8 +135,8 @@ export const FramerBackground: React.FC = () => {
                     backgroundImage: `
              radial-gradient(circle at 60% 50%, rgba(255, 255, 255, 0.7) 0%, transparent 20%)
            `,
-                    filter: "blur(40px)",
-                    mixBlendMode: "normal", // Normal blend mode to sit ON TOP
+                    filter: "blur(30px)",
+                    mixBlendMode: "normal",
                 }}
             />
 
