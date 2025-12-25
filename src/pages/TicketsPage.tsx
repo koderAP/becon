@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from '../../components/Footer';
 import { ArrowUpRight } from 'lucide-react';
+import { PageHeader } from '../../components/PageHeader';
 
 const TicketCard = ({
     title,
@@ -66,27 +67,16 @@ const TicketCard = ({
     );
 };
 
-import { HeroBackground } from '../../components/HeroBackground';
-
 export const TicketsPage: React.FC = () => {
     return (
-        <div className="min-h-screen bg-black text-white pt-24 pb-12 relative">
-            <HeroBackground />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-                {/* Header */}
-                <div className="mb-16">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-8 h-[1px] bg-gray-500"></div>
-                        <span className="text-gray-400 uppercase tracking-widest text-sm">Registration</span>
-                    </div>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 max-w-3xl leading-tight"
-                    >
-                        Secure Your Spot at BECon <span className="text-gray-500">DeepTech Summit Today!</span>
-                    </motion.h1>
-                </div>
+        <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
+            <PageHeader
+                title="TICKETS"
+                badge="Registration"
+                description="Secure your spot at BECon DeepTech Summit Today!"
+            />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 py-20">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     {/* Left Side - 3D Ticket Graphic */}

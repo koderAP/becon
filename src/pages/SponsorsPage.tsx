@@ -1,46 +1,20 @@
+
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Sponsors } from '../../components/Sponsors';
 import { Footer } from '../../components/Footer';
-import { HeroBackground } from '../../components/HeroBackground';
+import { PageHeader } from '../../components/PageHeader';
 
 export const SponsorsPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
-            <HeroBackground />
+            <PageHeader
+                title="SPONSORS"
+                badge="Our Partners"
+                description="Powering the deep tech revolution with industry leaders."
+            />
 
-            <div className="relative z-20 pt-32 pb-20">
-                {/* Header */}
-                <div className="text-center mb-16 px-4 sm:px-6 md:px-12 lg:px-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6"
-                    >
-                        <span className="text-sm text-purple-200 uppercase tracking-widest">Our Partners</span>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-6xl sm:text-8xl md:text-9xl font-bold mb-6 tracking-tighter"
-                    >
-                        SPONSORS
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-gray-400 text-lg max-w-2xl mx-auto"
-                    >
-                        Powering the deep tech revolution with industry leaders.
-                    </motion.p>
-                </div>
-
-                <Sponsors showHeader={false} className="bg-transparent !p-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" />
+            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+                <Sponsors showHeader={false} className="bg-transparent !p-0" />
             </div>
 
             <div className="relative z-50">
