@@ -49,46 +49,69 @@ export const FramerBackground: React.FC = () => {
                 }}
             />
 
-            {/* Subtle White Highlight (The "White - FFFFFF" requested) - Made much more prominent */}
+            {/* PRIMARY SPOTLIGHT - The strong white beam */}
             <motion.div
                 className="absolute inset-0"
+                initial={{ opacity: 0.8 }}
                 animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 0.8, 0.5], // Increased form 0.1-0.2 to 0.5-0.8
+                    scale: [1, 1.1, 1],
+                    opacity: [0.8, 1, 0.8],
                 }}
                 transition={{
-                    duration: 10,
+                    duration: 8,
                     ease: "easeInOut",
                     repeat: Infinity,
                 }}
                 style={{
-                    // Moved slightly right and down to match reference spotlight
+                    // Main bright spot - brighter and more central
                     backgroundImage: `
-            radial-gradient(circle at 65% 45%, rgba(255, 255, 255, 0.25) 0%, rgba(139, 92, 246, 0.15) 35%, transparent 70%)
+            radial-gradient(circle at 60% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 60%)
           `,
-                    filter: "blur(80px)",
-                    mixBlendMode: "screen", // Changed from soft-light to screen for visibility
+                    filter: "blur(60px)",
+                    mixBlendMode: "screen",
                 }}
             />
 
-            {/* Additional "Beam" effect for the white lighting */}
+            {/* CORE HOTSPOT - Pure white center for "front" feel */}
             <motion.div
                 className="absolute inset-0"
                 animate={{
-                    opacity: [0.3, 0.6, 0.3],
+                    scale: [0.9, 1, 0.9],
+                    opacity: [0.4, 0.6, 0.4],
+                }}
+                transition={{
+                    duration: 4,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                }}
+                style={{
+                    // Small, intense white core
+                    backgroundImage: `
+             radial-gradient(circle at 60% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 25%)
+           `,
+                    filter: "blur(40px)",
+                    mixBlendMode: "normal", // Normal blend mode to sit ON TOP
+                }}
+            />
+
+            {/* Beam/Ray Effect */}
+            <motion.div
+                className="absolute inset-0"
+                animate={{
+                    opacity: [0.3, 0.5, 0.3],
                     rotate: [0, 5, 0],
                 }}
                 transition={{
-                    duration: 15,
+                    duration: 12,
                     ease: "easeInOut",
                     repeat: Infinity,
                 }}
                 style={{
                     backgroundImage: `
-            conic-gradient(from 230deg at 70% 30%, transparent 0deg, rgba(255, 255, 255, 0.1) 60deg, transparent 120deg)
+            conic-gradient(from 220deg at 65% 40%, transparent 0deg, rgba(255, 255, 255, 0.15) 45deg, transparent 90deg)
            `,
-                    filter: "blur(60px)",
-                    mixBlendMode: "lighten",
+                    filter: "blur(50px)",
+                    mixBlendMode: "screen",
                 }}
             />
             {/* Deep Overlay for contrast */}
