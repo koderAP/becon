@@ -88,7 +88,7 @@ export const Events: React.FC = () => {
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
             <HeroBackground />
 
-            <div className="relative z-20 pt-32 pb-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+            <div className="relative z-20 pt-32 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto pb-32">
                 {/* Header */}
                 <div className="text-center mb-16">
                     <motion.div
