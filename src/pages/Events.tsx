@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { PlasmaBackground } from '../../components/PlasmaBackground';
 import { Footer } from '../../components/Footer';
@@ -22,6 +22,7 @@ interface DaySchedule {
     label: string;
     labelColor: string;
     title: string;
+    introDescription: string; // First description shown inline with header
     events: EventItem[];
 }
 
@@ -30,12 +31,8 @@ const scheduleData: DaySchedule[] = [
         label: 'Kickoff',
         labelColor: 'bg-purple-600',
         title: 'Day 1: Main Conference',
+        introDescription: 'Welcome to the Becon Tech Summit. Kick off the day with an introduction from the event organizers and a sneak peek of what\'s in store.',
         events: [
-            {
-                time: '09.30-10.30 AM',
-                title: 'Opening Remarks',
-                description: 'Welcome to the Becon Tech Summit. Kick off the day with an introduction from the event organizers and a sneak peek of what\'s in store.',
-            },
             {
                 time: '10.30-11.30 AM',
                 title: 'Keynote Address: Revolutionizing the Future with AI',
@@ -51,6 +48,8 @@ const scheduleData: DaySchedule[] = [
                 speakers: [
                     { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/65/100/100' },
                     { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/91/100/100' },
+                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/129/100/100' },
+                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/177/100/100' },
                 ],
             },
         ],
@@ -59,18 +58,14 @@ const scheduleData: DaySchedule[] = [
         label: 'Main Day',
         labelColor: 'bg-purple-600',
         title: 'Day 2: Deep Dive Sessions',
+        introDescription: 'Catch up with fellow attendees over coffee before diving into another exciting day of learning.',
         events: [
-            {
-                time: '09.30-10.30 AM',
-                title: 'Morning Networking Coffee',
-                description: 'Catch up with fellow attendees over coffee before diving into another exciting day of learning.',
-            },
             {
                 time: '11.30-12.30 PM',
                 title: 'Keynote Address: Revolutionizing the Future with AI',
                 description: 'By [Name], [Designation, Company] at [Event Name]. Explore the transformative impact of AI on industries and society.',
                 speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/129/100/100' },
+                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/338/100/100' },
                 ],
             },
             {
@@ -78,10 +73,10 @@ const scheduleData: DaySchedule[] = [
                 title: 'Start-Up Clinic: 1-on-1 Sessions with industry experts',
                 description: 'Panelists explore how AI-powered automation is driving the future of manufacturing and supply chain.',
                 speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/177/100/100' },
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/338/100/100' },
                     { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/342/100/100' },
                     { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/399/100/100' },
+                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/433/100/100' },
+                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/447/100/100' },
                 ],
             },
         ],
@@ -90,6 +85,7 @@ const scheduleData: DaySchedule[] = [
         label: 'Sumup',
         labelColor: 'bg-purple-600',
         title: 'Day 3: Networking Day',
+        introDescription: 'Learn how businesses can use AI to optimize operations, increase profitability, and drive growth.',
         events: [
             {
                 time: '09.30-11.30 AM',
@@ -101,7 +97,7 @@ const scheduleData: DaySchedule[] = [
                 title: 'Policysphere: Connecting startups with policymakers',
                 description: 'Join [Name], [Designation Company] at [Event Name], as she discusses the role of AI in creating personalized consumer experiences.',
                 speakers: [
-                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/433/100/100' },
+                    { name: 'Name', designation: 'Designation', company: 'Company', image: 'https://picsum.photos/id/453/100/100' },
                 ],
             },
         ],
@@ -109,8 +105,6 @@ const scheduleData: DaySchedule[] = [
 ];
 
 export const Events: React.FC = () => {
-    const [activeDay, setActiveDay] = useState(0);
-
     return (
         <div className="min-h-screen bg-[#05020a] text-white">
             {/* Hero Section */}
@@ -168,8 +162,8 @@ export const Events: React.FC = () => {
                     </motion.button>
                 </div>
 
-                {/* Day Tabs */}
-                <div className="space-y-8">
+                {/* Day Sections */}
+                <div className="space-y-16">
                     {scheduleData.map((day, dayIndex) => (
                         <motion.div
                             key={dayIndex}
@@ -178,22 +172,27 @@ export const Events: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ delay: dayIndex * 0.1 }}
                         >
-                            {/* Day Header */}
-                            <div className="flex rounded-t-xl overflow-hidden border border-purple-500/30">
-                                <div className={`${day.labelColor} px-6 py-3 text-white font-semibold text-sm sm:text-base min-w-[100px] sm:min-w-[120px]`}>
+                            {/* Day Header with inline intro description */}
+                            <div className="flex rounded-xl overflow-hidden border border-purple-500/30 mb-8">
+                                <div className={`${day.labelColor} px-6 py-4 text-white font-semibold text-sm sm:text-base min-w-[100px] sm:min-w-[120px] flex items-center`}>
                                     {day.label}
                                 </div>
-                                <div className="flex-1 bg-[#0a0612] px-6 py-3 text-white font-medium text-sm sm:text-base">
-                                    {day.title}
+                                <div className="flex-1 bg-[#0a0612] px-6 py-4">
+                                    <p className="text-white font-medium text-sm sm:text-base mb-2">
+                                        {day.title}
+                                    </p>
+                                    <p className="text-gray-400 text-sm">
+                                        {day.introDescription}
+                                    </p>
                                 </div>
                             </div>
 
                             {/* Events List */}
-                            <div className="border border-t-0 border-white/10 rounded-b-xl overflow-hidden">
+                            <div className="space-y-6">
                                 {day.events.map((event, eventIndex) => (
                                     <div
                                         key={eventIndex}
-                                        className={`flex flex-col md:flex-row gap-4 md:gap-8 p-6 ${eventIndex !== day.events.length - 1 ? 'border-b border-white/5' : ''}`}
+                                        className="flex flex-col md:flex-row gap-4 md:gap-8"
                                     >
                                         {/* Time */}
                                         <div className="md:w-[140px] shrink-0">
@@ -201,7 +200,7 @@ export const Events: React.FC = () => {
                                         </div>
 
                                         {/* Event Card */}
-                                        <div className="flex-1 bg-[#0f0a1a] rounded-xl p-5 sm:p-6">
+                                        <div className="flex-1 bg-[#0f0a1a] rounded-xl p-5 sm:p-6 border border-white/5">
                                             <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                                                 {event.title}
                                             </h3>
@@ -211,13 +210,13 @@ export const Events: React.FC = () => {
 
                                             {/* Speakers */}
                                             {event.speakers && event.speakers.length > 0 && (
-                                                <div className="flex flex-wrap gap-4 mt-4">
+                                                <div className="flex flex-wrap gap-6 mt-4">
                                                     {event.speakers.map((speaker, speakerIndex) => (
                                                         <div key={speakerIndex} className="flex items-center gap-3">
                                                             <img
                                                                 src={speaker.image}
                                                                 alt={speaker.name}
-                                                                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
+                                                                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover"
                                                             />
                                                             <div>
                                                                 <p className="text-white text-sm font-medium">{speaker.name}</p>
