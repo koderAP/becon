@@ -171,6 +171,46 @@ export const Events: React.FC = () => {
                         );
                     })}
                 </div>
+
+                {/* Regionals Section */}
+                <div className="mt-20 lg:mt-32">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="flex items-center gap-4 mb-8"
+                    >
+                        <div className="w-12 h-[2px] bg-white"></div>
+                        <span className="text-lg text-gray-300 uppercase tracking-widest">Regionals</span>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 text-center"
+                    >
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6">Expanding the Horizon</h2>
+                        <p className="text-gray-400 max-w-2xl mx-auto text-lg mb-10">
+                            BECon is going beyond IIT Delhi. We are connecting with student entrepreneurs across India through our Regional events.
+                        </p>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            {['Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune', 'Jaipur', 'Indore', 'Chandigarh', 'Guwahati', 'Ahmedabad', 'Lucknow'].map((city, i) => (
+                                <div key={i} className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 text-gray-300 font-medium hover:bg-white/10 hover:text-white transition-colors cursor-default">
+                                    {city}
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-10">
+                            <span className="px-6 py-2 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-sm font-semibold uppercase tracking-wider">
+                                Coming Soon
+                            </span>
+                        </div>
+                    </motion.div>
+                </div>
+
             </div>
 
             <div className="relative z-50">

@@ -10,9 +10,8 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'About', path: '/#about' },
   { label: 'Events', path: '/events' },
-  { label: 'Agenda', path: '/agenda' },
+  { label: 'Schedule', path: '/schedule' },
   { label: 'Speakers', path: '/speakers' },
   { label: 'Sponsors', path: '/sponsors' },
   { label: 'Team', path: '/team' },

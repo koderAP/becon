@@ -78,22 +78,22 @@ void main() {
   mainImage(o, gl_FragCoord.xy);
   vec3 rgb = sanitize(o.rgb);
 
-  float intensity = (rgb.r + rgb.g + rgb.b) / 3.0;
+  // Smooth gradient mixing to remove contour lines
+  float n = (rgb.r + rgb.g + rgb.b) / 3.0; // Intensity
   
-  vec3 finalColor;
-  // Adjusted gradient: Deep Dark Base -> Vibrant Mid -> Bright Highlight -> White Hot
-  if (intensity < 0.45) {
-     // Deep dark base - spread out the darks
-    finalColor = mix(uColor1, uColor2, intensity * 2.0);
-  } else if (intensity < 0.75) {
-     // Transition to vibrant mid-tones
-    finalColor = mix(uColor2, uColor3, (intensity - 0.45) * 3.0);
-  } else {
-    // Only very high intensity areas fade to white
-    finalColor = mix(uColor3, vec3(1.0, 1.0, 1.0), (intensity - 0.75) * 2.5);
-  }
+  // Smoothly mix between the 3 colors and white based on intensity
+  // Base to Mid
+  vec3 col = mix(uColor1, uColor2, smoothstep(0.0, 0.5, n));
+  // Mid to Highlight
+  col = mix(col, uColor3, smoothstep(0.4, 0.8, n));
+  // Highlight to White (peaks)
+  col = mix(col, vec3(1.0), smoothstep(0.8, 1.2, n));
   
-  fragColor = vec4(finalColor, 1.0);
+  // Subtle dither to prevent 8-bit banding
+  float noise = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898,78.233))) * 43758.5453);
+  col += (noise - 0.5) * 0.01;
+  
+  fragColor = vec4(col, 1.0);
 }`;
 
 interface PlasmaBackgroundProps {

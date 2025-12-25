@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HeroBackground } from './HeroBackground';
+import { Typewriter } from './Typewriter';
 
 export const Hero: React.FC = () => {
   return (
@@ -237,19 +238,19 @@ export const Hero: React.FC = () => {
           />
         </motion.div>
 
-        {/* Subtitle - Fade up with stagger */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{
-            delay: 0.8,
-            duration: 0.8,
-            ease: [0.25, 0.46, 0.45, 0.94]
-          }}
-          className="text-xl md:text-3xl font-light text-white tracking-wide"
-        >
-          Deep-Tech Summit for all the <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">AI Enthusiasts</span>
-        </motion.h2>
+        {/* Typewriter Effect Slogans */}
+        <div className="h-[40px] md:h-[60px] flex items-center justify-center mt-8">
+          <Typewriter
+            sentences={[
+              "Engineering the Mind of Machines",
+              "Crafted in India for the World"
+            ]}
+            typingSpeed={50}
+            deletingSpeed={30}
+            pauseTime={2500}
+            className="text-xl md:text-3xl font-light text-white tracking-wide"
+          />
+        </div>
 
       </div>
 

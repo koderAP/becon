@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Rocket, Globe, Recycle, Bot, ArrowRight, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
+import { Brain, Rocket, Globe, Recycle, Bot, ArrowRight, Calendar, Clock, MapPin, ArrowUpRight, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane } from 'lucide-react';
 import { Vertical } from '../types';
 
 interface VerticalsProps {
@@ -23,12 +23,23 @@ interface VerticalWithDescription extends Vertical {
   description: string;
 }
 
-const verticals: VerticalWithDescription[] = [
-  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies from machine learning to neural networks and beyond.' },
-  { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing revolutionary startups pushing the boundaries of technology and innovation.' },
-  { id: 3, title: 'Global Innovation', icon: Globe, color: 'from-green-500 to-teal-500', description: 'Connecting global innovators and thought leaders shaping the future of technology.' },
-  { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Technology solutions for a greener, more sustainable future.' },
-  { id: 5, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Advanced robotics and automation transforming industries worldwide.' },
+const themeDomains: VerticalWithDescription[] = [
+  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.' },
+  { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing ventures built on science, engineering, and breakthrough technology.' },
+  { id: 3, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Building intelligent systems that drive efficiency, precision, and next-generation capability.' },
+  { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Advancing technologies that enable a cleaner, resilient, and sustainable tomorrow.' },
+  { id: 5, title: 'Global Innovation', icon: Globe, color: 'from-green-500 to-teal-500', description: 'Bringing ideas, insights, and collaborations from across the world to shape the future.' },
+];
+
+const widerLandscape: VerticalWithDescription[] = [
+  { id: 6, title: 'Consumer Brands', icon: ShoppingBag, color: 'from-pink-500 to-rose-500', description: 'Celebrating bold ventures shaping culture, lifestyle, and everyday experience.' },
+  { id: 7, title: 'FinTech & Digital Economy', icon: CreditCard, color: 'from-blue-600 to-indigo-600', description: 'Redefining financial access, transactions, and digital infrastructure.' },
+  { id: 8, title: 'Healthcare & MedTech', icon: Heart, color: 'from-red-500 to-rose-500', description: 'Transforming wellness, diagnostics, accessibility, and human health outcomes.' },
+  { id: 9, title: 'Climate & Clean Energy', icon: Sun, color: 'from-yellow-500 to-orange-500', description: 'Powering sustainable energy, climate resilience, and environmental responsibility.' },
+  { id: 10, title: 'Gaming & Creator Economy', icon: Gamepad2, color: 'from-purple-600 to-violet-600', description: 'Driving entertainment, digital storytelling, and cultural influence.' },
+  { id: 11, title: 'EdTech & Future of Learning', icon: GraduationCap, color: 'from-blue-400 to-cyan-400', description: 'Reinventing how knowledge is delivered, accessed, and experienced.' },
+  { id: 12, title: 'Cybersecurity & Trust', icon: Shield, color: 'from-slate-500 to-gray-500', description: 'Safeguarding systems, data, and identity in a connected world.' },
+  { id: 13, title: 'Space & Aerospace', icon: Plane, color: 'from-indigo-900 to-blue-900', description: 'Pushing frontiers in exploration, intelligence, and next-generation aviation.' },
 ];
 
 const eventsData: EventItem[] = [
@@ -71,10 +82,11 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
     setSelectedVertical(selectedVertical === id ? null : id);
   };
 
-  const selectedData = verticals.find(v => v.id === selectedVertical);
+  const allVerticals = [...themeDomains, ...widerLandscape];
+  const selectedData = allVerticals.find(v => v.id === selectedVertical);
 
   return (
-    <div className={`min-h-screen ${preview ? 'py-10' : 'pt-20 sm:pt-24 pb-16 sm:pb-20'} px-4 sm:px-6 md:px-12 lg:px-20 bg-black`}>
+    <div className={`${preview ? 'py-10' : 'pt-20 sm:pt-24 pb-16 sm:pb-20'} px-4 sm:px-6 md:px-12 lg:px-20 bg-black`}>
       {/* Hero Image Section within Events - Only on full page */}
       {!preview && (
         <div className="relative w-full h-[30vh] sm:h-[35vh] lg:h-[40vh] rounded-2xl sm:rounded-3xl overflow-hidden mb-10 sm:mb-16 lg:mb-20 group border border-white/10">
@@ -100,7 +112,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       >
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-          <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Core Verticals</span>
+          <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">{preview ? 'Core Verticals' : 'Domains'}</span>
         </div>
         {preview && onViewAll && (
           <button
@@ -119,14 +131,14 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
           viewport={{ once: true }}
           className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold leading-tight mb-8 sm:mb-10 lg:mb-12"
         >
-          Domains to Explore in <br className="hidden sm:block" />
+          Theme Domains in <br className="hidden sm:block" />
           <span className="text-gray-500">BECon Deep Tech Summit</span>
         </motion.h1>
       )}
 
-      {/* Vertical Cards Grid - Responsive for 5 items */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-        {(preview ? verticals.slice(0, 5) : verticals).map((v, i) => (
+      {/* Theme Domains Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 mb-16">
+        {themeDomains.map((v, i) => (
           <motion.div
             key={v.id}
             initial={{ opacity: 0, y: 30 }}
@@ -153,6 +165,50 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
           </motion.div>
         ))}
       </div>
+
+      {!preview && (
+        <>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold leading-tight mb-8 sm:mb-10 lg:mb-12"
+          >
+            Wider Landscape <br className="hidden sm:block" />
+            <span className="text-gray-500">Explore other domains</span>
+          </motion.h1>
+
+          {/* Wider Landscape Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+            {widerLandscape.map((v, i) => (
+              <motion.div
+                key={v.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                onClick={() => handleVerticalClick(v.id)}
+                className={`group relative h-32 md:h-40 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
+                  ? 'border-purple-500 bg-purple-500/10'
+                  : 'border-white/10 bg-white/5 hover:border-white/30'
+                  }`}
+              >
+                {/* Hover Gradient Background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                  <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${selectedVertical === v.id ? 'bg-purple-500/20' : 'bg-white/5 group-hover:bg-white/10'
+                    }`}>
+                    <v.icon size={28} className={`transition-colors ${selectedVertical === v.id ? 'text-purple-400' : 'text-white'}`} strokeWidth={1.5} />
+                  </div>
+                  <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedVertical === v.id ? 'text-purple-300' : 'text-gray-300 group-hover:text-white'
+                    }`}>{v.title}</h3>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </>
+      )}
 
       {/* Description Panel - Shows when a vertical is selected */}
       <AnimatePresence>

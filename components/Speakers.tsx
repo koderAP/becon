@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, ArrowRight } from 'lucide-react';
-import { Tab } from '../types';
 
 interface SpeakersProps {
   preview?: boolean;
@@ -11,16 +10,15 @@ interface SpeakersProps {
 }
 
 const speakers = [
-  { id: 1, name: "Dr. Sarah Chen", designation: "AI Researcher, DeepMind", img: "https://picsum.photos/id/64/400/500" },
-  { id: 2, name: "Michael Ross", designation: "Founder, QuantumLeap", img: "https://picsum.photos/id/91/400/500" },
-  { id: 3, name: "Priya Patel", designation: "VC, Sequoia India", img: "https://picsum.photos/id/129/400/500" },
-  { id: 4, name: "David Kim", designation: "Robotics Lead, Boston Dynamics", img: "https://picsum.photos/id/177/400/500" },
-  { id: 5, name: "Elena Rodriguez", designation: "CTO, FutureSystems", img: "https://picsum.photos/id/338/400/500" },
-  { id: 6, name: "James Wu", designation: "Director of Innovation, Tesla", img: "https://picsum.photos/id/342/400/500" },
+  { id: 1, name: "Sachin Bansal", designation: "Co-Founder, Flipkart", img: "/speakers/SachinBansal.png" },
+  { id: 2, name: "Mark Zuckerberg", designation: "CEO, Meta", img: "/speakers/MarkZuckerberg.png" },
+  { id: 3, name: "Deepinder Goyal", designation: "CEO, Zomato", img: "/speakers/DeepinderGoyal.png" },
+  { id: 4, name: "Bill Gates", designation: "Co-Founder, Microsoft", img: "/speakers/BillGates.png" },
+  { id: 5, name: "Raghuram Rajan", designation: "Former Governor, RBI", img: "/speakers/RaghuramRajan.png" },
 ];
 
 export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, showHeader = true, className = "" }) => {
-  const displaySpeakers = preview ? speakers.slice(0, 4) : speakers;
+  const displaySpeakers = speakers;
 
   return (
     <div className={`px-4 sm:px-6 md:px-12 lg:px-20 ${preview ? 'py-10' : 'pb-16 sm:pb-20'} ${className} ${!className.includes('bg-') ? 'bg-[#05020a]' : ''}`}>
@@ -34,13 +32,13 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
           >
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-              <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Guests</span>
+              <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">{preview ? 'Past Speakers' : 'Our Guests'}</span>
             </div>
 
             {preview && onViewAll && (
               <button
                 onClick={onViewAll}
-                className="flex items-center gap-2 text-sm sm:text-base text-white hover:text-purple-400 transition-colors group"
+                className="flex items-center gap-2 text-sm sm:text-base text-white hover:text-purple-400 transition-colors group ml-auto sm:ml-0"
               >
                 View All Speakers <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
@@ -48,15 +46,17 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
           </motion.div>
 
           {!preview && (
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-10 sm:mb-16 lg:mb-20"
+              className="mb-10 sm:mb-16 lg:mb-20"
             >
-              Meet Our Esteemed Speakers <br className="hidden sm:block" />
-              <span className="text-gray-500">and Industry Thought Leaders</span>
-            </motion.h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-2">
+                Discover Leading Masters and <br className="hidden lg:block" />
+                <span className="text-gray-500">Creative Visionaries</span>
+              </h1>
+            </motion.div>
           )}
         </>
       )}
@@ -65,7 +65,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
       <div className={`${preview ? 'overflow-x-auto' : ''}`}>
         <div className={`${preview
           ? 'flex gap-4 sm:gap-6 pb-4 snap-x overflow-x-auto'
-          : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
+          : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'
           }`}>
           {displaySpeakers.map((s, i) => (
             <motion.div
@@ -74,24 +74,32 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`relative flex-shrink-0 ${preview ? 'w-[260px] sm:w-[280px] md:w-[300px]' : 'w-full'
-                } h-[350px] sm:h-[400px] lg:h-[450px] rounded-2xl sm:rounded-3xl overflow-hidden group snap-center cursor-pointer border border-white/5 bg-white/5`}
+              className={`flex-shrink-0 ${preview ? 'w-[260px] sm:w-[280px] md:w-[300px]' : 'w-full'
+                } group snap-center cursor-pointer`}
             >
-              <img src={s.img} alt={s.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+              {/* Image Card */}
+              <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
+                <img src={s.img} alt={s.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
 
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
+                {/* Glow Effect on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/40 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              {/* Icons */}
-              <div className="absolute bottom-20 sm:bottom-24 right-4 sm:right-6 flex gap-2 sm:gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
-                <div className="p-1.5 sm:p-2 bg-white/20 backdrop-blur-md rounded-lg hover:bg-white/40"><Instagram size={18} className="sm:w-5 sm:h-5" /></div>
-                <div className="p-1.5 sm:p-2 bg-white/20 backdrop-blur-md rounded-lg hover:bg-white/40"><Linkedin size={18} className="sm:w-5 sm:h-5" /></div>
+                {/* Social Icons Overlay - Bottom Right */}
+                <div className="absolute bottom-5 right-5 flex gap-3 z-10">
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#0077b5] transition-colors duration-300 shadow-lg cursor-pointer">
+                    <Linkedin size={20} />
+                  </div>
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#E1306C] transition-colors duration-300 shadow-lg cursor-pointer">
+                    <Instagram size={20} />
+                  </div>
+                </div>
               </div>
 
-              {/* Info */}
-              <div className="absolute bottom-0 left-0 w-full p-5 sm:p-6 lg:p-8 bg-gradient-to-t from-black to-transparent">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 text-white">{s.name}</h3>
-                <p className="text-gray-400 font-light text-xs sm:text-sm">{s.designation}</p>
+              {/* Info Below Image */}
+              <div className="text-left">
+                <h3 className="text-xl font-bold text-white mb-1">{s.name}</h3>
+                <p className="text-gray-500 text-sm">{s.designation}</p>
               </div>
             </motion.div>
           ))}

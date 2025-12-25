@@ -4,7 +4,7 @@ export enum Tab {
   HOME = 'Home',
   ABOUT = 'About Us',
   EVENTS = 'Events',
-  AGENDA = 'Agenda',
+  SCHEDULE = 'Schedule',
   SPEAKERS = 'Speaker',
   SPONSORS = 'Sponsors',
   CONTACT = 'Contact',
@@ -27,8 +27,8 @@ export interface Vertical {
 }
 
 export interface Sponsor {
-    id: number;
-    name: string;
-    tier: 'Platinum' | 'Gold' | 'Silver' | 'Partner';
-    logo: string; // URL or placeholder text
+  id: number;
+  name: string;
+  tier: 'Platinum' | 'Gold' | 'Silver' | 'Partner';
+  logo: string; // URL or placeholder text
 }

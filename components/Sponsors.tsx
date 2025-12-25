@@ -3,14 +3,40 @@ import { motion } from 'framer-motion';
 import { Sponsor } from '../types';
 
 const sponsors: Sponsor[] = [
-    { id: 1, name: "Google Cloud", tier: "Platinum", logo: "Google Cloud" },
-    { id: 2, name: "Microsoft", tier: "Platinum", logo: "Microsoft" },
-    { id: 3, name: "OpenAI", tier: "Gold", logo: "OpenAI" },
-    { id: 4, name: "NVIDIA", tier: "Gold", logo: "NVIDIA" },
-    { id: 5, name: "Intel", tier: "Silver", logo: "Intel" },
-    { id: 6, name: "IBM Research", tier: "Silver", logo: "IBM" },
-    { id: 7, name: "Sequoia", tier: "Partner", logo: "Sequoia" },
-    { id: 8, name: "Y Combinator", tier: "Partner", logo: "YC" },
+    { id: 1, name: "Airchains", tier: "Partner", logo: "/sponsors/Airchains- Primary-Dark 2.svg" },
+    { id: 2, name: "AWS", tier: "Partner", logo: "/sponsors/Amazon_Web_Services_Logo.svg" },
+    { id: 3, name: "DPIIT", tier: "Partner", logo: "/sponsors/DPIIT-header 3.svg" },
+    { id: 4, name: "Dailyhunt", tier: "Partner", logo: "/sponsors/Dailyhunt-Logo 2.svg" },
+    { id: 5, name: "Dainik Jagran", tier: "Partner", logo: "/sponsors/Dainik_Jagran_newspaper_logo.jpg" },
+    { id: 6, name: "General Catalyst", tier: "Partner", logo: "/sponsors/General_Catalyst_Logo.svg" },
+    { id: 7, name: "HSBC", tier: "Partner", logo: "/sponsors/Hsbc-logo.svg" },
+    { id: 8, name: "IvyCap Ventures", tier: "Partner", logo: "/sponsors/IvyCap Ventures_idc9rjKJG__0.svg" },
+    { id: 9, name: "LIC", tier: "Partner", logo: "/sponsors/LIC_Logo.svg" },
+    { id: 10, name: "MG Motor", tier: "Partner", logo: "/sponsors/MG_Motor_2021_logo.svg" },
+    { id: 11, name: "ONDC", tier: "Partner", logo: "/sponsors/ONDC_logo 2.svg" },
+    { id: 12, name: "Paytm", tier: "Partner", logo: "/sponsors/Paytm_Logo_(standalone).svg" },
+    { id: 13, name: "SBI", tier: "Partner", logo: "/sponsors/SBI-logo.svg" },
+    { id: 14, name: "Partner", tier: "Partner", logo: "/sponsors/Screenshot_2025-01-29_at_7.29.24_PM-removebg-preview 2.svg" },
+    { id: 15, name: "Worldcoin", tier: "Partner", logo: "/sponsors/Worldcoin_Logo.png" },
+    { id: 16, name: "ABV", tier: "Partner", logo: "/sponsors/abv_logo.svg" },
+    { id: 17, name: "IAN", tier: "Partner", logo: "/sponsors/ian_logo.svg" },
+    { id: 18, name: "Partner", tier: "Partner", logo: "/sponsors/image 15947.svg" },
+    { id: 19, name: "Partner", tier: "Partner", logo: "/sponsors/image 15948.svg" },
+    { id: 20, name: "Partner", tier: "Partner", logo: "/sponsors/image 15950.svg" },
+    { id: 21, name: "Partner", tier: "Partner", logo: "/sponsors/image 15952.svg" },
+    { id: 22, name: "Partner", tier: "Partner", logo: "/sponsors/image 15972.svg" },
+    { id: 23, name: "Partner", tier: "Partner", logo: "/sponsors/image 15973.svg" },
+    { id: 24, name: "Partner", tier: "Partner", logo: "/sponsors/image 15974.svg" },
+    { id: 25, name: "Partner", tier: "Partner", logo: "/sponsors/image 15975.svg" },
+    { id: 26, name: "Partner", tier: "Partner", logo: "/sponsors/image-removebg-preview-21 1.svg" },
+    { id: 27, name: "Inc42", tier: "Partner", logo: "/sponsors/inc42-seeklogo-2.svg" },
+    { id: 28, name: "Introbot", tier: "Partner", logo: "/sponsors/introbot_logo.svg" },
+    { id: 29, name: "OYO", tier: "Partner", logo: "/sponsors/oyo-rooms-seeklogo.svg" },
+    { id: 30, name: "Samsung", tier: "Partner", logo: "/sponsors/samsung-seeklogo.svg" },
+    { id: 31, name: "Titan Capital", tier: "Partner", logo: "/sponsors/titancapital_logo.svg" },
+    { id: 32, name: "Wadhwani", tier: "Partner", logo: "/sponsors/wadvani.svg" },
+    { id: 33, name: "WestBridge", tier: "Partner", logo: "/sponsors/westbridge_logo.svg" },
+    { id: 34, name: "YourStory", tier: "Partner", logo: "/sponsors/yourstory-seeklogo.svg" },
 ];
 
 interface SponsorsProps {
@@ -45,55 +71,22 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                 </>
             )}
 
-            {/* Platinum Tier */}
+            {/* Unified Sponsors Grid */}
             <div className="mb-12 sm:mb-16 lg:mb-20">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-center mb-6 sm:mb-8 lg:mb-10 text-gray-400 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Platinum Sponsors</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-10 max-w-4xl mx-auto">
-                    {sponsors.filter(s => s.tier === 'Platinum').map((s) => (
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto">
+                    {sponsors.map((s) => (
                         <motion.div
                             key={s.id}
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="h-28 sm:h-32 lg:h-40 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer group"
+                            className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-xl flex items-center justify-center hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer group p-4"
                         >
-                            <span className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-300 group-hover:text-white group-hover:scale-105 transition-all">{s.name}</span>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Gold Tier */}
-            <div className="mb-12 sm:mb-16 lg:mb-20">
-                <h3 className="text-base sm:text-lg lg:text-xl font-light text-center mb-6 sm:mb-8 lg:mb-10 text-gray-500 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Gold Sponsors</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-3xl mx-auto">
-                    {sponsors.filter(s => s.tier === 'Gold').map((s) => (
-                        <motion.div
-                            key={s.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-lg sm:rounded-xl flex items-center justify-center hover:bg-white/10 hover:border-yellow-500/30 transition-all duration-300 cursor-pointer group"
-                        >
-                            <span className="text-base sm:text-lg lg:text-xl font-bold text-gray-400 group-hover:text-white transition-colors">{s.name}</span>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Silver & Partners Tier */}
-            <div>
-                <h3 className="text-sm sm:text-base lg:text-lg font-light text-center mb-6 sm:mb-8 lg:mb-10 text-gray-600 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Silver & Partners</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-4xl mx-auto">
-                    {sponsors.filter(s => s.tier === 'Silver' || s.tier === 'Partner').map((s) => (
-                        <motion.div
-                            key={s.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="h-20 sm:h-22 lg:h-24 bg-white/5 border border-white/5 rounded-md sm:rounded-lg flex items-center justify-center hover:bg-white/10 transition-all duration-300 cursor-pointer group"
-                        >
-                            <span className="text-sm sm:text-base lg:text-lg font-medium text-gray-500 group-hover:text-white transition-colors">{s.name}</span>
+                            <img
+                                src={s.logo}
+                                alt={s.name}
+                                className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
+                            />
                         </motion.div>
                     ))}
                 </div>

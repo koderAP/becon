@@ -52,6 +52,7 @@ export const About: React.FC = () => {
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
           </motion.div>
+
         </div>
 
         <motion.div
@@ -61,19 +62,49 @@ export const About: React.FC = () => {
           className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-6"
         >
           <p>
-            eDC IIT Delhi isn't just a club; it's an ecosystem. For over a decade, we have been the bridge between the rigorous technical brilliance of IIT Delhi and the dynamic world of business.
+            eDC IIT Delhi is a dedicated cell that connects IIT Delhi’s technical strength with the world of entrepreneurship and innovation. Over the years, we have created platforms that encourage learning, meaningful dialogue, and real opportunities for growth.
           </p>
           <p>
-            BECon is our flagship declaration. It is a convergence of visionaries. From early-stage founders seeking their first cheque to industry titans defining policy, BECon is where the dialogue happens. We don't just celebrate success; we engineer the mindset required to achieve it.
+            BECon is at the heart of this vision. The Nation’s biggest E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
           </p>
 
-          <div className="pt-6 sm:pt-8">
-            <button className="px-6 sm:px-8 py-3 sm:py-4 border border-white rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-xs font-bold">
-              Read our Story
-            </button>
+          <div className="pt-6 sm:pt-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { label: "Overall Footfall", value: "60K+" },
+              { label: "Events", value: "30+" },
+              { label: "Participants", value: "15K+" },
+              { label: "Startups", value: "4K+" },
+              { label: "Ministries", value: "10+" },
+              { label: "Institutes", value: "3500+" },
+              { label: "Alumni Network", value: "1L+" },
+            ].map((stat, i) => (
+              <div key={i}>
+                <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
+                <p className="text-sm text-gray-400">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>
+
+      {/* New Video Card - Full Width */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        className="mt-12 sm:mt-16 relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm group"
+      >
+        <video
+          src="/VID-20250118-WA0171.mp4"
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+      </motion.div>
     </div>
   );
 };

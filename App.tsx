@@ -5,12 +5,13 @@ import { Home } from './src/pages/Home';
 import { Events } from './src/pages/Events';
 import { SpeakersPage } from './src/pages/SpeakersPage';
 import { SponsorsPage } from './src/pages/SponsorsPage';
-import { Agenda } from './src/pages/Agenda';
+import { Schedule } from './src/pages/Schedule';
 import { Contact } from './src/pages/Contact';
 import { TicketsPage } from './src/pages/TicketsPage';
 import { TeamPage } from './src/pages/TeamPage';
 import { TermsPage } from './src/pages/TermsPage';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BottomNav } from './components/BottomNav';
 import { Toaster } from 'sonner';
 
 const AnimatedRoutes: React.FC = () => {
@@ -30,7 +31,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/events" element={<Events />} />
           <Route path="/speakers" element={<SpeakersPage />} />
           <Route path="/sponsors" element={<SponsorsPage />} />
-          <Route path="/agenda" element={<Agenda />} />
+          <Route path="/schedule" element={<Schedule />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/tickets" element={<TicketsPage />} />
           <Route path="/team" element={<TeamPage />} />
@@ -44,12 +45,13 @@ const AnimatedRoutes: React.FC = () => {
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className="bg-becon-bg text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
+      <div className="bg-[#05020a] text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
         <Navbar />
 
         <main className="relative z-0">
           <AnimatedRoutes />
         </main>
+
 
         <Toaster
           position="bottom-right"

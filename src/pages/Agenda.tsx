@@ -104,7 +104,7 @@ const scheduleData: DaySchedule[] = [
     },
 ];
 
-export const Agenda: React.FC = () => {
+export const Schedule: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#05020a] text-white">
             {/* Hero Section */}
@@ -119,12 +119,12 @@ export const Agenda: React.FC = () => {
                         transition={{ duration: 0.8 }}
                         className="text-7xl sm:text-8xl md:text-9xl font-bold italic tracking-tight text-white"
                     >
-                        AGENDA
+                        SCHEDULE
                     </motion.h1>
                 </div>
             </div>
 
-            {/* Agenda Section */}
+            {/* Schedule Section */}
             <div className="relative z-20 px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-16">
                 {/* Section Header */}
                 <motion.div
