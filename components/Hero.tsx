@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FramerBackground } from './FramerBackground';
+import { PlasmaBackground } from './PlasmaBackground';
 import { GearWithPlasma } from './GearWithPlasma';
 
 export const Hero: React.FC = () => {
@@ -11,9 +11,9 @@ export const Hero: React.FC = () => {
   return (
     <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-[#05020a]">
 
-      {/* 1. Framer Background */}
+      {/* 1. Plasma Background */}
       <div className="absolute inset-0 z-0">
-        <FramerBackground />
+        <PlasmaBackground />
       </div>
 
       {/* 2. Right Middle Gear with purple plasma shade */}
@@ -45,7 +45,7 @@ export const Hero: React.FC = () => {
             alt="3D Gear"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) brightness(1.2) contrast(1.1)',
+              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
             }}
           />
           {/* Purple plasma shade overlay - masked to gear shape */}
@@ -99,7 +99,7 @@ export const Hero: React.FC = () => {
             alt="3D Gear Left"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) brightness(1.2) contrast(1.1)',
+              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
             }}
           />
           {/* Purple plasma shade overlay - masked to gear shape */}
@@ -190,7 +190,7 @@ export const Hero: React.FC = () => {
             alt="Bottom Left Gear"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) brightness(1.2) contrast(1.1)',
+              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
             }}
           />
           {/* Plasma reflection overlay */}
@@ -239,7 +239,7 @@ export const Hero: React.FC = () => {
           <img
             src="/logo.png"
             alt="BECon 2026"
-            className="w-[280px] md:w-[450px] lg:w-[550px] h-auto object-contain"
+            className="w-[320px] md:w-[550px] lg:w-[700px] h-auto object-contain"
           />
         </motion.div>
 
