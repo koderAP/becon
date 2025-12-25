@@ -45,7 +45,7 @@ export const Hero: React.FC = () => {
             alt="3D Gear"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+              filter: 'drop-shadow(0 0 30px rgba(124, 58, 237, 0.5))',
             }}
           />
           {/* Purple plasma shade overlay - masked to gear shape */}
@@ -53,11 +53,11 @@ export const Hero: React.FC = () => {
             className="absolute inset-0 w-full h-full pointer-events-none"
             animate={{
               background: [
-                'linear-gradient(135deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(225deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(315deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(45deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(135deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(135deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(225deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(315deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(45deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(135deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
               ]
             }}
             transition={{
@@ -99,7 +99,7 @@ export const Hero: React.FC = () => {
             alt="3D Gear Left"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+              filter: 'drop-shadow(0 0 30px rgba(124, 58, 237, 0.5))',
             }}
           />
           {/* Purple plasma shade overlay - masked to gear shape */}
@@ -107,11 +107,11 @@ export const Hero: React.FC = () => {
             className="absolute inset-0 w-full h-full pointer-events-none"
             animate={{
               background: [
-                'linear-gradient(315deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(45deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(135deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(225deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(315deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(315deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(45deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(135deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(225deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(315deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
               ]
             }}
             transition={{
@@ -152,11 +152,11 @@ export const Hero: React.FC = () => {
             className="absolute inset-0 w-full h-full pointer-events-none"
             animate={{
               background: [
-                'linear-gradient(0deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
-                'linear-gradient(90deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
-                'linear-gradient(180deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
-                'linear-gradient(270deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
-                'linear-gradient(360deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
+                'linear-gradient(0deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(90deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(180deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(270deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(360deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
               ]
             }}
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
@@ -190,7 +190,7 @@ export const Hero: React.FC = () => {
             alt="Bottom Left Gear"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+              filter: 'drop-shadow(0 0 30px rgba(124, 58, 237, 0.5))',
             }}
           />
           {/* Plasma reflection overlay */}
@@ -198,11 +198,11 @@ export const Hero: React.FC = () => {
             className="absolute inset-0 w-full h-full pointer-events-none"
             animate={{
               background: [
-                'linear-gradient(45deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(135deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(225deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(315deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
-                'linear-gradient(45deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(45deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(135deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(225deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(315deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
+                'linear-gradient(45deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
               ]
             }}
             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
