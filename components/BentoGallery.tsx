@@ -156,6 +156,8 @@ export const InteractiveBentoGallery: React.FC<
                                     <img
                                         src={item.url}
                                         alt={item.title}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                         draggable={false}
                                     />

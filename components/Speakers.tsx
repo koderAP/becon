@@ -79,7 +79,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
             >
               {/* Image Card */}
               <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
-                <img src={s.img} alt={s.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <img src={s.img} alt={s.name} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
 
                 {/* Glow Effect on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

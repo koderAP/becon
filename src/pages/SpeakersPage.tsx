@@ -48,6 +48,8 @@ export const SpeakersPage: React.FC = () => {
                                         <img
                                             src={imagePath}
                                             alt={name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                                             onError={(e) => {
                                                 (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
