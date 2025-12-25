@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Settings, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { PlasmaBackground } from './PlasmaBackground';
 import { GearWithPlasma } from './GearWithPlasma';
 
@@ -151,9 +151,13 @@ export const Hero: React.FC = () => {
       <motion.div
         animate={{ rotate: 360, y: [0, -20, 0] }}
         transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
-        className="absolute top-32 right-32 md:right-64 opacity-60 hidden md:block pointer-events-none z-10"
+        className="absolute top-32 right-32 md:right-64 opacity-70 hidden md:block pointer-events-none z-10"
       >
-        <Settings size={64} className="text-purple-300 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
+        <img
+          src="/gear4.avif"
+          alt="Floating Gear"
+          className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+        />
       </motion.div>
 
       {/* 3. Main Hero Content - z-20 to be above background */}
