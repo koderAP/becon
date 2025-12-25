@@ -5,7 +5,13 @@ export const Footer: React.FC = () => {
         <footer className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 lg:px-20 bg-black border-t border-white/10 text-center md:text-left">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
                 <div className="col-span-1 sm:col-span-2">
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tighter text-white mb-3 sm:mb-4">eDC IIT Delhi</h1>
+                    <div className="flex justify-center md:justify-start mb-4">
+                        <img
+                            src="/logo.avif"
+                            alt="BECon Logo"
+                            className="h-10 sm:h-12 w-auto object-contain"
+                        />
+                    </div>
                     <p className="text-gray-400 max-w-sm text-sm sm:text-base mx-auto md:mx-0">
                         Empowering the next generation of deep-tech innovators. Join us at BECon 2026 to shape the future.
                     </p>
