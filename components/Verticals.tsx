@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Rocket, Globe, Network, Recycle, Bot, ArrowRight, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
+import { Brain, Rocket, Globe, Recycle, Bot, ArrowRight, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
 import { Vertical } from '../types';
 
 interface VerticalsProps {
@@ -27,9 +27,8 @@ const verticals: VerticalWithDescription[] = [
   { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies from machine learning to neural networks and beyond.' },
   { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing revolutionary startups pushing the boundaries of technology and innovation.' },
   { id: 3, title: 'Global Innovation', icon: Globe, color: 'from-green-500 to-teal-500', description: 'Connecting global innovators and thought leaders shaping the future of technology.' },
-  { id: 4, title: 'Quantum Computing', icon: Network, color: 'from-yellow-500 to-orange-500', description: 'Harnessing quantum mechanics for revolutionary computational power.' },
-  { id: 5, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Technology solutions for a greener, more sustainable future.' },
-  { id: 6, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Advanced robotics and automation transforming industries worldwide.' },
+  { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Technology solutions for a greener, more sustainable future.' },
+  { id: 5, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Advanced robotics and automation transforming industries worldwide.' },
 ];
 
 const eventsData: EventItem[] = [
@@ -62,16 +61,6 @@ const eventsData: EventItem[] = [
     image: "https://images.unsplash.com/photo-1559223607-a43c990ed9aa?auto=format&fit=crop&q=80&w=800",
     category: "Competition",
     description: "Top 10 selected startups pitch to a panel of tier-1 VCs for seed funding."
-  },
-  {
-    id: 4,
-    title: "Quantum Computing Workshop",
-    date: "Jan 31",
-    time: "01:00 PM",
-    location: "Lab Complex",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
-    category: "Workshop",
-    description: "Hands-on session with Qiskit and real quantum hardware access."
   }
 ];
 
@@ -146,8 +135,8 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             transition={{ delay: i * 0.05 }}
             onClick={() => handleVerticalClick(v.id)}
             className={`group relative h-32 md:h-40 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
-                ? 'border-purple-500 bg-purple-500/10'
-                : 'border-white/10 bg-white/5 hover:border-white/30'
+              ? 'border-purple-500 bg-purple-500/10'
+              : 'border-white/10 bg-white/5 hover:border-white/30'
               }`}
           >
             {/* Hover Gradient Background */}
