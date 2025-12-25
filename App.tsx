@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
-import { BottomNav } from './components/BottomNav';
 import { Home } from './src/pages/Home';
 import { Events } from './src/pages/Events';
 import { SpeakersPage } from './src/pages/SpeakersPage';
@@ -50,7 +49,6 @@ const App: React.FC = () => {
           <AnimatedRoutes />
         </main>
 
-        <BottomNav />
         <Toaster
           position="bottom-right"
           theme="dark"
