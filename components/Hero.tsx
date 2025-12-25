@@ -295,6 +295,14 @@ export const Hero: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Bottom blur gradient overlay */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-30"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(5, 2, 10, 0.5) 40%, rgba(5, 2, 10, 0.9) 70%, #05020a 100%)',
+        }}
+      />
     </div>
   );
 };
