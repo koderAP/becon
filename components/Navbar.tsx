@@ -160,7 +160,7 @@ export const Navbar: React.FC = () => {
                   <button
                     key={item.path}
                     onClick={() => handleNavClick(item.path)}
-                    className={`relative px-2 lg:px-3 py-1.5 text-sm font-medium transition-colors rounded-full whitespace-nowrap ${isActive(item.path) ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+                    className={`relative px-2 lg:px-3 py-1.5 text-sm font-medium transition-colors rounded-full whitespace-nowrap ${isActive(item.path) ? 'text-white' : 'text-gray-400 hover:text-purple-400'}`}
                   >
                     {isActive(item.path) && (
                       <motion.div
@@ -243,8 +243,8 @@ export const Navbar: React.FC = () => {
                     key={item.path}
                     onClick={() => handleNavClick(item.path)}
                     className={`text-left px-4 py-3 rounded-xl text-base font-medium transition-colors ${isActive(item.path)
-                        ? 'bg-purple-500/20 text-purple-300'
-                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                      ? 'bg-purple-500/20 text-purple-300'
+                      : 'text-gray-300 hover:bg-white/5 hover:text-purple-400'
                       }`}
                   >
                     {item.label}
