@@ -33,44 +33,62 @@ export const FramerBackground: React.FC = () => {
                 }}
             />
 
-            {/* Silky Water Wave Animation Layer */}
-            <div className="absolute inset-0 z-0 opacity-30 mix-blend-overlay">
-                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    {/* Wave 1 - Slow flow */}
-                    <motion.path
-                        d={wavePaths[0]}
-                        fill="url(#waveGradient1)"
-                        animate={{
-                            d: [
-                                "M0,45 C25,40 50,50 75,45 C100,40 125,50 150,45 V100 H0 Z",
-                                "M0,55 C25,60 50,50 75,55 C100,60 125,50 150,55 V100 H0 Z",
-                                "M0,45 C25,40 50,50 75,45 C100,40 125,50 150,45 V100 H0 Z"
-                            ]
-                        }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                    />
+            {/* Silky Water Wave Animation Layer - ROBUST SLIDING IMPLEMENTATION */}
+            <div className="absolute inset-0 z-0 opacity-60 mix-blend-screen pointer-events-none">
+                <svg className="w-full h-full" viewBox="0 0 1440 320" preserveAspectRatio="none">
                     <defs>
-                        <linearGradient id="waveGradient1" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor="rgba(139, 92, 246, 0.4)" />
-                            <stop offset="50%" stopColor="rgba(36, 0, 109, 0.1)" />
-                            <stop offset="100%" stopColor="rgba(139, 92, 246, 0.4)" />
+                        <linearGradient id="waveGradient1" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="rgba(139, 92, 246, 0)" />
+                            <stop offset="95%" stopColor="rgba(139, 92, 246, 0.3)" />
+                        </linearGradient>
+                        <linearGradient id="waveGradient2" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="rgba(56, 189, 248, 0)" />
+                            <stop offset="95%" stopColor="rgba(56, 189, 248, 0.2)" />
                         </linearGradient>
                     </defs>
 
-                    {/* Wave 2 - Faster ripple */}
+                    {/* Wave 1: Back layer, slower */}
                     <motion.path
-                        d={wavePaths[1]}
-                        fill="rgba(255, 255, 255, 0.05)"
+                        fill="url(#waveGradient1)"
+                        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
                         animate={{
-                            d: [
-                                "M0,50 C30,55 60,45 90,50 C120,55 150,45 180,50 V100 H0 Z",
-                                "M0,48 C30,42 60,52 90,48 C120,42 150,52 180,48 V100 H0 Z",
-                                "M0,50 C30,55 60,45 90,50 C120,55 150,45 180,50 V100 H0 Z"
-                            ],
-                            translateX: ["-20%", "0%", "-20%"]
+                            x: ["0%", "-100%", "0%"],
+                            scaleY: [1, 1.1, 1],
                         }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        style={{ filter: "blur(20px)" }}
+                        transition={{
+                            x: { duration: 30, repeat: Infinity, ease: "linear" },
+                            scaleY: { duration: 10, repeat: Infinity, ease: "easeInOut" }
+                        }}
+                        style={{ transformOrigin: "bottom" }}
+                    />
+
+                    {/* Unique Wave 2: Middle layer, different phase */}
+                    <motion.path
+                        fill="url(#waveGradient2)"
+                        d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,165.3C672,149,768,139,864,154.7C960,171,1056,213,1152,218.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                        animate={{
+                            x: ["0%", "50%", "0%"],
+                            y: [0, 15, 0],
+                        }}
+                        transition={{
+                            x: { duration: 25, repeat: Infinity, ease: "linear" },
+                            y: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+                        }}
+                        style={{ opacity: 0.7 }}
+                    />
+
+                    {/* Wave 3: Front layer, fastest */}
+                    <motion.path
+                        fill="rgba(255, 255, 255, 0.05)"
+                        d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                        animate={{
+                            x: ["-50%", "0%", "-50%"],
+                        }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "linear",
+                        }}
                     />
                 </svg>
             </div>
