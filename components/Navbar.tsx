@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
 interface NavItem {
@@ -20,54 +20,52 @@ const navItems: NavItem[] = [
 ];
 
 export const Navbar: React.FC = () => {
-  const { scrollY } = useScroll();
   const [isCompact, setIsCompact] = useState(false);
   const [showCompactContent, setShowCompactContent] = useState(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const contentTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
-      if (!isCompact) {
-        setIsCompact(true);
-        if (contentTimeoutRef.current) clearTimeout(contentTimeoutRef.current);
-        contentTimeoutRef.current = setTimeout(() => {
-          setShowCompactContent(true);
-        }, 350);
-      }
-
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      scrollTimeoutRef.current = setTimeout(() => {
-        setShowCompactContent(false);
-        setTimeout(() => {
-          setIsCompact(false);
-        }, 200);
-      }, 800);
-    } else {
-      setShowCompactContent(false);
-      if (isCompact) {
-        setTimeout(() => setIsCompact(false), 200);
-      }
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      if (contentTimeoutRef.current) {
-        clearTimeout(contentTimeoutRef.current);
-      }
-    }
-  });
-
   useEffect(() => {
-    return () => {
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-      if (contentTimeoutRef.current) clearTimeout(contentTimeoutRef.current);
+    const handleScroll = () => {
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrollDelta = currentScrollY - lastScrollY.current;
+
+          // At top of page - always expanded
+          if (currentScrollY < 50) {
+            if (isCompact) {
+              setShowCompactContent(false);
+              setTimeout(() => setIsCompact(false), 150);
+            }
+          }
+          // Scrolling DOWN - contract
+          else if (scrollDelta > 5) {
+            if (!isCompact) {
+              setIsCompact(true);
+              setTimeout(() => setShowCompactContent(true), 300);
+            }
+          }
+          // Scrolling UP - expand
+          else if (scrollDelta < -5) {
+            if (isCompact) {
+              setShowCompactContent(false);
+              setTimeout(() => setIsCompact(false), 150);
+            }
+          }
+
+          lastScrollY.current = currentScrollY;
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
     };
-  }, []);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isCompact]);
 
   const isActive = (path: string) => {
     if (path.startsWith('/#')) {
@@ -101,8 +99,8 @@ export const Navbar: React.FC = () => {
           width: isCompact ? 220 : "min(95%, 1280px)",
         }}
         transition={{
-          duration: 0.5,
-          ease: "easeInOut"
+          duration: 0.4,
+          ease: [0.4, 0, 0.2, 1], // Smooth cubic bezier
         }}
         className="pointer-events-auto rounded-full flex items-center overflow-hidden"
         style={{
@@ -112,18 +110,21 @@ export const Navbar: React.FC = () => {
           backdropFilter: "blur(0px)",
           padding: "12px 32px",
           justifyContent: 'center',
-          height: 56, // Fixed height to prevent vertical motion
+          height: 56,
           minHeight: 56,
           maxHeight: 56,
         }}
       >
         {/* Expanded content - Logo + Nav Items */}
-        <div
+        <motion.div
           className="flex items-center justify-between w-full absolute inset-0 px-8"
-          style={{
+          initial={false}
+          animate={{
             opacity: isCompact ? 0 : 1,
+          }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          style={{
             pointerEvents: isCompact ? 'none' : 'auto',
-            transition: `opacity 0.3s ease-in-out`,
           }}
         >
           {/* Logo */}
@@ -170,15 +171,18 @@ export const Navbar: React.FC = () => {
               )
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Compact content - Logo + Login only */}
-        <div
+        <motion.div
           className="flex items-center justify-center gap-6 absolute inset-0 px-6"
-          style={{
+          initial={false}
+          animate={{
             opacity: showCompactContent ? 1 : 0,
+          }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          style={{
             pointerEvents: showCompactContent ? 'auto' : 'none',
-            transition: `opacity 0.3s ease-in-out`,
           }}
         >
           {/* Logo */}
@@ -200,7 +204,7 @@ export const Navbar: React.FC = () => {
               <ArrowUpRight size={10} />
             </div>
           </Link>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
