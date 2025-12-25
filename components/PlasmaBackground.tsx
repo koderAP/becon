@@ -72,6 +72,7 @@ vec3 sanitize(vec3 c){
   );
 }
 
+
 void main() {
   vec4 o = vec4(0.0);
   mainImage(o, gl_FragCoord.xy);
@@ -80,11 +81,18 @@ void main() {
   float intensity = (rgb.r + rgb.g + rgb.b) / 3.0;
   
   vec3 finalColor;
-  if (intensity < 0.5) {
-    finalColor = mix(uColor1, uColor2, intensity * 2.0);
+  // Create a 3-stop gradient: Color1 -> Color2 -> Color3 -> White
+  if (intensity < 0.33) {
+    finalColor = mix(uColor1, uColor2, intensity * 3.0);
+  } else if (intensity < 0.66) {
+    finalColor = mix(uColor2, uColor3, (intensity - 0.33) * 3.0);
   } else {
-    finalColor = mix(uColor2, uColor3, (intensity - 0.5) * 2.0);
+    // High intensity areas fade to white for that "hot plasma" look
+    finalColor = mix(uColor3, vec3(1.0, 1.0, 1.0), (intensity - 0.66) * 1.5);
   }
+  
+  // Add a subtle white wash over everything to brighten it up
+  finalColor += vec3(0.05);
   
   fragColor = vec4(finalColor, 1.0);
 }`;

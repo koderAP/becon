@@ -286,16 +286,6 @@ export const Hero: React.FC = () => {
           background: 'linear-gradient(to bottom, transparent 0%, rgba(5, 2, 10, 0.3) 20%, rgba(5, 2, 10, 0.7) 50%, rgba(5, 2, 10, 0.95) 80%, #05020a 100%)',
         }}
       />
-
-      {/* NEW: Right side white glow */}
-      <div
-        className="absolute top-[40%] -right-[10%] w-[600px] h-[600px] bg-white/10 rounded-full blur-[120px] pointer-events-none z-10 mix-blend-screen opacity-60"
-      />
-
-      {/* NEW: Bottom center white glow */}
-      <div
-        className="absolute -bottom-[20%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-[100px] pointer-events-none z-10 mix-blend-screen opacity-50"
-      />
     </div>
   );
 };
