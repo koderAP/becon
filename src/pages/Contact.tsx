@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { HeroBackground } from '../../components/HeroBackground';
 import { Footer } from '../../components/Footer';
 import { Mail, MapPin, Phone, Send, MessageSquare, User, AtSign, ArrowRight } from 'lucide-react';
+import { PageHeader } from '../../components/PageHeader';
 
 export const Contact: React.FC = () => {
     const [formState, setFormState] = useState({
@@ -27,40 +27,13 @@ export const Contact: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
-            <HeroBackground />
+            <PageHeader
+                title="CONTACT US"
+                badge="Get in Touch"
+                description="Have questions about BECon'26? We're here to help."
+            />
 
-            <div className="relative z-20 pt-32 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto pb-32">
-
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6"
-                    >
-                        <MessageSquare className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm text-purple-200">Get in Touch</span>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
-                    >
-                        Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Us</span>
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-gray-400 text-lg max-w-2xl mx-auto"
-                    >
-                        Have questions about BECon'26? We're here to help. Reach out to us and we'll get back to you as soon as possible.
-                    </motion.p>
-                </div>
+            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto pb-32">
 
                 <div className="grid lg:grid-cols-2 gap-12 items-start">
 

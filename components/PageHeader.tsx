@@ -18,7 +18,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, descrip
             </div>
 
             {/* Content */}
-            <div className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 text-center max-w-5xl mx-auto mt-16">
+            <div className="relative z-30 px-4 sm:px-6 md:px-12 lg:px-20 text-center max-w-5xl mx-auto mt-16">
                 {badge && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

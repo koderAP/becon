@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HeroBackground } from '../../components/HeroBackground';
 import { Footer } from '../../components/Footer';
 import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { PageHeader } from '../../components/PageHeader';
 
 interface EventCard {
     id: string;
@@ -86,40 +86,13 @@ const categoryConfig = {
 export const Events: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white relative">
-            <HeroBackground />
+            <PageHeader
+                title="EVENTS"
+                badge="BECon'26 Event Lineup"
+                description="Discover workshops, hackathons, talks, and competitions designed to ignite your entrepreneurial spirit."
+            />
 
-            <div className="relative z-20 pt-32 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto pb-32">
-                {/* ... existing content ... */}
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6"
-                    >
-                        <Sparkles className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm text-purple-200">BECon'26 Event Lineup</span>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
-                    >
-                        Explore All <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Events</span>
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-gray-400 text-lg max-w-2xl mx-auto"
-                    >
-                        Discover workshops, hackathons, talks, and competitions designed to ignite your entrepreneurial spirit using our world-class platform.
-                    </motion.p>
-                </div>
+            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto pb-32">
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
