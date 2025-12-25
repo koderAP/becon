@@ -85,10 +85,11 @@ const categoryConfig = {
 
 export const Events: React.FC = () => {
     return (
-        <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
+        <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white relative">
             <HeroBackground />
 
             <div className="relative z-20 pt-32 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto pb-32">
+                {/* ... existing content ... */}
                 {/* Header */}
                 <div className="text-center mb-16">
                     <motion.div
@@ -199,7 +200,9 @@ export const Events: React.FC = () => {
                 </div>
             </div>
 
-            <Footer />
+            <div className="relative z-50">
+                <Footer />
+            </div>
         </div>
     );
 };
