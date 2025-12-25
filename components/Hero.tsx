@@ -81,25 +81,25 @@ export const Hero: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* 3. Left Top Gear with purple plasma shade */}
+      {/* 3. Left Top Gear with purple plasma shade - more 2D-like rotation */}
       <motion.div
-        className="absolute -left-20 top-[10%] md:-left-28 md:top-[15%] pointer-events-none z-20"
+        className="absolute -left-28 top-[8%] md:-left-36 md:top-[12%] pointer-events-none z-20"
         style={{
-          perspective: '1200px',
+          perspective: '2000px',
           perspectiveOrigin: 'center center',
         }}
       >
         <motion.div
           className="relative w-[180px] h-[180px] md:w-[280px] md:h-[280px]"
           animate={{
-            rotateY: [35, -35, 35],
-            rotateX: [-10, 10, -10],
+            rotateY: [5, -5, 5],
+            rotateX: [-3, 3, -3],
             rotateZ: [360, 0],
           }}
           transition={{
-            rotateY: { duration: 9, repeat: Infinity, ease: "easeInOut" },
-            rotateX: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-            rotateZ: { duration: 12, repeat: Infinity, ease: "linear" },
+            rotateY: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+            rotateX: { duration: 10, repeat: Infinity, ease: "easeInOut" },
+            rotateZ: { duration: 15, repeat: Infinity, ease: "linear" },
           }}
           style={{
             transformStyle: 'preserve-3d',
@@ -187,9 +187,9 @@ export const Hero: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Bottom Left Gear - 2D rotation with plasma reflection */}
+      {/* Bottom Left Gear - 2D rotation with plasma reflection - moved more down and left */}
       <motion.div
-        className="absolute -left-16 bottom-[15%] md:-left-20 md:bottom-[20%] pointer-events-none z-20"
+        className="absolute -left-24 bottom-[5%] md:-left-32 md:bottom-[8%] pointer-events-none z-20"
       >
         <motion.div
           className="relative w-[160px] h-[160px] md:w-[240px] md:h-[240px]"

@@ -37,19 +37,13 @@
         color: white;
         overflow-x: hidden;
       }
-      /* Custom scrollbar */
+      /* Hide scrollbar completely */
       ::-webkit-scrollbar {
-        width: 8px;
+        display: none;
       }
-      ::-webkit-scrollbar-track {
-        background: #0f0a1f; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #4c1d95; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #7c3aed; 
+      html {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
       }
     </style>
   <script type="importmap">
