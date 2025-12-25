@@ -124,9 +124,9 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         </motion.h1>
       )}
 
-      {/* Vertical Cards Grid */}
-      <div className={`grid grid-cols-2 md:grid-cols-3 ${preview ? 'lg:grid-cols-6' : 'lg:grid-cols-6'} gap-4`}>
-        {(preview ? verticals.slice(0, 6) : verticals).map((v, i) => (
+      {/* Vertical Cards Grid - Responsive for 5 items */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
+        {(preview ? verticals.slice(0, 5) : verticals).map((v, i) => (
           <motion.div
             key={v.id}
             initial={{ opacity: 0, y: 30 }}
