@@ -147,17 +147,91 @@ export const Hero: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Top Right Small Floating Gear */}
+      {/* Top Right Small Floating Gear with plasma reflection */}
       <motion.div
         animate={{ rotate: 360, y: [0, -20, 0] }}
         transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
-        className="absolute top-32 right-32 md:right-64 opacity-70 hidden md:block pointer-events-none z-10"
+        className="absolute top-32 right-32 md:right-64 opacity-80 hidden md:block pointer-events-none z-10"
       >
-        <img
-          src="/gear4.avif"
-          alt="Floating Gear"
-          className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_rgba(139,92,246,0.5)]"
-        />
+        <div className="relative w-16 h-16 md:w-20 md:h-20">
+          <img
+            src="/gear4.avif"
+            alt="Floating Gear"
+            className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+          />
+          {/* Plasma reflection overlay */}
+          <motion.div
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            animate={{
+              background: [
+                'linear-gradient(0deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
+                'linear-gradient(90deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
+                'linear-gradient(180deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
+                'linear-gradient(270deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
+                'linear-gradient(360deg, rgba(36, 0, 109, 0.8) 0%, rgba(36, 0, 109, 0.6) 100%)',
+              ]
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            style={{
+              mixBlendMode: 'hard-light',
+              opacity: 0.7,
+              WebkitMaskImage: 'url(/gear4.avif)',
+              WebkitMaskSize: 'contain',
+              WebkitMaskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'center',
+              maskImage: 'url(/gear4.avif)',
+              maskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              maskPosition: 'center',
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Bottom Left Gear - 2D rotation with plasma reflection */}
+      <motion.div
+        className="absolute -left-20 -bottom-16 md:-left-28 md:-bottom-20 pointer-events-none z-20"
+      >
+        <motion.div
+          className="relative w-[160px] h-[160px] md:w-[240px] md:h-[240px]"
+          animate={{ rotate: [0, -360] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        >
+          <img
+            src="/gear3.avif"
+            alt="Bottom Left Gear"
+            className="w-full h-full object-contain"
+            style={{
+              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+            }}
+          />
+          {/* Plasma reflection overlay */}
+          <motion.div
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            animate={{
+              background: [
+                'linear-gradient(45deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(135deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(225deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(315deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+                'linear-gradient(45deg, rgba(36, 0, 109, 0.9) 0%, rgba(36, 0, 109, 0.7) 50%, rgba(36, 0, 109, 0.8) 100%)',
+              ]
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            style={{
+              mixBlendMode: 'hard-light',
+              opacity: 0.85,
+              WebkitMaskImage: 'url(/gear3.avif)',
+              WebkitMaskSize: 'contain',
+              WebkitMaskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'center',
+              maskImage: 'url(/gear3.avif)',
+              maskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              maskPosition: 'center',
+            }}
+          />
+        </motion.div>
       </motion.div>
 
       {/* 3. Main Hero Content - z-20 to be above background */}
