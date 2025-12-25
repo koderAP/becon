@@ -45,7 +45,7 @@ export const Hero: React.FC = () => {
             alt="3D Gear"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+              filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) brightness(1.2) contrast(1.1)',
             }}
           />
           {/* Purple plasma shade overlay - masked to gear shape */}
@@ -99,7 +99,7 @@ export const Hero: React.FC = () => {
             alt="3D Gear Left"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+              filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) brightness(1.2) contrast(1.1)',
             }}
           />
           {/* Purple plasma shade overlay - masked to gear shape */}
@@ -190,7 +190,7 @@ export const Hero: React.FC = () => {
             alt="Bottom Left Gear"
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(0 15px 35px rgba(36, 0, 109, 0.6))',
+              filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) brightness(1.2) contrast(1.1)',
             }}
           />
           {/* Plasma reflection overlay */}
