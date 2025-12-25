@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 import { PlasmaBackground } from './PlasmaBackground';
 import { GearWithPlasma } from './GearWithPlasma';
 
@@ -276,23 +275,12 @@ export const Hero: React.FC = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.8 }}
-        className="absolute bottom-10 w-full px-6 md:px-20 flex flex-col md:flex-row items-center justify-between z-20"
+        className="absolute bottom-16 w-full px-6 md:px-20 flex items-center justify-center z-20"
       >
-        <div className="flex items-center gap-6 text-lg md:text-xl font-light text-white mb-6 md:mb-0">
+        <div className="flex items-center gap-6 text-lg md:text-xl font-light text-white">
           <span>31 Jan - 2 Feb 2026</span>
           <div className="h-[1px] w-20 md:w-40 bg-white/30"></div>
           <span>IIT Delhi, Hauz Khas</span>
-        </div>
-
-        {/* Circular Scroll Down Button */}
-        <div className="flex items-center gap-4">
-          <div className="w-[1px] h-10 bg-white/30 hidden md:block"></div>
-          <div className="group relative cursor-pointer">
-            <div className="absolute inset-0 bg-white/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative w-12 h-12 rounded-full border border-white/30 flex items-center justify-center bg-white/5 backdrop-blur-sm group-hover:bg-white group-hover:text-black transition-all">
-              <ChevronDown size={20} className="animate-bounce" />
-            </div>
-          </div>
         </div>
       </motion.div>
 

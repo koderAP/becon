@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Clock, MapPin } from 'lucide-react';
 
 const scheduleData = [
     {
@@ -36,79 +36,124 @@ const scheduleData = [
     }
 ];
 
+const typeColors: Record<string, string> = {
+    'General': 'bg-gray-500/20 text-gray-300 border-gray-500/30',
+    'Keynote': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+    'Panel': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+    'Workshop': 'bg-green-500/20 text-green-300 border-green-500/30',
+    'Competition': 'bg-orange-500/20 text-orange-300 border-orange-500/30',
+    'Social': 'bg-pink-500/20 text-pink-300 border-pink-500/30',
+};
+
 export const Timeline: React.FC = () => {
     return (
-        <div className="min-h-screen pt-24 pb-20 px-6 md:px-20 bg-[#05020a]">
-            <div className="max-w-4xl mx-auto">
+        <section className="py-24 bg-[#05020a]">
+            <div className="max-w-5xl mx-auto px-6">
+                {/* Section Header - Centered */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex items-center justify-center gap-4 mb-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-16"
                 >
-                    <div className="w-12 h-[2px] bg-white"></div>
-                    <span className="text-lg text-gray-300 uppercase tracking-widest">Schedule</span>
-                    <div className="w-12 h-[2px] bg-white"></div>
+                    <div className="flex items-center justify-center gap-4 mb-6">
+                        <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-purple-500"></div>
+                        <span className="text-sm text-purple-400 uppercase tracking-[0.2em] font-medium">Schedule</span>
+                        <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-purple-500"></div>
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+                        Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-violet-500">Timeline</span>
+                    </h2>
+                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                        Three days of groundbreaking talks, workshops, and networking opportunities
+                    </p>
                 </motion.div>
 
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-5xl md:text-7xl font-bold leading-tight mb-16 text-center"
-                >
-                    Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Timeline</span>
-                </motion.h1>
+                {/* Day Tabs - Centered */}
+                <div className="flex justify-center gap-4 mb-12 flex-wrap">
+                    {scheduleData.map((day, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-center hover:border-purple-500/50 hover:bg-purple-500/10 transition-all cursor-pointer"
+                        >
+                            <div className="text-white font-semibold">{day.day}</div>
+                            <div className="text-purple-400 text-sm">{day.date}</div>
+                        </motion.div>
+                    ))}
+                </div>
 
-                <div className="space-y-16">
+                {/* Timeline Content */}
+                <div className="space-y-20">
                     {scheduleData.map((day, dayIndex) => (
-                        <div key={dayIndex} className="relative">
-                            {/* Date Header */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                className="flex items-end gap-4 mb-8 sticky top-24 z-20 bg-[#05020a]/80 backdrop-blur-md py-4 border-b border-white/10"
-                            >
-                                <h2 className="text-4xl font-bold text-white">{day.day}</h2>
-                                <span className="text-xl text-purple-400 font-mono mb-1">{day.date}</span>
-                            </motion.div>
-
-                            <div className="relative border-l border-white/10 ml-4 md:ml-8 space-y-8 pb-8">
-                                {day.events.map((event, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1 }}
-                                        className="relative pl-8 md:pl-12 group"
-                                    >
-                                        {/* Timeline Dot */}
-                                        <div className="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-purple-500 ring-4 ring-[#05020a] group-hover:bg-white transition-colors"></div>
-
-                                        {/* Card */}
-                                        <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all duration-300">
-                                            <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                                                <div className="flex items-center gap-2 text-purple-300 font-mono text-sm mb-2 md:mb-0">
-                                                    <Clock size={14} />
-                                                    {event.time}
-                                                </div>
-                                                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-gray-300 border border-white/5 uppercase tracking-wide">
-                                                    {event.type}
-                                                </span>
-                                            </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
-                                            <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                                <MapPin size={14} />
-                                                {event.location}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))}
+                        <motion.div
+                            key={dayIndex}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                        >
+                            {/* Day Header */}
+                            <div className="text-center mb-10">
+                                <h3 className="text-2xl md:text-3xl font-bold text-white">
+                                    {day.day} <span className="text-purple-400 font-normal">— {day.date}</span>
+                                </h3>
                             </div>
-                        </div>
+
+                            {/* Events Grid - Centered */}
+                            <div className="relative">
+                                {/* Center Timeline Line */}
+                                <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-purple-500/50 via-purple-500/20 to-transparent hidden md:block"></div>
+
+                                <div className="space-y-8">
+                                    {day.events.map((event, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className={`relative flex flex-col md:flex-row items-center gap-6 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                                        >
+                                            {/* Left/Right Card */}
+                                            <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
+                                                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 hover:bg-white/[0.08] transition-all inline-block max-w-md">
+                                                    <div className="flex items-center gap-3 mb-3 justify-start">
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${typeColors[event.type] || typeColors['General']}`}>
+                                                            {event.type}
+                                                        </span>
+                                                    </div>
+                                                    <h4 className="text-xl font-semibold text-white mb-2">{event.title}</h4>
+                                                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <Clock size={14} className="text-purple-400" />
+                                                            <span>{event.time}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-1.5">
+                                                            <MapPin size={14} className="text-purple-400" />
+                                                            <span>{event.location}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Center Dot */}
+                                            <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
+                                                <div className="w-4 h-4 rounded-full bg-purple-500 ring-4 ring-[#05020a] shadow-lg shadow-purple-500/30"></div>
+                                            </div>
+
+                                            {/* Spacer for alternating layout */}
+                                            <div className="flex-1 hidden md:block"></div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
