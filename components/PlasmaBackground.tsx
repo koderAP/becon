@@ -48,7 +48,7 @@ void mainImage(out vec4 o, vec2 fragCoord) {
   vec3 p, S;
   vec4 col;
 
-  for (vec2 r = iResolution.xy, Q; ++i < 60.; O += col.w/d*col.xyz) {
+  for (vec2 r = iResolution.xy, Q; ++i < 35.; O += col.w/d*col.xyz) {
     p = z*normalize(vec3(C-.5*r,r.y)); 
     p.z -= 4.; 
     S = p;
@@ -110,6 +110,8 @@ export const PlasmaBackground = ({
 }: PlasmaBackgroundProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const isVisibleRef = useRef(true);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -119,11 +121,12 @@ export const PlasmaBackground = ({
     const color2Rgb = hexToRgb(color2);
     const color3Rgb = hexToRgb(color3);
 
+    // Reduce DPR for better performance
     const renderer = new Renderer({
       webgl: 2,
       alpha: false,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2)
+      dpr: Math.min(window.devicePixelRatio || 1, 1.5)
     });
     const gl = renderer.gl;
     const canvas = gl.canvas;
@@ -174,7 +177,6 @@ export const PlasmaBackground = ({
       res[0] = gl.drawingBufferWidth;
       res[1] = gl.drawingBufferHeight;
 
-      // Initialize mouse to center
       mouseRef.current.x = gl.drawingBufferWidth / 2;
       mouseRef.current.y = gl.drawingBufferHeight / 2;
       mouseRef.current.targetX = mouseRef.current.x;
@@ -185,14 +187,27 @@ export const PlasmaBackground = ({
     ro.observe(containerEl);
     setSize();
 
-    let raf = 0;
+    // IntersectionObserver to pause animation when off-screen
+    const io = new IntersectionObserver(
+      (entries) => {
+        isVisibleRef.current = entries[0]?.isIntersecting ?? true;
+      },
+      { threshold: 0 }
+    );
+    io.observe(containerEl);
+
     const t0 = performance.now();
 
     const loop = (t: number) => {
+      // Skip rendering when not visible for better scroll performance
+      if (!isVisibleRef.current) {
+        rafRef.current = requestAnimationFrame(loop);
+        return;
+      }
+
       const timeValue = (t - t0) * 0.001;
       (program.uniforms.iTime as { value: number }).value = timeValue;
 
-      // Smooth mouse interpolation
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
@@ -201,13 +216,14 @@ export const PlasmaBackground = ({
       mouseUniform[1] = mouseRef.current.y;
 
       renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
+      rafRef.current = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+    rafRef.current = requestAnimationFrame(loop);
 
     return () => {
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafRef.current);
       ro.disconnect();
+      io.disconnect();
       if (interactive) {
         window.removeEventListener('mousemove', handleMouseMove);
       }
