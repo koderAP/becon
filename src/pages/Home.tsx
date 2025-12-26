@@ -10,15 +10,14 @@ import { InteractiveBentoGallery, MediaItem } from '../../components/BentoGaller
 import { useNavigate } from 'react-router-dom';
 
 const galleryItems: MediaItem[] = [
-    { id: 1, type: 'video', url: '/VID-20250118-WA0171.mp4', span: 'col-span-1 md:col-span-2 row-span-2', title: 'Summit Highlights', desc: 'Memorable moments from 2025' },
-    { id: 2, type: 'image', url: '/gallery/gallery-1.png', span: 'col-span-1 row-span-1', title: 'BECon Moments', desc: 'Past event highlights' },
-    { id: 3, type: 'image', url: '/gallery/gallery-2.png', span: 'col-span-1 row-span-1', title: 'Keynote Sessions', desc: 'Industry leaders on stage' },
-    { id: 4, type: 'image', url: '/gallery/gallery-3.png', span: 'col-span-1 row-span-2', title: 'Networking', desc: 'Building connections' },
-    { id: 5, type: 'image', url: '/gallery/gallery-4.png', span: 'col-span-1 md:col-span-2 row-span-1', title: 'Engaged Audience', desc: 'Full house at the main stage' },
-    { id: 6, type: 'image', url: '/gallery/gallery-5.png', span: 'col-span-1 row-span-1', title: 'Workshops', desc: 'Hands-on learning experiences' },
-    { id: 7, type: 'image', url: '/gallery/gallery-6.png', span: 'col-span-1 row-span-1', title: 'Innovation', desc: 'Showcasing future tech' },
-    { id: 8, type: 'image', url: '/gallery/gallery-7.png', span: 'col-span-1 row-span-1', title: 'Panel Discussions', desc: 'Expert insights' },
-    { id: 9, type: 'image', url: '/gallery/gallery-8.png', span: 'col-span-1 row-span-1', title: 'Speakers', desc: 'Inspiring talks' },
+    { id: 1, type: 'image', url: '/gallery/gallery-1.png', span: 'col-span-1 md:col-span-2 row-span-2', title: 'BECon 2025', desc: 'Highlights from our flagship event' },
+    { id: 2, type: 'image', url: '/gallery/gallery-2.png', span: 'col-span-1 row-span-1', title: 'Keynote Sessions', desc: 'Industry leaders on stage' },
+    { id: 3, type: 'image', url: '/gallery/gallery-3.png', span: 'col-span-1 row-span-1', title: 'Networking', desc: 'Building connections' },
+    { id: 4, type: 'image', url: '/gallery/gallery-4.png', span: 'col-span-1 row-span-2', title: 'Workshops', desc: 'Hands-on learning experiences' },
+    { id: 5, type: 'image', url: '/gallery/gallery-5.png', span: 'col-span-1 row-span-1', title: 'Panel Discussions', desc: 'Expert insights' },
+    { id: 6, type: 'image', url: '/gallery/gallery-6.png', span: 'col-span-1 md:col-span-2 row-span-1', title: 'Engaged Audience', desc: 'Full house at the main stage' },
+    { id: 7, type: 'image', url: '/gallery/gallery-7.png', span: 'col-span-1 row-span-1', title: 'Innovation', desc: 'Showcasing future tech' },
+    { id: 8, type: 'image', url: '/gallery/gallery-8.png', span: 'col-span-1 row-span-1', title: 'Speakers', desc: 'Inspiring talks' },
 ];
 
 export const Home: React.FC = () => {
