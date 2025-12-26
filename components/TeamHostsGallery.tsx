@@ -62,56 +62,50 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                     viewport={{ once: true }}
                     className="cursor-grab active:cursor-grabbing"
                 >
-                    <Reorder.Group
-                        axis="y"
-                        values={items}
-                        onReorder={setItems}
-                        className="grid grid-cols-2 gap-4"
-                    >
-                        {items.map((host, i) => (
-                            <Reorder.Item
-                                key={host.id}
-                                value={host}
-                                as="div"
-                                whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                drag
-                                dragMomentum={false}
-                                dragElastic={0.15}
-                                onDragStart={() => setIsDragging(true)}
-                                onDragEnd={() => {
-                                    setTimeout(() => setIsDragging(false), 50);
-                                }}
-                                className={`relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] ${i === 0 ? 'row-span-2 aspect-[3/4]' : 'aspect-square'
-                                    }`}
-                                style={{ touchAction: 'none' }}
-                            >
-                                <img
-                                    src={host.img}
-                                    alt={host.name}
-                                    loading="lazy"
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                                    draggable={false}
-                                />
+                    {/* 2 Columns with alternating tall/short pattern */}
+                    <div className="grid grid-cols-2 gap-4">
+                        {/* Column 1: Tall (index 0) + Short (index 2) */}
+                        <div className="flex flex-col gap-4">
+                            {[0, 2].map((idx, colIdx) => {
+                                const host = items[idx];
+                                const isTall = colIdx === 0;
+                                return (
+                                    <div
+                                        key={host.id}
+                                        className={`relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-pointer ${isTall ? 'aspect-[3/4]' : 'aspect-square'}`}
+                                        onClick={() => setSelectedHost(host)}
+                                    >
+                                        <img src={host.img} alt={host.name} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                            <h3 className="text-xl font-bold text-white">{host.name}</h3>
+                                            <p className={`${isTall ? 'text-purple-400' : 'text-blue-400'} text-sm`}>{host.role}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
 
-                                {/* Hover Overlay */}
-                                <div
-                                    className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                    onClick={(e) => {
-                                        if (isDragging) {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            return;
-                                        }
-                                        setSelectedHost(host);
-                                    }}
-                                >
-                                    <h3 className="text-xl font-bold text-white">{host.name}</h3>
-                                    <p className="text-purple-400 text-sm">{host.role}</p>
-                                    <p className="text-gray-400 text-xs mt-1">Click to view profile</p>
-                                </div>
-                            </Reorder.Item>
-                        ))}
-                    </Reorder.Group>
+                        {/* Column 2: Short (index 1) + Tall (index 3) */}
+                        <div className="flex flex-col gap-4">
+                            {[1, 3].map((idx, colIdx) => {
+                                const host = items[idx];
+                                const isTall = colIdx === 1;
+                                return (
+                                    <div
+                                        key={host.id}
+                                        className={`relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-pointer ${isTall ? 'aspect-[3/4]' : 'aspect-square'}`}
+                                        onClick={() => setSelectedHost(host)}
+                                    >
+                                        <img src={host.img} alt={host.name} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                            <h3 className="text-xl font-bold text-white">{host.name}</h3>
+                                            <p className={`${isTall ? 'text-blue-400' : 'text-purple-400'} text-sm`}>{host.role}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </motion.div>
             </div>
 
