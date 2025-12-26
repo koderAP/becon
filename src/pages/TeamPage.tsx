@@ -98,7 +98,7 @@ export const TeamPage: React.FC = () => {
                 description="The passionate individuals behind BECon 2026."
             />
 
-            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-24 xl:px-32 max-w-[1600px] mx-auto">
 
                 {/* Hero Section - Meet Our Hosts (Draggable Gallery) */}
                 <TeamHostsGallery
@@ -115,7 +115,7 @@ export const TeamPage: React.FC = () => {
                         <span className="text-lg text-gray-300 uppercase tracking-widest">Core Team Members</span>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-8">
                         {coreTeamMembers.map((member, index) => (
                             <TeamMemberCard key={member.id} member={member} index={index} />
                         ))}
