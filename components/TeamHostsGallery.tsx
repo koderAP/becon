@@ -85,14 +85,14 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 value={items[0]}
                                 as="div"
                                 whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                drag
+                                drag={!isMobile}
                                 dragMomentum={false}
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
-                                style={{ touchAction: 'none' }}
-                                onClick={() => isMobile && setActiveId(activeId === items[0]?.id ? null : items[0]?.id)}
+                                style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                onTap={() => isMobile && setActiveId(activeId === items[0]?.id ? null : items[0]?.id)}
                             >
-                                <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[0]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[0]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
+                                <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[0]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                     onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[0]); }}
@@ -107,14 +107,14 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 value={items[2]}
                                 as="div"
                                 whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                drag
+                                drag={!isMobile}
                                 dragMomentum={false}
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
-                                style={{ touchAction: 'none' }}
-                                onClick={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
+                                style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                onTap={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
                             >
-                                <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[2]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[2]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
+                                <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[2]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                     onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[2]); }}
@@ -132,14 +132,14 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 value={items[1]}
                                 as="div"
                                 whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                drag
+                                drag={!isMobile}
                                 dragMomentum={false}
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
-                                style={{ touchAction: 'none' }}
-                                onClick={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
+                                style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                onTap={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
                             >
-                                <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[1]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[1]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
+                                <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[1]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                     onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[1]); }}
@@ -154,14 +154,14 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 value={items[3]}
                                 as="div"
                                 whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                drag
+                                drag={!isMobile}
                                 dragMomentum={false}
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
-                                style={{ touchAction: 'none' }}
-                                onClick={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
+                                style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                onTap={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
                             >
-                                <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[3]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[3]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
+                                <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[3]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                     onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[3]); }}
