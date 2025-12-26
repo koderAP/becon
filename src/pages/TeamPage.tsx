@@ -64,9 +64,9 @@ const TeamMemberCard: React.FC<{ member: TeamMember; index: number }> = ({ membe
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
+            className="group bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-3 md:p-6 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
         >
-            <div className="aspect-square rounded-xl overflow-hidden mb-4 bg-white/5">
+            <div className="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-4 bg-white/5">
                 <img
                     src={member.img}
                     alt={member.name}
@@ -74,15 +74,15 @@ const TeamMemberCard: React.FC<{ member: TeamMember; index: number }> = ({ membe
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
             </div>
-            <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
-            <p className="text-purple-400 font-medium mb-4">{member.role}</p>
+            <h3 className="text-sm md:text-xl font-bold text-white mb-0.5 md:mb-1 truncate">{member.name}</h3>
+            <p className="text-purple-400 font-medium text-xs md:text-base mb-2 md:mb-4 truncate">{member.role}</p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-2 md:gap-4">
                 <a href={member.linkedin || '#'} className="text-gray-400 hover:text-[#0077b5] transition-colors">
-                    <Linkedin size={20} />
+                    <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                 </a>
                 <a href={member.instagram || '#'} className="text-gray-400 hover:text-[#E1306C] transition-colors">
-                    <Instagram size={20} />
+                    <Instagram className="w-4 h-4 md:w-5 md:h-5" />
                 </a>
             </div>
         </motion.div>
@@ -115,7 +115,7 @@ export const TeamPage: React.FC = () => {
                         <span className="text-lg text-gray-300 uppercase tracking-widest">Core Team Members</span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                         {coreTeamMembers.map((member, index) => (
                             <TeamMemberCard key={member.id} member={member} index={index} />
                         ))}
