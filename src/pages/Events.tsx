@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from '../../components/Footer';
-import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, Globe, Lightbulb, Target, Users } from 'lucide-react';
+import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../components/PageHeader';
 
@@ -21,14 +21,6 @@ interface RegionalCity {
     image: string;
 }
 
-interface RegionalEventType {
-    id: string;
-    title: string;
-    subtitle: string;
-    description: string;
-    icon: React.ElementType;
-}
-
 const regionalCities: RegionalCity[] = [
     { name: 'Bangalore', image: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&q=80&w=400' },
     { name: 'Mumbai', image: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&q=80&w=400' },
@@ -38,27 +30,34 @@ const regionalCities: RegionalCity[] = [
     { name: 'Delhi', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=400' },
 ];
 
-const regionalEventTypes: RegionalEventType[] = [
+const regionalEventsData: EventCard[] = [
     {
         id: 'blueprint',
-        title: 'Blueprint',
-        subtitle: 'B-Plan Competition',
+        title: 'Blueprint – B-Plan Competition',
         description: 'Shape early-stage ideas into strong, practical, and scalable ventures.',
-        icon: Lightbulb,
+        date: 'Jan 2026',
+        location: 'Multiple Cities',
+        category: 'competition',
+        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
     },
     {
-        id: 'moonshot',
-        title: 'Moonshot',
-        subtitle: 'Funding Platform',
+        id: 'moonshot-regional',
+        title: 'Moonshot – Funding Platform',
         description: 'Pitch to leading investors and unlock powerful funding opportunities.',
-        icon: Target,
+        date: 'Jan 2026',
+        location: 'Multiple Cities',
+        category: 'competition',
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1559223607-a43c990ed9aa?auto=format&fit=crop&q=80&w=800',
     },
     {
-        id: 'startup-clinic',
+        id: 'startup-clinic-regional',
         title: 'Start-Up Clinic',
-        subtitle: 'Mentorship Sessions',
         description: "Find clarity, mentorship, and meaningful guidance from people who've built before.",
-        icon: Users,
+        date: 'Jan 2026',
+        location: 'Multiple Cities',
+        category: 'workshop',
+        image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800',
     },
 ];
 
@@ -127,6 +126,102 @@ const categoryConfig = {
     workshop: { icon: Code, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
     competition: { icon: Trophy, color: 'text-yellow-400', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
     networking: { icon: Handshake, color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
+};
+
+// Reusable Event Card Component
+const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: boolean }> = ({ event, index, animate = true }) => {
+    const style = categoryConfig[event.category];
+    const Icon = style.icon;
+
+    const cardContent = (
+        <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 h-full">
+            {/* Image Container */}
+            <div className="h-48 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#05020a] via-transparent to-transparent z-10" />
+                {event.image ? (
+                    <img
+                        src={event.image}
+                        alt={event.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                ) : (
+                    <div className={`w-full h-full flex items-center justify-center ${style.bg}`}>
+                        <Icon className={`w-12 h-12 ${style.color}`} />
+                    </div>
+                )}
+
+                {/* Badges */}
+                <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${style.border} ${style.bg} ${style.color} backdrop-blur-md uppercase tracking-wider flex items-center gap-1`}>
+                        <Icon size={12} />
+                        {event.category}
+                    </span>
+                    {event.featured && (
+                        <span className="px-3 py-1 text-xs font-semibold rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-400 backdrop-blur-md uppercase tracking-wider flex items-center gap-1">
+                            <Sparkles size={12} />
+                            Featured
+                        </span>
+                    )}
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                    {event.title}
+                </h3>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
+                    <div className="flex items-center gap-1.5">
+                        <Calendar size={14} className="text-purple-400" />
+                        {event.date}
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                        <MapPin size={14} className="text-blue-400" />
+                        {event.location}
+                    </div>
+                </div>
+
+                <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+                    {event.description}
+                </p>
+
+                <Link
+                    to={`/events/${event.id}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:gap-3 transition-all"
+                >
+                    View Details <ArrowRight size={16} className="text-purple-400" />
+                </Link>
+            </div>
+        </div>
+    );
+
+    if (animate) {
+        return (
+            <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+            >
+                {cardContent}
+            </motion.div>
+        );
+    }
+
+    return (
+        <motion.div
+            key={event.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+        >
+            {cardContent}
+        </motion.div>
+    );
 };
 
 export const Events: React.FC = () => {
@@ -232,48 +327,17 @@ export const Events: React.FC = () => {
                                         ))}
                                     </div>
 
-                                    {/* Regional Events */}
+                                    {/* Regional Events - Same card style as main events */}
                                     <div>
                                         <div className="flex items-center gap-4 mb-8">
                                             <div className="w-12 h-[2px] bg-white"></div>
-                                            <span className="text-lg text-gray-300 uppercase tracking-widest">Events</span>
+                                            <span className="text-lg text-gray-300 uppercase tracking-widest">Regional Events</span>
                                         </div>
 
-                                        <div className="space-y-6">
-                                            {regionalEventTypes.map((event, i) => {
-                                                const isEven = i % 2 === 0;
-                                                // Different shapes for each event
-                                                const shapes = [
-                                                    <div key="square" className="w-12 h-12 bg-gray-800 border border-gray-700" />, // Square
-                                                    <div key="circle" className="w-14 h-14 bg-gray-800 border border-gray-700 rounded-full" />, // Circle
-                                                    <div key="triangle" className="w-0 h-0 border-l-[28px] border-r-[28px] border-b-[48px] border-l-transparent border-r-transparent border-b-gray-800" style={{ filter: 'drop-shadow(0 0 1px #374151)' }} />, // Triangle
-                                                ];
-
-                                                return (
-                                                    <motion.div
-                                                        key={event.id}
-                                                        initial={{ opacity: 0, y: 20 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ delay: i * 0.15 }}
-                                                        className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-stretch gap-6 group`}
-                                                    >
-                                                        {/* Text Content */}
-                                                        <div className={`flex-1 flex flex-col justify-center ${isEven ? 'md:text-left' : 'md:text-right'}`}>
-                                                            <h4 className="text-2xl font-bold text-white mb-1">
-                                                                {event.title} – {event.subtitle}
-                                                            </h4>
-                                                            <p className="text-gray-400 text-base leading-relaxed max-w-md">
-                                                                {event.description}
-                                                            </p>
-                                                        </div>
-
-                                                        {/* Card with Shape */}
-                                                        <div className="flex-shrink-0 w-full md:w-72 h-48 bg-white rounded-2xl flex items-center justify-center border border-blue-500/30 group-hover:border-blue-500/50 transition-colors">
-                                                            {shapes[i]}
-                                                        </div>
-                                                    </motion.div>
-                                                );
-                                            })}
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            {regionalEventsData.map((event, index) => (
+                                                <EventCardComponent key={event.id} event={event} index={index} animate={true} />
+                                            ))}
                                         </div>
                                     </div>
 
@@ -302,82 +366,9 @@ export const Events: React.FC = () => {
 
                 {/* Events Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                    {eventsData.map((event, index) => {
-                        const style = categoryConfig[event.category];
-                        const Icon = style.icon;
-
-                        return (
-                            <motion.div
-                                key={event.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
-                            >
-                                {/* Image Container */}
-                                <div className="h-48 overflow-hidden relative">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#05020a] via-transparent to-transparent z-10" />
-                                    {event.image ? (
-                                        <img
-                                            src={event.image}
-                                            alt={event.title}
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                        />
-                                    ) : (
-                                        <div className={`w-full h-full flex items-center justify-center ${style.bg}`}>
-                                            <Icon className={`w-12 h-12 ${style.color}`} />
-                                        </div>
-                                    )}
-
-                                    {/* Badges */}
-                                    <div className="absolute top-4 left-4 z-20 flex gap-2">
-                                        <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${style.border} ${style.bg} ${style.color} backdrop-blur-md uppercase tracking-wider flex items-center gap-1`}>
-                                            <Icon size={12} />
-                                            {event.category}
-                                        </span>
-                                        {event.featured && (
-                                            <span className="px-3 py-1 text-xs font-semibold rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-400 backdrop-blur-md uppercase tracking-wider flex items-center gap-1">
-                                                <Sparkles size={12} />
-                                                Featured
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Content */}
-                                <div className="p-6">
-                                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
-                                        {event.title}
-                                    </h3>
-
-                                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
-                                        <div className="flex items-center gap-1.5">
-                                            <Calendar size={14} className="text-purple-400" />
-                                            {event.date}
-                                        </div>
-                                        <div className="flex items-center gap-1.5">
-                                            <MapPin size={14} className="text-blue-400" />
-                                            {event.location}
-                                        </div>
-                                    </div>
-
-                                    <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">
-                                        {event.description}
-                                    </p>
-
-                                    <Link
-                                        to={`/events/${event.id}`}
-                                        className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:gap-3 transition-all"
-                                    >
-                                        View Details <ArrowRight size={16} className="text-purple-400" />
-                                    </Link>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                    {eventsData.map((event, index) => (
+                        <EventCardComponent key={event.id} event={event} index={index} animate={false} />
+                    ))}
                 </div>
 
             </div>
