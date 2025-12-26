@@ -239,29 +239,38 @@ export const Events: React.FC = () => {
                                             <span className="text-lg text-gray-300 uppercase tracking-widest">Events</span>
                                         </div>
 
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div className="space-y-6">
                                             {regionalEventTypes.map((event, i) => {
-                                                const Icon = event.icon;
+                                                const isEven = i % 2 === 0;
+                                                // Different shapes for each event
+                                                const shapes = [
+                                                    <div key="square" className="w-12 h-12 bg-gray-800 border border-gray-700" />, // Square
+                                                    <div key="circle" className="w-14 h-14 bg-gray-800 border border-gray-700 rounded-full" />, // Circle
+                                                    <div key="triangle" className="w-0 h-0 border-l-[28px] border-r-[28px] border-b-[48px] border-l-transparent border-r-transparent border-b-gray-800" style={{ filter: 'drop-shadow(0 0 1px #374151)' }} />, // Triangle
+                                                ];
+
                                                 return (
                                                     <motion.div
                                                         key={event.id}
                                                         initial={{ opacity: 0, y: 20 }}
                                                         animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ delay: i * 0.1 }}
-                                                        className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
+                                                        transition={{ delay: i * 0.15 }}
+                                                        className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-stretch gap-6 group`}
                                                     >
-                                                        <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-                                                            <Icon className="w-6 h-6 text-purple-400" />
+                                                        {/* Text Content */}
+                                                        <div className={`flex-1 flex flex-col justify-center ${isEven ? 'md:text-left' : 'md:text-right'}`}>
+                                                            <h4 className="text-2xl font-bold text-white mb-1">
+                                                                {event.title} – {event.subtitle}
+                                                            </h4>
+                                                            <p className="text-gray-400 text-base leading-relaxed max-w-md">
+                                                                {event.description}
+                                                            </p>
                                                         </div>
-                                                        <h4 className="text-xl font-bold text-white mb-1">
-                                                            {event.title}
-                                                        </h4>
-                                                        <p className="text-purple-400 text-sm font-medium mb-3">
-                                                            {event.subtitle}
-                                                        </p>
-                                                        <p className="text-gray-400 text-sm leading-relaxed">
-                                                            {event.description}
-                                                        </p>
+
+                                                        {/* Card with Shape */}
+                                                        <div className="flex-shrink-0 w-full md:w-72 h-48 bg-white rounded-2xl flex items-center justify-center border border-blue-500/30 group-hover:border-blue-500/50 transition-colors">
+                                                            {shapes[i]}
+                                                        </div>
                                                     </motion.div>
                                                 );
                                             })}
