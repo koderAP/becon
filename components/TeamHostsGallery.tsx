@@ -28,6 +28,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
     const [items, setItems] = useState<HostMember[]>(hosts);
     const [selectedHost, setSelectedHost] = useState<HostMember | null>(null);
     const [isMobile, setIsMobile] = useState(false);
+    const [activeId, setActiveId] = useState<number | null>(null); // For mobile tap-to-colorize
 
     // Detect mobile screen
     React.useEffect(() => {
@@ -89,11 +90,12 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
                                 style={{ touchAction: 'none' }}
+                                onClick={() => isMobile && setActiveId(activeId === items[0]?.id ? null : items[0]?.id)}
                             >
-                                <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[0]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[0]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                    onClick={() => !isMobile && setSelectedHost(items[0])}
+                                    onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[0]); }}
                                 >
                                     <h3 className="text-lg md:text-xl font-bold text-white">{items[0]?.name}</h3>
                                     <p className="text-purple-400 text-sm">{items[0]?.role}</p>
@@ -110,11 +112,12 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
                                 style={{ touchAction: 'none' }}
+                                onClick={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
                             >
-                                <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[2]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[2]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                    onClick={() => !isMobile && setSelectedHost(items[2])}
+                                    onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[2]); }}
                                 >
                                     <h3 className="text-lg md:text-xl font-bold text-white">{items[2]?.name}</h3>
                                     <p className="text-blue-400 text-sm">{items[2]?.role}</p>
@@ -134,11 +137,12 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
                                 style={{ touchAction: 'none' }}
+                                onClick={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
                             >
-                                <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[1]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[1]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                    onClick={() => !isMobile && setSelectedHost(items[1])}
+                                    onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[1]); }}
                                 >
                                     <h3 className="text-lg md:text-xl font-bold text-white">{items[1]?.name}</h3>
                                     <p className="text-purple-400 text-sm">{items[1]?.role}</p>
@@ -155,11 +159,12 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                 dragElastic={0.15}
                                 className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
                                 style={{ touchAction: 'none' }}
+                                onClick={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
                             >
-                                <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[3]?.id || !isMobile ? 'md:group-hover:grayscale-0' : ''} ${activeId === items[3]?.id ? 'grayscale-0' : 'grayscale'}`} draggable={false} />
                                 <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                    onClick={() => !isMobile && setSelectedHost(items[3])}
+                                    onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[3]); }}
                                 >
                                     <h3 className="text-lg md:text-xl font-bold text-white">{items[3]?.name}</h3>
                                     <p className="text-blue-400 text-sm">{items[3]?.role}</p>
@@ -177,7 +182,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
                         onClick={() => setSelectedHost(null)}
                     >
                         <motion.div
@@ -185,7 +190,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl overflow-hidden max-w-md w-full shadow-2xl"
+                            className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl overflow-hidden max-w-md w-full shadow-2xl my-auto"
                         >
                             {/* Close Button */}
                             <button
