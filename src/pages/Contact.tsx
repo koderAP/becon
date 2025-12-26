@@ -86,13 +86,14 @@ export const Contact: React.FC = () => {
                             <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
                                 {/* Replace this with actual Google Maps iframe */}
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.3860578641147!2d77.1906669!3d28.5280802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sIndian%20Institute%20of%20Technology%20Delhi!5e0!3m2!1sen!2sin!4v1703668128362!5m2!1sen!2sin"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.260127!2d77.1906669!3d28.5447329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1df6b7d1c9a7%3A0x832b8e25cf689e8c!2sIIT%20Delhi%20Main%20Building!5e0!3m2!1sen!2sin!4v1703668128362!5m2!1sen!2sin"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}
                                     allowFullScreen
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
+                                    title="IIT Delhi Location"
                                 ></iframe>
                             </div>
                         </motion.div>
