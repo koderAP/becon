@@ -1,25 +1,104 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { Instagram, Linkedin } from 'lucide-react';
 import { Footer } from '../../components/Footer';
 import { PageHeader } from '../../components/PageHeader';
 
-const teamMembers = [
-    { id: 1, name: "Anubhav", role: "President", img: "https://picsum.photos/id/64/400/400" },
-    { id: 2, name: "Priya", role: "Vice President", img: "https://picsum.photos/id/91/400/400" },
-    { id: 3, name: "Rahul", role: "Tech Head", img: "https://picsum.photos/id/177/400/400" },
-    { id: 4, name: "Sneha", role: "Design Lead", img: "https://picsum.photos/id/338/400/400" },
-    { id: 5, name: "Vikram", role: "Events Head", img: "https://picsum.photos/id/342/400/400" },
-    { id: 6, name: "Aditi", role: "PR Head", img: "https://picsum.photos/id/447/400/400" },
-    { id: 7, name: "Karan", role: "Sponsorship Lead", img: "https://picsum.photos/id/531/400/400" },
-    { id: 8, name: "Neha", role: "Marketing Lead", img: "https://picsum.photos/id/619/400/400" },
+interface TeamMember {
+    id: number;
+    name: string;
+    role: string;
+    img: string;
+    linkedin?: string;
+    instagram?: string;
+}
+
+// Overall Coordinators
+const overallCoordinators: TeamMember[] = [
+    { id: 1, name: "Mai", role: "Overall Coordinator", img: "https://picsum.photos/id/64/400/400" },
+    { id: 2, name: "Tanmay", role: "Overall Coordinator", img: "https://picsum.photos/id/91/400/400" },
 ];
 
-const hosts = [
-    { id: 1, img: "https://picsum.photos/id/433/300/400" },
-    { id: 2, img: "https://picsum.photos/id/447/300/300" },
-    { id: 3, img: "https://picsum.photos/id/453/300/300" },
+// Co-Overall Coordinators
+const coOverallCoordinators: TeamMember[] = [
+    { id: 1, name: "Siddhesh", role: "Co-Overall Coordinator", img: "https://picsum.photos/id/177/400/400" },
+    { id: 2, name: "Kunal", role: "Co-Overall Coordinator", img: "https://picsum.photos/id/338/400/400" },
 ];
+
+// Core Team Members
+const coreTeamMembers: TeamMember[] = [
+    { id: 1, name: "Team Member 1", role: "Tech Lead", img: "https://picsum.photos/id/342/400/400" },
+    { id: 2, name: "Team Member 2", role: "Design Lead", img: "https://picsum.photos/id/447/400/400" },
+    { id: 3, name: "Team Member 3", role: "Events Head", img: "https://picsum.photos/id/531/400/400" },
+    { id: 4, name: "Team Member 4", role: "PR Head", img: "https://picsum.photos/id/619/400/400" },
+    { id: 5, name: "Team Member 5", role: "Sponsorship Lead", img: "https://picsum.photos/id/433/400/400" },
+    { id: 6, name: "Team Member 6", role: "Marketing Lead", img: "https://picsum.photos/id/453/400/400" },
+];
+
+// Reusable Team Member Card
+const TeamMemberCard: React.FC<{ member: TeamMember; index: number; size?: 'large' | 'medium' | 'small' }> = ({ member, index, size = 'medium' }) => {
+    const sizeClasses = {
+        large: 'p-8',
+        medium: 'p-6',
+        small: 'p-4',
+    };
+
+    const imageClasses = {
+        large: 'aspect-square rounded-2xl',
+        medium: 'aspect-square rounded-xl',
+        small: 'w-24 h-24 rounded-full mx-auto',
+    };
+
+    const nameClasses = {
+        large: 'text-2xl',
+        medium: 'text-xl',
+        small: 'text-lg',
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className={`group bg-white/5 border border-white/10 rounded-2xl ${sizeClasses[size]} hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300`}
+        >
+            <div className={`${imageClasses[size]} overflow-hidden mb-4 bg-white/5`}>
+                <img
+                    src={member.img}
+                    alt={member.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+            </div>
+            <h3 className={`${nameClasses[size]} font-bold text-white mb-1 ${size === 'small' ? 'text-center' : ''}`}>
+                {member.name}
+            </h3>
+            <p className={`text-purple-400 font-medium mb-4 ${size === 'small' ? 'text-center text-sm' : ''}`}>
+                {member.role}
+            </p>
+
+            <div className={`flex gap-4 ${size === 'small' ? 'justify-center' : ''}`}>
+                {member.linkedin && (
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0077b5] transition-colors">
+                        <Linkedin size={size === 'small' ? 16 : 20} />
+                    </a>
+                )}
+                {member.instagram && (
+                    <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E1306C] transition-colors">
+                        <Instagram size={size === 'small' ? 16 : 20} />
+                    </a>
+                )}
+                {!member.linkedin && !member.instagram && (
+                    <>
+                        <a href="#" className="text-gray-400 hover:text-[#0077b5] transition-colors"><Linkedin size={size === 'small' ? 16 : 20} /></a>
+                        <a href="#" className="text-gray-400 hover:text-[#E1306C] transition-colors"><Instagram size={size === 'small' ? 16 : 20} /></a>
+                    </>
+                )}
+            </div>
+        </motion.div>
+    );
+};
 
 export const TeamPage: React.FC = () => {
     return (
@@ -32,89 +111,107 @@ export const TeamPage: React.FC = () => {
 
             <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
 
-                {/* Full Team Photo Section */}
-                <div className="mb-24 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="w-full aspect-[21/9] rounded-3xl overflow-hidden border border-white/10 relative group"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
-                        <img
-                            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2000"
-                            alt="Full Team"
-                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                        />
-                        <div className="absolute bottom-6 left-6 z-20 text-left">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white mb-2">The Force Behind BECon</h2>
-                            <p className="text-gray-300 text-lg">A team of dedicated innovators and leaders.</p>
-                        </div>
-                    </motion.div>
+                {/* Hero Section - Meet Our Hosts */}
+                <div className="mb-24">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        {/* Left: Text Content */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-12 h-[2px] bg-white"></div>
+                                <span className="text-lg text-gray-300 uppercase tracking-widest">Our Host</span>
+                            </div>
+
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                                Meet Our Hosts: The Visionaries Behind{' '}
+                                <span className="text-purple-400">BECon Tech Summit</span>
+                            </h1>
+
+                            <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                                The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders.
+                                Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds
+                                in AI, automation, and digital transformation.
+                            </p>
+
+                            <p className="text-gray-500 italic font-serif text-xl">Signature</p>
+                        </motion.div>
+
+                        {/* Right: Bento Grid of Host Images */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="grid grid-cols-2 gap-4"
+                        >
+                            {/* Large image spanning left column */}
+                            <div className="row-span-2 rounded-2xl overflow-hidden">
+                                <img
+                                    src="https://picsum.photos/id/64/400/600"
+                                    alt="Host"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            {/* Top right */}
+                            <div className="rounded-2xl overflow-hidden">
+                                <img
+                                    src="https://picsum.photos/id/91/400/400"
+                                    alt="Host"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            {/* Bottom right */}
+                            <div className="rounded-2xl overflow-hidden">
+                                <img
+                                    src="https://picsum.photos/id/177/400/400"
+                                    alt="Host"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* OC Section - Overall Coordinators */}
+                <div className="mb-24">
+                    <div className="flex items-center gap-4 mb-12">
+                        <div className="w-12 h-[2px] bg-purple-500"></div>
+                        <span className="text-lg text-purple-400 uppercase tracking-widest font-semibold">Overall Coordinators</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        {overallCoordinators.map((member, index) => (
+                            <TeamMemberCard key={member.id} member={member} index={index} size="large" />
+                        ))}
+                    </div>
+                </div>
+
+                {/* Co-OC Section - Co-Overall Coordinators */}
+                <div className="mb-24">
+                    <div className="flex items-center gap-4 mb-12">
+                        <div className="w-12 h-[2px] bg-blue-500"></div>
+                        <span className="text-lg text-blue-400 uppercase tracking-widest font-semibold">Co-Overall Coordinators</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        {coOverallCoordinators.map((member, index) => (
+                            <TeamMemberCard key={member.id} member={member} index={index} size="large" />
+                        ))}
+                    </div>
                 </div>
 
                 {/* Core Team Section */}
                 <div className="mb-24">
                     <div className="flex items-center gap-4 mb-12">
                         <div className="w-12 h-[2px] bg-white"></div>
-                        <span className="text-lg text-gray-300 uppercase tracking-widest">Core Team</span>
+                        <span className="text-lg text-gray-300 uppercase tracking-widest">Core Team Members</span>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors"
-                            >
-                                <div className="aspect-square rounded-xl overflow-hidden mb-6 bg-white/5">
-                                    {/* Placeholder for Core Member Image */}
-                                    <div className="w-full h-full flex items-center justify-center text-gray-600">
-                                        Photo
-                                    </div>
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-1">Team Member Name</h3>
-                                <p className="text-purple-400 font-medium mb-4">Core Team Role</p>
-
-                                <div className="flex gap-4">
-                                    <a href="#" className="text-gray-400 hover:text-white transition-colors"><Linkedin size={20} /></a>
-                                    <a href="#" className="text-gray-400 hover:text-white transition-colors"><Instagram size={20} /></a>
-                                    <span className="text-gray-500 text-sm ml-auto font-mono">+91 98765 43210</span>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Cordis Section */}
-                <div className="mb-16">
-                    <div className="flex items-center gap-4 mb-12">
-                        <div className="w-12 h-[2px] bg-white"></div>
-                        <span className="text-lg text-gray-300 uppercase tracking-widest">Cordis & Executives</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                className="group bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition-colors text-center"
-                            >
-                                <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 bg-white/5 mx-auto">
-                                    {/* Placeholder for Member Image */}
-                                </div>
-                                <h3 className="text-lg font-bold text-white mb-1">Member Name</h3>
-                                <p className="text-gray-400 text-sm mb-3">Position</p>
-                                <div className="flex justify-center gap-3">
-                                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Linkedin size={16} /></a>
-                                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Instagram size={16} /></a>
-                                </div>
-                            </motion.div>
+                        {coreTeamMembers.map((member, index) => (
+                            <TeamMemberCard key={member.id} member={member} index={index} size="medium" />
                         ))}
                     </div>
                 </div>
