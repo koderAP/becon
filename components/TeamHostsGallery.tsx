@@ -27,7 +27,15 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
 }) => {
     const [items, setItems] = useState<HostMember[]>(hosts);
     const [selectedHost, setSelectedHost] = useState<HostMember | null>(null);
-    const [isDragging, setIsDragging] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile screen
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     return (
         <div className="mb-24">
@@ -73,11 +81,12 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     <div
                                         key={host.id}
                                         className={`relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-pointer ${isTall ? 'aspect-[3/4]' : 'aspect-square'}`}
-                                        onClick={() => setSelectedHost(host)}
+                                        onClick={() => !isMobile && setSelectedHost(host)}
                                     >
-                                        <img src={host.img} alt={host.name} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" draggable={false} />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                            <h3 className="text-xl font-bold text-white">{host.name}</h3>
+                                        <img src={host.img} alt={host.name} loading="lazy" className="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                        {/* Overlay: always visible on mobile, hover on desktop */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                            <h3 className="text-lg md:text-xl font-bold text-white">{host.name}</h3>
                                             <p className={`${isTall ? 'text-purple-400' : 'text-blue-400'} text-sm`}>{host.role}</p>
                                         </div>
                                     </div>
@@ -94,11 +103,12 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     <div
                                         key={host.id}
                                         className={`relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-pointer ${isTall ? 'aspect-[3/4]' : 'aspect-square'}`}
-                                        onClick={() => setSelectedHost(host)}
+                                        onClick={() => !isMobile && setSelectedHost(host)}
                                     >
-                                        <img src={host.img} alt={host.name} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" draggable={false} />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                            <h3 className="text-xl font-bold text-white">{host.name}</h3>
+                                        <img src={host.img} alt={host.name} loading="lazy" className="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-500" draggable={false} />
+                                        {/* Overlay: always visible on mobile, hover on desktop */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                            <h3 className="text-lg md:text-xl font-bold text-white">{host.name}</h3>
                                             <p className={`${isTall ? 'text-blue-400' : 'text-purple-400'} text-sm`}>{host.role}</p>
                                         </div>
                                     </div>
