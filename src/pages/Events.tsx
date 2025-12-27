@@ -104,7 +104,7 @@ const eventsData: EventCard[] = [
         location: 'Lecture Hall Complex',
         category: 'hackathon',
         featured: true,
-        image: 'https://images.unsplash.com/photo-1504384308090-c54be3852f33?auto=format&fit=crop&q=80&w=800',
+        image: '/events/e-rakshaHackathon.avif',
     },
     {
         id: 'moonshot-main',
@@ -121,7 +121,7 @@ const eventsData: EventCard[] = [
         location: 'Main Auditorium',
         category: 'competition',
         featured: true,
-        image: 'https://images.unsplash.com/photo-1559223607-a43c990ed9aa?auto=format&fit=crop&q=80&w=800',
+        image: '/events/Grandmoonshot.avif',
     },
     {
         id: 'innoverse',
@@ -137,7 +137,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
-        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800',
+        image: '/events/innoverse.avif',
     },
     {
         id: 'autospark',
@@ -153,7 +153,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Outdoor Arena',
         category: 'exhibition',
-        image: 'https://images.unsplash.com/photo-1503376763036-066120622c74?auto=format&fit=crop&q=80&w=800',
+        image: '/events/autospark.avif',
     },
     {
         id: 'blueprint-main',
@@ -169,7 +169,7 @@ const eventsData: EventCard[] = [
         date: 'Feb 1, 2026',
         location: 'Seminar Hall',
         category: 'competition',
-        image: 'https://images.unsplash.com/photo-1559136555-930d72f248b6?auto=format&fit=crop&q=80&w=800',
+        image: '/events/Blueprint.avif',
     },
     {
         id: 'launchpad',
@@ -185,7 +185,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
-        image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800',
+        image: '/events/launchpad.avif',
     },
     {
         id: 'startup-clinic-main',
@@ -201,7 +201,7 @@ const eventsData: EventCard[] = [
         date: 'Feb 1, 2026',
         location: 'LHC Foyer',
         category: 'workshop',
-        image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=800',
+        image: '/events/startupclinic.avif',
     },
     {
         id: 'policysphere',
@@ -217,7 +217,7 @@ const eventsData: EventCard[] = [
         date: 'Feb 2, 2026',
         location: 'Senate Hall',
         category: 'networking',
-        image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=800',
+        image: '/events/Policysphere.avif',
     },
     {
         id: 'colab',
@@ -233,7 +233,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 31, 2026',
         location: 'Networking Zone',
         category: 'networking',
-        image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=800',
+        image: '/events/Co-lab.avif',
     },
     {
         id: 'strategy-competitions',
@@ -314,7 +314,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=800',
+        image: '/events/keynote.avif',
     },
 ];
 
