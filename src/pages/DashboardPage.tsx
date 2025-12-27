@@ -2,9 +2,101 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     User, Mail, Phone, Building, Calendar, Edit2, Save, X, Ticket, Trophy,
-    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell
+    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// ID Card Popup Component
+const IDCardModal: React.FC<{
+    isOpen: boolean;
+    onClose: () => void;
+    user: UserProfile;
+}> = ({ isOpen, onClose, user }) => (
+    <AnimatePresence>
+        {isOpen && (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                onClick={onClose}
+            >
+                <motion.div
+                    initial={{ scale: 0.8, opacity: 0, rotateY: -15 }}
+                    animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ type: 'spring', damping: 20 }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="relative w-full max-w-md"
+                    style={{ perspective: '1000px' }}
+                >
+                    {/* Card Glow */}
+                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 rounded-3xl blur-xl opacity-60" />
+
+                    {/* ID Card */}
+                    <div className="relative bg-gradient-to-br from-[#1a0a2e] to-[#0a0a1a] rounded-3xl overflow-hidden border-2 border-purple-500/50">
+                        {/* Header Banner */}
+                        <div className="h-24 bg-gradient-to-r from-purple-600 to-blue-600 relative">
+                            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '16px 16px' }} />
+                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-28 h-28 rounded-full border-4 border-[#1a0a2e] overflow-hidden bg-gradient-to-br from-purple-500 to-blue-500">
+                                {user.avatar ? (
+                                    <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-white">
+                                        {user.name.charAt(0)}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Card Content */}
+                        <div className="pt-16 pb-8 px-6 text-center">
+                            <h2 className="text-2xl font-bold text-white mb-1">{user.name}</h2>
+                            <p className="text-gray-400 text-sm mb-4">{user.college} • {user.year}</p>
+
+                            {/* BECon ID */}
+                            <div className="bg-white/5 rounded-xl p-4 mb-4 border border-white/10">
+                                <p className="text-xs text-purple-400 uppercase tracking-wider mb-1">BECon ID</p>
+                                <h3 className="text-xl font-mono font-bold tracking-wider text-white">{user.becId}</h3>
+                            </div>
+
+                            {/* QR Code */}
+                            <div className="bg-white rounded-xl p-4 w-32 h-32 mx-auto mb-4">
+                                <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMSAyMSI+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTAgMGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSAxaDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDJoM3YzSDJ6TTAgOGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSA5aDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDEwaDN2M0gyem0xMi04aDd2N2gtN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTUgMWg1djVoLTV6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2IDJoM3YzaC0zek04IDBoMXYxSDh6bTIgMGgxdjFoLTF6bTIgMGgydjJoLTF2MWgtMVYxaDF6bS0yIDJoMXYxaC0xem0tMiAxaDF2MUg4em0yIDBoMXYxaC0xem0yIDFoMXYxaC0xek04IDRoMnYxSDh6bTQgMGgxdjJoLTF6bTEgMWgxdjFoLTF6TTggNmgydjJIOHptMyAwaDF2MWgtMXptMCAxdjFoMVY3aC0xem0yIDBoMXYxaC0xem0tNyAyaDJ2MUg2em0zIDBoMXYxSDl6bTIgMGgxdjFoLTF6bTIgMWgxdjFoLTF6bTEtMWgxdjFoLTF6bTIgMGgxdjFoLTF6bTEgMGgxdjFoLTF6TTggMTBoMXYxSDh6bTIgMGgxdjFoLTF6bTQgMGgxdjFoLTF6TTggMTJoMXYxSDh6bTIgMGgxdjFoLTF6bS00IDFoMXYxSDZ6bTQgMGgxdjFoLTF6bTIgMGgydjFoLTJ6bTQtNWgxdjFoLTF6bTEgMGgxdjFoLTF6bS0yIDJoMnYxaC0xdjFoLTF6bTMgMGgxdjJoLTF6bS0xIDNoMXYxaC0xeiIvPjwvc3ZnPg==')] bg-contain bg-center bg-no-repeat" />
+                            </div>
+
+                            {/* Contact Info */}
+                            <div className="text-sm text-gray-400 space-y-2">
+                                <div className="flex items-center justify-center gap-2">
+                                    <Mail size={14} />
+                                    <span>{user.email}</span>
+                                </div>
+                                <div className="flex items-center justify-center gap-2">
+                                    <Phone size={14} />
+                                    <span>{user.phone}</span>
+                                </div>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-2">
+                                <Sparkles size={16} className="text-purple-400" />
+                                <span className="text-sm text-gray-400">BECon 2026 • IIT Delhi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Close Button */}
+                    <button
+                        onClick={onClose}
+                        className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                    >
+                        <X size={20} className="text-white" />
+                    </button>
+                </motion.div>
+            </motion.div>
+        )}
+    </AnimatePresence>
+);
 
 interface UserProfile {
     id: string;
@@ -78,6 +170,22 @@ const GlowOrb: React.FC<{ className?: string }> = ({ className }) => (
 export const DashboardPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'events' | 'passes'>('events');
     const [isEditingProfile, setIsEditingProfile] = useState(false);
+    const [showIDCard, setShowIDCard] = useState(false);
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
+    // Handle avatar upload
+    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const result = reader.result as string;
+                setAvatarPreview(result);
+                setUserProfile(prev => ({ ...prev, avatar: result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     // Mock user data
     const [userProfile, setUserProfile] = useState<UserProfile>({
@@ -134,7 +242,10 @@ export const DashboardPage: React.FC = () => {
                 <GlowOrb className="w-64 h-64 bg-pink-600 top-1/2 left-1/2 -translate-x-1/2" />
             </div>
 
-            <div className="relative z-10 pt-24 pb-12 px-4 sm:px-6 md:px-12 lg:px-20">
+            {/* ID Card Modal */}
+            <IDCardModal isOpen={showIDCard} onClose={() => setShowIDCard(false)} user={userProfile} />
+
+            <div className="relative z-10 pt-32 pb-12 px-4 sm:px-6 md:px-12 lg:px-20">
                 <div className="max-w-7xl mx-auto">
                     {/* Header */}
                     <motion.div
@@ -161,18 +272,24 @@ export const DashboardPage: React.FC = () => {
                     {/* Bento Grid Layout */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
 
-                        {/* BECon ID Card - Premium Glowing Card */}
+                        {/* BECon ID Card - Premium Glowing Card (Clickable) */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.1 }}
-                            className="lg:col-span-5 relative group"
+                            className="lg:col-span-5 relative group cursor-pointer"
+                            onClick={() => setShowIDCard(true)}
                         >
                             <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-                            <div className="relative bg-gradient-to-br from-[#1a0a2e] to-[#0a0a1a] rounded-3xl p-6 border border-purple-500/30 overflow-hidden h-full">
+                            <div className="relative bg-gradient-to-br from-[#1a0a2e] to-[#0a0a1a] rounded-3xl p-6 border border-purple-500/30 overflow-hidden h-full group-hover:border-purple-500/50 transition-colors">
                                 {/* Card Pattern */}
                                 <div className="absolute inset-0 opacity-10">
                                     <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                                </div>
+
+                                {/* Click Hint */}
+                                <div className="absolute top-3 right-3 text-xs text-purple-400/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Click to view ID card
                                 </div>
 
                                 <div className="relative z-10">
@@ -187,8 +304,27 @@ export const DashboardPage: React.FC = () => {
                                     </div>
 
                                     <div className="flex items-center gap-4 mb-6">
-                                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-2xl font-bold">
-                                            {userProfile.name.charAt(0)}
+                                        {/* Avatar with upload option */}
+                                        <div className="relative">
+                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-2xl font-bold overflow-hidden">
+                                                {userProfile.avatar ? (
+                                                    <img src={userProfile.avatar} alt={userProfile.name} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    userProfile.name.charAt(0)
+                                                )}
+                                            </div>
+                                            <label
+                                                className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-purple-600 border-2 border-[#1a0a2e] flex items-center justify-center cursor-pointer hover:bg-purple-500 transition-colors"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <Camera size={12} className="text-white" />
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    className="hidden"
+                                                    onChange={handleAvatarChange}
+                                                />
+                                            </label>
                                         </div>
                                         <div>
                                             <h4 className="text-xl font-bold">{userProfile.name}</h4>
