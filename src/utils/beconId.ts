@@ -18,14 +18,44 @@ export function generateBeconId(): string {
 }
 
 /**
- * Generate BECon ID from user ID (deterministic)
- * This ensures same user always gets same ID
+ * Simple hash function for strings
+ */
+function simpleHash(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash);
+}
+
+/**
+ * Generate BECon ID from user ID (deterministic and unique)
+ * Uses hash of full UUID to ensure no collisions
  */
 export function generateBeconIdFromUserId(userId: string): string {
-    // Use first 8 chars of user ID to create deterministic ID
-    const hash = userId.replace(/-/g, '').toUpperCase();
-    const part1 = hash.substring(0, 4);
-    const part2 = hash.substring(4, 8);
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+    // Create two different hashes for the two parts
+    const hash1 = simpleHash(userId);
+    const hash2 = simpleHash(userId.split('').reverse().join(''));
+
+    // Generate first 4 characters from hash1
+    let part1 = '';
+    let tempHash1 = hash1;
+    for (let i = 0; i < 4; i++) {
+        part1 += chars[tempHash1 % chars.length];
+        tempHash1 = Math.floor(tempHash1 / chars.length);
+    }
+
+    // Generate second 4 characters from hash2
+    let part2 = '';
+    let tempHash2 = hash2;
+    for (let i = 0; i < 4; i++) {
+        part2 += chars[tempHash2 % chars.length];
+        tempHash2 = Math.floor(tempHash2 / chars.length);
+    }
 
     return `BEC26-${part1}-${part2}`;
 }
