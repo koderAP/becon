@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
     return (
         <footer
             ref={footerRef}
-            className="relative bg-[#05020a] border-t border-white/5 pt-24 pb-12 overflow-hidden group"
+            className="relative bg-[#05020a] border-t border-white/5 pt-16 pb-8 overflow-hidden group"
         >
             {/* Dynamic Cursor Spotlight */}
             <div
@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
 
             {/* Wider Container */}
             <div className="max-w-[1600px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-12 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-12 mb-8">
                     {/* Brand Column */}
                     <div className="md:col-span-12 lg:col-span-5 flex flex-col justify-between">
                         <div>
