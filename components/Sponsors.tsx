@@ -58,6 +58,30 @@ const SkeletonSponsorGrid = () => (
     </div>
 );
 
+// Staggered animation variants for smooth flow entrance
+const gridContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+};
+
+const gridItemVariants = {
+    hidden: { opacity: 0, y: 15, scale: 0.9 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.3
+        }
+    }
+};
+
 const chunkArray = (arr: Sponsor[], chunks: number) => {
     const result = [];
     const len = arr.length;
@@ -156,13 +180,16 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                 {isLoading ? (
                     <SkeletonSponsorGrid />
                 ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto">
+                    <motion.div
+                        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto"
+                        variants={gridContainerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {sponsors.map((s) => (
                             <motion.div
                                 key={s.id}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
+                                variants={gridItemVariants}
                                 className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-xl flex items-center justify-center hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer group p-4"
                             >
                                 <img
@@ -174,7 +201,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                                 />
                             </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 )}
             </div>
 

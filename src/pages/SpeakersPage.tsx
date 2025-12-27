@@ -1,10 +1,33 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Speakers } from '../../components/Speakers';
 import { Footer } from '../../components/Footer';
 import { PageHeader } from '../../components/PageHeader';
 import { Instagram, Linkedin } from 'lucide-react';
 
-// Skeleton Loader for Speaker Cards
+// Staggered animation variants
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.05,
+            delayChildren: 0.1
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.4
+        }
+    }
+};
 const SkeletonSpeakerCard = () => (
     <div className="group relative animate-pulse">
         <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-white/5 border border-white/5">
@@ -52,13 +75,20 @@ export const SpeakersPage: React.FC = () => {
                         <span className="text-lg text-gray-300 uppercase tracking-widest">Previous Speakers</span>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {isLoading ? (
-                            Array.from({ length: 8 }).map((_, i) => (
+                    {isLoading ? (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {Array.from({ length: 8 }).map((_, i) => (
                                 <SkeletonSpeakerCard key={i} />
-                            ))
-                        ) : (
-                            [
+                            ))}
+                        </div>
+                    ) : (
+                        <motion.div
+                            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {[
                                 "Sachin Bansal", "Ritesh Agarwal", "Raghuram Rajan", "Nikhil Kamath", "Anand Chandrasekaran",
                                 "Sanjeev Bikhchandani", "Dara Khosrowshahi", "Deepinder Goyal", "Mark Zuckerberg", "Elie Seidman",
                                 "Jack Dorsey", "Prashanth Prakash", "Aman Gupta", "Ashneer Grover", "Kunal Bahl",
@@ -70,7 +100,7 @@ export const SpeakersPage: React.FC = () => {
                             ].map((name, i) => {
                                 const imagePath = `/speakers/${name.replace(/\s+/g, '')}.png`;
                                 return (
-                                    <div key={i} className="group relative">
+                                    <motion.div key={i} className="group relative" variants={itemVariants}>
                                         <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
                                             <img
                                                 src={imagePath}
@@ -101,17 +131,17 @@ export const SpeakersPage: React.FC = () => {
                                             <h3 className="text-xl font-bold text-white mb-1">{name}</h3>
                                             <p className="text-gray-500 text-sm">Industry Leader</p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 );
-                            })
-                        )}
-                    </div>
+                            })}
+                        </motion.div>
+                    )}
                 </div>
             </div>
 
             <div className="relative z-50">
                 <Footer />
             </div>
-        </div>
+        </div >
     );
 };
