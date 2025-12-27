@@ -7,6 +7,7 @@ interface TypewriterProps {
     deletingSpeed?: number;
     pauseTime?: number;
     className?: string;
+    style?: React.CSSProperties;
 }
 
 export const Typewriter: React.FC<TypewriterProps> = ({
@@ -15,6 +16,7 @@ export const Typewriter: React.FC<TypewriterProps> = ({
     deletingSpeed = 30,
     pauseTime = 1500,
     className = "",
+    style,
 }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [isBlinking, setIsBlinking] = useState(true);
@@ -83,7 +85,7 @@ export const Typewriter: React.FC<TypewriterProps> = ({
     }, [sentences, typingSpeed, deletingSpeed, pauseTime]);
 
     return (
-        <span className={className}>
+        <span className={className} style={style}>
             {displayedText}
             <motion.span
                 animate={{ opacity: isBlinking ? [1, 0] : 1 }}
