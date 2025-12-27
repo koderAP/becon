@@ -51,7 +51,7 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="bg-[#05020a] text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
-      <Navbar />
+      {!isAuthPage && <Navbar />}
 
       <main className="relative z-0">
         <AnimatedRoutes />
