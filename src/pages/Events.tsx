@@ -205,7 +205,42 @@ const categoryConfig = {
     competition: { icon: Trophy, color: 'text-yellow-400', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
     networking: { icon: Handshake, color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
     exhibition: { icon: Sparkles, color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20' },
+
 };
+
+// Skeleton Loader for Regional Cards
+const SkeletonRegionalCard = () => (
+    <div className="bg-white/5 border border-white/10 rounded-2xl p-6 h-full flex flex-col animate-pulse">
+        <div className="h-48 bg-white/10 rounded-xl mb-6 w-full" />
+        <div className="h-6 w-24 bg-white/10 rounded mb-4" />
+        <div className="h-8 w-3/4 bg-white/10 rounded mb-4" />
+        <div className="space-y-2 mb-6 flex-1">
+            <div className="h-4 w-full bg-white/10 rounded" />
+            <div className="h-4 w-5/6 bg-white/10 rounded" />
+            <div className="h-4 w-4/6 bg-white/10 rounded" />
+        </div>
+        <div className="h-10 w-full bg-white/10 rounded-xl" />
+    </div>
+);
+
+// Skeleton Loader for Main Cards
+const SkeletonMainCard = () => (
+    <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24 animate-pulse">
+        <div className="flex-1 w-full space-y-6">
+            <div className="flex items-center gap-3">
+                <div className="h-1 w-8 bg-white/10 rounded" />
+                <div className="h-4 w-20 bg-white/10 rounded" />
+            </div>
+            <div className="h-12 w-3/4 bg-white/10 rounded" />
+            <div className="h-24 w-full bg-white/10 rounded" />
+            <div className="flex gap-6 pt-4">
+                <div className="h-4 w-32 bg-white/10 rounded" />
+                <div className="h-4 w-32 bg-white/10 rounded" />
+            </div>
+        </div>
+        <div className="flex-1 w-full h-[300px] md:h-[400px] bg-white/10 rounded-3xl" />
+    </div>
+);
 
 // Reusable Event Card Component
 const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: boolean }> = ({ event, index, animate = true }) => {
@@ -308,6 +343,15 @@ const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: 
 export const Events: React.FC = () => {
     const [isRegionalsExpanded, setIsRegionalsExpanded] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<EventCard | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Simulate loading delay
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
 
     // Lock body scroll when modal is open
     React.useEffect(() => {
@@ -383,12 +427,12 @@ export const Events: React.FC = () => {
 
                     {/* Expandable Regional Content */}
                     <AnimatePresence>
-                        {isRegionalsExpanded && (
+                        {(isRegionalsExpanded || isLoading) && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
+                                animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                                transition={{ duration: 0.5, ease: "easeInOut" }}
                                 className="overflow-hidden"
                             >
                                 <div className="pt-12 space-y-16">
@@ -522,77 +566,82 @@ export const Events: React.FC = () => {
                 {/* Events Grid */}
                 {/* Events List - Alternating Layout */}
                 <div className="space-y-24">
-                    {eventsData.map((event, i) => (
-                        <motion.div
-                            key={event.id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.8, delay: i * 0.1 }}
-                            onClick={() => setSelectedEvent(event)}
-                            className={`cursor-pointer group flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-                        >
-                            {/* Content Section */}
-                            <div className="flex-1 space-y-6 text-left">
-                                <div className="flex items-center gap-3">
-                                    <span className="h-[1px] w-8 bg-purple-500"></span>
-                                    <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
-                                </div>
-
-                                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
-                                    {event.title}
-                                </h3>
-
-                                <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                    {event.description.length > 330
-                                        ? `${event.description.substring(0, 330)}...`
-                                        : event.description}
-                                </p>
-
-                                <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
-                                    <div className="flex items-center gap-2">
-                                        <Calendar size={16} className="text-white" />
-                                        <span>{event.date.split('|')[0].trim()}</span>
+                    {isLoading ? (
+                        Array.from({ length: 4 }).map((_, i) => (
+                            <SkeletonMainCard key={i} />
+                        ))
+                    ) : (
+                        eventsData.map((event, i) => (
+                            <motion.div
+                                key={event.id}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ duration: 0.8, delay: i * 0.1 }}
+                                onClick={() => setSelectedEvent(event)}
+                                className={`cursor-pointer group flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                            >
+                                {/* Content Section */}
+                                <div className="flex-1 space-y-6 text-left">
+                                    <div className="flex items-center gap-3">
+                                        <span className="h-[1px] w-8 bg-purple-500"></span>
+                                        <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
                                     </div>
-                                    {event.date.includes('|') && (
+
+                                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
+                                        {event.title}
+                                    </h3>
+
+                                    <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                                        {event.description.length > 330
+                                            ? `${event.description.substring(0, 330)}...`
+                                            : event.description}
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center">
-                                                <span className="w-2.5 h-0.5 bg-white"></span>
-                                            </div>
-                                            <span>{event.date.split('|')[1].trim()}</span>
+                                            <Calendar size={16} className="text-white" />
+                                            <span>{event.date.split('|')[0].trim()}</span>
                                         </div>
-                                    )}
-                                    <div className="flex items-center gap-2">
-                                        <MapPin size={16} className="text-white" />
-                                        <span>{event.location}</span>
+                                        {event.date.includes('|') && (
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center">
+                                                    <span className="w-2.5 h-0.5 bg-white"></span>
+                                                </div>
+                                                <span>{event.date.split('|')[1].trim()}</span>
+                                            </div>
+                                        )}
+                                        <div className="flex items-center gap-2">
+                                            <MapPin size={16} className="text-white" />
+                                            <span>{event.location}</span>
+                                        </div>
                                     </div>
+
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedEvent(event);
+                                        }}
+                                        className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
+                                    >
+                                        Know More
+                                        <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                                    </button>
                                 </div>
 
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setSelectedEvent(event);
-                                    }}
-                                    className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
-                                >
-                                    Know More
-                                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                                </button>
-                            </div>
-
-                            {/* Image Section */}
-                            <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
-                                <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
-                                <img
-                                    src={event.image}
-                                    alt={event.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                {/* Subtle overlay */}
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                            </div>
-                        </motion.div>
-                    ))}
+                                {/* Image Section */}
+                                <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
+                                    <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
+                                    <img
+                                        src={event.image}
+                                        alt={event.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    {/* Subtle overlay */}
+                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                                </div>
+                            </motion.div>
+                        )))}
                 </div>
 
             </div>
