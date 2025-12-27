@@ -10,7 +10,7 @@ interface EventCard {
     id: string;
     title: string;
     description: string;
-    whyJoin?: string[];
+    whyJoin?: readonly string[];
     date: string;
     location: string;
     category: 'hackathon' | 'keynote' | 'workshop' | 'competition' | 'networking' | 'exhibition';
@@ -33,9 +33,18 @@ const regionalCities: RegionalCity[] = [
     { name: 'Delhi', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=400' },
 ];
 
-const regionalEventsData: EventCard[] = [
-    {
-        id: 'blueprint-regional',
+// ============= SHARED EVENT DEFINITIONS =============
+// These events appear in both regional and main summit with different dates/locations
+interface SharedEventBase {
+    title: string;
+    description: string;
+    whyJoin: readonly string[];
+    category: 'hackathon' | 'keynote' | 'workshop' | 'competition' | 'networking' | 'exhibition';
+    image: string;
+}
+
+const sharedEvents = {
+    blueprint: {
         title: 'Blueprint – B-Plan Competition',
         description: "Blueprint is designed for founders at the early stages of their startup journey who are looking for clarity, direction, and expert mentorship. It helps teams refine their ideas, understand real-world market fit, and strengthen how they think, plan, and build. Shortlisted startups present before experienced founders, industry mentors, and early-stage investors, gaining structured insights and long-term support. If you're building your startup story, Blueprint helps you shape it right.",
         whyJoin: [
@@ -45,14 +54,10 @@ const regionalEventsData: EventCard[] = [
             'Clarity on business model, product direction, and growth',
             'Pathway to the Grand Summit at IIT Delhi with national visibility'
         ],
-        date: 'Jan 10 - Feb 1, 2026',
-        location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
-        category: 'competition',
-        isRegional: true,
-        image: 'https://images.unsplash.com/photo-1559136555-930d72f248b6?auto=format&fit=crop&q=80&w=800',
+        category: 'competition' as const,
+        image: '/events/Blueprint.avif',
     },
-    {
-        id: 'moonshot-regional',
+    moonshot: {
         title: 'Moonshot – Funding Platform',
         description: "Moonshot is for startups that are already building, growing, and ready to scale further. It brings strong Seed to Series A ventures to pitch before top venture capitalists and investment leaders from India and across the world. The strongest startups move forward to the Grand Moonshot at IIT Delhi, where they present to global VCs, deep-tech leaders, and ecosystem partners. If your startup is ready for its next leap, Moonshot gives you the platform to raise.",
         whyJoin: [
@@ -62,15 +67,10 @@ const regionalEventsData: EventCard[] = [
             'Sharp feedback to strengthen your pitch and funding readiness',
             'A pathway to the Grand Moonshot at IIT Delhi'
         ],
-        date: 'Jan 10 - Feb 1, 2026',
-        location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
-        category: 'competition',
-        featured: true,
-        isRegional: true,
-        image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&q=80&w=800',
+        category: 'competition' as const,
+        image: '/events/Grandmoonshot.avif',
     },
-    {
-        id: 'startup-clinic-regional',
+    startupClinic: {
         title: 'Start-Up Clinic',
         description: "The Start-Up Clinic is a dedicated space for early-stage founders to engage with experienced entrepreneurs, domain experts, and industry leaders. It creates a guided yet relaxed environment for real conversations, mentorship, and relationship-building — helping founders gain clarity, refine direction, and connect with the right people who can support their journey ahead. If you value guidance and a strong network, the Clinic is designed for you.",
         whyJoin: [
@@ -80,12 +80,36 @@ const regionalEventsData: EventCard[] = [
             'Guidance that helps shape clearer decisions and strategy',
             'Connections that often continue beyond the event'
         ],
-        date: 'Jan 10 - Feb 1, 2026',
-        location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
-        category: 'workshop',
-        isRegional: true,
-        image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=800',
-    },
+        category: 'workshop' as const,
+        image: '/events/startupclinic.avif',
+    }
+} as const;
+
+// Helper to create regional event variant
+const toRegional = (base: SharedEventBase, id: string, featured?: boolean): EventCard => ({
+    id: `${id}-regional`,
+    ...base,
+    date: 'Jan 10 - Feb 1, 2026',
+    location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
+    isRegional: true,
+    featured,
+});
+
+// Helper to create main summit event variant
+const toMain = (base: SharedEventBase, id: string, date: string, location: string, featured?: boolean): EventCard => ({
+    id: `${id}-main`,
+    ...base,
+    date,
+    location,
+    featured,
+});
+
+// ============= REGIONAL EVENTS =============
+
+const regionalEventsData: EventCard[] = [
+    toRegional(sharedEvents.blueprint, 'blueprint'),
+    toRegional(sharedEvents.moonshot, 'moonshot', true), // featured
+    toRegional(sharedEvents.startupClinic, 'startup-clinic'),
 ];
 
 const eventsData: EventCard[] = [
@@ -155,22 +179,7 @@ const eventsData: EventCard[] = [
         category: 'exhibition',
         image: '/events/autospark.avif',
     },
-    {
-        id: 'blueprint-main',
-        title: 'Blueprint – B-Plan Competition',
-        description: "Blueprint is designed for founders at the early stages of their startup journey who are looking for clarity, direction, and expert mentorship. It helps teams refine their ideas, understand real-world market fit, and strengthen how they think, plan, and build. Shortlisted startups present before experienced founders, industry mentors, and early-stage investors, gaining structured insights and long-term support. If you're building your startup story, Blueprint helps you shape it right.",
-        whyJoin: [
-            'Access to industry mentors and experienced founders',
-            'Structured guidance to refine ideas and strategy',
-            "Real-world feedback from people who've built before",
-            'Clarity on business model, product direction, and growth',
-            'Pathway to the Grand Summit at IIT Delhi with national visibility'
-        ],
-        date: 'Feb 1, 2026',
-        location: 'Seminar Hall',
-        category: 'competition',
-        image: '/events/Blueprint.avif',
-    },
+    toMain(sharedEvents.blueprint, 'blueprint', 'Feb 1, 2026', 'Seminar Hall'),
     {
         id: 'launchpad',
         title: 'Launchpad – Startup Expo',
@@ -187,22 +196,7 @@ const eventsData: EventCard[] = [
         category: 'exhibition',
         image: '/events/launchpad.avif',
     },
-    {
-        id: 'startup-clinic-main',
-        title: 'Start-Up Clinic',
-        description: "The Start-Up Clinic is a dedicated space for early-stage founders to engage with experienced entrepreneurs, domain experts, and industry leaders. It creates a guided yet relaxed environment for real conversations, mentorship, and relationship-building — helping founders gain clarity, refine direction, and connect with the right people who can support their journey ahead. If you value guidance and a strong network, the Clinic is designed for you.",
-        whyJoin: [
-            'Access to experienced mentors and industry experts',
-            'A supportive environment to discuss challenges openly',
-            'Meaningful networking with founders and leaders',
-            'Guidance that helps shape clearer decisions and strategy',
-            'Connections that often continue beyond the event'
-        ],
-        date: 'Feb 1, 2026',
-        location: 'LHC Foyer',
-        category: 'workshop',
-        image: '/events/startupclinic.avif',
-    },
+    toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer'),
     {
         id: 'policysphere',
         title: 'Policysphere',
