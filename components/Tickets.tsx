@@ -1,102 +1,166 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 export const Tickets: React.FC = () => {
-  return (
-    <div className="min-h-screen pt-24 px-6 md:px-20 bg-black flex flex-col justify-center relative overflow-hidden">
-      
-      {/* Background glowing line simulating the "neon stick" in the screenshot */}
-      <div className="absolute left-10 md:left-40 top-1/2 -translate-y-1/2 h-[60vh] w-2 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 blur-[4px] opacity-70"></div>
-      <div className="absolute left-10 md:left-40 top-1/2 -translate-y-1/2 h-[60vh] w-2 bg-white blur-[10px] opacity-40"></div>
+    return (
+        <div className="min-h-screen py-24 px-6 md:px-12 lg:px-20 bg-black flex flex-col justify-center relative overflow-hidden" id="tickets">
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pl-12 md:pl-40">
-        <div>
-            <motion.h1 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-5xl md:text-6xl font-bold leading-tight mb-12"
-            >
-                Secure Your Spot at <span className="text-gray-500">BECon <br /> DeepTech Summit Today!</span>
-            </motion.h1>
+            {/* Background ambient glow */}
+            <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none"></div>
+            <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none"></div>
 
-            {/* General Admission Card */}
-            <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="p-8 rounded-3xl bg-[#130d21] border border-white/10 relative overflow-hidden group hover:border-purple-500/50 transition-colors"
-            >
-                <div className="absolute top-0 right-0 p-3 bg-white/10 rounded-bl-2xl text-xs uppercase font-bold tracking-widest">General Admission</div>
-                <h3 className="text-2xl font-bold mb-4">General Admission</h3>
-                <p className="text-gray-400 text-sm mb-6 max-w-md">Access to the main stage, exhibitions, and standard networking sessions throughout the summit.</p>
-                
-                <ul className="space-y-3 mb-8 text-sm text-gray-300">
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Entry to keynote sessions</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Access to tech expo floor</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Standard networking lounge</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Summit welcome kit</li>
-                </ul>
-            </motion.div>
+            <div className="max-w-7xl mx-auto w-full">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-16"
+                >
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-[2px] bg-white"></div>
+                        <span className="uppercase tracking-widest text-sm text-gray-400">Registration</span>
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                        Secure Your Spot at <span className="text-gray-500">BECon <br /> DeepTech Summit Today!</span>
+                    </h1>
+                </motion.div>
 
-             {/* Campus Ambassador Card */}
-             <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="mt-8 p-8 rounded-3xl bg-[#130d21] border border-white/10 relative overflow-hidden group hover:border-purple-500/50 transition-colors"
-            >
-                 <h3 className="text-2xl font-bold mb-4">Campus Ambassador</h3>
-                 <p className="text-gray-400 text-sm mb-6 max-w-md">The initiative recruits motivated students from across campus to promote the event and its goals.</p>
-                 <ul className="space-y-3 mb-8 text-sm text-gray-300">
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Prize Pool of worth 30k+</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Certificate of Completion</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-4 bg-purple-500"></div> Exclusive entry to events</li>
-                </ul>
-            </motion.div>
-        </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    {/* Left Side: 3D Graphic */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="relative flex justify-center lg:justify-start"
+                    >
+                        <motion.img
+                            src="/becon-ticket-final.png"
+                            alt="BECon Ticket"
+                            className="w-full max-w-md lg:max-w-lg object-contain drop-shadow-[0_0_50px_rgba(139,92,246,0.3)]"
+                            animate={{ y: [0, -20, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                    </motion.div>
 
-        <div className="space-y-8 flex flex-col justify-center">
-             {/* Ticket Style Cards (Purple Gradient Backgrounds) */}
-             <motion.div 
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="h-80 rounded-3xl p-8 relative flex flex-col justify-between overflow-hidden"
-                style={{ background: 'linear-gradient(135deg, #2e1065 0%, #000000 100%)' }}
-             >
-                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-purple-500/20 blur-[80px] rounded-full pointer-events-none"></div>
-                <div>
-                     <div className="inline-block px-3 py-1 rounded-full border border-white/20 text-xs mb-4">Early Bird</div>
-                     <h3 className="text-2xl font-light text-white">Single admission</h3>
+                    {/* Right Side: Cards */}
+                    <div className="space-y-6">
+
+                        {/* General Admission Card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="group relative p-8 rounded-3xl overflow-hidden border border-white/10 transition-all duration-300 hover:border-purple-500/50"
+                            style={{ background: 'linear-gradient(145deg, rgba(20,10,40,0.9) 0%, rgba(5,5,10,0.95) 100%)' }}
+                        >
+                            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-purple-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-purple-500/20 transition-all duration-500"></div>
+
+                            <div className="flex flex-col md:flex-row gap-8 relative z-10">
+                                <div className="flex-1">
+                                    <h3 className="text-2xl font-bold mb-2 text-white">General Admission</h3>
+                                    <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                                        Access to the main stage, exhibitions, and standard networking sessions throughout the summit.
+                                    </p>
+
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-purple-500 rounded-full"></div>
+                                            Entry to keynote sessions
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-purple-500 rounded-full"></div>
+                                            Access to tech expo floor
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-purple-500 rounded-full"></div>
+                                            Standard networking lounge
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-purple-500 rounded-full"></div>
+                                            Summit welcome kit
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="w-full md:w-64 flex flex-col justify-between shrink-0 bg-white/5 rounded-2xl p-6 border border-white/5 backdrop-blur-sm">
+                                    <div>
+                                        <div className="inline-block px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-xs font-semibold mb-4">
+                                            Early Bird
+                                        </div>
+                                        <div className="text-lg font-medium text-white mb-1">Single admission</div>
+                                    </div>
+
+                                    <button className="w-full mt-6 py-3 bg-white text-black hover:bg-gray-200 rounded-xl flex items-center justify-between px-4 transition-all font-semibold text-sm group/btn">
+                                        <span>Register</span>
+                                        <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Campus Ambassador Card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="group relative p-8 rounded-3xl overflow-hidden border border-white/10 transition-all duration-300 hover:border-blue-500/50"
+                            style={{ background: 'linear-gradient(145deg, rgba(10,15,40,0.9) 0%, rgba(5,5,10,0.95) 100%)' }}
+                        >
+                            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-blue-500/20 transition-all duration-500"></div>
+
+                            <div className="flex flex-col md:flex-row gap-8 relative z-10">
+                                <div className="flex-1">
+                                    <h3 className="text-2xl font-bold mb-2 text-white">Campus Ambassador</h3>
+                                    <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                                        The initiative recruits motivated students from across campus to promote the event and its goals.
+                                    </p>
+
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
+                                            Prize Pool of worth 30k+
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
+                                            Certificate of Completion of Internship
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
+                                            Exclusive entry to events
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
+                                            Merchandise & Goodies
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                            <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
+                                            Letter of Recommendation
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="w-full md:w-64 flex flex-col justify-between shrink-0 bg-white/5 rounded-2xl p-6 border border-white/5 backdrop-blur-sm">
+                                    <div>
+                                        <div className="inline-block px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-semibold mb-4">
+                                            Early Bird
+                                        </div>
+                                        <div className="text-lg font-medium text-white mb-1">Single admission</div>
+                                    </div>
+
+                                    <button className="w-full mt-6 py-3 bg-white text-black hover:bg-gray-200 rounded-xl flex items-center justify-between px-4 transition-all font-semibold text-sm group/btn">
+                                        <span>Register</span>
+                                        <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                    </div>
                 </div>
-                
-                <button className="w-full py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-between px-6 transition-all border border-white/5">
-                    <span>Register</span>
-                    <ArrowUpRight size={20} />
-                </button>
-             </motion.div>
-
-             <motion.div 
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="h-80 rounded-3xl p-8 relative flex flex-col justify-between overflow-hidden"
-                style={{ background: 'linear-gradient(135deg, #4c1d95 0%, #000000 100%)' }}
-             >
-                <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
-                <div>
-                     <div className="inline-block px-3 py-1 rounded-full border border-white/20 text-xs mb-4">Early Bird</div>
-                     <h3 className="text-2xl font-light text-white">Single admission</h3>
-                </div>
-                
-                <button className="w-full py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-between px-6 transition-all border border-white/5">
-                    <span>Register</span>
-                    <ArrowUpRight size={20} />
-                </button>
-             </motion.div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };

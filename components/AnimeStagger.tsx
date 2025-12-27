@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 // @ts-ignore
-import { animate, stagger } from 'animejs';
+import { animate, stagger, set } from 'animejs';
 
 interface AnimeStaggerProps {
     children: React.ReactNode;
@@ -36,10 +36,17 @@ export const AnimeStagger: React.FC<AnimeStaggerProps> = ({
                 entries.forEach((entry) => {
                     if (entry.isIntersecting && !infoRef.current.hasAnimated && containerRef.current) {
                         // Get all immediate children to animate
-                        const targets = containerRef.current.children;
+                        const targets = Array.from(containerRef.current.children);
 
-                        animate({
-                            targets: targets,
+                        // Set initial state immediately to avoid flash or non-visibility if animation delays
+                        // @ts-ignore
+                        set(targets, {
+                            opacity: 0,
+                            translateY: Array.isArray(translateY) ? translateY[0] : 50,
+                            scale: Array.isArray(scale) ? scale[0] : 0.8
+                        });
+
+                        animate(targets, {
                             translateY: translateY,
                             translateX: translateX,
                             scale: scale,
