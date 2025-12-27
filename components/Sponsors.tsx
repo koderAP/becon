@@ -44,7 +44,51 @@ interface SponsorsProps {
     className?: string;
 }
 
+const chunkArray = (arr: Sponsor[], chunks: number) => {
+    const result = [];
+    const len = arr.length;
+    const size = Math.ceil(len / chunks);
+    for (let i = 0; i < len; i += size) {
+        result.push(arr.slice(i, i + size));
+    }
+    return result;
+};
+
+const InfiniteMarqueeRow: React.FC<{ sponsors: Sponsor[], direction: 'left' | 'right', speed?: number }> = ({ sponsors, direction = 'left', speed = 20 }) => {
+    return (
+        <div className="flex overflow-hidden relative w-full mb-4">
+            <motion.div
+                className="flex gap-4 shrink-0"
+                initial={{ x: direction === 'left' ? 0 : '-50%' }}
+                animate={{ x: direction === 'left' ? '-50%' : 0 }}
+                transition={{
+                    duration: speed,
+                    repeat: Infinity,
+                    ease: "linear",
+                    repeatType: "loop"
+                }}
+            >
+                {/* Duplicate the list to create seamless infinite scroll */}
+                {[...sponsors, ...sponsors, ...sponsors, ...sponsors].map((s, i) => (
+                    <div
+                        key={`${s.id}-${i}`}
+                        className="w-24 h-16 bg-white/5 border border-white/5 rounded-lg flex items-center justify-center shrink-0"
+                    >
+                        <img
+                            src={s.logo}
+                            alt={s.name}
+                            className="w-full h-full object-contain p-2"
+                        />
+                    </div>
+                ))}
+            </motion.div>
+        </div>
+    );
+};
+
 export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className = "" }) => {
+    const sponsorChunks = chunkArray(sponsors, 3);
+
     return (
         <div className={`px-4 sm:px-6 md:px-12 lg:px-20 ${showHeader ? 'pt-20 sm:pt-24 pb-16 sm:pb-20' : 'pb-20'} ${className} ${!className.includes('bg-') ? 'bg-[#05020a]' : ''}`}>
             {showHeader && (
@@ -71,8 +115,19 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                 </>
             )}
 
-            {/* Unified Sponsors Grid */}
-            <div className="mb-12 sm:mb-16 lg:mb-20">
+            {/* Mobile Marquee View (Hidden on md and up) */}
+            <div className="block md:hidden mb-12 relative">
+                {/* Fade gradients for smooth edge disappearance */}
+                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#05020a] to-transparent z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#05020a] to-transparent z-10" />
+
+                <InfiniteMarqueeRow sponsors={sponsorChunks[0]} direction="left" speed={25} />
+                <InfiniteMarqueeRow sponsors={sponsorChunks[1]} direction="right" speed={30} />
+                <InfiniteMarqueeRow sponsors={sponsorChunks[2]} direction="left" speed={22} />
+            </div>
+
+            {/* Desktop Unified Sponsors Grid (Hidden on sm and down using md:block) */}
+            <div className="hidden md:block mb-12 sm:mb-16 lg:mb-20">
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto">
                     {sponsors.map((s) => (
                         <motion.div

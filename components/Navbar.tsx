@@ -202,7 +202,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 md:hidden">
-        <div className="flex items-center justify-between px-4 py-4 bg-[#05020a]/80 backdrop-blur-md">
+        <div className="flex items-center justify-between px-4 py-4 bg-transparent">
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img src="/edclogo.avif" alt="eDC IIT Delhi" className="h-8 w-auto" />

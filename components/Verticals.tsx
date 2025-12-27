@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Rocket, Globe, Recycle, Bot, ArrowRight, Calendar, Clock, MapPin, ArrowUpRight, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane } from 'lucide-react';
+import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
 import { Vertical } from '../types';
+import { AnimeStagger } from './AnimeStagger';
 
 interface VerticalsProps {
   preview?: boolean;
@@ -138,16 +139,14 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       )}
 
       {/* Theme Domains Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 mb-16">
+      {/* Theme Domains Grid */}
+      <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-16 scrollbar-hide" staggerDelay={150}>
         {themeDomains.map((v, i) => (
           <motion.div
             key={v.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
             onClick={() => handleVerticalClick(v.id)}
-            className={`group relative h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
+            // style={{ opacity: 0 }} // Removed to ensure visibility
+            className={`group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedVertical === v.id
               ? 'border-purple-500'
               : 'border-white/10 hover:border-white/30'
               }`}
@@ -178,7 +177,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             </div>
           </motion.div>
         ))}
-      </div>
+      </AnimeStagger>
 
       {!preview && (
         <>
@@ -193,15 +192,12 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
           </motion.h1>
 
           {/* Wider Landscape Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+          <AnimeStagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4" staggerDelay={100}>
             {widerLandscape.map((v, i) => (
               <motion.div
                 key={v.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
                 onClick={() => handleVerticalClick(v.id)}
+                // style={{ opacity: 0 }} // Removed to ensure visibility
                 className={`group relative h-32 md:h-40 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
                   ? 'border-purple-500 bg-purple-500/10'
                   : 'border-white/10 bg-white/5 hover:border-white/30'
@@ -220,7 +216,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
                 </div>
               </motion.div>
             ))}
-          </div>
+          </AnimeStagger>
         </>
       )}
 
