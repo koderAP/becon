@@ -80,7 +80,7 @@ const eventsData: EventCard[] = [
     {
         id: 'keynote-ai',
         title: 'Keynote: Future of AI',
-        description: 'An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.',
+        description: 'An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.',
         date: 'Jan 31, 2026 | 10:30 AM',
         location: 'Dogra Hall',
         category: 'keynote',
@@ -470,7 +470,9 @@ export const Events: React.FC = () => {
                                 </h3>
 
                                 <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                    {event.description}
+                                    {event.description.length > 100
+                                        ? `${event.description.substring(0, 100)}...`
+                                        : event.description}
                                 </p>
 
                                 <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
