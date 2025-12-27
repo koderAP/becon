@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
     User, Mail, Phone, Building, Calendar, Edit2, Save, X, Ticket, Trophy,
     QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'sonner';
+import { generateBeconIdFromUserId } from '../utils/beconId';
 
 // ID Card Popup Component
 const IDCardModal: React.FC<{
@@ -172,6 +175,9 @@ export const DashboardPage: React.FC = () => {
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [showIDCard, setShowIDCard] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
+    const { user, signOut } = useAuth();
+    const navigate = useNavigate();
 
     // Handle avatar upload
     const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -187,19 +193,48 @@ export const DashboardPage: React.FC = () => {
         }
     };
 
-    // Mock user data
+    // Initialize user profile from Supabase
     const [userProfile, setUserProfile] = useState<UserProfile>({
-        id: '1',
-        becId: 'BEC26-A7K9-X4M2',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '+91 98765 43210',
-        college: 'IIT Delhi',
-        year: '3rd Year',
-        bio: 'Passionate about deep tech and entrepreneurship. Looking forward to BECon 2026!',
+        id: '',
+        becId: '',
+        name: '',
+        email: '',
+        phone: '',
+        college: '',
+        year: '',
+        bio: '',
     });
 
     const [editedProfile, setEditedProfile] = useState(userProfile);
+
+    // Fetch user data from Supabase
+    useEffect(() => {
+        if (!user) {
+            toast.error('Please login to access dashboard');
+            navigate('/login');
+            return;
+        }
+
+        // Extract data from Supabase user
+        const metadata = user.user_metadata || {};
+        const beconId = generateBeconIdFromUserId(user.id);
+
+        const profile: UserProfile = {
+            id: user.id,
+            becId: beconId,
+            name: metadata.full_name || user.email?.split('@')[0] || 'User',
+            email: user.email || '',
+            phone: metadata.phone || '',
+            college: metadata.college || '',
+            year: metadata.year || '2024',
+            bio: metadata.bio || `Excited to be part of BECon 2026!`,
+            avatar: metadata.avatar_url,
+        };
+
+        setUserProfile(profile);
+        setEditedProfile(profile);
+        setLoading(false);
+    }, [user, navigate]);
 
     // Mock data
     const registeredEvents: Event[] = [
@@ -233,6 +268,20 @@ export const DashboardPage: React.FC = () => {
         return styles[status as keyof typeof styles] || 'bg-gray-500/20 text-gray-400 border-gray-500/30';
     };
 
+    const handleLogout = async () => {
+        await signOut();
+        toast.success('Logged out successfully');
+        navigate('/login');
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[#030014] flex items-center justify-center">
+                <div className="text-white text-xl">Loading your dashboard...</div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-[#030014] text-white relative overflow-hidden">
             {/* Ambient Background */}
@@ -265,6 +314,13 @@ export const DashboardPage: React.FC = () => {
                             </button>
                             <button className="p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                                 <Settings size={20} className="text-gray-400" />
+                            </button>
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 transition-colors"
+                            >
+                                <LogOut size={18} />
+                                <span className="text-sm font-medium">Logout</span>
                             </button>
                         </div>
                     </motion.div>
