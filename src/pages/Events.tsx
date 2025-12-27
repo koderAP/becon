@@ -15,6 +15,7 @@ interface EventCard {
     category: 'hackathon' | 'keynote' | 'workshop' | 'competition' | 'networking';
     image?: string;
     featured?: boolean;
+    isRegional?: boolean;
 }
 
 interface RegionalCity {
@@ -35,29 +36,32 @@ const regionalEventsData: EventCard[] = [
     {
         id: 'blueprint',
         title: 'Blueprint – B-Plan Competition',
-        description: 'Shape early-stage ideas into strong, practical, and scalable ventures.',
+        description: 'Shape early-stage ideas into strong, practical, and scalable ventures. Blueprint provides a platform for aspiring entrepreneurs to validate their business models, receive mentorship from industry experts, and compete for seed funding to kickstart their journey.',
         date: 'Jan 2026',
         location: 'Multiple Cities',
         category: 'competition',
+        isRegional: true,
         image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
     },
     {
         id: 'moonshot-regional',
         title: 'Moonshot – Funding Platform',
-        description: 'Pitch to leading investors and unlock powerful funding opportunities.',
+        description: 'Pitch to leading investors and unlock powerful funding opportunities. This event connects high-potential startups with top-tier VCs and angel investors, offering a unique chance to secure the capital needed to scale your innovation to the next level.',
         date: 'Jan 2026',
         location: 'Multiple Cities',
         category: 'competition',
         featured: true,
+        isRegional: true,
         image: 'https://images.unsplash.com/photo-1559223607-a43c990ed9aa?auto=format&fit=crop&q=80&w=800',
     },
     {
         id: 'startup-clinic-regional',
         title: 'Start-Up Clinic',
-        description: "Find clarity, mentorship, and meaningful guidance from people who've built before.",
+        description: "Find clarity, mentorship, and meaningful guidance from people who've built before. Our clinic offers one-on-one sessions with successful founders and domain experts to help you troubleshoot challenges and refine your strategy.",
         date: 'Jan 2026',
         location: 'Multiple Cities',
         category: 'workshop',
+        isRegional: true,
         image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800',
     },
 ];
@@ -66,7 +70,7 @@ const eventsData: EventCard[] = [
     {
         id: '100x-hackathon',
         title: '100X Hackathon',
-        description: "Asia's largest deep-tech hackathon aimed at building breakthrough solutions for real-world problems. Join 500+ developers.",
+        description: "Asia's largest deep-tech hackathon aimed at building breakthrough solutions for real-world problems. Join 500+ developers, designers, and innovators for a 48-hour sprint to create cutting-edge technology that addresses pressing global challenges.",
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Lecture Hall Complex',
         category: 'hackathon',
@@ -76,7 +80,7 @@ const eventsData: EventCard[] = [
     {
         id: 'keynote-ai',
         title: 'Keynote: Future of AI',
-        description: 'An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets.',
+        description: 'An exclusive session with industry leaders discussing the transformative impact of Artificial Intelligence on global markets. Explore how AI is reshaping industries, ethics, and the future of work in this thought-provoking keynote address.',
         date: 'Jan 31, 2026 | 10:30 AM',
         location: 'Dogra Hall',
         category: 'keynote',
@@ -85,7 +89,7 @@ const eventsData: EventCard[] = [
     {
         id: 'startup-clinic-main',
         title: 'Start-Up Clinic',
-        description: 'One-on-one mentorship sessions with top VCs and angel investors to refine your pitch and business model.',
+        description: 'One-on-one mentorship sessions with top VCs and angel investors to refine your pitch and business model. Get personalized feedback on your go-to-market strategy, financial projections, and product roadmap from those who have successfully navigated the startup landscape.',
         date: 'Feb 1, 2026 | 02:00 PM',
         location: 'Seminar Hall',
         category: 'workshop',
@@ -94,7 +98,7 @@ const eventsData: EventCard[] = [
     {
         id: 'grand-moonshot',
         title: 'Grand Moonshot Pitch',
-        description: 'The ultimate pitch competition where finalists present their startups to a panel of global investors for funding.',
+        description: 'The ultimate pitch competition where finalists present their startups to a panel of global investors for funding. Witness the most promising startups battle it out for investment and recognition on the grandest stage of BECon.',
         date: 'Feb 1, 2026 | 05:00 PM',
         location: 'Main Auditorium',
         category: 'competition',
@@ -104,7 +108,7 @@ const eventsData: EventCard[] = [
     {
         id: 'networking-night',
         title: 'Founders Networking',
-        description: 'An evening dedicated to connecting with fellow founders, investors, and industry experts over dinner.',
+        description: 'An evening dedicated to connecting with fellow founders, investors, and industry experts over dinner. Build lasting relationships, exchange ideas, and find potential collaborators in a relaxed and exclusive setting.',
         date: 'Feb 1, 2026 | 08:00 PM',
         location: 'Faculty House',
         category: 'networking',
@@ -113,7 +117,7 @@ const eventsData: EventCard[] = [
     {
         id: 'workshop-web3',
         title: 'Web3 & Blockchain Workshop',
-        description: 'Hands-on workshop on building decentralized applications (dApps) on the latest blockchain protocols.',
+        description: 'Hands-on workshop on building decentralized applications (dApps) on the latest blockchain protocols. Learn from experts about smart contracts, DeFi, and the future of the decentralized web in this interactive session.',
         date: 'Feb 2, 2026 | 11:00 AM',
         location: 'LH 101',
         category: 'workshop',
@@ -185,8 +189,10 @@ const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: 
                     </div>
                 </div>
 
-                <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
-                    {event.description}
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                    {event.description.length > 100
+                        ? `${event.description.substring(0, 100)}...`
+                        : event.description}
                 </p>
 
                 <Link
@@ -584,7 +590,6 @@ export const Events: React.FC = () => {
 
                                             <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-10">
                                                 <p>{selectedEvent.description}</p>
-                                                <p>Join us to experience ground-breaking innovation and network with the best minds in the industry. This event is designed to foster collaboration and growth.</p>
                                             </div>
 
                                             <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between gap-4">
