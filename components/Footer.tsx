@@ -85,18 +85,18 @@ export const Footer: React.FC = () => {
                     </div>
 
                     {/* Navigation Columns */}
-                    <div className="md:col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-12 lg:pl-12">
+                    <div className="md:col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8 lg:pl-12">
                         {/* Column 1 */}
                         <div>
-                            <h3 className="text-white font-bold mb-8 uppercase tracking-[0.2em] text-xs flex items-center gap-2">
+                            <h3 className="text-white font-bold mb-6 uppercase tracking-[0.2em] text-xs flex items-center gap-2">
                                 <span className="w-8 h-[2px] bg-purple-500 rounded-full"></span> Explore
                             </h3>
-                            <ul className="space-y-4">
+                            <ul className="space-y-2">
                                 {['Events', 'Sponsors', 'Team', 'Schedule'].map((item) => (
                                     <li key={item}>
                                         <Link
                                             to={`/${item.toLowerCase()}`}
-                                            className="text-gray-400 text-base hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
+                                            className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
                                         >
                                             <span className="w-1 h-1 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                             {item}
@@ -108,15 +108,15 @@ export const Footer: React.FC = () => {
 
                         {/* Column 2 */}
                         <div>
-                            <h3 className="text-white font-bold mb-8 uppercase tracking-[0.2em] text-xs flex items-center gap-2">
+                            <h3 className="text-white font-bold mb-6 uppercase tracking-[0.2em] text-xs flex items-center gap-2">
                                 <span className="w-8 h-[2px] bg-purple-500 rounded-full"></span> Legal
                             </h3>
-                            <ul className="space-y-4">
+                            <ul className="space-y-2">
                                 {['Terms & Conditions', 'Privacy Policy', 'Code of Conduct'].map((item) => (
                                     <li key={item}>
                                         <Link
                                             to="#"
-                                            className="text-gray-400 text-base hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
+                                            className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
                                         >
                                             <span className="w-1 h-1 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                             {item}
@@ -128,22 +128,22 @@ export const Footer: React.FC = () => {
 
                         {/* Column 3 */}
                         <div>
-                            <h3 className="text-white font-bold mb-8 uppercase tracking-[0.2em] text-xs flex items-center gap-2">
+                            <h3 className="text-white font-bold mb-6 uppercase tracking-[0.2em] text-xs flex items-center gap-2">
                                 <span className="w-8 h-[2px] bg-purple-500 rounded-full"></span> Contact
                             </h3>
-                            <ul className="space-y-6">
+                            <ul className="space-y-4">
                                 <li>
-                                    <Link to="/contact" className="text-gray-400 text-base hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
+                                    <Link to="/contact" className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
                                         Get in Touch
                                     </Link>
                                 </li>
                                 <li>
-                                    <a href="mailto:contact@becon.in" className="text-white font-semibold text-lg hover:text-purple-400 transition-colors">
+                                    <a href="mailto:contact@becon.in" className="text-white font-semibold text-base hover:text-purple-400 transition-colors">
                                         contact@becon.in
                                     </a>
                                 </li>
                                 <li>
-                                    <p className="text-gray-500 text-sm leading-relaxed">
+                                    <p className="text-gray-500 text-xs leading-relaxed">
                                         eDC Office, IIT Delhi,<br />
                                         Hauz Khas, New Delhi - 110016
                                     </p>
