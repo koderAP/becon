@@ -23,46 +23,47 @@ export const Gallery: React.FC = () => {
                 <span className="text-lg text-gray-300 uppercase tracking-widest">Past Glimpses</span>
             </motion.div>
 
-            <div className="flex gap-4 sm:gap-6 marquee-container">
-                <motion.div
-                    className="flex gap-4 sm:gap-6 min-w-full"
-                    animate={{ x: "-100%" }}
-                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            {/* CSS-based infinite marquee for 60fps performance */}
+            <div className="marquee-container overflow-hidden">
+                <div
+                    className="flex gap-4 sm:gap-6 animate-marquee"
+                    style={{
+                        width: 'max-content',
+                        willChange: 'transform',
+                    }}
                 >
-                    {[...images, ...images].map((src, index) => (
+                    {/* Triple the images for seamless looping */}
+                    {[...images, ...images, ...images].map((src, index) => (
                         <div
                             key={index}
                             className="relative w-[300px] sm:w-[400px] h-[200px] sm:h-[280px] rounded-2xl overflow-hidden shrink-0 border border-white/10 group grayscale hover:grayscale-0 transition-all duration-500"
+                            style={{ transform: 'translateZ(0)' }}
                         >
                             <img
                                 src={src}
                                 alt={`Gallery ${index}`}
+                                loading="lazy"
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                             />
                             <div className="absolute inset-0 bg-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                     ))}
-                </motion.div>
-                <motion.div
-                    className="flex gap-4 sm:gap-6 min-w-full"
-                    animate={{ x: "-100%" }}
-                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                >
-                    {[...images, ...images].map((src, index) => (
-                        <div
-                            key={index}
-                            className="relative w-[300px] sm:w-[400px] h-[200px] sm:h-[280px] rounded-2xl overflow-hidden shrink-0 border border-white/10 group grayscale hover:grayscale-0 transition-all duration-500"
-                        >
-                            <img
-                                src={src}
-                                alt={`Gallery ${index}`}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                            />
-                            <div className="absolute inset-0 bg-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                    ))}
-                </motion.div>
+                </div>
             </div>
+
+            {/* CSS keyframe animation in style tag */}
+            <style>{`
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-33.33%); }
+                }
+                .animate-marquee {
+                    animation: marquee 30s linear infinite;
+                }
+                .animate-marquee:hover {
+                    animation-play-state: paused;
+                }
+            `}</style>
         </div>
     );
 };

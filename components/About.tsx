@@ -74,19 +74,11 @@ export const About: React.FC = () => {
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
 
-            <motion.div
-              className="flex whitespace-nowrap gap-16"
-              animate={{ x: [0, -1000] }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 25,
-                  ease: "linear",
-                }
-              }}
+            <div
+              className="flex whitespace-nowrap gap-16 animate-stats-left"
+              style={{ willChange: 'transform', width: 'max-content' }}
             >
-              {[...Array(4)].flatMap(() => [
+              {[...Array(6)].flatMap(() => [
                 { label: "Overall Footfall", value: "60K+" },
                 { label: "Participants", value: "15K+" },
                 { label: "Ministries", value: "10+" },
@@ -97,7 +89,7 @@ export const About: React.FC = () => {
                   <p className="text-sm md:text-base uppercase tracking-widest text-purple-400 font-semibold">{stat.label}</p>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           {/* Stats Marquee Banner - Row 2 (Right) */}
@@ -106,20 +98,11 @@ export const About: React.FC = () => {
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
 
-            <motion.div
-              className="flex whitespace-nowrap gap-16"
-              initial={{ x: -1000 }}
-              animate={{ x: 0 }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 25,
-                  ease: "linear",
-                }
-              }}
+            <div
+              className="flex whitespace-nowrap gap-16 animate-stats-right"
+              style={{ willChange: 'transform', width: 'max-content' }}
             >
-              {[...Array(4)].flatMap(() => [
+              {[...Array(6)].flatMap(() => [
                 { label: "Events", value: "30+" },
                 { label: "Startups", value: "4K+" },
                 { label: "Institutes", value: "3500+" },
@@ -130,8 +113,26 @@ export const About: React.FC = () => {
                   <p className="text-sm md:text-base uppercase tracking-widest text-blue-400 font-semibold">{stat.label}</p>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
+
+          {/* CSS Keyframes for stats marquee */}
+          <style>{`
+            @keyframes stats-left {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            @keyframes stats-right {
+              0% { transform: translateX(-50%); }
+              100% { transform: translateX(0); }
+            }
+            .animate-stats-left {
+              animation: stats-left 25s linear infinite;
+            }
+            .animate-stats-right {
+              animation: stats-right 25s linear infinite;
+            }
+          `}</style>
         </motion.div>
       </div>
 

@@ -71,31 +71,42 @@ const chunkArray = (arr: Sponsor[], chunks: number) => {
 const InfiniteMarqueeRow: React.FC<{ sponsors: Sponsor[], direction: 'left' | 'right', speed?: number }> = ({ sponsors, direction = 'left', speed = 20 }) => {
     return (
         <div className="flex overflow-hidden relative w-full mb-4">
-            <motion.div
-                className="flex gap-4 shrink-0"
-                initial={{ x: direction === 'left' ? 0 : '-50%' }}
-                animate={{ x: direction === 'left' ? '-50%' : 0 }}
-                transition={{
-                    duration: speed,
-                    repeat: Infinity,
-                    ease: "linear",
-                    repeatType: "loop"
-                }}
+            <div
+                className={`flex gap-4 shrink-0 ${direction === 'left' ? 'animate-sponsor-left' : 'animate-sponsor-right'}`}
+                style={{ willChange: 'transform' }}
             >
-                {/* Duplicate the list to create seamless infinite scroll */}
-                {[...sponsors, ...sponsors, ...sponsors, ...sponsors].map((s, i) => (
+                {/* Triple the list for seamless infinite scroll */}
+                {[...sponsors, ...sponsors, ...sponsors].map((s, i) => (
                     <div
                         key={`${s.id}-${i}`}
                         className="w-24 h-16 bg-white/5 border border-white/5 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ transform: 'translateZ(0)' }}
                     >
                         <img
                             src={s.logo}
                             alt={s.name}
+                            loading="lazy"
                             className="w-full h-full object-contain p-2"
                         />
                     </div>
                 ))}
-            </motion.div>
+            </div>
+            <style>{`
+                @keyframes sponsor-left {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-33.33%); }
+                }
+                @keyframes sponsor-right {
+                    0% { transform: translateX(-33.33%); }
+                    100% { transform: translateX(0); }
+                }
+                .animate-sponsor-left {
+                    animation: sponsor-left ${speed}s linear infinite;
+                }
+                .animate-sponsor-right {
+                    animation: sponsor-right ${speed}s linear infinite;
+                }
+            `}</style>
         </div>
     );
 };
