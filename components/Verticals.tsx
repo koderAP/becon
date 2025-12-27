@@ -21,14 +21,15 @@ interface EventItem {
 
 interface VerticalWithDescription extends Vertical {
   description: string;
+  image?: string;
 }
 
 const themeDomains: VerticalWithDescription[] = [
-  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.' },
-  { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing ventures built on science, engineering, and breakthrough technology.' },
-  { id: 3, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Building intelligent systems that drive efficiency, precision, and next-generation capability.' },
-  { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Advancing technologies that enable a cleaner, resilient, and sustainable tomorrow.' },
-  { id: 5, title: 'Global Innovation', icon: Globe, color: 'from-green-500 to-teal-500', description: 'Bringing ideas, insights, and collaborations from across the world to shape the future.' },
+  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600' },
+  { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing ventures built on science, engineering, and breakthrough technology.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600' },
+  { id: 3, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Building intelligent systems that drive efficiency, precision, and next-generation capability.', image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600' },
+  { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Advancing technologies that enable a cleaner, resilient, and sustainable tomorrow.', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600' },
+  { id: 5, title: 'Global Innovation', icon: Globe, color: 'from-green-500 to-teal-500', description: 'Bringing ideas, insights, and collaborations from across the world to shape the future.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600' },
 ];
 
 const widerLandscape: VerticalWithDescription[] = [
@@ -146,20 +147,33 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
             onClick={() => handleVerticalClick(v.id)}
-            className={`group relative h-32 md:h-40 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
-              ? 'border-purple-500 bg-purple-500/10'
-              : 'border-white/10 bg-white/5 hover:border-white/30'
+            className={`group relative h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
+              ? 'border-purple-500'
+              : 'border-white/10 hover:border-white/30'
               }`}
           >
-            {/* Hover Gradient Background */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+            {/* Background Image */}
+            {v.image && (
+              <img
+                src={v.image}
+                alt={v.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 opacity-60 group-hover:opacity-80"
+              />
+            )}
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-              <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${selectedVertical === v.id ? 'bg-purple-500/20' : 'bg-white/5 group-hover:bg-white/10'
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+
+            {/* Hover Color Overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
+
+            <div className="absolute inset-0 flex flex-col items-center justify-end p-4 text-center">
+              <div className={`p-2 md:p-3 rounded-xl mb-2 transition-all duration-300 backdrop-blur-sm ${selectedVertical === v.id ? 'bg-purple-500/30' : 'bg-black/30 group-hover:bg-black/50'
                 }`}>
-                <v.icon size={28} className={`transition-colors ${selectedVertical === v.id ? 'text-purple-400' : 'text-white'}`} strokeWidth={1.5} />
+                <v.icon size={24} className={`transition-colors ${selectedVertical === v.id ? 'text-purple-400' : 'text-white'}`} strokeWidth={1.5} />
               </div>
-              <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedVertical === v.id ? 'text-purple-300' : 'text-gray-300 group-hover:text-white'
+              <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedVertical === v.id ? 'text-purple-300' : 'text-white'
                 }`}>{v.title}</h3>
             </div>
           </motion.div>
