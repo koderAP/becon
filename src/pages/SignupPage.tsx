@@ -1,12 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, Github } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'sonner';
 
 export const SignupPage: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        college: '',
+        phone: '',
+    });
     const containerRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const { signUp } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -31,11 +43,31 @@ export const SignupPage: React.FC = () => {
         };
     }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulate signup delay
-        setTimeout(() => setIsLoading(false), 2000);
+
+        try {
+            const fullName = `${formData.firstName} ${formData.lastName}`;
+            const { error } = await signUp(
+                formData.email,
+                formData.password,
+                {
+                    full_name: fullName,
+                    college: formData.college,
+                    phone: formData.phone,
+                }
+            );
+
+            if (error) throw error;
+
+            toast.success('Account created! Please check your email for verification.');
+            navigate('/dashboard');
+        } catch (error: any) {
+            toast.error(error.message || 'Failed to create account');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -108,6 +140,8 @@ export const SignupPage: React.FC = () => {
                                 <input
                                     type="text"
                                     placeholder="John"
+                                    value={formData.firstName}
+                                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-white placeholder-gray-500"
                                     required
                                 />
@@ -117,6 +151,8 @@ export const SignupPage: React.FC = () => {
                                 <input
                                     type="text"
                                     placeholder="Doe"
+                                    value={formData.lastName}
+                                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-white placeholder-gray-500"
                                     required
                                 />
@@ -128,9 +164,36 @@ export const SignupPage: React.FC = () => {
                             <input
                                 type="email"
                                 placeholder="name@example.com"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-white placeholder-gray-500"
                                 required
                             />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-300 ml-1">College/Organization</label>
+                                <input
+                                    type="text"
+                                    placeholder="IIT Delhi"
+                                    value={formData.college}
+                                    onChange={(e) => setFormData({ ...formData, college: e.target.value })}
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-white placeholder-gray-500"
+                                    required
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-300 ml-1">Phone</label>
+                                <input
+                                    type="tel"
+                                    placeholder="+91 98765 43210"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-white placeholder-gray-500"
+                                    required
+                                />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
@@ -139,6 +202,8 @@ export const SignupPage: React.FC = () => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-white placeholder-gray-500 pr-10"
                                     required
                                 />

@@ -1,13 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'sonner';
 
 export const LoginPage: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const containerRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const { signIn } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -32,11 +38,21 @@ export const LoginPage: React.FC = () => {
         };
     }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulate login delay
-        setTimeout(() => setIsLoading(false), 2000);
+
+        try {
+            const { error } = await signIn(email, password);
+            if (error) throw error;
+
+            toast.success('Welcome back!');
+            navigate('/dashboard');
+        } catch (error: any) {
+            toast.error(error.message || 'Invalid email or password');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -108,6 +124,8 @@ export const LoginPage: React.FC = () => {
                             <input
                                 type="email"
                                 placeholder="name@example.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-purple-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-purple-500/50 transition-all text-white placeholder-gray-500"
                                 required
                             />
@@ -122,6 +140,8 @@ export const LoginPage: React.FC = () => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-purple-500/50 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-purple-500/50 transition-all text-white placeholder-gray-500 pr-10"
                                     required
                                 />
