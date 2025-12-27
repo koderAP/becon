@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from '../../components/Footer';
-import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown } from 'lucide-react';
+import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../components/PageHeader';
+import { createPortal } from 'react-dom';
 
 interface EventCard {
     id: string;
@@ -226,6 +227,28 @@ const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: 
 
 export const Events: React.FC = () => {
     const [isRegionalsExpanded, setIsRegionalsExpanded] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState<EventCard | null>(null);
+
+    // Lock body scroll when modal is open
+    React.useEffect(() => {
+        if (selectedEvent) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [selectedEvent]);
+
+    // Close modal on ESC key press
+    React.useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && selectedEvent) {
+                setSelectedEvent(null);
+            }
+        };
+        window.addEventListener('keydown', handleEscape);
+        return () => window.removeEventListener('keydown', handleEscape);
+    }, [selectedEvent]);
 
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white relative">
@@ -334,9 +357,61 @@ export const Events: React.FC = () => {
                                             <span className="text-lg text-gray-300 uppercase tracking-widest">Regional Events</span>
                                         </div>
 
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            {regionalEventsData.map((event, index) => (
-                                                <EventCardComponent key={event.id} event={event} index={index} animate={true} />
+                                        <div className="space-y-24">
+                                            {regionalEventsData.map((event, i) => (
+                                                <motion.div
+                                                    key={event.id}
+                                                    initial={{ opacity: 0, y: 40 }}
+                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    viewport={{ once: true, margin: "-100px" }}
+                                                    transition={{ duration: 0.8, delay: i * 0.1 }}
+                                                    onClick={() => setSelectedEvent(event)}
+                                                    className={`cursor-pointer group flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                                                >
+                                                    {/* Content Section */}
+                                                    <div className="flex-1 space-y-6 text-left">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="h-[1px] w-8 bg-purple-500"></span>
+                                                            <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
+                                                        </div>
+
+                                                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none group-hover:text-purple-300 transition-colors">
+                                                            {event.title}
+                                                        </h3>
+
+                                                        <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                                                            {event.description}
+                                                        </p>
+
+                                                        <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
+                                                            <div className="flex items-center gap-2">
+                                                                <Calendar size={16} className="text-white" />
+                                                                <span>{event.date}</span>
+                                                            </div>
+                                                            <div className="flex items-center gap-2">
+                                                                <MapPin size={16} className="text-white" />
+                                                                <span>{event.location}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <span className="inline-flex items-center gap-2 text-white font-semibold text-lg group-hover:text-purple-400 transition-colors pt-4">
+                                                            View Details
+                                                            <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                                                        </span>
+                                                    </div>
+
+                                                    {/* Image Section */}
+                                                    <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden">
+                                                        <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
+                                                        <img
+                                                            src={event.image}
+                                                            alt={event.title}
+                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                        />
+                                                        {/* Subtle overlay */}
+                                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                                                    </div>
+                                                </motion.div>
                                             ))}
                                         </div>
                                     </div>
@@ -365,13 +440,177 @@ export const Events: React.FC = () => {
                 </motion.div>
 
                 {/* Events Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                    {eventsData.map((event, index) => (
-                        <EventCardComponent key={event.id} event={event} index={index} animate={false} />
+                {/* Events List - Alternating Layout */}
+                <div className="space-y-24">
+                    {eventsData.map((event, i) => (
+                        <motion.div
+                            key={event.id}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8, delay: i * 0.1 }}
+                            onClick={() => setSelectedEvent(event)}
+                            className={`cursor-pointer group flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                        >
+                            {/* Content Section */}
+                            <div className="flex-1 space-y-6 text-left">
+                                <div className="flex items-center gap-3">
+                                    <span className="h-[1px] w-8 bg-purple-500"></span>
+                                    <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
+                                </div>
+
+                                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
+                                    {event.title}
+                                </h3>
+
+                                <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                                    {event.description}
+                                </p>
+
+                                <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
+                                    <div className="flex items-center gap-2">
+                                        <Calendar size={16} className="text-white" />
+                                        <span>{event.date.split('|')[0].trim()}</span>
+                                    </div>
+                                    {event.date.includes('|') && (
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center">
+                                                <span className="w-2.5 h-0.5 bg-white"></span>
+                                            </div>
+                                            <span>{event.date.split('|')[1].trim()}</span>
+                                        </div>
+                                    )}
+                                    <div className="flex items-center gap-2">
+                                        <MapPin size={16} className="text-white" />
+                                        <span>{event.location}</span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedEvent(event);
+                                    }}
+                                    className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
+                                >
+                                    Register Now
+                                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                                </button>
+                            </div>
+
+                            {/* Image Section */}
+                            <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
+                                <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
+                                <img
+                                    src={event.image}
+                                    alt={event.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                {/* Subtle overlay */}
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
 
             </div>
+
+
+            {/* Event Details Modal - Rendered via Portal */}
+            {createPortal(
+                <AnimatePresence>
+                    {selectedEvent && (
+                        <>
+                            {/* Backdrop */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setSelectedEvent(null)}
+                                className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md"
+                            />
+
+                            {/* Modal Content - Centered */}
+                            <div className="fixed inset-0 z-[10000] pointer-events-none flex items-center justify-center p-4">
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="relative w-full max-w-4xl bg-[#0a0514] border border-white/10 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto pointer-events-auto"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setSelectedEvent(null)}
+                                        className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                                    >
+                                        <X size={20} />
+                                    </button>
+
+                                    <div className="flex flex-col md:flex-row">
+                                        {/* Image Side */}
+                                        <div className="w-full md:w-2/5 h-64 md:h-auto relative">
+                                            <img
+                                                src={selectedEvent.image}
+                                                alt={selectedEvent.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent md:bg-gradient-to-r" />
+
+                                            <div className="absolute top-6 left-6">
+                                                <span className="px-4 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-white/90 text-sm font-bold uppercase tracking-wider">
+                                                    {selectedEvent.category}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Content Side */}
+                                        <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col">
+                                            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                                                {selectedEvent.title}
+                                            </h2>
+
+                                            <div className="space-y-4 mb-8">
+                                                <div className="flex items-center gap-3 text-gray-300">
+                                                    <Calendar className="text-purple-400" />
+                                                    <span className="text-lg">{selectedEvent.date}</span>
+                                                </div>
+                                                <div className="flex items-center gap-3 text-gray-300">
+                                                    <MapPin className="text-blue-400" />
+                                                    <span className="text-lg">{selectedEvent.location}</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-10">
+                                                <p>{selectedEvent.description}</p>
+                                                <p>Join us to experience ground-breaking innovation and network with the best minds in the industry. This event is designed to foster collaboration and growth.</p>
+                                            </div>
+
+                                            <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between gap-4">
+                                                <div className="flex -space-x-3">
+                                                    {[1, 2, 3, 4].map(i => (
+                                                        <div key={i} className="w-10 h-10 rounded-full bg-gray-800 border-2 border-[#0a0514]" />
+                                                    ))}
+                                                    <div className="w-10 h-10 rounded-full bg-purple-900/50 border-2 border-[#0a0514] flex items-center justify-center text-xs font-bold text-purple-300">
+                                                        +42
+                                                    </div>
+                                                </div>
+
+                                                <button className="flex-1 md:flex-none px-8 py-4 bg-white text-black font-bold text-lg rounded-xl hover:bg-purple-500 hover:text-white transition-all flex items-center justify-center gap-2">
+                                                    Register Now
+                                                    <ArrowRight size={20} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        </>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
 
             <div className="relative z-50">
                 <Footer />

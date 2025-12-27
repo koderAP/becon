@@ -26,7 +26,7 @@ interface VerticalWithDescription extends Vertical {
 }
 
 const themeDomains: VerticalWithDescription[] = [
-  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600' },
+  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.', image: '/ai-vertical.png' },
   { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing ventures built on science, engineering, and breakthrough technology.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600' },
   { id: 3, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Building intelligent systems that drive efficiency, precision, and next-generation capability.', image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600' },
   { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Advancing technologies that enable a cleaner, resilient, and sustainable tomorrow.', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600' },
@@ -261,62 +261,62 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Events</span>
           </motion.h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <div className="space-y-24">
             {eventsData.map((event, i) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative rounded-3xl overflow-hidden bg-[#0a0514] border border-white/10 hover:border-purple-500/50 hover:bg-[#130d21] transition-all duration-300 flex flex-col md:flex-row h-auto md:h-72"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
+                className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
               >
+                {/* Content Section */}
+                <div className="flex-1 space-y-6 text-left">
+                  <div className="flex items-center gap-3">
+                    <span className="h-[1px] w-8 bg-purple-500"></span>
+                    <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
+                  </div>
+
+                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
+                    {event.title}
+                  </h3>
+
+                  <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                    {event.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={16} className="text-white" />
+                      <span>{event.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock size={16} className="text-white" />
+                      <span>{event.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin size={16} className="text-white" />
+                      <span>{event.location}</span>
+                    </div>
+                  </div>
+
+                  <button className="group flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4">
+                    Register Now
+                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                  </button>
+                </div>
+
                 {/* Image Section */}
-                <div className="w-full md:w-2/5 h-48 md:h-full overflow-hidden relative">
+                <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
+                  <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
                   <img
                     src={event.image}
                     alt={event.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-purple-900/20 group-hover:bg-transparent transition-colors duration-300"></div>
-                </div>
-
-                {/* Content Section */}
-                <div className="w-full md:w-3/5 p-6 flex flex-col justify-between">
-                  <div>
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/5 text-purple-300 border border-white/10 uppercase tracking-wider">
-                        {event.category}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2 leading-tight group-hover:text-purple-300 transition-colors">
-                      {event.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm line-clamp-2 mb-4">
-                      {event.description}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center justify-between text-xs text-gray-400 border-t border-white/5 pt-4">
-                      <div className="flex items-center gap-2">
-                        <Calendar size={14} className="text-purple-500" />
-                        <span>{event.date}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock size={14} className="text-purple-500" />
-                        <span>{event.time}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <MapPin size={14} /> {event.location}
-                    </div>
-
-                    <button className="mt-2 w-full py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-purple-500 hover:text-white transition-all flex items-center justify-center gap-2 group/btn">
-                      Register Now
-                      <ArrowUpRight size={16} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                    </button>
-                  </div>
+                  {/* Subtle overlay */}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
                 </div>
               </motion.div>
             ))}

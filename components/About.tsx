@@ -68,21 +68,59 @@ export const About: React.FC = () => {
             BECon is at the heart of this vision. The Nation’s biggest E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
           </p>
 
-          <div className="pt-6 sm:pt-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { label: "Overall Footfall", value: "60K+" },
-              { label: "Events", value: "30+" },
-              { label: "Participants", value: "15K+" },
-              { label: "Startups", value: "4K+" },
-              { label: "Ministries", value: "10+" },
-              { label: "Institutes", value: "3500+" },
-              { label: "Alumni Network", value: "1L+" },
-            ].map((stat, i) => (
-              <div key={i}>
-                <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
-                <p className="text-sm text-gray-400">{stat.label}</p>
-              </div>
-            ))}
+          {/* Stats Marquee Banner */}
+          <div className="pt-8 w-full overflow-hidden relative mask-linear-fade">
+            {/* Gradient Masks for fading edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent z-10"></div>
+
+            <motion.div
+              className="flex whitespace-nowrap gap-12"
+              animate={{ x: [0, -1000] }} // Adjust based on estimated width or use percentage if confident
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 20,
+                  ease: "linear",
+                }
+              }}
+            >
+              {[
+                ...[
+                  { label: "Overall Footfall", value: "60K+" },
+                  { label: "Events", value: "30+" },
+                  { label: "Participants", value: "15K+" },
+                  { label: "Startups", value: "4K+" },
+                  { label: "Ministries", value: "10+" },
+                  { label: "Institutes", value: "3500+" },
+                  { label: "Alumni Network", value: "1L+" },
+                ],
+                ...[
+                  { label: "Overall Footfall", value: "60K+" },
+                  { label: "Events", value: "30+" },
+                  { label: "Participants", value: "15K+" },
+                  { label: "Startups", value: "4K+" },
+                  { label: "Ministries", value: "10+" },
+                  { label: "Institutes", value: "3500+" },
+                  { label: "Alumni Network", value: "1L+" },
+                ],
+                ...[
+                  { label: "Overall Footfall", value: "60K+" },
+                  { label: "Events", value: "30+" },
+                  { label: "Participants", value: "15K+" },
+                  { label: "Startups", value: "4K+" },
+                  { label: "Ministries", value: "10+" },
+                  { label: "Institutes", value: "3500+" },
+                  { label: "Alumni Network", value: "1L+" },
+                ]
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col items-center">
+                  <h3 className="text-3xl font-bold text-white mb-1">{stat.value}</h3>
+                  <p className="text-xs uppercase tracking-widest text-purple-400">{stat.label}</p>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </motion.div>
       </div>
