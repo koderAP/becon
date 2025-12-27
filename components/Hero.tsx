@@ -255,19 +255,12 @@ export const Hero: React.FC = () => {
               typingSpeed={50}
               deletingSpeed={30}
               pauseTime={2500}
-              className="text-2xl md:text-4xl lg:text-5xl text-gray-200 tracking-wide"
+              className="text-2xl md:text-4xl lg:text-5xl text-white tracking-wide"
               style={{
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 fontWeight: 300,
               }}
             />
-          </div>
-
-          {/* Simple decorative dots */}
-          <div className="flex items-center gap-2 mt-6">
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-500/40" />
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-500/40" />
           </div>
         </motion.div>
 
