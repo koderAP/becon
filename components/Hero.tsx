@@ -218,7 +218,7 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* 3. Main Hero Content - z-20 to be above background */}
-      <div className="z-20 flex flex-col items-center text-center px-4 relative mt-10">
+      <div className="z-20 flex flex-col items-center text-center px-4 relative -mt-8">
 
         {/* LOGO - BECon Logo - Emerging from background */}
         <motion.div
@@ -238,19 +238,33 @@ export const Hero: React.FC = () => {
           />
         </motion.div>
 
-        {/* Typewriter Effect Slogans */}
-        <div className="h-[40px] md:h-[60px] flex items-center justify-center mt-8">
-          <Typewriter
-            sentences={[
-              "Engineering the Mind of Machines",
-              "Crafted in India for the World"
-            ]}
-            typingSpeed={50}
-            deletingSpeed={30}
-            pauseTime={2500}
-            className="text-xl md:text-3xl font-light text-white tracking-wide"
-          />
-        </div>
+        {/* Typewriter Effect Slogans - Improved Typography */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="mt-6 flex flex-col items-center gap-2"
+        >
+          <div className="h-[50px] md:h-[70px] flex items-center justify-center relative">
+            <Typewriter
+              sentences={[
+                "Engineering the Mind of Machines",
+                "Crafted in India for the World",
+                "Where Deep Tech Meets Innovation"
+              ]}
+              typingSpeed={50}
+              deletingSpeed={30}
+              pauseTime={2500}
+              className="text-2xl md:text-4xl lg:text-5xl font-extralight text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-white tracking-wider"
+            />
+          </div>
+          {/* Subtle decorative line */}
+          <div className="flex items-center gap-3 mt-4">
+            <div className="w-12 h-px bg-gradient-to-r from-transparent to-purple-500/50" />
+            <div className="w-2 h-2 rounded-full bg-purple-500/50" />
+            <div className="w-12 h-px bg-gradient-to-l from-transparent to-purple-500/50" />
+          </div>
+        </motion.div>
 
       </div>
 
