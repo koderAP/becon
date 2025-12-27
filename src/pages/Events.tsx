@@ -10,6 +10,7 @@ interface EventCard {
     id: string;
     title: string;
     description: string;
+    whyJoin?: string[];
     date: string;
     location: string;
     category: 'hackathon' | 'keynote' | 'workshop' | 'competition' | 'networking' | 'exhibition';
@@ -36,7 +37,14 @@ const regionalEventsData: EventCard[] = [
     {
         id: 'blueprint-regional',
         title: 'Blueprint – B-Plan Competition',
-        description: "Blueprint 2026 is a pan-India platform where early-stage founders pressure-test their ideas and pitch to people who've actually built and backed startups. Why Blueprint 2026? Mentorship & Workshops: Learn from experienced founders through guided sessions. Credits & Perks worth ₹1 Cr+: Access partner credits, tools, and benefits. ₹6 Lakh Cash Prize: Compete for a cash prize pool awarded to top teams. Networking Opportunities: Interact with founders, investors, and startup operators.",
+        description: "Blueprint is designed for founders at the early stages of their startup journey who are looking for clarity, direction, and expert mentorship. It helps teams refine their ideas, understand real-world market fit, and strengthen how they think, plan, and build. Shortlisted startups present before experienced founders, industry mentors, and early-stage investors, gaining structured insights and long-term support. If you're building your startup story, Blueprint helps you shape it right.",
+        whyJoin: [
+            'Access to industry mentors and experienced founders',
+            'Structured guidance to refine ideas and strategy',
+            "Real-world feedback from people who've built before",
+            'Clarity on business model, product direction, and growth',
+            'Pathway to the Grand Summit at IIT Delhi with national visibility'
+        ],
         date: 'Jan 10 - Feb 1, 2026',
         location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
         category: 'competition',
@@ -46,7 +54,14 @@ const regionalEventsData: EventCard[] = [
     {
         id: 'moonshot-regional',
         title: 'Moonshot – Funding Platform',
-        description: "Moonshot 6.0 is eDC IIT Delhi's flagship funding showcase arena where handpicked early-stage startups pitch to real investors across multiple cities. Why Moonshot 6.0? Funding Opportunity: Funding opportunities with top tier VC and Angel investors. Mentor Feedback: Pitch and get mentorship from industry leaders. Finale Spotlight: Chance to pitch at Grand Moonshot, BECon'26 Delhi. Founder Network: Speed network with 500+ ambitious founders and innovators.",
+        description: "Moonshot is for startups that are already building, growing, and ready to scale further. It brings strong Seed to Series A ventures to pitch before top venture capitalists and investment leaders from India and across the world. The strongest startups move forward to the Grand Moonshot at IIT Delhi, where they present to global VCs, deep-tech leaders, and ecosystem partners. If your startup is ready for its next leap, Moonshot gives you the platform to raise.",
+        whyJoin: [
+            'Direct access to leading VCs and investment firms',
+            'A credible fundraising platform trusted by the ecosystem',
+            'Powerful national visibility among investors, leaders, and media',
+            'Sharp feedback to strengthen your pitch and funding readiness',
+            'A pathway to the Grand Moonshot at IIT Delhi'
+        ],
         date: 'Jan 10 - Feb 1, 2026',
         location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
         category: 'competition',
@@ -57,7 +72,14 @@ const regionalEventsData: EventCard[] = [
     {
         id: 'startup-clinic-regional',
         title: 'Start-Up Clinic',
-        description: "Startup Clinic is IIT Delhi's exclusive 1:1 mentorship and networking arena, connecting high-potential startups with leading mentors, investors, and industry experts. Why Startup Clinic? 1-on-1 Mentorship: Personalized guidance to solve challenges and refine strategies. Networking Breakouts: Connect with VCs and industry leaders for growth opportunities. End-to-End Support: Address challenges across product, market, growth, capital, and operations. Incentives: Selected teams get credits and perks of various companies.",
+        description: "The Start-Up Clinic is a dedicated space for early-stage founders to engage with experienced entrepreneurs, domain experts, and industry leaders. It creates a guided yet relaxed environment for real conversations, mentorship, and relationship-building — helping founders gain clarity, refine direction, and connect with the right people who can support their journey ahead. If you value guidance and a strong network, the Clinic is designed for you.",
+        whyJoin: [
+            'Access to experienced mentors and industry experts',
+            'A supportive environment to discuss challenges openly',
+            'Meaningful networking with founders and leaders',
+            'Guidance that helps shape clearer decisions and strategy',
+            'Connections that often continue beyond the event'
+        ],
         date: 'Jan 10 - Feb 1, 2026',
         location: 'Mumbai, Bangalore, Chennai, Guwahati, Jaipur, Delhi',
         category: 'workshop',
@@ -70,7 +92,14 @@ const eventsData: EventCard[] = [
     {
         id: '100x-hackathon',
         title: '100X Hackathon',
-        description: "The 100X Hackathon is Asia’s largest deep-tech innovation arena, bringing together top engineering minds to build breakthrough solutions that surpass global benchmarks. It focuses heavily on defence, electronics, and intelligent hardware—domains where indigenous innovation has the power to transform national capability. The hackathon is designed not just to inspire creativity but to generate IP that is ready for piloting, scaling, and procurement.",
+        description: "The 100X Hackathon is one of Asia's largest deep-tech innovation arenas, bringing together some of the brightest engineering minds to solve challenges in defence, electronics, and intelligent hardware. It focuses on creating practical, scalable solutions with real application potential, supported by guidance from industry leaders, research experts, and partner institutions. If you want to build technology that truly counts, this is the place to do it.",
+        whyJoin: [
+            'Work on high-impact, nationally relevant problem statements',
+            'Mentorship from domain experts, researchers, and industry leaders',
+            'Opportunity to build IP-ready, scalable solutions',
+            'Strong ecosystem support for piloting and next-step development',
+            'Recognition on one of the most respected deep-tech stages in Asia'
+        ],
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Lecture Hall Complex',
         category: 'hackathon',
@@ -80,7 +109,14 @@ const eventsData: EventCard[] = [
     {
         id: 'moonshot-main',
         title: 'Moonshot – Funding Platform',
-        description: 'Moonshot is a national pitching platform where promising startups from Seed to Pre-Series A present their ideas to leading venture capitalists and investors. Top startups from cities like Bengaluru, Mumbai, Hyderabad, Guwahati, Chennai, and Jaipur get the chance to pitch on a powerful stage in front of decision-makers. The best ventures move to the Grand Moonshot at IIT Delhi.',
+        description: "Moonshot is for startups that are already building, growing, and ready to scale further. It brings strong Seed to Series A ventures to pitch before top venture capitalists and investment leaders from India and across the world. The strongest startups move forward to the Grand Moonshot at IIT Delhi, where they present to global VCs, deep-tech leaders, and ecosystem partners. If your startup is ready for its next leap, Moonshot gives you the platform to raise.",
+        whyJoin: [
+            'Direct access to leading VCs and investment firms',
+            'A credible fundraising platform trusted by the ecosystem',
+            'Powerful national visibility among investors, leaders, and media',
+            'Sharp feedback to strengthen your pitch and funding readiness',
+            'A pathway to the Grand Moonshot at IIT Delhi'
+        ],
         date: 'Feb 1, 2026',
         location: 'Main Auditorium',
         category: 'competition',
@@ -90,7 +126,14 @@ const eventsData: EventCard[] = [
     {
         id: 'innoverse',
         title: 'Innoverse – TechDisplay',
-        description: 'Innoverse is a national platform that brings together some of the most advanced technologies in drones, defence systems, robotics, manufacturing automation, and chip design. It creates an immersive space where startups, R&D teams, innovators, and technology enthusiasts can discover new advancements, interact closely with cutting-edge solutions, and explore real opportunities.',
+        description: "Innoverse is a national-scale showcase of cutting-edge technologies across drones, defence systems, robotics, manufacturing automation, and chip design. It brings together startups, R&D teams, and innovators to demonstrate real capabilities, exchange knowledge, and explore meaningful applications. By connecting academia, industry, and entrepreneurship on one stage, Innoverse enables genuine collaboration, career discovery, and informed innovation. If you want to interact with serious technology and the people building it, Innoverse is the place to be.",
+        whyJoin: [
+            'Experience breakthrough technologies up close',
+            'Engage directly with innovators, researchers, and founders',
+            'Discover opportunities for collaboration and partnerships',
+            'Understand real-world applications of deep-tech innovation',
+            'Explore careers and pathways in future-focused technologies'
+        ],
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
@@ -99,7 +142,14 @@ const eventsData: EventCard[] = [
     {
         id: 'autospark',
         title: 'Autospark',
-        description: 'Autospark is a premier showcase of next-generation automotive innovation, presenting concept cars and futuristic technologies that will define the future of mobility. It acts as a strategic launchpad for engineers, researchers, and innovators to engage with leading automotive players and industry experts. The platform highlights advancements in vehicle intelligence, autonomy, and design.',
+        description: "Autospark is a showcase of next-generation automotive technology, featuring concept vehicles, intelligent systems, and futuristic mobility solutions. It brings together engineers, innovators, and industry leaders to explore advancements in autonomy, smart design, and sustainable transportation. If mobility excites you, Autospark puts you at the centre of its future.",
+        whyJoin: [
+            'Experience cutting-edge automotive technology first-hand',
+            'Engage with leading automotive experts and companies',
+            'Discover innovations in autonomy, intelligence, and design',
+            'Explore collaboration and career opportunities',
+            "Be part of conversations shaping tomorrow's mobility"
+        ],
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Outdoor Arena',
         category: 'exhibition',
@@ -108,7 +158,14 @@ const eventsData: EventCard[] = [
     {
         id: 'blueprint-main',
         title: 'Blueprint – B-Plan Competition',
-        description: 'Blueprint is one of India’s leading business-plan competitions, built to support early-stage ideas and help founders shape them into strong, practical ventures. It connects teams with industry mentors, experienced founders, and investors who guide them with real-world insights and often continue to support them beyond the competition.',
+        description: "Blueprint is designed for founders at the early stages of their startup journey who are looking for clarity, direction, and expert mentorship. It helps teams refine their ideas, understand real-world market fit, and strengthen how they think, plan, and build. Shortlisted startups present before experienced founders, industry mentors, and early-stage investors, gaining structured insights and long-term support. If you're building your startup story, Blueprint helps you shape it right.",
+        whyJoin: [
+            'Access to industry mentors and experienced founders',
+            'Structured guidance to refine ideas and strategy',
+            "Real-world feedback from people who've built before",
+            'Clarity on business model, product direction, and growth',
+            'Pathway to the Grand Summit at IIT Delhi with national visibility'
+        ],
         date: 'Feb 1, 2026',
         location: 'Seminar Hall',
         category: 'competition',
@@ -117,7 +174,14 @@ const eventsData: EventCard[] = [
     {
         id: 'launchpad',
         title: 'Launchpad – Startup Expo',
-        description: 'Launchpad is India’s premier startup showcase, bringing together some of the country’s most promising ventures to display innovations shaping the deep-tech future. The expo features over 100 startups, including a dedicated IIT Delhi and FITT innovation row with breakthrough products and live demonstrations. It attracts VCs, policymakers, and industry leaders.',
+        description: "Launchpad is India's premier startup expo, bringing together some of the country's most promising ventures to showcase innovations shaping the deep-tech future. With live demos, real user feedback, and engagement from investors, policymakers, and industry leaders, Launchpad creates a powerful space for visibility, connections, and meaningful growth. If you want your startup to be seen, Launchpad gives it the right spotlight.",
+        whyJoin: [
+            'National exposure for your startup',
+            'Direct access to VCs, policymakers, and industry leaders',
+            'Real-time user and customer feedback',
+            'Opportunities for collaboration and partnerships',
+            'A credible platform to accelerate growth'
+        ],
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
@@ -126,7 +190,14 @@ const eventsData: EventCard[] = [
     {
         id: 'startup-clinic-main',
         title: 'Start-Up Clinic',
-        description: 'The Start-Up Clinic is a focused mentorship and networking space where early-stage founders meet experienced entrepreneurs, domain experts, and industry leaders. Instead of formal pitching, it encourages open conversations, honest feedback, and guidance across areas like technology, product, business strategy, finance, and growth.',
+        description: "The Start-Up Clinic is a dedicated space for early-stage founders to engage with experienced entrepreneurs, domain experts, and industry leaders. It creates a guided yet relaxed environment for real conversations, mentorship, and relationship-building — helping founders gain clarity, refine direction, and connect with the right people who can support their journey ahead. If you value guidance and a strong network, the Clinic is designed for you.",
+        whyJoin: [
+            'Access to experienced mentors and industry experts',
+            'A supportive environment to discuss challenges openly',
+            'Meaningful networking with founders and leaders',
+            'Guidance that helps shape clearer decisions and strategy',
+            'Connections that often continue beyond the event'
+        ],
         date: 'Feb 1, 2026',
         location: 'LHC Foyer',
         category: 'workshop',
@@ -135,7 +206,14 @@ const eventsData: EventCard[] = [
     {
         id: 'policysphere',
         title: 'Policysphere',
-        description: 'Policysphere is a first-of-its-kind forum that connects startups directly with policymakers from various ministries and sectors. It creates a structured yet open environment where founders can discuss challenges, regulatory bottlenecks, and opportunities for collaboration with government bodies. By enabling transparent dialogue, Policysphere bridges the gap between innovation and policy.',
+        description: "Policysphere is a dedicated forum that directly connects startups with policymakers across key ministries and sectors. It creates a structured yet open space to discuss challenges, regulatory bottlenecks, and opportunities for collaboration — ensuring innovation and policy move in the same direction. If you want your idea to scale responsibly and sustainably, Policysphere helps clear the path.",
+        whyJoin: [
+            'Direct interaction with policymakers and government representatives',
+            'Clarity on regulations, compliance, and policy frameworks',
+            'Opportunity to voice challenges and suggest meaningful solutions',
+            'Scope for collaboration and institutional support',
+            'A platform that aligns innovation with national and sectoral priorities'
+        ],
         date: 'Feb 2, 2026',
         location: 'Senate Hall',
         category: 'networking',
@@ -144,7 +222,14 @@ const eventsData: EventCard[] = [
     {
         id: 'colab',
         title: 'CoLab – Co-Founder Matchmaking',
-        description: 'CoLab is a dedicated platform that helps entrepreneurs find the right co-founders. Through a structured speed-dating format, it brings together people with complementary skills, shared ambition, and aligned values. Participants connect, collaborate, and explore potential partnerships while gaining access to mentorship and ecosystem support.',
+        description: "CoLab is a dedicated platform that helps entrepreneurs connect with potential co-founders through a structured, thoughtful matchmaking format. It brings together driven builders with complementary skills, aligned intent, and shared ambition, while also providing access to mentorship and ecosystem support to help ideas grow into real ventures. If you want a co-founder who truly matches your vision, CoLab is where you'll find them.",
+        whyJoin: [
+            'Meet serious, like-minded entrepreneurs',
+            'Discover co-founders with complementary strengths',
+            'Build meaningful, long-term collaborations',
+            'Access mentorship and ecosystem support',
+            'Form strong teams that can truly scale'
+        ],
         date: 'Jan 31, 2026',
         location: 'Networking Zone',
         category: 'networking',
@@ -153,7 +238,14 @@ const eventsData: EventCard[] = [
     {
         id: 'strategy-competitions',
         title: 'Strategy Competitions',
-        description: 'The Strategy Competitions feature a curated set of challenges that mirror real-world business, consulting, and technology scenarios. Designed to test analytical thinking, creativity, and decision-making under pressure, these contests help participants think deeply, act strategically, and approach problems the way industry leaders do.',
+        description: "The Strategy Competitions feature curated challenges that mirror real-world business, consulting, and technology scenarios. They test analytical thinking, creativity, and decision-making under pressure, helping participants refine how they think, plan, and respond to complex situations. If real-world strategy excites you, this is your arena.",
+        whyJoin: [
+            'Tackle industry-inspired real-world problem statements',
+            'Strengthen analytical thinking and structured decision-making',
+            'Experience pressure-driven strategy building',
+            'Learn through competitive yet meaningful challenges',
+            'Prepare for high-impact roles in business, consulting, and tech'
+        ],
         date: 'Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
@@ -162,7 +254,14 @@ const eventsData: EventCard[] = [
     {
         id: 'bootcamp',
         title: 'Bootcamp – Building the Future',
-        description: 'The Bootcamp is an intensive, hands-on learning experience for young innovators working in IoT, hardware, and autonomous technologies. Guided by expert mentors, participants move beyond theory to design and prototype real MVPs that address real-world challenges. The Bootcamp focuses on practical learning and structured experimentation.',
+        description: "The Bootcamp is an intensive, hands-on learning experience for innovators working in IoT, hardware, and autonomous technologies. Guided by expert mentors, participants move beyond theory to design and prototype real solutions that address real challenges, while gaining clarity, confidence, and strong technical grounding. If you want to build the future, this is where you start shaping it.",
+        whyJoin: [
+            'Learn through practical, hands-on building',
+            'Work closely with expert mentors and engineers',
+            'Prototype real MVPs with real applications',
+            'Strengthen technical clarity and problem-solving',
+            'Step into the future of deep-tech innovation'
+        ],
         date: 'Jan 30 - 31, 2026',
         location: 'Maker Space',
         category: 'workshop',
@@ -171,7 +270,14 @@ const eventsData: EventCard[] = [
     {
         id: 'workshops',
         title: 'Workshops – Transforming Today',
-        description: 'The Workshops bring together professionals, founders, and technology builders for practical learning sessions focused on AI, automation, and modern business transformation. Led by industry experts, they help participants understand how to apply emerging technologies in real work environments, streamline operations, and build smarter systems.',
+        description: "The Workshops bring together professionals, founders, and tech builders for practical sessions focused on AI, automation, and business transformation. Led by industry experts, they help participants understand real applications, adopt smarter tools, and strengthen everyday decision-making with modern technology. If you want to stay ahead, this is where you sharpen your edge.",
+        whyJoin: [
+            'Practical learning led by industry experts',
+            'Real-world application, not just theory',
+            'Clarity on AI, automation, and business transformation',
+            'Tools and methods to improve everyday work',
+            'A bridge between emerging tech and real professional impact'
+        ],
         date: 'Jan 31 - Feb 2, 2026',
         location: 'LHC Classrooms',
         category: 'workshop',
@@ -180,7 +286,14 @@ const eventsData: EventCard[] = [
     {
         id: 'grand-moonshot',
         title: 'Grand Moonshot',
-        description: 'The Grand Moonshot is the flagship fundraising stage of BECon, hosted at IIT Delhi, where India’s most promising startups present to leading investors and global venture capital firms. It creates a serious, high-credibility environment for fund-raising conversations, strategic partnerships, and real opportunities to scale.',
+        description: "The Grand Moonshot is the flagship fundraising arena at IIT Delhi where India's most promising, growth-ready startups pitch to leading national and global venture capital firms. Built for ventures with real traction, strong metrics, and scalable business models, it offers a high-credibility platform to raise funding, form strategic partnerships, and accelerate scale. If you're ready to raise big, this is the stage that makes it real.",
+        whyJoin: [
+            'Pitch to top Indian and global VCs',
+            'A trusted stage built for serious fundraising',
+            'Powerful visibility among investors and industry leaders',
+            'Opportunities for partnerships and rapid scale',
+            "Recognition on one of India's most influential startup platforms"
+        ],
         date: 'Feb 2, 2026',
         location: 'Dogra Hall',
         category: 'competition',
@@ -190,7 +303,14 @@ const eventsData: EventCard[] = [
     {
         id: 'keynotes-panels',
         title: 'Keynotes & Panels',
-        description: 'Keynotes & Panels bring together global leaders, visionary founders, and influential investors who are redefining industries through innovation. The sessions form a confluence of power, policy, and purpose, offering insights into the future of technology, entrepreneurship, and national progress. Through high-energy dialogues, masterclasses, and debates, these sessions shape ideas.',
+        description: "Keynotes & Panels bring together global leaders, visionary founders, policymakers, and top investors to discuss where technology, business, and innovation are headed next. Through powerful conversations, fireside chats, and unapologetically honest discussions, these sessions decode real experiences, real decisions, and real journeys that shape the future. If you want insight with impact, this is your front row.",
+        whyJoin: [
+            'Hear directly from global leaders and iconic founders',
+            'Understand real decisions behind major milestones',
+            'Gain perspective on the future of technology, innovation, and business',
+            'Learn through honest, unscripted conversations',
+            'Leave with ideas that challenge, inspire, and push you forward'
+        ],
         date: 'Jan 31 - Feb 2, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
@@ -713,9 +833,26 @@ export const Events: React.FC = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-10">
+                                            <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-6">
                                                 <p>{selectedEvent.description}</p>
                                             </div>
+
+                                            {selectedEvent.whyJoin && selectedEvent.whyJoin.length > 0 && (
+                                                <div className="mb-10">
+                                                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                                        <Sparkles size={20} className="text-purple-400" />
+                                                        Why Join?
+                                                    </h4>
+                                                    <ul className="space-y-3">
+                                                        {selectedEvent.whyJoin.map((reason, index) => (
+                                                            <li key={index} className="flex items-start gap-3 text-gray-300">
+                                                                <div className="w-2 h-2 rounded-full bg-purple-500 mt-2 flex-shrink-0" />
+                                                                <span>{reason}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
 
                                             <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between gap-4">
                                                 <div className="flex -space-x-3">
