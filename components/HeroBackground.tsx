@@ -1,12 +1,22 @@
 import React from 'react';
-import { PlasmaBackground } from './PlasmaBackground';
+import { FramerGradient } from './FramerGradient';
 
 export const HeroBackground: React.FC = () => {
     return (
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-            {/* 1. Plasma Background */}
+            {/* Framer-style Animated Gradient Background */}
             <div className="absolute inset-0 z-0">
-                <PlasmaBackground />
+                <FramerGradient
+                    color1="#0a0818"  // Blackish Blue
+                    color2="#1a0a4a"  // Navy Blue
+                    color3="#ffffff"  // White glow
+                    speed={53}
+                    scale={0.45}
+                    swirl={31}
+                    iterations={10}
+                    softness={100}
+                    proportion={28}
+                />
             </div>
 
             {/* Bottom blur gradient overlay */}
