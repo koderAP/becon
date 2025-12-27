@@ -238,24 +238,14 @@ export const Hero: React.FC = () => {
           />
         </motion.div>
 
-        {/* Typewriter Effect - Premium Shimmer Typography */}
+        {/* Typewriter Effect - Clean Typography */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
           className="mt-4 flex flex-col items-center"
         >
-          <div className="h-[60px] md:h-[80px] flex items-center justify-center relative overflow-hidden">
-            {/* Shimmer overlay */}
-            <div
-              className="absolute inset-0 pointer-events-none z-10"
-              style={{
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
-                backgroundSize: '200% 100%',
-                animation: 'shimmer 3s infinite linear',
-                mixBlendMode: 'overlay',
-              }}
-            />
+          <div className="h-[60px] md:h-[80px] flex items-center justify-center">
             <Typewriter
               sentences={[
                 "Engineering the Mind of Machines",
@@ -265,48 +255,21 @@ export const Hero: React.FC = () => {
               typingSpeed={50}
               deletingSpeed={30}
               pauseTime={2500}
-              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight"
+              className="text-2xl md:text-4xl lg:text-5xl text-gray-200 tracking-wide"
               style={{
-                fontFamily: '"SF Pro Display", "Inter", -apple-system, BlinkMacSystemFont, sans-serif',
-                background: 'linear-gradient(135deg, #ffffff 0%, #a78bfa 25%, #ffffff 50%, #c4b5fd 75%, #ffffff 100%)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                animation: 'gradient-flow 4s ease infinite',
-                textShadow: '0 0 80px rgba(139, 92, 246, 0.5)',
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                fontWeight: 300,
               }}
             />
           </div>
 
-          {/* Glowing underline */}
-          <motion.div
-            className="mt-6 h-[2px] rounded-full relative overflow-hidden"
-            style={{ width: '200px' }}
-          >
-            <div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500 to-transparent"
-              style={{ animation: 'pulse-glow 2s ease-in-out infinite' }}
-            />
-          </motion.div>
+          {/* Simple decorative dots */}
+          <div className="flex items-center gap-2 mt-6">
+            <div className="w-1.5 h-1.5 rounded-full bg-purple-500/40" />
+            <div className="w-1.5 h-1.5 rounded-full bg-purple-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-purple-500/40" />
+          </div>
         </motion.div>
-
-        {/* Add keyframe styles */}
-        <style>{`
-          @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-          }
-          @keyframes gradient-flow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-          @keyframes pulse-glow {
-            0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
-            50% { opacity: 1; transform: scaleX(1); }
-          }
-        `}</style>
 
       </div>
 
