@@ -89,7 +89,7 @@ const scheduleData: DaySchedule[] = [
         events: [
             {
                 time: '09.30-11.30 AM',
-                title: '100X Hackathon: Asia\'s largest deep-tech hackathon building breakthrough solutions.',
+                title: 'e-Raksha Hackathon: Asia\'s largest deep-tech hackathon building breakthrough solutions.',
                 description: 'Learn how businesses can use AI to optimize operations, increase profitability, and drive growth.',
             },
             {

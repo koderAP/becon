@@ -203,7 +203,7 @@ export const DashboardPage: React.FC = () => {
 
     // Mock data
     const registeredEvents: Event[] = [
-        { id: '1', name: '100X Hackathon', date: 'Jan 31 - Feb 2, 2026', status: 'confirmed' },
+        { id: '1', name: 'e-Raksha Hackathon', date: 'Jan 31 - Feb 2, 2026', status: 'confirmed' },
         { id: '2', name: 'Moonshot Pitching', date: 'Feb 1, 2026', status: 'registered' },
         { id: '3', name: 'Deep Tech Workshop', date: 'Feb 2, 2026', status: 'registered' },
     ];
