@@ -6,17 +6,7 @@ export const HeroBackground: React.FC = () => {
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
             {/* Framer-style Animated Gradient Background */}
             <div className="absolute inset-0 z-0">
-                <FramerGradient
-                    color1="#0a0818"  // Blackish Blue
-                    color2="#1a0a4a"  // Navy Blue
-                    color3="#ffffff"  // White glow
-                    speed={53}
-                    scale={0.45}
-                    swirl={31}
-                    iterations={10}
-                    softness={100}
-                    proportion={28}
-                />
+                <FramerGradient speed={50} />
             </div>
 
             {/* Bottom blur gradient overlay */}
@@ -29,3 +19,4 @@ export const HeroBackground: React.FC = () => {
         </div>
     );
 };
+

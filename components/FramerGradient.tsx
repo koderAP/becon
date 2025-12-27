@@ -11,149 +11,138 @@ void main() {
   gl_Position = vec4(position, 0.0, 1.0);
 }`;
 
-// Framer-style Animated Gradient Background shader
-// Settings: Swirl: 31, Iterations: 10, Softness: 100, Speed: 53, Scale: 0.45
+// Framer-style smooth animated gradient with glow
 const fragment = `#version 300 es
 precision highp float;
 
 uniform vec2 iResolution;
 uniform float iTime;
-uniform vec3 uColor1; // Blackish Blue
-uniform vec3 uColor2; // Navy Blue  
-uniform vec3 uColor3; // White
 uniform float uSpeed;
-uniform float uScale;
-uniform float uSwirl;
-uniform float uIterations;
-uniform float uSoftness;
-uniform float uProportion;
 
 out vec4 fragColor;
 
-// Smooth noise function
-float hash(vec2 p) {
-  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+#define PI 3.14159265359
+
+// Simplex 2D noise
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+
+float snoise(vec2 v) {
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy));
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+    + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m;
+  m = m*m;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
 }
 
-float noise(vec2 p) {
-  vec2 i = floor(p);
-  vec2 f = fract(p);
-  f = f * f * (3.0 - 2.0 * f);
-  
-  float a = hash(i);
-  float b = hash(i + vec2(1.0, 0.0));
-  float c = hash(i + vec2(0.0, 1.0));
-  float d = hash(i + vec2(1.0, 1.0));
-  
-  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
-}
-
-// Fractal Brownian Motion for smooth turbulence
 float fbm(vec2 p) {
   float value = 0.0;
   float amplitude = 0.5;
-  float frequency = 1.0;
-  
-  for (int i = 0; i < 6; i++) {
-    value += amplitude * noise(p * frequency);
+  for (int i = 0; i < 5; i++) {
+    value += amplitude * snoise(p);
+    p *= 2.0;
     amplitude *= 0.5;
-    frequency *= 2.0;
   }
   return value;
 }
 
-// Swirl distortion
-vec2 swirl(vec2 uv, vec2 center, float amount, float time) {
-  vec2 delta = uv - center;
-  float dist = length(delta);
-  float angle = atan(delta.y, delta.x);
-  float swirlAmount = amount * exp(-dist * 2.0) * sin(time * 0.5 + dist * 3.0);
-  angle += swirlAmount;
-  return center + dist * vec2(cos(angle), sin(angle));
-}
-
 void main() {
   vec2 uv = gl_FragCoord.xy / iResolution.xy;
-  vec2 center = vec2(0.5);
+  float aspect = iResolution.x / iResolution.y;
   
-  float time = iTime * uSpeed * 0.01;
+  float time = iTime * uSpeed * 0.02;
   
-  // Apply swirl distortion
-  float swirlAmount = uSwirl * 0.01;
-  vec2 distortedUv = swirl(uv, center, swirlAmount, time);
+  // Base colors - matching Framer design
+  vec3 darkBlue = vec3(0.02, 0.01, 0.06);      // Very dark blue/black
+  vec3 deepPurple = vec3(0.15, 0.05, 0.35);    // Deep purple
+  vec3 brightPurple = vec3(0.4, 0.2, 0.7);     // Brighter purple
+  vec3 white = vec3(1.0, 0.95, 1.0);           // Slightly warm white
   
-  // Scale from center
-  distortedUv = (distortedUv - center) / uScale + center;
+  // Create flowing noise layers
+  vec2 noiseCoord = uv * vec2(aspect, 1.0);
   
-  // Create flowing gradient layers
-  float flow1 = fbm(distortedUv * 3.0 + time * 0.3);
-  float flow2 = fbm(distortedUv * 2.0 - time * 0.2 + vec2(10.0));
-  float flow3 = fbm(distortedUv * 4.0 + time * 0.15 + vec2(20.0));
+  float noise1 = fbm(noiseCoord * 2.0 + time * 0.3);
+  float noise2 = fbm(noiseCoord * 1.5 - time * 0.2 + 10.0);
+  float noise3 = fbm(noiseCoord * 3.0 + time * 0.15 + 20.0);
   
-  // Combine flows
-  float combinedFlow = flow1 * 0.5 + flow2 * 0.3 + flow3 * 0.2;
+  // Combine noises for smooth flowing effect
+  float flow = (noise1 + noise2 * 0.7 + noise3 * 0.3) / 2.0;
+  flow = smoothstep(-0.3, 1.0, flow);
   
-  // Create the gradient mixing factor with softness
-  float softFactor = uSoftness * 0.01;
-  float gradientMix = smoothstep(0.2 * softFactor, 0.8 * softFactor, combinedFlow);
+  // Create the main gradient - dark at top corners, lighter in center-bottom
+  float vignette = 1.0 - length((uv - vec2(0.5, 0.3)) * vec2(1.2, 0.8));
+  vignette = smoothstep(0.0, 1.0, vignette);
   
-  // Proportion-based vertical gradient (light coming from bottom center)
-  float verticalGrad = pow(1.0 - uv.y, uProportion * 0.1);
-  float horizontalDist = abs(uv.x - 0.5) * 2.0;
-  float radialLight = (1.0 - horizontalDist * 0.7) * verticalGrad;
-  radialLight = smoothstep(0.0, 1.0, radialLight);
+  // Strong white glow from bottom center (the key Framer effect)
+  vec2 glowCenter = vec2(0.5, -0.3); // Below screen, emanating upward
+  float glowDist = length((uv - glowCenter) * vec2(1.0, 0.6));
+  float glow = 1.0 - smoothstep(0.0, 1.2, glowDist);
+  glow = pow(glow, 1.8);
   
-  // Mix colors based on flow and position
-  vec3 baseColor = mix(uColor1, uColor2, gradientMix);
+  // Add some noise variation to the glow
+  glow *= (0.85 + noise1 * 0.15);
   
-  // Add the white/light glow from bottom
-  float lightIntensity = radialLight * (0.5 + flow1 * 0.5);
-  lightIntensity = pow(lightIntensity, 1.5);
+  // Secondary glow pulses
+  float pulse = sin(time * 1.5) * 0.5 + 0.5;
+  float glowPulse = glow * (0.9 + pulse * 0.1);
   
-  vec3 finalColor = mix(baseColor, uColor3, lightIntensity * 0.8);
+  // Side aurora-like effects
+  float leftAurora = exp(-pow((uv.x + 0.2) * 4.0, 2.0)) * (1.0 - uv.y);
+  float rightAurora = exp(-pow((uv.x - 1.2) * 4.0, 2.0)) * (1.0 - uv.y);
+  float aurora = (leftAurora + rightAurora) * (0.7 + noise2 * 0.3);
   
-  // Add subtle pulsing glow
-  float pulse = sin(time * 2.0) * 0.5 + 0.5;
-  finalColor += uColor3 * radialLight * pulse * 0.1;
+  // Build the final color
+  // Start with dark base
+  vec3 color = darkBlue;
   
-  // Subtle noise dither to prevent banding
-  float dither = (hash(gl_FragCoord.xy + time) - 0.5) * 0.02;
-  finalColor += dither;
+  // Add deep purple based on flow and position
+  color = mix(color, deepPurple, flow * 0.6 + vignette * 0.4);
   
-  // Clamp to valid range
-  finalColor = clamp(finalColor, 0.0, 1.0);
+  // Add brighter purple in flowing areas
+  color = mix(color, brightPurple, flow * vignette * 0.5);
   
-  fragColor = vec4(finalColor, 1.0);
+  // Add aurora on edges
+  color = mix(color, brightPurple * 1.3, aurora * 0.4);
+  
+  // Add the white glow from bottom
+  color = mix(color, white, glowPulse * 0.85);
+  
+  // Add subtle purple tint to the glow edges
+  vec3 purpleGlow = mix(brightPurple, white, 0.5);
+  float glowEdge = glow * (1.0 - glow);
+  color = mix(color, purpleGlow, glowEdge * 0.5);
+  
+  // Dither to prevent banding
+  float dither = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898,78.233))) * 43758.5453) - 0.5) * 0.02;
+  color += dither;
+  
+  fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
 }`;
 
 interface FramerGradientProps {
-    color1?: string; // Blackish Blue
-    color2?: string; // Navy Blue
-    color3?: string; // White (light)
-    speed?: number;  // 53 in Framer
-    scale?: number;  // 0.45 in Framer
-    swirl?: number;  // 31 in Framer
-    iterations?: number; // 10 in Framer
-    softness?: number;   // 100 in Framer
-    proportion?: number; // 28 in Framer
+    speed?: number;
 }
 
-const hexToRgb = (hex: string): [number, number, number] => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (!result) return [0.05, 0.02, 0.1];
-    return [parseInt(result[1], 16) / 255, parseInt(result[2], 16) / 255, parseInt(result[3], 16) / 255];
-};
-
 export const FramerGradient = ({
-    color1 = '#0a0818', // Blackish Blue
-    color2 = '#1a0a4a', // Navy Blue
-    color3 = '#ffffff', // White
-    speed = 53,
-    scale = 0.45,
-    swirl = 31,
-    iterations = 10,
-    softness = 100,
-    proportion = 28,
+    speed = 50,
 }: FramerGradientProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const isVisibleRef = useRef(true);
@@ -162,10 +151,6 @@ export const FramerGradient = ({
     useEffect(() => {
         if (!containerRef.current) return;
         const containerEl = containerRef.current;
-
-        const color1Rgb = hexToRgb(color1);
-        const color2Rgb = hexToRgb(color2);
-        const color3Rgb = hexToRgb(color3);
 
         const renderer = new Renderer({
             webgl: 2,
@@ -188,15 +173,7 @@ export const FramerGradient = ({
             uniforms: {
                 iTime: { value: 0 },
                 iResolution: { value: new Float32Array([1, 1]) },
-                uColor1: { value: new Float32Array(color1Rgb) },
-                uColor2: { value: new Float32Array(color2Rgb) },
-                uColor3: { value: new Float32Array(color3Rgb) },
                 uSpeed: { value: speed },
-                uScale: { value: scale },
-                uSwirl: { value: swirl },
-                uIterations: { value: iterations },
-                uSoftness: { value: softness },
-                uProportion: { value: proportion },
             }
         });
 
@@ -251,7 +228,7 @@ export const FramerGradient = ({
                 console.warn('Canvas already removed');
             }
         };
-    }, [color1, color2, color3, speed, scale, swirl, iterations, softness, proportion]);
+    }, [speed]);
 
     return (
         <div
