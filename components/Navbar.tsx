@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
   { label: 'Sponsors', path: '/sponsors' },
   { label: 'Team', path: '/team' },
   { label: 'Contact', path: '/contact' },
-  { label: 'Log in', path: '/login', isButton: true },
+  { label: 'Sign In', path: '/login', isButton: true },
 ];
 
 export const Navbar: React.FC = () => {
