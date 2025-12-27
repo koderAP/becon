@@ -470,8 +470,8 @@ export const Events: React.FC = () => {
                                 </h3>
 
                                 <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                    {event.description.length > 100
-                                        ? `${event.description.substring(0, 100)}...`
+                                    {event.description.length > 330
+                                        ? `${event.description.substring(0, 330)}...`
                                         : event.description}
                                 </p>
 
@@ -556,15 +556,15 @@ export const Events: React.FC = () => {
                                         <X size={20} />
                                     </button>
 
-                                    <div className="flex flex-col md:flex-row">
-                                        {/* Image Side */}
-                                        <div className="w-full md:w-2/5 h-64 md:h-auto relative">
+                                    <div className="flex flex-col">
+                                        {/* Image Top */}
+                                        <div className="w-full h-64 md:h-80 relative flex-shrink-0">
                                             <img
                                                 src={selectedEvent.image}
                                                 alt={selectedEvent.title}
                                                 className="w-full h-full object-cover"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent md:bg-gradient-to-r" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent" />
 
                                             <div className="absolute top-6 left-6">
                                                 <span className="px-4 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-white/90 text-sm font-bold uppercase tracking-wider">
@@ -573,8 +573,8 @@ export const Events: React.FC = () => {
                                             </div>
                                         </div>
 
-                                        {/* Content Side */}
-                                        <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col">
+                                        {/* Content Bottom */}
+                                        <div className="w-full p-8 md:p-12 flex flex-col">
                                             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
                                                 {selectedEvent.title}
                                             </h2>
