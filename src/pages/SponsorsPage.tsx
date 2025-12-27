@@ -5,6 +5,15 @@ import { Footer } from '../../components/Footer';
 import { PageHeader } from '../../components/PageHeader';
 
 export const SponsorsPage: React.FC = () => {
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
             <PageHeader
@@ -32,7 +41,7 @@ export const SponsorsPage: React.FC = () => {
                         <div className="w-12 h-[2px] bg-white"></div>
                         <span className="text-lg text-gray-300 uppercase tracking-widest">Previous Partners</span>
                     </div>
-                    <Sponsors showHeader={false} className="bg-transparent !p-0" />
+                    <Sponsors showHeader={false} className="bg-transparent !p-0" isLoading={isLoading} />
                 </div>
             </div>
 

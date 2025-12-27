@@ -4,7 +4,29 @@ import { Footer } from '../../components/Footer';
 import { PageHeader } from '../../components/PageHeader';
 import { Instagram, Linkedin } from 'lucide-react';
 
+// Skeleton Loader for Speaker Cards
+const SkeletonSpeakerCard = () => (
+    <div className="group relative animate-pulse">
+        <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-white/5 border border-white/5">
+            <div className="w-full h-full bg-white/5" />
+        </div>
+        <div className="text-left space-y-2">
+            <div className="h-6 w-32 bg-white/10 rounded" />
+            <div className="h-4 w-24 bg-white/10 rounded" />
+        </div>
+    </div>
+);
+
 export const SpeakersPage: React.FC = () => {
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
             <PageHeader
@@ -31,52 +53,58 @@ export const SpeakersPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {[
-                            "Sachin Bansal", "Ritesh Agarwal", "Raghuram Rajan", "Nikhil Kamath", "Anand Chandrasekaran",
-                            "Sanjeev Bikhchandani", "Dara Khosrowshahi", "Deepinder Goyal", "Mark Zuckerberg", "Elie Seidman",
-                            "Jack Dorsey", "Prashanth Prakash", "Aman Gupta", "Ashneer Grover", "Kunal Bahl",
-                            "Hemant Taneja", "Rohit Bansal", "Azhar Iqubal", "Amit Jain", "Vijay Shekhar Sharma",
-                            "Nitin Gadkari", "Tanmay Bhat", "Bryan Johnson", "Gaurav Chaudhary", "Gurudev Ravi Shankar",
-                            "BVR Mohan Reddy", "Nuseir Yassin", "Manoj Kohli", "Radhika Gupta", "Terry Wu",
-                            "Prashant Tandon", "Ruchira Shukla", "Alok Mittal", "Bill Gates", "Kiran Bedi",
-                            "Prashant Pitti", "Rajan Anandan"
-                        ].map((name, i) => {
-                            const imagePath = `/speakers/${name.replace(/\s+/g, '')}.png`;
-                            return (
-                                <div key={i} className="group relative">
-                                    <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
-                                        <img
-                                            src={imagePath}
-                                            alt={name}
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                                            onError={(e) => {
-                                                (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
-                                            }}
-                                        />
+                        {isLoading ? (
+                            Array.from({ length: 8 }).map((_, i) => (
+                                <SkeletonSpeakerCard key={i} />
+                            ))
+                        ) : (
+                            [
+                                "Sachin Bansal", "Ritesh Agarwal", "Raghuram Rajan", "Nikhil Kamath", "Anand Chandrasekaran",
+                                "Sanjeev Bikhchandani", "Dara Khosrowshahi", "Deepinder Goyal", "Mark Zuckerberg", "Elie Seidman",
+                                "Jack Dorsey", "Prashanth Prakash", "Aman Gupta", "Ashneer Grover", "Kunal Bahl",
+                                "Hemant Taneja", "Rohit Bansal", "Azhar Iqubal", "Amit Jain", "Vijay Shekhar Sharma",
+                                "Nitin Gadkari", "Tanmay Bhat", "Bryan Johnson", "Gaurav Chaudhary", "Gurudev Ravi Shankar",
+                                "BVR Mohan Reddy", "Nuseir Yassin", "Manoj Kohli", "Radhika Gupta", "Terry Wu",
+                                "Prashant Tandon", "Ruchira Shukla", "Alok Mittal", "Bill Gates", "Kiran Bedi",
+                                "Prashant Pitti", "Rajan Anandan"
+                            ].map((name, i) => {
+                                const imagePath = `/speakers/${name.replace(/\s+/g, '')}.png`;
+                                return (
+                                    <div key={i} className="group relative">
+                                        <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
+                                            <img
+                                                src={imagePath}
+                                                alt={name}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                                onError={(e) => {
+                                                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
+                                                }}
+                                            />
 
-                                        {/* Glow Effect on Hover */}
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                                        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/40 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                            {/* Glow Effect on Hover */}
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                            <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/40 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                                        {/* Social Icons Overlay - Bottom Right */}
-                                        <div className="absolute bottom-5 right-5 flex gap-3 z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                                            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#0077b5] transition-colors duration-300 shadow-lg cursor-pointer">
-                                                <Linkedin size={20} />
-                                            </div>
-                                            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#E1306C] transition-colors duration-300 shadow-lg cursor-pointer">
-                                                <Instagram size={20} />
+                                            {/* Social Icons Overlay - Bottom Right */}
+                                            <div className="absolute bottom-5 right-5 flex gap-3 z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                                                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#0077b5] transition-colors duration-300 shadow-lg cursor-pointer">
+                                                    <Linkedin size={20} />
+                                                </div>
+                                                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#E1306C] transition-colors duration-300 shadow-lg cursor-pointer">
+                                                    <Instagram size={20} />
+                                                </div>
                                             </div>
                                         </div>
+                                        <div className="text-left">
+                                            <h3 className="text-xl font-bold text-white mb-1">{name}</h3>
+                                            <p className="text-gray-500 text-sm">Industry Leader</p>
+                                        </div>
                                     </div>
-                                    <div className="text-left">
-                                        <h3 className="text-xl font-bold text-white mb-1">{name}</h3>
-                                        <p className="text-gray-500 text-sm">Industry Leader</p>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })
+                        )}
                     </div>
                 </div>
             </div>

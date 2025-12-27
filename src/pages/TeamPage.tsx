@@ -106,7 +106,37 @@ const TeamMemberCard: React.FC<{ member: TeamMember; index: number }> = ({ membe
     );
 };
 
+// Skeleton for Core Team Member
+const SkeletonTeamMemberCard = () => (
+    <div className="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-3 md:p-6 h-full animate-pulse">
+        <div className="aspect-square rounded-lg md:rounded-xl mb-3 md:mb-4 bg-white/10 w-full" />
+        <div className="h-5 w-3/4 bg-white/10 rounded mb-2" />
+        <div className="h-4 w-1/2 bg-white/10 rounded mb-4" />
+        <div className="flex gap-2 md:gap-4">
+            <div className="w-5 h-5 bg-white/10 rounded-full" />
+            <div className="w-5 h-5 bg-white/10 rounded-full" />
+        </div>
+    </div>
+);
+
+// Skeleton for Coordinator
+const SkeletonCoordinatorCard = () => (
+    <div className="bg-white/5 border border-white/10 rounded-lg md:rounded-xl p-2 md:p-3 h-full animate-pulse">
+        <div className="aspect-square rounded-md md:rounded-lg mb-2 bg-white/10 w-full" />
+        <div className="h-3 w-3/4 bg-white/10 rounded mb-1" />
+        <div className="h-2 w-1/2 bg-white/10 rounded" />
+    </div>
+);
+
 export const TeamPage: React.FC = () => {
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
     return (
         <div className="min-h-screen bg-[#05020a] text-white font-sans selection:bg-purple-500 selection:text-white">
             <PageHeader
@@ -123,6 +153,7 @@ export const TeamPage: React.FC = () => {
                     title="Meet Our Hosts: The Visionaries Behind BECon Tech Summit"
                     subtitle="Our Host"
                     description="The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
+                    isLoading={isLoading}
                 />
 
                 {/* Core Team Section */}
@@ -133,9 +164,15 @@ export const TeamPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-8">
-                        {coreTeamMembers.map((member, index) => (
-                            <TeamMemberCard key={member.id} member={member} index={index} />
-                        ))}
+                        {isLoading ? (
+                            Array.from({ length: 8 }).map((_, i) => (
+                                <SkeletonTeamMemberCard key={i} />
+                            ))
+                        ) : (
+                            coreTeamMembers.map((member, index) => (
+                                <TeamMemberCard key={member.id} member={member} index={index} />
+                            ))
+                        )}
                     </div>
                 </div>
 
@@ -147,27 +184,33 @@ export const TeamPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-                        {coordinators.map((member, index) => (
-                            <motion.div
-                                key={member.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: (index % 10) * 0.05 }}
-                                className="group bg-white/5 border border-white/10 rounded-lg md:rounded-xl p-2 md:p-3 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
-                            >
-                                <div className="aspect-square rounded-md md:rounded-lg overflow-hidden mb-2 bg-white/5">
-                                    <img
-                                        src={member.img}
-                                        alt={member.name}
-                                        loading="lazy"
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                                    />
-                                </div>
-                                <h3 className="text-xs md:text-sm font-bold text-white truncate">{member.name}</h3>
-                                <p className="text-purple-400 text-[10px] md:text-xs truncate">{member.role}</p>
-                            </motion.div>
-                        ))}
+                        {isLoading ? (
+                            Array.from({ length: 10 }).map((_, i) => (
+                                <SkeletonCoordinatorCard key={i} />
+                            ))
+                        ) : (
+                            coordinators.map((member, index) => (
+                                <motion.div
+                                    key={member.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: (index % 10) * 0.05 }}
+                                    className="group bg-white/5 border border-white/10 rounded-lg md:rounded-xl p-2 md:p-3 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
+                                >
+                                    <div className="aspect-square rounded-md md:rounded-lg overflow-hidden mb-2 bg-white/5">
+                                        <img
+                                            src={member.img}
+                                            alt={member.name}
+                                            loading="lazy"
+                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                        />
+                                    </div>
+                                    <h3 className="text-xs md:text-sm font-bold text-white truncate">{member.name}</h3>
+                                    <p className="text-purple-400 text-[10px] md:text-xs truncate">{member.role}</p>
+                                </motion.div>
+                            ))
+                        )}
                     </div>
                 </div>
 

@@ -42,7 +42,21 @@ const sponsors: Sponsor[] = [
 interface SponsorsProps {
     showHeader?: boolean;
     className?: string;
+    isLoading?: boolean;
 }
+
+const SkeletonSponsorGrid = () => (
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto">
+        {Array.from({ length: 12 }).map((_, i) => (
+            <div
+                key={i}
+                className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-xl flex items-center justify-center animate-pulse"
+            >
+                <div className="w-2/3 h-12 bg-white/10 rounded-lg" />
+            </div>
+        ))}
+    </div>
+);
 
 const chunkArray = (arr: Sponsor[], chunks: number) => {
     const result = [];
@@ -86,7 +100,7 @@ const InfiniteMarqueeRow: React.FC<{ sponsors: Sponsor[], direction: 'left' | 'r
     );
 };
 
-export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className = "" }) => {
+export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className = "", isLoading = false }) => {
     const sponsorChunks = chunkArray(sponsors, 3);
 
     return (
@@ -128,25 +142,29 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
 
             {/* Desktop Unified Sponsors Grid (Hidden on sm and down using md:block) */}
             <div className="hidden md:block mb-12 sm:mb-16 lg:mb-20">
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto">
-                    {sponsors.map((s) => (
-                        <motion.div
-                            key={s.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-xl flex items-center justify-center hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer group p-4"
-                        >
-                            <img
-                                src={s.logo}
-                                alt={s.name}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
-                            />
-                        </motion.div>
-                    ))}
-                </div>
+                {isLoading ? (
+                    <SkeletonSponsorGrid />
+                ) : (
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 mx-auto">
+                        {sponsors.map((s) => (
+                            <motion.div
+                                key={s.id}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-xl flex items-center justify-center hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer group p-4"
+                            >
+                                <img
+                                    src={s.logo}
+                                    alt={s.name}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
+                                />
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="mt-16 sm:mt-24 lg:mt-32 text-center">
