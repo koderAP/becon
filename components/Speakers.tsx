@@ -111,14 +111,14 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               onClick={onViewAll}
-              className="flex-shrink-0 w-[260px] sm:w-[280px] md:w-[300px] group snap-center cursor-pointer"
+              className="flex-shrink-0 w-[180px] sm:w-[200px] md:w-[220px] group snap-center cursor-pointer"
             >
-              <div className="w-full aspect-square rounded-[32px] bg-[#111] border border-white/10 flex flex-col items-center justify-center group-hover:bg-[#161616] group-hover:border-purple-500/30 transition-all duration-300 mb-4">
-                <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-purple-600 group-hover:scale-110 transition-all duration-300 mb-4">
-                  <ArrowRight className="text-white group-hover:translate-x-1 transition-transform" size={32} />
+              <div className="w-full aspect-[3/4] rounded-[32px] bg-[#111] border border-white/10 flex flex-col items-center justify-center group-hover:bg-[#161616] group-hover:border-purple-500/30 transition-all duration-300 mb-4">
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-purple-600 group-hover:scale-110 transition-all duration-300 mb-4">
+                  <ArrowRight className="text-white group-hover:translate-x-1 transition-transform" size={24} />
                 </div>
-                <span className="text-xl font-bold text-white">See All</span>
-                <span className="text-purple-400 text-sm font-medium mt-1">Past Speakers</span>
+                <span className="text-lg font-bold text-white text-center px-4">See All</span>
+                <span className="text-purple-400 text-xs font-medium mt-1 text-center px-4">Past Speakers</span>
               </div>
             </motion.div>
           )}
