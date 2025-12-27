@@ -1,29 +1,19 @@
 import React from 'react';
-import { FramerGradient } from './FramerGradient';
+import { PlasmaBackground } from './PlasmaBackground';
 
 export const HeroBackground: React.FC = () => {
     return (
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-            {/* Framer "Animated Gradient Background" - Exact Settings */}
+            {/* Plasma Background - tuned to match Framer design */}
             <div className="absolute inset-0 z-0">
-                <FramerGradient
-                    // Colors from Framer
-                    color1="#08081a"  // Blackish Blue
-                    color2="#1a0a5c"  // Navy Blue
-                    color3="#ffffff"  // White 100
-
-                    // Exact Framer parameters from screenshot
-                    rotation={0}      // Rotation: 0°
-                    proportion={28}   // Proportion: 28
-                    scale={0.45}      // Scale: 0.45
-                    speed={53}        // Speed: 53
-                    distortion={0}    // Distortion: 0
-                    swirl={31}        // Swirl: 31
-                    iterations={10}   // Iterations: 10
-                    softness={100}    // Softness: 100
-                    offset={0}        // Offset: 0
-                    shapeSize={10}    // Shape Size: 10
-                    radius={0}        // Radius: 0
+                <PlasmaBackground
+                    color1="#08081a"  // Blackish Blue (very dark base)
+                    color2="#1a0a5c"  // Navy Blue (deep purple-blue)
+                    color3="#b794f4"  // Lighter purple for highlights
+                    speed={0.3}
+                    scale={1.2}
+                    offsetX={0.15}
+                    interactive={true}
                 />
             </div>
 
