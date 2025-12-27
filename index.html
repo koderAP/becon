@@ -5,8 +5,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BECon 2026 | Deep-Tech Summit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            becon: {
+              bg: '#05020a', // Very dark purple/black
+              primary: '#7c3aed', // Violet 600
+              secondary: '#4c1d95', // Violet 900
+              accent: '#a78bfa', // Violet 400
+              glass: 'rgba(255, 255, 255, 0.05)',
+              glassBorder: 'rgba(255, 255, 255, 0.1)',
+            }
+          },
+          backgroundImage: {
+            'hero-gradient': 'radial-gradient(circle at 50% 50%, #2e1065 0%, #05020a 70%)',
+            'card-gradient': 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #05020a;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Hide scrollbar completely */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
