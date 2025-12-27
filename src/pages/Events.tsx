@@ -493,7 +493,7 @@ export const Events: React.FC = () => {
                                     }}
                                     className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
                                 >
-                                    Register Now
+                                    Know More
                                     <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                                 </button>
                             </div>
