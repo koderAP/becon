@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PlasmaBackground } from '../../components/PlasmaBackground';
 import { Footer } from '../../components/Footer';
+import { PageHeader } from '../../components/PageHeader';
 import { ArrowUpRight } from 'lucide-react';
 
 interface Speaker {
@@ -31,22 +31,11 @@ const scheduleData: DaySchedule[] = [];
 export const Schedule: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#05020a] text-white">
-            {/* Hero Section */}
-            <div className="relative h-[50vh] min-h-[400px] overflow-hidden">
-                <PlasmaBackground />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05020a] z-10" />
-
-                <div className="relative z-20 h-full flex items-center justify-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-7xl sm:text-8xl md:text-9xl font-bold italic tracking-tight text-white"
-                    >
-                        SCHEDULE
-                    </motion.h1>
-                </div>
-            </div>
+            <PageHeader
+                title="SCHEDULE"
+                badge="Detailed Timeline"
+                description="Don't miss a beat"
+            />
 
             {/* Schedule Section */}
             <div className="relative z-20 px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-16">
@@ -67,12 +56,7 @@ export const Schedule: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-                            Detailed Timeline
-                        </h2>
-                        <p className="text-2xl sm:text-3xl md:text-4xl text-gray-500 font-light italic">
-                            Don't miss a beat
-                        </p>
+                        {/* Title removed as it's now in main header */}
                     </motion.div>
 
                     <motion.button
