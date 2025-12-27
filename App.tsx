@@ -10,8 +10,9 @@ import { Contact } from './src/pages/Contact';
 import { TicketsPage } from './src/pages/TicketsPage';
 import { TeamPage } from './src/pages/TeamPage';
 import { TermsPage } from './src/pages/TermsPage';
+import { LoginPage } from './src/pages/LoginPage';
+import { SignupPage } from './src/pages/SignupPage';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BottomNav } from './components/BottomNav';
 import { Toaster } from 'sonner';
 
 const AnimatedRoutes: React.FC = () => {
@@ -36,35 +37,45 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/tickets" element={<TicketsPage />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
   );
 };
 
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const isAuthPage = ['/login', '/signup'].includes(location.pathname);
+
+  return (
+    <div className="bg-[#05020a] text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
+      {!isAuthPage && <Navbar />}
+
+      <main className="relative z-0">
+        <AnimatedRoutes />
+      </main>
+
+      <Toaster
+        position="bottom-right"
+        theme="dark"
+        toastOptions={{
+          style: {
+            background: 'rgba(20, 10, 30, 0.9)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: 'white',
+          },
+        }}
+      />
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className="bg-[#05020a] text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
-        <Navbar />
-
-        <main className="relative z-0">
-          <AnimatedRoutes />
-        </main>
-
-
-        <Toaster
-          position="bottom-right"
-          theme="dark"
-          toastOptions={{
-            style: {
-              background: 'rgba(20, 10, 30, 0.9)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: 'white',
-            },
-          }}
-        />
-      </div>
+      <AppContent />
     </BrowserRouter>
   );
 };
