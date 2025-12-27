@@ -59,13 +59,12 @@ export const SignupPage: React.FC = () => {
                     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px]" />
                 </div>
 
-                <div className="relative z-10">
-                    <Link to="/" className="inline-block">
-                        <img src="/logo.avif" alt="BECon Logo" className="h-12 w-auto" />
-                    </Link>
-                </div>
+
 
                 <div className="relative z-10 max-w-lg">
+                    <Link to="/" className="inline-block mb-8">
+                        <img src="/logo.avif" alt="BECon Logo" className="h-16 w-auto" />
+                    </Link>
                     <h1 className="text-5xl font-bold mb-6 leading-tight">
                         Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Revolution</span>
                     </h1>
