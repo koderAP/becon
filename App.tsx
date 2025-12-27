@@ -13,6 +13,8 @@ import { TermsPage } from './src/pages/TermsPage';
 import { LoginPage } from './src/pages/LoginPage';
 import { SignupPage } from './src/pages/SignupPage';
 import { DashboardPage } from './src/pages/DashboardPage';
+import AdminLogin from './src/pages/AdminLogin';
+import AdminDashboard from './src/pages/AdminDashboard';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 
@@ -41,6 +43,9 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -49,7 +54,7 @@ const AnimatedRoutes: React.FC = () => {
 
 const AppContent: React.FC = () => {
   const location = useLocation();
-  const isAuthPage = ['/login', '/signup'].includes(location.pathname);
+  const isAuthPage = ['/login', '/signup', '/admin/login', '/admin/dashboard'].includes(location.pathname);
 
   return (
     <div className="bg-[#05020a] text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
