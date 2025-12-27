@@ -17,7 +17,7 @@ const sponsors: Sponsor[] = [
     { id: 12, name: "Paytm", tier: "Partner", logo: "/sponsors/Paytm_Logo_(standalone).svg" },
     { id: 13, name: "SBI", tier: "Partner", logo: "/sponsors/SBI-logo.svg" },
     { id: 14, name: "Partner", tier: "Partner", logo: "/sponsors/Screenshot_2025-01-29_at_7.29.24_PM-removebg-preview 2.svg" },
-    { id: 15, name: "Worldcoin", tier: "Partner", logo: "/sponsors/Worldcoin_Logo.png" },
+    { id: 15, name: "Worldcoin", tier: "Partner", logo: "/sponsors/Worldcoin_Logo.avif" },
     { id: 16, name: "ABV", tier: "Partner", logo: "/sponsors/abv_logo.svg" },
     { id: 17, name: "IAN", tier: "Partner", logo: "/sponsors/ian_logo.svg" },
     { id: 18, name: "Partner", tier: "Partner", logo: "/sponsors/image 15947.svg" },

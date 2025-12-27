@@ -98,7 +98,7 @@ export const SpeakersPage: React.FC = () => {
                                 "Prashant Tandon", "Ruchira Shukla", "Alok Mittal", "Bill Gates", "Kiran Bedi",
                                 "Prashant Pitti", "Rajan Anandan"
                             ].map((name, i) => {
-                                const imagePath = `/speakers/${name.replace(/\s+/g, '')}.png`;
+                                const imagePath = `/speakers/${name.replace(/\s+/g, '')}.avif`;
                                 return (
                                     <motion.div key={i} className="group relative" variants={itemVariants}>
                                         <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
