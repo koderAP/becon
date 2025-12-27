@@ -90,7 +90,7 @@ const regionalEventsData: EventCard[] = [
 
 const eventsData: EventCard[] = [
     {
-        id: '100x-hackathon',
+        id: 'e-raksha-hackathon',
         title: 'e-Raksha Hackathon',
         description: "The e-Raksha Hackathon is one of Asia's largest deep-tech innovation arenas, bringing together some of the brightest engineering minds to solve challenges in defence, electronics, and intelligent hardware. It focuses on creating practical, scalable solutions with real application potential, supported by guidance from industry leaders, research experts, and partner institutions. If you want to build technology that truly counts, this is the place to do it.",
         whyJoin: [
