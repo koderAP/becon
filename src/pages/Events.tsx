@@ -292,7 +292,7 @@ const eventsData: EventCard[] = [
         location: 'Dogra Hall',
         category: 'competition',
         featured: true,
-        image: 'https://images.unsplash.com/photo-1559223606-3b292fdd18a9?auto=format&fit=crop&q=80&w=800',
+        image: '/events/Grandmoonshot.avif',
     },
     {
         id: 'keynotes-panels',
