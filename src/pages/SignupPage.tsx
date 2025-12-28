@@ -91,11 +91,8 @@ export const SignupPage: React.FC = () => {
                     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px]" />
                 </div>
 
-                <div className="relative z-10">
-                    <Link to="/" className="inline-block">
-                        <img src="/logo.avif" alt="BECon Logo" className="h-12 w-auto" />
-                    </Link>
-                </div>
+                {/* Empty top section for spacing */}
+                <div className="relative z-10" />
 
                 <div className="relative z-10 max-w-lg">
                     <h1 className="text-5xl font-bold mb-6 leading-tight">
@@ -106,8 +103,14 @@ export const SignupPage: React.FC = () => {
                     </p>
                 </div>
 
-                <div className="relative z-10 text-sm text-gray-500">
-                    © 2026 Entrepreneurship Development Cell, IIT Delhi
+                {/* Logo and Copyright at bottom */}
+                <div className="relative z-10 space-y-4">
+                    <Link to="/" className="inline-block">
+                        <img src="/logo.avif" alt="BECon Logo" className="h-10 w-auto" />
+                    </Link>
+                    <p className="text-sm text-gray-500">
+                        © 2026 Entrepreneurship Development Cell, IIT Delhi
+                    </p>
                 </div>
             </div>
 
