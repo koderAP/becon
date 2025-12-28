@@ -229,7 +229,7 @@ export const Hero: React.FC = () => {
             ease: [0.25, 0.46, 0.45, 0.94],
             delay: 0.3
           }}
-          className="relative flex items-center justify-center mb-6 md:mb-8"
+          className="relative flex items-center justify-center mb-2 md:mb-4"
         >
           <img
             src="/logo.avif"
@@ -243,7 +243,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="my-4 flex flex-col items-center"
+          className="mt-1 md:mt-2 mb-4 flex flex-col items-center"
         >
           <div className="h-[40px] md:h-[60px] flex items-center justify-center">
             <Typewriter
