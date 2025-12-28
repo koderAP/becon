@@ -135,10 +135,14 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
 
       {/* Theme Domains Grid */}
       <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-8 scrollbar-hide" staggerDelay={150}>
-        {themeDomains.map((v, i) => (
+        {themeDomains.map((v) => (
           <motion.div
             key={v.id}
-            className="group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border border-white/10 hover:border-white/30 overflow-hidden cursor-pointer transition-all duration-300 snap-center"
+            onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
+            className={`group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedId === v.id
+                ? 'border-purple-500'
+                : 'border-white/10 hover:border-white/30'
+              }`}
           >
             {/* Background Image */}
             {v.image && (
@@ -156,11 +160,9 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             {/* Hover Gradient Background - Subtle */}
             <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-15 transition-opacity duration-500`} />
 
-            <div className="absolute inset-0 flex flex-col items-center justify-end p-4 text-center">
-              <div className="p-2 md:p-3 rounded-xl mb-2 transition-all duration-300 backdrop-blur-sm bg-black/30 group-hover:bg-black/50">
-                <v.icon size={24} className="text-white" strokeWidth={1} />
-              </div>
-              <h3 className="text-xs md:text-sm font-medium text-white">{v.title}</h3>
+            <div className="absolute inset-0 flex items-end justify-center p-4 text-center">
+              <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedId === v.id ? 'text-purple-300' : 'text-white'
+                }`}>{v.title}</h3>
             </div>
           </motion.div>
         ))}
@@ -186,8 +188,8 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             key={v.id}
             onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
             className={`group relative flex-shrink-0 w-44 sm:w-52 h-24 sm:h-28 rounded-xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedId === v.id
-                ? 'border-purple-500 bg-purple-500/10'
-                : 'border-white/10 bg-white/5 hover:border-white/30'
+              ? 'border-purple-500 bg-purple-500/10'
+              : 'border-white/10 bg-white/5 hover:border-white/30'
               }`}
           >
             {/* Hover Gradient Background */}
