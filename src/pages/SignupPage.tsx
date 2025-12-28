@@ -269,7 +269,7 @@ export const SignupPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="w-full">
                         <button
                             type="button"
                             onClick={async () => {
@@ -281,7 +281,7 @@ export const SignupPage: React.FC = () => {
                                     setIsLoading(false);
                                 }
                             }}
-                            className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white text-sm font-medium"
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white text-sm font-medium"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path
@@ -301,11 +301,7 @@ export const SignupPage: React.FC = () => {
                                     fill="#EA4335"
                                 />
                             </svg>
-                            Google
-                        </button>
-                        <button className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white text-sm font-medium">
-                            <Github size={20} />
-                            GitHub
+                            Continue with Google
                         </button>
                     </div>
 
