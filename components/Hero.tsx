@@ -273,37 +273,37 @@ export const Hero: React.FC = () => {
         transition={{ delay: 2, duration: 0.6 }}
         className="absolute bottom-8 left-0 right-0 flex justify-center z-20 px-4"
       >
-        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
           {/* Date Card */}
           <motion.div
-            whileHover={{ scale: 1.02, y: -2 }}
-            className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-purple-900/80 backdrop-blur-lg border border-purple-400/40 shadow-lg shadow-purple-900/50 transition-all cursor-default"
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 shadow-xl shadow-purple-500/30"
           >
-            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-purple-500/40">
-              <svg className="w-5 h-5 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/20">
+              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] uppercase tracking-wider text-purple-300 font-semibold">Date</span>
-              <span className="text-white font-bold text-sm">31 Jan - 2 Feb 2026</span>
+              <span className="text-xs uppercase tracking-wider text-white/70 font-medium">Date</span>
+              <span className="text-white font-bold text-base">31 Jan - 2 Feb 2026</span>
             </div>
           </motion.div>
 
           {/* Venue Card */}
           <motion.div
-            whileHover={{ scale: 1.02, y: -2 }}
-            className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-blue-900/80 backdrop-blur-lg border border-blue-400/40 shadow-lg shadow-blue-900/50 transition-all cursor-default"
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 shadow-xl shadow-blue-500/30"
           >
-            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-500/40">
-              <svg className="w-5 h-5 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/20">
+              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] uppercase tracking-wider text-blue-300 font-semibold">Venue</span>
-              <span className="text-white font-bold text-sm">IIT Delhi, New Delhi</span>
+              <span className="text-xs uppercase tracking-wider text-white/70 font-medium">Venue</span>
+              <span className="text-white font-bold text-base">IIT Delhi, New Delhi</span>
             </div>
           </motion.div>
         </div>

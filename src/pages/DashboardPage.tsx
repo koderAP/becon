@@ -225,7 +225,11 @@ export const DashboardPage: React.FC = () => {
             toast.success('Avatar updated!');
         } catch (error: any) {
             console.error('Avatar upload error:', error);
-            toast.error('Failed to upload avatar. Try again.');
+            if (error.message?.includes('Bucket not found')) {
+                toast.error('Avatar storage not configured yet. Please contact admin.');
+            } else {
+                toast.error('Failed to upload avatar. Try again.');
+            }
         } finally {
             setUploadingAvatar(false);
         }
@@ -276,16 +280,9 @@ export const DashboardPage: React.FC = () => {
         setEditedProfile(profile);
     }, [user, loading, navigate]);
 
-    // Mock data
-    const registeredEvents: Event[] = [
-        { id: '1', name: 'e-Raksha Hackathon', date: 'Jan 31 - Feb 2, 2026', status: 'confirmed' },
-        { id: '2', name: 'Moonshot Pitching', date: 'Feb 1, 2026', status: 'registered' },
-        { id: '3', name: 'Deep Tech Workshop', date: 'Feb 2, 2026', status: 'registered' },
-    ];
-
-    const passes: Pass[] = [
-        { id: '1', eventName: 'BECon 2026', passType: 'All Access', qrCode: 'QR_CODE_1', validUntil: 'Feb 2, 2026' },
-    ];
+    // Events & Passes - Empty for now (registration coming soon)
+    const registeredEvents: Event[] = [];
+    const passes: Pass[] = [];
 
     const eventDate = new Date('2026-01-31T09:00:00');
 
@@ -582,12 +579,13 @@ export const DashboardPage: React.FC = () => {
                             ) : (
                                 <div className="text-center py-12">
                                     <Trophy size={48} className="mx-auto text-gray-600 mb-4" />
-                                    <p className="text-gray-400 mb-4">No events registered yet</p>
+                                    <p className="text-gray-400 mb-2">Event registration coming soon!</p>
+                                    <p className="text-gray-500 text-sm mb-4">Check back later to register for BECon 2026 events</p>
                                     <Link
                                         to="/events"
                                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 transition-colors"
                                     >
-                                        Browse Events <ArrowRight size={16} />
+                                        Explore Events <ArrowRight size={16} />
                                     </Link>
                                 </div>
                             )}
