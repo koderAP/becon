@@ -67,10 +67,10 @@ export const Footer: React.FC = () => {
 
                             <div className="flex items-center gap-5">
                                 {[
-                                    { Icon: Instagram, href: "#" },
-                                    { Icon: Linkedin, href: "#" },
-                                    { Icon: Twitter, href: "#" },
-                                    { Icon: Youtube, href: "#" }
+                                    { Icon: Instagram, href: "https://www.instagram.com/edc_iitd/" },
+                                    { Icon: Linkedin, href: "https://www.linkedin.com/company/edc-iit-delhi/" },
+                                    { Icon: Twitter, href: "https://x.com/edciitdelhi" },
+                                    { Icon: Youtube, href: "https://www.youtube.com/@edciitd6869" }
                                 ].map((social, index) => (
                                     <a
                                         key={index}
@@ -112,7 +112,7 @@ export const Footer: React.FC = () => {
                                 <span className="w-8 h-[2px] bg-purple-500 rounded-full"></span> Legal
                             </h3>
                             <ul className="space-y-2">
-                                {['Terms & Conditions', 'Privacy Policy', 'Code of Conduct'].map((item) => (
+                                {['Terms & Conditions', 'Privacy Policy'].map((item) => (
                                     <li key={item}>
                                         <Link
                                             to="#"
@@ -138,8 +138,8 @@ export const Footer: React.FC = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a href="mailto:contact@becon.in" className="text-white font-semibold text-base hover:text-purple-400 transition-colors">
-                                        contact@becon.in
+                                    <a href="mailto:edciitd.team@gmail.com" className="text-white font-semibold text-base hover:text-purple-400 transition-colors">
+                                        edciitd.team@gmail.com
                                     </a>
                                 </li>
                                 <li>
