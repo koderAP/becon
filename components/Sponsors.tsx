@@ -149,18 +149,9 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                         className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
                     >
                         <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-                        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Our Partners</span>
+                        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Previous Partners</span>
                     </motion.div>
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-10 sm:mb-12 lg:mb-16"
-                    >
-                        Powering the <br className="hidden sm:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Deep Tech Revolution</span>
-                    </motion.h1>
                 </>
             )}
 
