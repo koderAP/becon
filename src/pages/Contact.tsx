@@ -83,7 +83,7 @@ export const Contact: React.FC = () => {
                             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-blue-500/30 transition-colors">
                                 <Mail className="w-8 h-8 text-blue-400 mb-4" />
                                 <h4 className="font-semibold text-lg mb-1">Email Us</h4>
-                                <a href="mailto:edciitd.team@gmail.com" className="text-gray-400 hover:text-white transition-colors">edciitd.team@gmail.com</a>
+                                <a href="mailto:team@edciitd.com" className="text-gray-400 hover:text-white transition-colors">team@edciitd.com</a>
                             </div>
                             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-pink-500/30 transition-colors">
                                 <Phone className="w-8 h-8 text-pink-400 mb-4" />

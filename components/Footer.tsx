@@ -140,8 +140,8 @@ export const Footer: React.FC = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a href="mailto:edciitd.team@gmail.com" className="text-white font-semibold text-base hover:text-purple-400 transition-colors">
-                                        edciitd.team@gmail.com
+                                    <a href="mailto:team@edciitd.com" className="text-white font-semibold text-base hover:text-purple-400 transition-colors">
+                                        team@edciitd.com
                                     </a>
                                 </li>
                                 <li>
