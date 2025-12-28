@@ -218,7 +218,7 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* 3. Main Hero Content - z-20 to be above background */}
-      <div className="z-20 flex flex-col items-center text-center px-4 relative -mt-8">
+      <div className="z-20 flex flex-col items-center text-center px-4 relative mt-0 md:-mt-8">
 
         {/* LOGO - BECon Logo - Emerging from background */}
         <motion.div
@@ -229,12 +229,12 @@ export const Hero: React.FC = () => {
             ease: [0.25, 0.46, 0.45, 0.94],
             delay: 0.3
           }}
-          className="relative flex items-center justify-center mb-8"
+          className="relative flex items-center justify-center mb-6 md:mb-8"
         >
           <img
             src="/logo.avif"
             alt="BECon 2026"
-            className="w-[320px] md:w-[550px] lg:w-[700px] h-auto object-contain"
+            className="w-[280px] md:w-[500px] lg:w-[650px] h-auto object-contain"
           />
         </motion.div>
 
@@ -243,9 +243,9 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="mt-4 flex flex-col items-center"
+          className="my-4 flex flex-col items-center"
         >
-          <div className="h-[60px] md:h-[80px] flex items-center justify-center">
+          <div className="h-[40px] md:h-[60px] flex items-center justify-center">
             <Typewriter
               sentences={[
                 "Engineering the Mind of Machines",
@@ -255,54 +255,61 @@ export const Hero: React.FC = () => {
               typingSpeed={80}
               deletingSpeed={50}
               pauseTime={2000}
-              className="text-3xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400"
+              className="text-xl md:text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400 tracking-wide"
             />
           </div>
         </motion.div>
+
+        {/* 4. Info HUD Bar - Date & Venue - Relative Positioning to avoid overlap */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 0.6 }}
+          className="mt-8 md:mt-12 mb-8"
+        >
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="flex flex-col md:flex-row items-stretch md:items-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-full p-2 pr-6 shadow-[0_0_40px_rgba(139,92,246,0.15)] group hover:border-purple-500/30 transition-all duration-500"
+          >
+            {/* Date Section */}
+            <div className="flex items-center gap-4 px-4 py-2 border-b md:border-b-0 md:border-r border-white/10">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-600/20 flex items-center justify-center border border-white/5">
+                <svg className="w-5 h-5 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-purple-400 font-bold">Date</span>
+                <span className="text-white font-medium text-sm md:text-base whitespace-nowrap">31 Jan - 2 Feb 2026</span>
+              </div>
+            </div>
+
+            {/* Venue Section */}
+            <div className="flex items-center gap-4 px-4 py-2 pt-4 md:pt-2">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-600/20 flex items-center justify-center border border-white/5">
+                <svg className="w-5 h-5 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">Venue</span>
+                <span className="text-white font-medium text-sm md:text-base whitespace-nowrap">IIT Delhi, New Delhi</span>
+              </div>
+            </div>
+
+            {/* Status Indicator */}
+            <div className="hidden md:flex ml-4 pl-4 border-l border-white/10 items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-[10px] font-mono text-green-400/80 uppercase tracking-wider">Live</span>
+            </div>
+          </motion.div>
+        </motion.div>
+
       </div>
-
-      {/* 4. Bottom Info Bar - Date & Venue - Positioned at very bottom */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.6 }}
-        className="absolute bottom-8 left-0 right-0 flex justify-center z-20 px-4"
-      >
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-          {/* Date Card */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-br from-purple-800/80 to-purple-900/80 backdrop-blur-md border border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.2)]"
-          >
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-purple-500/20">
-              <svg className="w-6 h-6 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-xs uppercase tracking-widest text-purple-300 font-bold mb-0.5">Date</span>
-              <span className="text-white font-bold text-lg leading-tight">31 Jan - 2 Feb 2026</span>
-            </div>
-          </motion.div>
-
-          {/* Venue Card */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-br from-blue-800/80 to-blue-900/80 backdrop-blur-md border border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.2)]"
-          >
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-500/20">
-              <svg className="w-6 h-6 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-xs uppercase tracking-widest text-blue-300 font-bold mb-0.5">Venue</span>
-              <span className="text-white font-bold text-lg leading-tight">IIT Delhi, New Delhi</span>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
 
 
     </div>
