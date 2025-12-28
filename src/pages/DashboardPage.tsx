@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
     User, Mail, Phone, Building, Calendar, Edit2, Save, X, Ticket, Trophy,
-    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera, Loader2
+    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera, Loader2, Fingerprint
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
@@ -168,7 +168,7 @@ const CountdownTimer: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
 
 // Animated background orb
 const GlowOrb: React.FC<{ className?: string }> = ({ className }) => (
-    <div className={`absolute rounded-full blur-3xl opacity-30 animate-pulse ${className}`} />
+    <div className={`absolute rounded - full blur - 3xl opacity - 30 animate - pulse ${className} `} />
 );
 
 export const DashboardPage: React.FC = () => {
@@ -186,22 +186,54 @@ export const DashboardPage: React.FC = () => {
         const file = e.target.files?.[0];
         if (!file || !user) return;
 
-        // Validate file size (max 2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            toast.error('Image too large. Please use an image under 2MB.');
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error('Image too large. Please use an image under 5MB.');
             return;
         }
 
         setUploadingAvatar(true);
 
         try {
-            // Upload to Supabase Storage
-            const fileExt = file.name.split('.').pop();
+            // Convert to AVIF
+            const convertToAvif = async (inputFile: File): Promise<Blob> => {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            const ctx = canvas.getContext('2d');
+                            if (ctx) {
+                                ctx.drawImage(img, 0, 0);
+                                canvas.toBlob((blob) => {
+                                    resolve(blob || inputFile);
+                                }, 'image/avif', 0.85);
+                            } else {
+                                resolve(inputFile);
+                            }
+                        };
+                        img.onerror = () => resolve(inputFile);
+                        img.src = event.target?.result as string;
+                    };
+                    reader.onerror = () => resolve(inputFile);
+                    reader.readAsDataURL(inputFile);
+                });
+            };
+
+            const avifBlob = await convertToAvif(file);
+            const fileExt = 'avif';
             const fileName = `${user.id}/avatar.${fileExt}`;
 
+            // Upload to Supabase Storage
             const { error: uploadError } = await supabase.storage
                 .from('avatars')
-                .upload(fileName, file, { upsert: true });
+                .upload(fileName, avifBlob, {
+                    contentType: 'image/avif',
+                    upsert: true
+                });
 
             if (uploadError) throw uploadError;
 
@@ -222,7 +254,7 @@ export const DashboardPage: React.FC = () => {
             setAvatarPreview(avatarUrl);
             setUserProfile(prev => ({ ...prev, avatar: avatarUrl }));
             setEditedProfile(prev => ({ ...prev, avatar: avatarUrl }));
-            toast.success('Avatar updated!');
+            toast.success('Avatar updated successfully!');
         } catch (error: any) {
             console.error('Avatar upload error:', error);
             if (error.message?.includes('Bucket not found')) {
@@ -416,7 +448,7 @@ export const DashboardPage: React.FC = () => {
                                             <h3 className="text-2xl font-mono font-bold tracking-wide">{userProfile.becId}</h3>
                                         </div>
                                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                                            <Sparkles className="text-white" size={24} />
+                                            <Fingerprint className="text-white" size={24} />
                                         </div>
                                     </div>
 
