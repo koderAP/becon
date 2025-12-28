@@ -523,10 +523,6 @@ export const Events: React.FC = () => {
                                     Regionals – Taking BECon Across India
                                 </h2>
 
-                                <p className="text-gray-400 italic text-lg max-w-2xl mx-auto mb-8">
-                                    Engineering the Minds of Machines. Crafted in India, for the World.
-                                </p>
-
                                 <div className="flex items-center justify-center gap-3 text-purple-300 group-hover:text-white transition-colors">
                                     <span className="text-sm font-semibold uppercase tracking-wider">
                                         {isRegionalsExpanded ? 'Collapse' : 'Explore Regionals'}

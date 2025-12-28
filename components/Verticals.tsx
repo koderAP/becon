@@ -134,7 +134,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       )}
 
       {/* Theme Domains Grid */}
-      <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-8 scrollbar-hide" staggerDelay={150}>
+      <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-4 scrollbar-hide" staggerDelay={150}>
         {themeDomains.map((v) => (
           <motion.div
             key={v.id}
@@ -167,6 +167,23 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
           </motion.div>
         ))}
       </AnimeStagger>
+
+      {/* Core Verticals Description Panel */}
+      <AnimatePresence>
+        {selectedData && themeDomains.some(v => v.id === selectedId) && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="mb-4 overflow-hidden"
+          >
+            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+              <p className="text-gray-300 text-sm md:text-base">{selectedData.description}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Wider Landscape Section */}
       <motion.div
@@ -203,9 +220,9 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         ))}
       </div>
 
-      {/* Description Panel - Shows when a card is selected */}
+      {/* Wider Landscape Description Panel */}
       <AnimatePresence>
-        {selectedData && (
+        {selectedData && widerLandscape.some(v => v.id === selectedId) && (
           <motion.div
             initial={{ opacity: 0, y: -10, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
@@ -221,89 +238,91 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       </AnimatePresence>
 
       {/* FEATURED EVENTS SECTION (Only on Full Page) */}
-      {!preview && (
-        <div className="mt-32">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4 mb-8"
-          >
-            <div className="w-12 h-[2px] bg-white"></div>
-            <span className="text-lg text-gray-300 uppercase tracking-widest">Upcoming Highlights</span>
-          </motion.div>
+      {
+        !preview && (
+          <div className="mt-32">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <div className="w-12 h-[2px] bg-white"></div>
+              <span className="text-lg text-gray-300 uppercase tracking-widest">Upcoming Highlights</span>
+            </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-bold leading-tight mb-16"
-          >
-            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Events</span>
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl md:text-7xl font-bold leading-tight mb-16"
+            >
+              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Events</span>
+            </motion.h1>
 
-          <div className="space-y-24">
-            {eventsData.map((event, i) => (
-              <motion.div
-                key={event.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-              >
-                {/* Content Section */}
-                <div className="flex-1 space-y-6 text-left">
-                  <div className="flex items-center gap-3">
-                    <span className="h-[1px] w-8 bg-purple-500"></span>
-                    <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
+            <div className="space-y-24">
+              {eventsData.map((event, i) => (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                  className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                >
+                  {/* Content Section */}
+                  <div className="flex-1 space-y-6 text-left">
+                    <div className="flex items-center gap-3">
+                      <span className="h-[1px] w-8 bg-purple-500"></span>
+                      <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
+                    </div>
+
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
+                      {event.title}
+                    </h3>
+
+                    <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                      {event.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={16} className="text-white" />
+                        <span>{event.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock size={16} className="text-white" />
+                        <span>{event.time}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin size={16} className="text-white" />
+                        <span>{event.location}</span>
+                      </div>
+                    </div>
+
+                    <button className="group flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4">
+                      Register Now
+                      <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                    </button>
                   </div>
 
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
-                    {event.title}
-                  </h3>
-
-                  <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                    {event.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} className="text-white" />
-                      <span>{event.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} className="text-white" />
-                      <span>{event.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin size={16} className="text-white" />
-                      <span>{event.location}</span>
-                    </div>
+                  {/* Image Section */}
+                  <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
+                    <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* Subtle overlay */}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
                   </div>
-
-                  <button className="group flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4">
-                    Register Now
-                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                  </button>
-                </div>
-
-                {/* Image Section */}
-                <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Subtle overlay */}
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   );
 };
