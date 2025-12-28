@@ -91,7 +91,7 @@ export const LoginPage: React.FC = () => {
                 {/* Logo and Copyright at bottom */}
                 <div className="relative z-10 space-y-4">
                     <Link to="/" className="inline-block">
-                        <img src="/logo.avif" alt="BECon Logo" className="h-10 w-auto" />
+                        <img src="/logo.avif" alt="BECon Logo" className="h-14 w-auto" />
                     </Link>
                     <p className="text-sm text-gray-500">
                         © 2026 Entrepreneurship Development Cell, IIT Delhi
