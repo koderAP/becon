@@ -255,15 +255,31 @@ export default function AdminDashboard() {
             {/* Header */}
             <header className="border-b border-[#7A32E0]/20 bg-[#1A1425]">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <a href="/">
-                            <img src="/becon-logo-white.png" alt="BECon 2026" className="h-10 md:h-12 w-auto object-contain" />
-                        </a>
-                        <div>
-                            <h1 className="text-white font-bold">Admin Dashboard</h1>
-                            <p className="text-[#BBC5F2]/50 text-xs">Welcome, {admin?.name}</p>
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-3">
+                            <a href="/">
+                                <img src="/logo.avif" alt="BECon 2026" className="h-10 md:h-12 w-auto object-contain" />
+                            </a>
+                            <div>
+                                <h1 className="text-white font-bold">Admin Dashboard</h1>
+                                <p className="text-[#BBC5F2]/50 text-xs">Welcome, {admin?.name}</p>
+                            </div>
                         </div>
+
+                        {/* Navigation */}
+                        <nav className="hidden md:flex items-center gap-1 bg-[#0F0C1A] p-1 rounded-lg border border-[#7A32E0]/20">
+                            <button className="px-4 py-1.5 bg-[#7A32E0] text-white rounded-md text-sm font-medium">
+                                Events
+                            </button>
+                            <button
+                                onClick={() => navigate('/admin/forms')}
+                                className="px-4 py-1.5 text-[#BBC5F2] hover:text-white hover:bg-white/5 rounded-md text-sm font-medium transition"
+                            >
+                                Forms
+                            </button>
+                        </nav>
                     </div>
+
                     <div className="flex items-center gap-3">
                         <button
                             onClick={handleLogout}
