@@ -307,17 +307,30 @@ export const DashboardPage: React.FC = () => {
         setEditedProfile(profile);
 
         // Sync with backend to trigger profile creation & welcome email
+        // Also fetch custom avatar from database (not overwritten by Google)
         const syncProfile = async () => {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
                 if (session?.access_token) {
                     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-                    await fetch(`${API_URL}/api/user/profile`, {
+                    const response = await fetch(`${API_URL}/api/user/profile`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${session.access_token}`,
                         },
                     });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.success && data.profile) {
+                            // Prioritize database avatar over Google avatar
+                            const dbAvatar = data.profile.avatar_url;
+                            if (dbAvatar) {
+                                setUserProfile(prev => ({ ...prev, avatar: dbAvatar }));
+                                setEditedProfile(prev => ({ ...prev, avatar: dbAvatar }));
+                            }
+                        }
+                    }
                 }
             } catch (error) {
                 console.warn('Profile sync failed (non-critical):', error);
