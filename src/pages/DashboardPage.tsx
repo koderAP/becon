@@ -531,7 +531,7 @@ export const DashboardPage: React.FC = () => {
                                 <h3 className="font-semibold">Event Starts In</h3>
                             </div>
                             <CountdownTimer targetDate={eventDate} />
-                            <p className="text-sm text-gray-500 mt-4">January 31, 2026 • IIT Delhi</p>
+                            <p className="text-sm text-gray-500 mt-4">February 1, 2026 • IIT Delhi</p>
                         </motion.div>
 
                         {/* Quick Stats */}

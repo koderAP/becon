@@ -124,7 +124,7 @@ const eventsData: EventCard[] = [
             'Strong ecosystem support for piloting and next-step development',
             'Recognition on one of the most respected deep-tech stages in Asia'
         ],
-        date: 'Jan 31 - Feb 2, 2026',
+        date: 'Feb 1 - Feb 2, 2026',
         location: 'Lecture Hall Complex',
         category: 'hackathon',
         featured: true,
@@ -158,7 +158,7 @@ const eventsData: EventCard[] = [
             'Understand real-world applications of deep-tech innovation',
             'Explore careers and pathways in future-focused technologies'
         ],
-        date: 'Jan 31 - Feb 2, 2026',
+        date: 'Feb 1 - Feb 2, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
         image: '/events/innoverse.avif',
@@ -174,7 +174,7 @@ const eventsData: EventCard[] = [
             'Explore collaboration and career opportunities',
             "Be part of conversations shaping tomorrow's mobility"
         ],
-        date: 'Jan 31 - Feb 2, 2026',
+        date: 'Feb 1 - Feb 2, 2026',
         location: 'Outdoor Arena',
         category: 'exhibition',
         image: '/events/autospark.avif',
@@ -191,7 +191,7 @@ const eventsData: EventCard[] = [
             'Opportunities for collaboration and partnerships',
             'A credible platform to accelerate growth'
         ],
-        date: 'Jan 31 - Feb 2, 2026',
+        date: 'Feb 1 - Feb 2, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
         image: '/events/launchpad.avif',
@@ -224,7 +224,7 @@ const eventsData: EventCard[] = [
             'Access mentorship and ecosystem support',
             'Form strong teams that can truly scale'
         ],
-        date: 'Jan 31, 2026',
+        date: 'Feb 1, 2026',
         location: 'Networking Zone',
         category: 'networking',
         image: '/events/Co-lab.avif',
@@ -256,7 +256,7 @@ const eventsData: EventCard[] = [
             'Strengthen technical clarity and problem-solving',
             'Step into the future of deep-tech innovation'
         ],
-        date: 'Jan 30 - 31, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'Maker Space',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800',
@@ -272,7 +272,7 @@ const eventsData: EventCard[] = [
             'Tools and methods to improve everyday work',
             'A bridge between emerging tech and real professional impact'
         ],
-        date: 'Jan 31 - Feb 2, 2026',
+        date: 'Feb 1 - Feb 2, 2026',
         location: 'LHC Classrooms',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800',
@@ -305,7 +305,7 @@ const eventsData: EventCard[] = [
             'Learn through honest, unscripted conversations',
             'Leave with ideas that challenge, inspire, and push you forward'
         ],
-        date: 'Jan 31 - Feb 2, 2026',
+        date: 'Feb 1 - Feb 2, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
         image: '/events/keynote.avif',

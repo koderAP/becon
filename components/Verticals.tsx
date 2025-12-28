@@ -49,7 +49,7 @@ const eventsData: EventItem[] = [
   {
     id: 1,
     title: "Global DeepTech Hackathon",
-    date: "Jan 31 - Feb 1",
+    date: "Feb 1 - Feb 2",
     time: "36 Hours",
     location: "Innovation Center",
     image: "https://images.unsplash.com/photo-1504384308090-c54be3855485?auto=format&fit=crop&q=80&w=800",

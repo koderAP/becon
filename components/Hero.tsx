@@ -280,7 +280,7 @@ export const Hero: React.FC = () => {
               </div>
               <div className="flex flex-col text-left">
                 <span className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-purple-400 font-bold hidden xs:block">Date</span>
-                <span className="text-white font-medium text-xs md:text-sm lg:text-base whitespace-nowrap">31 Jan - 2 Feb</span>
+                <span className="text-white font-medium text-xs md:text-sm lg:text-base whitespace-nowrap">1 Feb - 2 Feb</span>
               </div>
             </div>
 
