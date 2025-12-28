@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
 import { Vertical } from '../types';
 import { AnimeStagger } from './AnimeStagger';
@@ -78,14 +78,6 @@ const eventsData: EventItem[] = [
 ];
 
 export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll }) => {
-  const [selectedVertical, setSelectedVertical] = useState<number | null>(null);
-
-  const handleVerticalClick = (id: number) => {
-    setSelectedVertical(selectedVertical === id ? null : id);
-  };
-
-  const allVerticals = [...themeDomains, ...widerLandscape];
-  const selectedData = allVerticals.find(v => v.id === selectedVertical);
 
   return (
     <div className={`${preview ? 'py-10' : 'pt-20 sm:pt-24 pb-16 sm:pb-20'} px-4 sm:px-6 md:px-12 lg:px-20 bg-black`}>
@@ -139,17 +131,11 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       )}
 
       {/* Theme Domains Grid */}
-      {/* Theme Domains Grid */}
-      <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-16 scrollbar-hide" staggerDelay={150}>
+      <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-8 scrollbar-hide" staggerDelay={150}>
         {themeDomains.map((v, i) => (
           <motion.div
             key={v.id}
-            onClick={() => handleVerticalClick(v.id)}
-            // style={{ opacity: 0 }} // Removed to ensure visibility
-            className={`group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedVertical === v.id
-              ? 'border-purple-500'
-              : 'border-white/10 hover:border-white/30'
-              }`}
+            className="group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border border-white/10 hover:border-white/30 overflow-hidden cursor-pointer transition-all duration-300 snap-center"
           >
             {/* Background Image */}
             {v.image && (
@@ -164,80 +150,53 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
-            {/* Hover Color Overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
+            {/* Hover Gradient Background - Subtle */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-15 transition-opacity duration-500`} />
 
             <div className="absolute inset-0 flex flex-col items-center justify-end p-4 text-center">
-              <div className={`p-2 md:p-3 rounded-xl mb-2 transition-all duration-300 backdrop-blur-sm ${selectedVertical === v.id ? 'bg-purple-500/30' : 'bg-black/30 group-hover:bg-black/50'
-                }`}>
-                <v.icon size={24} className={`transition-colors ${selectedVertical === v.id ? 'text-purple-400' : 'text-white'}`} strokeWidth={1.5} />
+              <div className="p-2 md:p-3 rounded-xl mb-2 transition-all duration-300 backdrop-blur-sm bg-black/30 group-hover:bg-black/50">
+                <v.icon size={24} className="text-white" strokeWidth={1} />
               </div>
-              <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedVertical === v.id ? 'text-purple-300' : 'text-white'
-                }`}>{v.title}</h3>
+              <h3 className="text-xs md:text-sm font-medium text-white">{v.title}</h3>
             </div>
           </motion.div>
         ))}
       </AnimeStagger>
 
+      {/* Wider Landscape Section - Shows on both Home and Events page */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="flex items-center gap-3 sm:gap-4 mt-8 mb-4"
+      >
+        <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
+        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Wider Landscape</span>
+      </motion.div>
+
       {!preview && (
-        <>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold leading-tight mb-8 sm:mb-10 lg:mb-12"
-          >
-            Wider Landscape <br className="hidden sm:block" />
-            <span className="text-gray-500">Explore other domains</span>
-          </motion.h1>
-
-          {/* Wider Landscape Grid */}
-          <AnimeStagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4" staggerDelay={100}>
-            {widerLandscape.map((v, i) => (
-              <motion.div
-                key={v.id}
-                onClick={() => handleVerticalClick(v.id)}
-                // style={{ opacity: 0 }} // Removed to ensure visibility
-                className={`group relative h-32 md:h-40 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 ${selectedVertical === v.id
-                  ? 'border-purple-500 bg-purple-500/10'
-                  : 'border-white/10 bg-white/5 hover:border-white/30'
-                  }`}
-              >
-                {/* Hover Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                  <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${selectedVertical === v.id ? 'bg-purple-500/20' : 'bg-white/5 group-hover:bg-white/10'
-                    }`}>
-                    <v.icon size={28} className={`transition-colors ${selectedVertical === v.id ? 'text-purple-400' : 'text-white'}`} strokeWidth={1.5} />
-                  </div>
-                  <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedVertical === v.id ? 'text-purple-300' : 'text-gray-300 group-hover:text-white'
-                    }`}>{v.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </AnimeStagger>
-        </>
+        <p className="text-gray-500 mb-6">Explore other domains too in the summit</p>
       )}
 
-      {/* Description Panel - Shows when a vertical is selected */}
-      <AnimatePresence>
-        {selectedData && (
+      {/* Wider Landscape Grid */}
+      <AnimeStagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4" staggerDelay={100}>
+        {widerLandscape.map((v, i) => (
           <motion.div
-            initial={{ opacity: 0, y: -10, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="mt-6 overflow-hidden"
+            key={v.id}
+            className="group relative h-32 md:h-40 rounded-2xl border border-white/10 bg-white/5 hover:border-white/30 overflow-hidden cursor-pointer transition-all duration-300"
           >
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <p className="text-gray-300 text-base md:text-lg">
-                {selectedData.description}
-              </p>
+            {/* Hover Gradient Background */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+              <div className="p-3 rounded-xl mb-3 transition-all duration-300 bg-white/5 group-hover:bg-white/10">
+                <v.icon size={28} className="text-white" strokeWidth={1} />
+              </div>
+              <h3 className="text-xs md:text-sm font-medium text-gray-300 group-hover:text-white transition-colors">{v.title}</h3>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        ))}
+      </AnimeStagger>
 
       {/* FEATURED EVENTS SECTION (Only on Full Page) */}
       {!preview && (
