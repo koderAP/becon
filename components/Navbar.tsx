@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X, User } from 'lucide-react';
+import { useAuth } from '../src/contexts/AuthContext';
 
 interface NavItem {
   label: string;
@@ -9,14 +10,14 @@ interface NavItem {
   isButton?: boolean;
 }
 
-const navItems: NavItem[] = [
+const getNavItems = (isLoggedIn: boolean): NavItem[] => [
   { label: 'Events', path: '/events' },
   { label: 'Schedule', path: '/schedule' },
   { label: 'Speakers', path: '/speakers' },
   { label: 'Sponsors', path: '/sponsors' },
   { label: 'Team', path: '/team' },
   { label: 'Contact', path: '/contact' },
-  { label: 'Sign In', path: '/login', isButton: true },
+  { label: isLoggedIn ? 'Dashboard' : 'Sign In', path: isLoggedIn ? '/dashboard' : '/login', isButton: true },
 ];
 
 export const Navbar: React.FC = () => {
@@ -27,6 +28,11 @@ export const Navbar: React.FC = () => {
   const ticking = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Get auth state from Supabase
+  const { user, loading } = useAuth();
+  const isLoggedIn = !!user;
+  const navItems = getNavItems(isLoggedIn);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -188,10 +194,10 @@ export const Navbar: React.FC = () => {
             </Link>
 
             <Link
-              to="/login"
+              to={isLoggedIn ? '/dashboard' : '/login'}
               className="flex items-center gap-2 px-4 py-1.5 bg-white text-black rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors group whitespace-nowrap"
             >
-              Log in
+              {isLoggedIn ? 'Dashboard' : 'Log in'}
               <div className="bg-black text-white rounded-full p-0.5 w-4 h-4 flex items-center justify-center group-hover:bg-gray-800 transition-colors">
                 <ArrowUpRight size={10} />
               </div>
@@ -250,13 +256,13 @@ export const Navbar: React.FC = () => {
                   </button>
                 ))}
 
-                {/* Login Button */}
+                {/* Login/Dashboard Button */}
                 <Link
-                  to="/login"
+                  to={isLoggedIn ? '/dashboard' : '/login'}
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-2 mt-4 px-4 py-3 bg-white text-black rounded-xl text-base font-semibold hover:bg-gray-200 transition-colors"
                 >
-                  Log in
+                  {isLoggedIn ? 'Dashboard' : 'Log in'}
                   <ArrowUpRight size={18} />
                 </Link>
               </nav>
