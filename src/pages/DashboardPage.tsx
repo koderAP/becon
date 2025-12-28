@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
     User, Mail, Phone, Building, Calendar, Edit2, Save, X, Ticket, Trophy,
-    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera
+    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera, Loader2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
 import { generateBeconIdFromUserId } from '../utils/beconId';
+import { supabase } from '../lib/supabase';
 
 // ID Card Popup Component
 const IDCardModal: React.FC<{
@@ -175,20 +176,58 @@ export const DashboardPage: React.FC = () => {
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [showIDCard, setShowIDCard] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const [savingProfile, setSavingProfile] = useState(false);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
     const { user, loading, signOut } = useAuth();
     const navigate = useNavigate();
 
-    // Handle avatar upload
-    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handle avatar upload to Supabase storage
+    const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const result = reader.result as string;
-                setAvatarPreview(result);
-                setUserProfile(prev => ({ ...prev, avatar: result }));
-            };
-            reader.readAsDataURL(file);
+        if (!file || !user) return;
+
+        // Validate file size (max 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            toast.error('Image too large. Please use an image under 2MB.');
+            return;
+        }
+
+        setUploadingAvatar(true);
+
+        try {
+            // Upload to Supabase Storage
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${user.id}/avatar.${fileExt}`;
+
+            const { error: uploadError } = await supabase.storage
+                .from('avatars')
+                .upload(fileName, file, { upsert: true });
+
+            if (uploadError) throw uploadError;
+
+            // Get public URL
+            const { data: urlData } = supabase.storage
+                .from('avatars')
+                .getPublicUrl(fileName);
+
+            const avatarUrl = urlData.publicUrl + '?t=' + Date.now(); // Cache bust
+
+            // Update user metadata
+            const { error: updateError } = await supabase.auth.updateUser({
+                data: { avatar_url: avatarUrl }
+            });
+
+            if (updateError) throw updateError;
+
+            setAvatarPreview(avatarUrl);
+            setUserProfile(prev => ({ ...prev, avatar: avatarUrl }));
+            setEditedProfile(prev => ({ ...prev, avatar: avatarUrl }));
+            toast.success('Avatar updated!');
+        } catch (error: any) {
+            console.error('Avatar upload error:', error);
+            toast.error('Failed to upload avatar. Try again.');
+        } finally {
+            setUploadingAvatar(false);
         }
     };
 
@@ -250,9 +289,33 @@ export const DashboardPage: React.FC = () => {
 
     const eventDate = new Date('2026-01-31T09:00:00');
 
-    const handleSave = () => {
-        setUserProfile(editedProfile);
-        setIsEditingProfile(false);
+    const handleSave = async () => {
+        if (!user) return;
+
+        setSavingProfile(true);
+        try {
+            // Update Supabase user metadata
+            const { error } = await supabase.auth.updateUser({
+                data: {
+                    full_name: editedProfile.name,
+                    phone: editedProfile.phone,
+                    college: editedProfile.college,
+                    year: editedProfile.year,
+                    bio: editedProfile.bio,
+                }
+            });
+
+            if (error) throw error;
+
+            setUserProfile(editedProfile);
+            setIsEditingProfile(false);
+            toast.success('Profile updated successfully!');
+        } catch (error: any) {
+            console.error('Profile update error:', error);
+            toast.error('Failed to save profile. Try again.');
+        } finally {
+            setSavingProfile(false);
+        }
     };
 
     const handleCancel = () => {
@@ -554,10 +617,11 @@ export const DashboardPage: React.FC = () => {
                                     <div className="flex gap-2">
                                         <button
                                             onClick={handleSave}
-                                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/30 transition-colors text-sm"
+                                            disabled={savingProfile}
+                                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/30 transition-colors text-sm disabled:opacity-50"
                                         >
-                                            <Save size={14} />
-                                            Save
+                                            {savingProfile ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
+                                            {savingProfile ? 'Saving...' : 'Save'}
                                         </button>
                                         <button
                                             onClick={handleCancel}
