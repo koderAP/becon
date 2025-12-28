@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, Github } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
+import { generateBeconIdFromUserId } from '../utils/beconId';
 
 export const SignupPage: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +50,7 @@ export const SignupPage: React.FC = () => {
 
         try {
             const fullName = `${formData.firstName} ${formData.lastName}`;
-            const { error } = await signUp(
+            const { data, error } = await signUp(
                 formData.email,
                 formData.password,
                 {
@@ -61,7 +62,31 @@ export const SignupPage: React.FC = () => {
 
             if (error) throw error;
 
-            toast.success('Account created! Please check your email for verification.');
+            // Generate BECon ID and send welcome email
+            if (data?.user) {
+                const beconId = generateBeconIdFromUserId(data.user.id);
+
+                // Send welcome email via backend
+                try {
+                    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+                    await fetch(`${API_URL}/api/user/welcome-email`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${data.session?.access_token}`,
+                        },
+                        body: JSON.stringify({
+                            email: formData.email,
+                            name: fullName,
+                            beconId: beconId,
+                        }),
+                    });
+                } catch (emailError) {
+                    console.warn('Welcome email failed, but signup succeeded:', emailError);
+                }
+            }
+
+            toast.success('Welcome to BECon 2026! Check your email for details.');
             navigate('/dashboard');
         } catch (error: any) {
             toast.error(error.message || 'Failed to create account');
