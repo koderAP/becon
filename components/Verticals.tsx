@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
 import { Vertical } from '../types';
 import { AnimeStagger } from './AnimeStagger';
@@ -49,7 +50,7 @@ const eventsData: EventItem[] = [
   {
     id: 1,
     title: "Global DeepTech Hackathon",
-    date: "Feb 1 - Feb 2",
+    date: "Jan 30 - Feb 1",
     time: "36 Hours",
     location: "Innovation Center",
     image: "https://images.unsplash.com/photo-1504384308090-c54be3855485?auto=format&fit=crop&q=80&w=800",
@@ -101,22 +102,33 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         </div>
       )}
 
-      {/* TRACKS / VERTICALS SECTION */}
+      {/* EXPERIENCE BECON - Main Section */}
+      {preview && (
+        <>
+          <div className="flex flex-row items-center justify-between gap-2 mb-3">
+            <SectionHeading>Experience BECon</SectionHeading>
+            <Link
+              to="/events"
+              className="flex items-center gap-2 text-sm sm:text-base text-white hover:text-purple-400 transition-colors group"
+            >
+              Explore all events <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+          <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-8 text-left">
+            Across keynote stages, startup platforms, hackathons, and innovation showcases,
+            BECon brings together the minds, ideas, and ecosystems shaping what comes next.
+          </p>
+        </>
+      )}
+
+      {/* Core Verticals Subsection */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3"
       >
-        <SectionHeading>{preview ? 'Core Verticals' : 'Domains'}</SectionHeading>
-        {preview && onViewAll && (
-          <button
-            onClick={onViewAll}
-            className="flex items-center gap-2 text-sm sm:text-base text-white hover:text-purple-400 transition-colors group"
-          >
-            Explore Events <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </button>
-        )}
+        <h3 className="text-base sm:text-lg font-semibold text-gray-300 uppercase tracking-wider">{preview ? 'Core Verticals' : 'Domains'}</h3>
       </motion.div>
 
       {!preview && (
@@ -183,8 +195,8 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         )}
       </AnimatePresence>
 
-      {/* Wider Landscape Section */}
-      <SectionHeading className="mt-8 mb-2">Wider Landscape</SectionHeading>
+      {/* Wider Landscape Subsection */}
+      <h3 className="text-base sm:text-lg font-semibold text-gray-300 uppercase tracking-wider mt-8 mb-2">Wider Landscape</h3>
 
       <p className="text-gray-500 text-base mb-4">Explore other domains too in the summit</p>
 
