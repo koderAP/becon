@@ -158,7 +158,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
             {/* Hover Gradient Background - Subtle */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-15 transition-opacity duration-500`} />
+            <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
 
             <div className="absolute inset-0 flex items-end justify-center p-4 text-center">
               <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedId === v.id ? 'text-purple-300' : 'text-white'
@@ -210,7 +210,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
               }`}
           >
             {/* Hover Gradient Background */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+            <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
 
             <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
               <h3 className={`text-sm font-medium transition-colors ${selectedId === v.id ? 'text-purple-300' : 'text-gray-300 group-hover:text-white'
