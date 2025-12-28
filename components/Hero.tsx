@@ -248,22 +248,17 @@ export const Hero: React.FC = () => {
           <div className="h-[60px] md:h-[80px] flex items-center justify-center">
             <Typewriter
               sentences={[
-                "Engineering the Mind of Machines",
-                "Crafted in India for the World",
-                "Where Deep Tech Meets Vision"
+                "Where Deep Tech Meets Vision",
+                "Building the Future",
+                "Innovate. Create. Disrupt."
               ]}
-              typingSpeed={50}
-              deletingSpeed={30}
-              pauseTime={2500}
-              className="text-2xl md:text-4xl lg:text-5xl text-white tracking-wide"
-              style={{
-                fontFamily: 'Arial, Helvetica, sans-serif',
-                fontWeight: 300,
-              }}
+              typingSpeed={80}
+              deletingSpeed={50}
+              pauseTime={2000}
+              className="text-3xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400"
             />
           </div>
         </motion.div>
-
       </div>
 
       {/* 4. Bottom Info Bar - Date & Venue - Positioned at very bottom */}
@@ -277,33 +272,33 @@ export const Hero: React.FC = () => {
           {/* Date Card */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 shadow-xl shadow-purple-500/30"
+            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-[#2e1065] border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
           >
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/20">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-purple-500/20">
+              <svg className="w-6 h-6 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <div className="flex flex-col">
-              <span className="text-xs uppercase tracking-wider text-white/70 font-medium">Date</span>
-              <span className="text-white font-bold text-base">31 Jan - 2 Feb 2026</span>
+            <div className="flex flex-col text-left">
+              <span className="text-xs uppercase tracking-widest text-purple-300 font-bold mb-0.5">Date</span>
+              <span className="text-white font-bold text-lg leading-tight">31 Jan - 2 Feb 2026</span>
             </div>
           </motion.div>
 
           {/* Venue Card */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 shadow-xl shadow-blue-500/30"
+            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-[#1e3a8a] border border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.4)]"
           >
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/20">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-500/20">
+              <svg className="w-6 h-6 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <div className="flex flex-col">
-              <span className="text-xs uppercase tracking-wider text-white/70 font-medium">Venue</span>
-              <span className="text-white font-bold text-base">IIT Delhi, New Delhi</span>
+            <div className="flex flex-col text-left">
+              <span className="text-xs uppercase tracking-widest text-blue-300 font-bold mb-0.5">Venue</span>
+              <span className="text-white font-bold text-lg leading-tight">IIT Delhi, New Delhi</span>
             </div>
           </motion.div>
         </div>
