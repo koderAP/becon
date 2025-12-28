@@ -16,7 +16,6 @@ import { DashboardPage } from './src/pages/DashboardPage';
 import AdminLogin from './src/pages/AdminLogin';
 import AdminDashboard from './src/pages/AdminDashboard';
 import AdminFormsPage from './src/pages/AdminFormsPage';
-import { EmailPreview } from './src/pages/EmailPreview';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 
@@ -50,7 +49,6 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/forms" element={<AdminFormsPage />} />
-          <Route path="/email-preview" element={<EmailPreview />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
