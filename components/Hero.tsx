@@ -234,7 +234,7 @@ export const Hero: React.FC = () => {
           <img
             src="/logo.avif"
             alt="BECon 2026"
-            className="w-[280px] md:w-[500px] lg:w-[650px] h-auto object-contain"
+            className="w-[310px] md:w-[550px] lg:w-[720px] h-auto object-contain"
           />
         </motion.div>
 
@@ -245,7 +245,7 @@ export const Hero: React.FC = () => {
           transition={{ delay: 1.5, duration: 0.8 }}
           className="mt-1 md:mt-2 mb-4 flex flex-col items-center"
         >
-          <div className="h-[40px] md:h-[60px] flex items-center justify-center">
+          <div className="h-[44px] md:h-[66px] flex items-center justify-center">
             <Typewriter
               sentences={[
                 "Engineering the Mind of Machines",
@@ -255,7 +255,7 @@ export const Hero: React.FC = () => {
               typingSpeed={80}
               deletingSpeed={50}
               pauseTime={2000}
-              className="text-xl md:text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400 tracking-wide"
+              className="text-[22px] md:text-[33px] lg:text-[40px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400 tracking-wide"
             />
           </div>
         </motion.div>
