@@ -551,14 +551,14 @@ export const Events: React.FC = () => {
                             >
                                 <div className="pt-12 space-y-16">
                                     {/* Intro Text */}
-                                    <div className="max-w-4xl">
-                                        <p className="text-gray-400 text-lg mb-8">
+                                    <div className="max-w-3xl">
+                                        <p className="text-gray-400 text-lg mb-8 leading-relaxed">
                                             Regionals carry BECon beyond IIT Delhi into key startup hubs across the country. Bringing together{' '}
                                             <span className="text-white font-semibold">Moonshot, Blueprint, and the Start-Up Clinic</span>{' '}
                                             under one umbrella, they create powerful city-level ecosystems where founders can pitch, learn, connect, and grow with real support.
                                         </p>
 
-                                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold italic leading-tight">
+                                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold italic leading-tight text-white">
                                             If innovation needs reach,<br />
                                             Regionals make sure it gets there.
                                         </h3>
