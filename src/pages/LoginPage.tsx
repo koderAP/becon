@@ -12,7 +12,7 @@ export const LoginPage: React.FC = () => {
     const [password, setPassword] = useState('');
     const containerRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const { signIn } = useAuth();
+    const { signIn, signInWithGoogle } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -183,7 +183,19 @@ export const LoginPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <button className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white text-sm font-medium">
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                try {
+                                    setIsLoading(true);
+                                    await signInWithGoogle();
+                                } catch (error) {
+                                    toast.error('Failed to sign in with Google');
+                                    setIsLoading(false);
+                                }
+                            }}
+                            className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white text-sm font-medium"
+                        >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path
                                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
