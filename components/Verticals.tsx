@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
 import { Vertical } from '../types';
 import { AnimeStagger } from './AnimeStagger';
@@ -78,6 +78,9 @@ const eventsData: EventItem[] = [
 ];
 
 export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll }) => {
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const allVerticals = [...themeDomains, ...widerLandscape];
+  const selectedData = allVerticals.find(v => v.id === selectedId);
 
   return (
     <div className={`${preview ? 'py-10' : 'pt-20 sm:pt-24 pb-16 sm:pb-20'} px-4 sm:px-6 md:px-12 lg:px-20 bg-black`}>
@@ -163,40 +166,57 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         ))}
       </AnimeStagger>
 
-      {/* Wider Landscape Section - Shows on both Home and Events page */}
+      {/* Wider Landscape Section */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="flex items-center gap-3 sm:gap-4 mt-8 mb-4"
+        className="flex items-center gap-3 sm:gap-4 mt-8 mb-2"
       >
         <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
         <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Wider Landscape</span>
       </motion.div>
 
-      {!preview && (
-        <p className="text-gray-500 mb-6">Explore other domains too in the summit</p>
-      )}
+      <p className="text-gray-500 text-sm mb-4">Explore other domains too in the summit</p>
 
-      {/* Wider Landscape Grid */}
-      <AnimeStagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4" staggerDelay={100}>
-        {widerLandscape.map((v, i) => (
+      {/* Wider Landscape - Horizontal Scroll */}
+      <div className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
+        {widerLandscape.map((v) => (
           <motion.div
             key={v.id}
-            className="group relative h-32 md:h-40 rounded-2xl border border-white/10 bg-white/5 hover:border-white/30 overflow-hidden cursor-pointer transition-all duration-300"
+            onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
+            className={`group relative flex-shrink-0 w-44 sm:w-52 h-24 sm:h-28 rounded-xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedId === v.id
+                ? 'border-purple-500 bg-purple-500/10'
+                : 'border-white/10 bg-white/5 hover:border-white/30'
+              }`}
           >
             {/* Hover Gradient Background */}
             <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-              <div className="p-3 rounded-xl mb-3 transition-all duration-300 bg-white/5 group-hover:bg-white/10">
-                <v.icon size={28} className="text-white" strokeWidth={1} />
-              </div>
-              <h3 className="text-xs md:text-sm font-medium text-gray-300 group-hover:text-white transition-colors">{v.title}</h3>
+            <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+              <h3 className={`text-sm font-medium transition-colors ${selectedId === v.id ? 'text-purple-300' : 'text-gray-300 group-hover:text-white'
+                }`}>{v.title}</h3>
             </div>
           </motion.div>
         ))}
-      </AnimeStagger>
+      </div>
+
+      {/* Description Panel - Shows when a card is selected */}
+      <AnimatePresence>
+        {selectedData && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="mt-4 overflow-hidden"
+          >
+            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+              <p className="text-gray-300 text-sm md:text-base">{selectedData.description}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* FEATURED EVENTS SECTION (Only on Full Page) */}
       {!preview && (
