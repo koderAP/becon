@@ -63,10 +63,11 @@ const AnimatedRoutes: React.FC = () => {
 const AppContent: React.FC = () => {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith('/admin');
+  const isFormPage = location.pathname.startsWith('/forms');
 
   return (
     <div className="bg-[#05020a] text-white min-h-screen font-sans selection:bg-purple-500 selection:text-white">
-      {!isAdminPage && <Navbar />}
+      {!isAdminPage && !isFormPage && <Navbar />}
 
       <main className="relative z-0">
         <AnimatedRoutes />
