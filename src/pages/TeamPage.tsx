@@ -145,91 +145,92 @@ export const TeamPage: React.FC = () => {
                 description="The passionate individuals behind BECon 2026."
             />
 
-            {/* Coming Soon Overlay */}
-            <div className="fixed inset-0 z-40 flex items-center justify-center pointer-events-none" style={{ top: '200px' }}>
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="bg-gradient-to-br from-purple-900/90 via-[#1a0a2e]/95 to-[#0a0514]/95 backdrop-blur-xl border border-purple-500/30 rounded-3xl px-12 py-10 text-center shadow-2xl"
-                >
-                    <div className="text-5xl mb-4">🚀</div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Coming Soon</h2>
-                    <p className="text-gray-300 text-lg max-w-md">
-                        We're putting together an amazing team. Check back soon to meet the passionate individuals behind BECon 2026!
-                    </p>
-                </motion.div>
-            </div>
+            {/* Content Visibility Flag - Set to true to show the team grid */}
+            {false ? (
+                <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-24 xl:px-32 max-w-[1600px] mx-auto">
+                    {/* Hero Section - Meet Our Hosts (Draggable Gallery) */}
+                    <TeamHostsGallery
+                        hosts={hostMembers}
+                        title="Meet Our Hosts: The Visionaries Behind BECon Tech Summit"
+                        subtitle="Our Host"
+                        description="The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
+                        isLoading={isLoading}
+                    />
 
-            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-24 xl:px-32 max-w-[1600px] mx-auto">
+                    {/* Core Team Section */}
+                    <div className="mb-24">
+                        <div className="flex items-center gap-4 mb-12">
+                            <div className="w-12 h-[2px] bg-white"></div>
+                            <span className="text-lg text-gray-300 uppercase tracking-widest">Core Team Members</span>
+                        </div>
 
-                {/* Hero Section - Meet Our Hosts (Draggable Gallery) */}
-                <TeamHostsGallery
-                    hosts={hostMembers}
-                    title="Meet Our Hosts: The Visionaries Behind BECon Tech Summit"
-                    subtitle="Our Host"
-                    description="The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
-                    isLoading={isLoading}
-                />
-
-                {/* Core Team Section */}
-                <div className="mb-24">
-                    <div className="flex items-center gap-4 mb-12">
-                        <div className="w-12 h-[2px] bg-white"></div>
-                        <span className="text-lg text-gray-300 uppercase tracking-widest">Core Team Members</span>
+                        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-8">
+                            {isLoading ? (
+                                Array.from({ length: 8 }).map((_, i) => (
+                                    <SkeletonTeamMemberCard key={i} />
+                                ))
+                            ) : (
+                                coreTeamMembers.map((member, index) => (
+                                    <TeamMemberCard key={member.id} member={member} index={index} />
+                                ))
+                            )}
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-8">
-                        {isLoading ? (
-                            Array.from({ length: 8 }).map((_, i) => (
-                                <SkeletonTeamMemberCard key={i} />
-                            ))
-                        ) : (
-                            coreTeamMembers.map((member, index) => (
-                                <TeamMemberCard key={member.id} member={member} index={index} />
-                            ))
-                        )}
-                    </div>
-                </div>
+                    {/* Coordinators Section */}
+                    <div className="mb-24">
+                        <div className="flex items-center gap-4 mb-12">
+                            <div className="w-12 h-[2px] bg-white"></div>
+                            <span className="text-lg text-gray-300 uppercase tracking-widest">Coordinators</span>
+                        </div>
 
-                {/* Coordinators Section */}
-                <div className="mb-24">
-                    <div className="flex items-center gap-4 mb-12">
-                        <div className="w-12 h-[2px] bg-white"></div>
-                        <span className="text-lg text-gray-300 uppercase tracking-widest">Coordinators</span>
-                    </div>
-
-                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-                        {isLoading ? (
-                            Array.from({ length: 10 }).map((_, i) => (
-                                <SkeletonCoordinatorCard key={i} />
-                            ))
-                        ) : (
-                            coordinators.map((member, index) => (
-                                <motion.div
-                                    key={member.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: (index % 10) * 0.05 }}
-                                    className="group bg-white/5 border border-white/10 rounded-lg md:rounded-xl p-2 md:p-3 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
-                                >
-                                    <div className="aspect-square rounded-md md:rounded-lg overflow-hidden mb-2 bg-white/5">
-                                        <img
-                                            src={member.img}
-                                            alt={member.name}
-                                            loading="lazy"
-                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                                        />
-                                    </div>
-                                    <h3 className="text-xs md:text-sm font-bold text-white truncate">{member.name}</h3>
-                                    <p className="text-purple-400 text-[10px] md:text-xs truncate">{member.role}</p>
-                                </motion.div>
-                            ))
-                        )}
+                        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                            {isLoading ? (
+                                Array.from({ length: 10 }).map((_, i) => (
+                                    <SkeletonCoordinatorCard key={i} />
+                                ))
+                            ) : (
+                                coordinators.map((member, index) => (
+                                    <motion.div
+                                        key={member.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: (index % 10) * 0.05 }}
+                                        className="group bg-white/5 border border-white/10 rounded-lg md:rounded-xl p-2 md:p-3 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300"
+                                    >
+                                        <div className="aspect-square rounded-md md:rounded-lg overflow-hidden mb-2 bg-white/5">
+                                            <img
+                                                src={member.img}
+                                                alt={member.name}
+                                                loading="lazy"
+                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                            />
+                                        </div>
+                                        <h3 className="text-xs md:text-sm font-bold text-white truncate">{member.name}</h3>
+                                        <p className="text-purple-400 text-[10px] md:text-xs truncate">{member.role}</p>
+                                    </motion.div>
+                                ))
+                            )}
+                        </div>
                     </div>
                 </div>
-
-            </div>
+            ) : (
+                /* Coming Soon State */
+                <div className="min-h-[60vh] flex items-center justify-center p-4">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl px-12 py-16 text-center shadow-2xl max-w-lg mx-auto"
+                    >
+                        <div className="text-6xl mb-6">🚀</div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Team Coming Soon</h2>
+                        <p className="text-gray-300 text-lg">
+                            We're putting together an amazing team. Check back soon to meet the passionate individuals behind BECon 2026!
+                        </p>
+                    </motion.div>
+                </div>
+            )}
 
             <div className="relative z-50">
                 <Footer />
