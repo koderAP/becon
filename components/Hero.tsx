@@ -218,7 +218,7 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* 3. Main Hero Content - z-20 to be above background */}
-      <div className="z-20 flex flex-col items-center text-center px-4 relative mt-0 md:-mt-8">
+      <div className="z-20 flex flex-col items-center text-center px-4 relative mt-12 md:mt-8">
 
         {/* LOGO - BECon Logo - Emerging from background */}
         <motion.div
@@ -229,7 +229,7 @@ export const Hero: React.FC = () => {
             ease: [0.25, 0.46, 0.45, 0.94],
             delay: 0.3
           }}
-          className="relative flex items-center justify-center mb-2 md:mb-4"
+          className="relative flex items-center justify-center mb-0"
         >
           <img
             src="/logo.avif"
@@ -243,7 +243,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="mt-1 md:mt-2 mb-4 flex flex-col items-center max-w-[85vw] md:max-w-full mx-auto"
+          className="mt-0 flex flex-col items-center max-w-[85vw] md:max-w-full mx-auto"
         >
           <div className="h-[44px] md:h-[66px] flex items-center justify-center text-center">
             <Typewriter
