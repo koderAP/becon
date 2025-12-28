@@ -103,7 +103,7 @@ const InfiniteMarqueeRow: React.FC<{ sponsors: Sponsor[], direction: 'left' | 'r
                 {[...sponsors, ...sponsors, ...sponsors].map((s, i) => (
                     <div
                         key={`${s.id}-${i}`}
-                        className="w-24 h-16 bg-white/5 border border-white/5 rounded-lg flex items-center justify-center shrink-0"
+                        className="w-24 h-16 bg-white border border-white/20 rounded-lg flex items-center justify-center shrink-0"
                         style={{ transform: 'translateZ(0)' }}
                     >
                         <img
@@ -181,7 +181,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                             <motion.div
                                 key={s.id}
                                 variants={gridItemVariants}
-                                className="h-24 sm:h-28 lg:h-32 bg-white/5 border border-white/5 rounded-xl flex items-center justify-center hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer group p-4"
+                                className="h-24 sm:h-28 lg:h-32 bg-white border border-white/20 rounded-xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group p-4"
                             >
                                 <img
                                     src={s.logo}
