@@ -103,14 +103,14 @@ const InfiniteMarqueeRow: React.FC<{ sponsors: Sponsor[], direction: 'left' | 'r
                 {[...sponsors, ...sponsors, ...sponsors].map((s, i) => (
                     <div
                         key={`${s.id}-${i}`}
-                        className="w-24 h-16 bg-white border border-white/20 rounded-lg flex items-center justify-center shrink-0"
+                        className="w-28 h-12 bg-white border border-white/20 rounded-lg flex items-center justify-center shrink-0 overflow-hidden"
                         style={{ transform: 'translateZ(0)' }}
                     >
                         <img
                             src={s.logo}
                             alt={s.name}
                             loading="lazy"
-                            className="w-full h-full object-contain p-2"
+                            className="w-full h-full object-contain p-1"
                         />
                     </div>
                 ))}
@@ -181,14 +181,14 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                             <motion.div
                                 key={s.id}
                                 variants={gridItemVariants}
-                                className="h-24 sm:h-28 lg:h-32 bg-white border border-white/20 rounded-xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group p-4"
+                                className="h-16 sm:h-20 lg:h-24 bg-white border border-white/20 rounded-xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group overflow-hidden"
                             >
                                 <img
                                     src={s.logo}
                                     alt={s.name}
                                     loading="lazy"
                                     decoding="async"
-                                    className="w-full h-full object-contain filter transition-all duration-300 opacity-80 group-hover:opacity-100"
+                                    className="w-full h-full object-contain p-2 transition-all duration-300"
                                 />
                             </motion.div>
                         ))}
