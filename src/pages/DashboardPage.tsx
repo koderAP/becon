@@ -175,8 +175,7 @@ export const DashboardPage: React.FC = () => {
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [showIDCard, setShowIDCard] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
-    const { user, signOut } = useAuth();
+    const { user, loading, signOut } = useAuth();
     const navigate = useNavigate();
 
     // Handle avatar upload
@@ -209,6 +208,9 @@ export const DashboardPage: React.FC = () => {
 
     // Fetch user data from Supabase
     useEffect(() => {
+        // Wait for auth to finish loading before checking user
+        if (loading) return;
+
         if (!user) {
             toast.error('Please login to access dashboard');
             navigate('/login');
@@ -233,8 +235,7 @@ export const DashboardPage: React.FC = () => {
 
         setUserProfile(profile);
         setEditedProfile(profile);
-        setLoading(false);
-    }, [user, navigate]);
+    }, [user, loading, navigate]);
 
     // Mock data
     const registeredEvents: Event[] = [
