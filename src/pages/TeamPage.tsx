@@ -216,18 +216,50 @@ export const TeamPage: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                /* Coming Soon State */
-                <div className="min-h-[60vh] flex items-center justify-center p-4">
+                /* Premium "Coming Soon" State */
+                <div className="min-h-[60vh] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+                    {/* Background Elements */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 blur-[100px] rounded-full pointer-events-none" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-500/5 blur-[80px] rounded-full pointer-events-none" />
+
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl px-12 py-16 text-center shadow-2xl max-w-lg mx-auto"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="relative z-10 text-center max-w-2xl px-6"
                     >
-                        <div className="text-6xl mb-6">🚀</div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Team Coming Soon</h2>
-                        <p className="text-gray-300 text-lg">
-                            We're putting together an amazing team. Check back soon to meet the passionate individuals behind BECon 2026!
+                        {/* Animated Icon Container */}
+                        <div className="flex justify-center mb-8">
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-blue-500 blur-xl opacity-30 animate-pulse" />
+                                <div className="relative w-24 h-24 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md shadow-2xl">
+                                    <svg className="w-12 h-12 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </div>
+                                <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center border border-white/20 shadow-lg">
+                                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+                            Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Visionaries</span>
+                        </h2>
+
+                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-xl mx-auto font-light">
+                            We are curating a team of exceptional individuals dedicated to orchestrating the future of technology. The full roster will be revealed shortly.
                         </p>
+
+                        {/* Decorative Line */}
+                        <div className="flex items-center justify-center gap-4 opacity-50">
+                            <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-purple-500" />
+                            <span className="text-purple-400 text-sm uppercase tracking-[0.3em] font-medium">Coming Soon</span>
+                            <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-purple-500" />
+                        </div>
                     </motion.div>
                 </div>
             )}
