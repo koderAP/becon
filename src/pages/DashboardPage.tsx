@@ -166,11 +166,6 @@ const CountdownTimer: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
     );
 };
 
-// Animated background orb
-const GlowOrb: React.FC<{ className?: string }> = ({ className }) => (
-    <div className={`absolute rounded - full blur - 3xl opacity - 30 animate - pulse ${className} `} />
-);
-
 export const DashboardPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'events' | 'passes'>('events');
     const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -376,15 +371,9 @@ export const DashboardPage: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-[#030014] text-white relative overflow-hidden">
-            {/* Ambient Background */}
-            <div className="fixed inset-0 pointer-events-none">
-                <GlowOrb className="w-96 h-96 bg-purple-600 top-20 -left-48" />
-                <GlowOrb className="w-80 h-80 bg-blue-600 bottom-20 right-20" />
-                <GlowOrb className="w-64 h-64 bg-pink-600 top-1/2 left-1/2 -translate-x-1/2" />
-            </div>
-
-            {/* ID Card Modal */}
+        <div className="min-h-screen bg-[#0a0a0f] text-white relative overflow-hidden font-sans selection:bg-purple-500/30">
+            {/* Background cleaned - removed Orbs */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/10 rounded-full blur-[120px]" />          {/* ID Card Modal */}
             <IDCardModal isOpen={showIDCard} onClose={() => setShowIDCard(false)} user={userProfile} />
 
             <div className="relative z-10 pt-32 pb-12 px-4 sm:px-6 md:px-12 lg:px-20">
