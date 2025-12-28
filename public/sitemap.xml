@@ -2,92 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://becon.edciitd.com/</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://becon.edciitd.com/events</loc>
-    <lastmod>2025-12-11</lastmod>
+    <lastmod>2025-12-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://becon.edciitd.com/events/100x-hackathon</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/grand-moonshot</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/blueprint</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/innoverse</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/launchpad</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/autospark</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/policysphere</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/colab</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/startup-clinic</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/strategy-competitions</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/bootcamp</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/events/keynotes-panels</loc>
-    <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://becon.edciitd.com/dashboard</loc>
-    <lastmod>2025-12-11</lastmod>
+    <loc>https://becon.edciitd.com/speakers</loc>
+    <lastmod>2025-12-28</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://becon.edciitd.com/sponsors</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://becon.edciitd.com/schedule</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://becon.edciitd.com/contact</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://becon.edciitd.com/tickets</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://becon.edciitd.com/team</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://becon.edciitd.com/terms</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://becon-2026.web.app/sitemap.xml
+# Disallow admin and auth pages
+Disallow: /admin
+Disallow: /login
+Disallow: /signup
+Disallow: /dashboard
+
+Sitemap: https://becon.edciitd.com/sitemap.xml
