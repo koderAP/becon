@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from '../../components/Footer';
-import { Mail, MapPin, Phone, Send, MessageSquare, User, AtSign, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Send, MessageSquare, User, AtSign, ArrowRight } from 'lucide-react';
 import { PageHeader } from '../../components/PageHeader';
 
 import { toast } from 'sonner';
@@ -86,9 +86,9 @@ export const Contact: React.FC = () => {
                                 <a href="mailto:team@edciitd.com" className="text-gray-400 hover:text-white transition-colors">team@edciitd.com</a>
                             </div>
                             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-pink-500/30 transition-colors">
-                                <Phone className="w-8 h-8 text-pink-400 mb-4" />
-                                <h4 className="font-semibold text-lg mb-1">Call Us</h4>
-                                <a href="tel:+911126597135" className="text-gray-400 hover:text-white transition-colors">+91 11 2659 7135</a>
+                                <Linkedin className="w-8 h-8 text-pink-400 mb-4" />
+                                <h4 className="font-semibold text-lg mb-1">Connect</h4>
+                                <a href="https://linkedin.com/company/edc-iitd" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">eDC IIT Delhi</a>
                             </div>
                         </motion.div>
 
