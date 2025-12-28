@@ -75,6 +75,8 @@ export const Footer: React.FC = () => {
                                     <a
                                         key={index}
                                         href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 hover:bg-white hover:text-black hover:scale-110 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] group"
                                     >
                                         <social.Icon size={20} className="group-hover:stroke-2" />

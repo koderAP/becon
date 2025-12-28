@@ -92,9 +92,8 @@ export const Tickets: React.FC = () => {
                                         <div className="text-lg font-medium text-white mb-1">Single admission</div>
                                     </div>
 
-                                    <button className="w-full mt-6 py-3 bg-white text-black hover:bg-gray-200 rounded-xl flex items-center justify-between px-4 transition-all font-semibold text-sm group/btn">
-                                        <span>Register</span>
-                                        <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                                    <button disabled className="w-full mt-6 py-3 bg-white/50 text-black/50 cursor-not-allowed rounded-xl flex items-center justify-between px-4 font-semibold text-sm">
+                                        <span>Coming Soon</span>
                                     </button>
                                 </div>
                             </div>
@@ -150,9 +149,8 @@ export const Tickets: React.FC = () => {
                                         <div className="text-lg font-medium text-white mb-1">Single admission</div>
                                     </div>
 
-                                    <button className="w-full mt-6 py-3 bg-white text-black hover:bg-gray-200 rounded-xl flex items-center justify-between px-4 transition-all font-semibold text-sm group/btn">
-                                        <span>Register</span>
-                                        <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                                    <button disabled className="w-full mt-6 py-3 bg-white/50 text-black/50 cursor-not-allowed rounded-xl flex items-center justify-between px-4 font-semibold text-sm">
+                                        <span>Coming Soon</span>
                                     </button>
                                 </div>
                             </div>
