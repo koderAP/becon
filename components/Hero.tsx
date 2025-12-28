@@ -243,9 +243,9 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="mt-1 md:mt-2 mb-4 flex flex-col items-center"
+          className="mt-1 md:mt-2 mb-4 flex flex-col items-center max-w-[85vw] md:max-w-full mx-auto"
         >
-          <div className="h-[44px] md:h-[66px] flex items-center justify-center">
+          <div className="h-[44px] md:h-[66px] flex items-center justify-center text-center">
             <Typewriter
               sentences={[
                 "Engineering the Mind of Machines",
@@ -255,7 +255,7 @@ export const Hero: React.FC = () => {
               typingSpeed={80}
               deletingSpeed={50}
               pauseTime={2000}
-              className="text-[22px] md:text-[33px] lg:text-[40px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400 tracking-wide"
+              className="text-[20px] md:text-[33px] lg:text-[40px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400 tracking-wide leading-tight"
             />
           </div>
         </motion.div>
@@ -265,41 +265,41 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.6 }}
-          className="mt-8 md:mt-12 mb-8"
+          className="mt-6 md:mt-12 mb-8 w-full flex justify-center px-2"
         >
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="flex flex-col md:flex-row items-stretch md:items-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-full p-2 pr-6 shadow-[0_0_40px_rgba(139,92,246,0.15)] group hover:border-purple-500/30 transition-all duration-500"
+            className="flex flex-row items-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-full py-1.5 px-3 md:p-2 md:pr-6 shadow-[0_0_40px_rgba(139,92,246,0.15)] group hover:border-purple-500/30 transition-all duration-500 max-w-full overflow-hidden"
           >
             {/* Date Section */}
-            <div className="flex items-center gap-4 px-4 py-2 border-b md:border-b-0 md:border-r border-white/10">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-600/20 flex items-center justify-center border border-white/5">
-                <svg className="w-5 h-5 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center gap-2 md:gap-4 px-2 md:px-4 py-1 md:py-2 border-r border-white/10">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-600/20 flex items-center justify-center border border-white/5 shrink-0">
+                <svg className="w-4 h-4 md:w-5 md:h-5 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-purple-400 font-bold">Date</span>
-                <span className="text-white font-medium text-sm md:text-base whitespace-nowrap">31 Jan - 2 Feb 2026</span>
+                <span className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-purple-400 font-bold hidden xs:block">Date</span>
+                <span className="text-white font-medium text-xs md:text-sm lg:text-base whitespace-nowrap">31 Jan - 2 Feb</span>
               </div>
             </div>
 
             {/* Venue Section */}
-            <div className="flex items-center gap-4 px-4 py-2 pt-4 md:pt-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-600/20 flex items-center justify-center border border-white/5">
-                <svg className="w-5 h-5 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center gap-2 md:gap-4 px-2 md:px-4 py-1 md:py-2">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-600/20 flex items-center justify-center border border-white/5 shrink-0">
+                <svg className="w-4 h-4 md:w-5 md:h-5 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">Venue</span>
-                <span className="text-white font-medium text-sm md:text-base whitespace-nowrap">IIT Delhi, New Delhi</span>
+                <span className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold hidden xs:block">Venue</span>
+                <span className="text-white font-medium text-xs md:text-sm lg:text-base whitespace-nowrap">IIT Delhi</span>
               </div>
             </div>
 
-            {/* Status Indicator */}
-            <div className="hidden md:flex ml-4 pl-4 border-l border-white/10 items-center gap-2">
+            {/* Status Indicator - Hidden on very small screens, visible on md+ */}
+            <div className="hidden lg:flex ml-4 pl-4 border-l border-white/10 items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
