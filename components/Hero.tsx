@@ -266,23 +266,46 @@ export const Hero: React.FC = () => {
 
       </div>
 
-      {/* 4. Bottom Info Bar - Date & Venue */}
+      {/* 4. Bottom Info Bar - Date & Venue - Positioned at very bottom */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-32 w-full flex items-center justify-center z-20"
+        transition={{ delay: 2, duration: 0.6 }}
+        className="absolute bottom-8 left-0 right-0 flex justify-center z-20 px-4"
       >
-        <div className="flex items-center gap-4 md:gap-8 px-8 py-4 rounded-full bg-white/5 backdrop-blur-md border border-white/10">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-            <span className="text-white font-medium text-sm md:text-base">31 Jan - 2 Feb 2026</span>
-          </div>
-          <div className="h-4 w-[1px] bg-white/30"></div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-            <span className="text-white font-medium text-sm md:text-base">IIT Delhi, Hauz Khas</span>
-          </div>
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+          {/* Date Card */}
+          <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            className="group flex items-center gap-3 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-900/40 to-violet-900/30 backdrop-blur-lg border border-purple-500/20 hover:border-purple-500/40 transition-all cursor-default"
+          >
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/20 group-hover:bg-purple-500/30 transition-colors">
+              <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase tracking-wider text-purple-300/60 font-medium">Date</span>
+              <span className="text-white font-semibold text-sm">31 Jan - 2 Feb 2026</span>
+            </div>
+          </motion.div>
+
+          {/* Venue Card */}
+          <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            className="group flex items-center gap-3 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-900/40 to-indigo-900/30 backdrop-blur-lg border border-blue-500/20 hover:border-blue-500/40 transition-all cursor-default"
+          >
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/20 group-hover:bg-blue-500/30 transition-colors">
+              <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase tracking-wider text-blue-300/60 font-medium">Venue</span>
+              <span className="text-white font-semibold text-sm">IIT Delhi, New Delhi</span>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
 
