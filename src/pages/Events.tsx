@@ -551,7 +551,7 @@ export const Events: React.FC = () => {
                             >
                                 <div className="pt-12 space-y-16">
                                     {/* Intro Text */}
-                                    <div className="max-w-3xl">
+                                    <div className="max-w-3xl mx-auto text-center">
                                         <p className="text-gray-400 text-lg mb-8 leading-relaxed">
                                             Regionals carry BECon beyond IIT Delhi into key startup hubs across the country. Bringing together{' '}
                                             <span className="text-white font-semibold">Moonshot, Blueprint, and the Start-Up Clinic</span>{' '}
