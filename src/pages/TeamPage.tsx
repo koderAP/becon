@@ -145,6 +145,21 @@ export const TeamPage: React.FC = () => {
                 description="The passionate individuals behind BECon 2026."
             />
 
+            {/* Coming Soon Overlay */}
+            <div className="fixed inset-0 z-40 flex items-center justify-center pointer-events-none" style={{ top: '200px' }}>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="bg-gradient-to-br from-purple-900/90 via-[#1a0a2e]/95 to-[#0a0514]/95 backdrop-blur-xl border border-purple-500/30 rounded-3xl px-12 py-10 text-center shadow-2xl"
+                >
+                    <div className="text-5xl mb-4">🚀</div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Coming Soon</h2>
+                    <p className="text-gray-300 text-lg max-w-md">
+                        We're putting together an amazing team. Check back soon to meet the passionate individuals behind BECon 2026!
+                    </p>
+                </motion.div>
+            </div>
+
             <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-24 xl:px-32 max-w-[1600px] mx-auto">
 
                 {/* Hero Section - Meet Our Hosts (Draggable Gallery) */}

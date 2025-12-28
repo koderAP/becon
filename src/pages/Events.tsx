@@ -656,8 +656,8 @@ export const Events: React.FC = () => {
 
                                     {/* Register Button */}
                                     <div className="flex justify-center">
-                                        <button className="px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-purple-400 hover:text-white transition-all">
-                                            Register Now
+                                        <button disabled className="px-8 py-3 rounded-full bg-white/20 text-white/60 font-bold cursor-not-allowed border border-white/20">
+                                            Coming Soon
                                         </button>
                                     </div>
                                 </div>
@@ -858,9 +858,8 @@ export const Events: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                <button className="flex-1 md:flex-none px-8 py-4 bg-white text-black font-bold text-lg rounded-xl hover:bg-purple-500 hover:text-white transition-all flex items-center justify-center gap-2">
-                                                    Register Now
-                                                    <ArrowRight size={20} />
+                                                <button disabled className="flex-1 md:flex-none px-8 py-4 bg-white/20 text-white/60 font-bold text-lg rounded-xl cursor-not-allowed border border-white/20 flex items-center justify-center gap-2">
+                                                    Coming Soon
                                                 </button>
                                             </div>
                                         </div>
