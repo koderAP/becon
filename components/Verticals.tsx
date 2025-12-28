@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
 import { Vertical } from '../types';
 import { AnimeStagger } from './AnimeStagger';
+import { SectionHeading } from './SectionHeading';
 
 interface VerticalsProps {
   preview?: boolean;
@@ -107,10 +108,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
         viewport={{ once: true }}
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3"
       >
-        <div className="flex items-center gap-3 sm:gap-4">
-          <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-          <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">{preview ? 'Core Verticals' : 'Domains'}</span>
-        </div>
+        <SectionHeading>{preview ? 'Core Verticals' : 'Domains'}</SectionHeading>
         {preview && onViewAll && (
           <button
             onClick={onViewAll}
@@ -186,17 +184,9 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       </AnimatePresence>
 
       {/* Wider Landscape Section */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="flex items-center gap-3 sm:gap-4 mt-8 mb-2"
-      >
-        <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Wider Landscape</span>
-      </motion.div>
+      <SectionHeading className="mt-8 mb-2">Wider Landscape</SectionHeading>
 
-      <p className="text-gray-500 text-sm mb-4">Explore other domains too in the summit</p>
+      <p className="text-gray-500 text-base mb-4">Explore other domains too in the summit</p>
 
       {/* Wider Landscape - Horizontal Scroll */}
       <div className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">

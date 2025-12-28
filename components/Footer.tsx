@@ -114,17 +114,24 @@ export const Footer: React.FC = () => {
                                 <span className="w-8 h-[2px] bg-purple-500 rounded-full"></span> Legal
                             </h3>
                             <ul className="space-y-2">
-                                {['Terms & Conditions', 'Privacy Policy'].map((item) => (
-                                    <li key={item}>
-                                        <Link
-                                            to="#"
-                                            className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
-                                        >
-                                            <span className="w-1 h-1 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                                            {item}
-                                        </Link>
-                                    </li>
-                                ))}
+                                <li>
+                                    <Link
+                                        to="/terms"
+                                        className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
+                                    >
+                                        <span className="w-1 h-1 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                        Terms & Conditions
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/terms"
+                                        className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
+                                    >
+                                        <span className="w-1 h-1 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                        Privacy Policy
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
 

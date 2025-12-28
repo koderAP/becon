@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sponsor } from '../types';
+import { SectionHeading } from './SectionHeading';
 
 const sponsors: Sponsor[] = [
     { id: 1, name: "Airchains", tier: "Partner", logo: "/sponsors/Airchains- Primary-Dark 2.svg" },
@@ -142,15 +143,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
         <div className={`px-4 sm:px-6 md:px-12 lg:px-20 ${showHeader ? 'pt-20 sm:pt-24 pb-16 sm:pb-20' : 'pb-20'} ${className} ${!className.includes('bg-') ? 'bg-[#05020a]' : ''}`}>
             {showHeader && (
                 <>
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
-                    >
-                        <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-                        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">Previous Partners</span>
-                    </motion.div>
+                    <SectionHeading className="mb-6 sm:mb-8">Previous Partners</SectionHeading>
 
                 </>
             )}

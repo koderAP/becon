@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, ArrowRight } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 
 interface SpeakersProps {
   preview?: boolean;
@@ -30,10 +31,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4"
           >
-            <div className="flex items-center gap-3 sm:gap-4">
-              <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-              <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">{preview ? 'Past Speakers' : 'Our Guests'}</span>
-            </div>
+            <SectionHeading>{preview ? 'Past Speakers' : 'Our Guests'}</SectionHeading>
 
             {preview && onViewAll && (
               <button

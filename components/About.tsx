@@ -1,18 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { SectionHeading } from './SectionHeading';
 
 export const About: React.FC = () => {
   return (
     <div className="min-h-screen pt-20 sm:pt-24 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 bg-black flex flex-col justify-center">
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
-      >
-        <div className="w-8 sm:w-12 h-[2px] bg-white"></div>
-        <span className="text-sm sm:text-lg text-gray-300 uppercase tracking-widest">The Manifesto</span>
-      </motion.div>
+      <SectionHeading className="mb-6 sm:mb-8">The Manifesto</SectionHeading>
+
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
         <div>
