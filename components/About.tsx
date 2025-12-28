@@ -7,7 +7,6 @@ export const About: React.FC = () => {
     <div className="min-h-screen pt-20 sm:pt-24 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 bg-black flex flex-col justify-center">
       <SectionHeading className="mb-6 sm:mb-8">The Manifesto</SectionHeading>
 
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
         <div>
           <motion.h1
@@ -20,31 +19,20 @@ export const About: React.FC = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">Market Reality</span>
           </motion.h1>
 
+          {/* Featured Image */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative w-full h-60 sm:h-72 md:h-80 lg:h-96 rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm group"
+            className="relative w-full h-60 sm:h-72 md:h-80 lg:h-96 rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 group"
           >
-            {/* Abstract Prisms */}
-            <div className="absolute inset-0 flex items-center justify-around p-4 sm:p-6 md:p-10 gap-2">
-              <img
-                src="https://picsum.photos/id/20/400/400"
-                className="w-1/3 h-full object-cover rounded-lg mix-blend-overlay opacity-60 hover:opacity-100 transition-opacity duration-500"
-                alt="Abstract 1"
-              />
-              <img
-                src="https://picsum.photos/id/26/400/400"
-                className="w-1/3 h-full object-cover rounded-lg mix-blend-overlay opacity-60 hover:opacity-100 transition-opacity duration-500"
-                alt="Abstract 2"
-              />
-              <img
-                src="https://picsum.photos/id/16/400/400"
-                className="w-1/3 h-full object-cover rounded-lg mix-blend-overlay opacity-60 hover:opacity-100 transition-opacity duration-500"
-                alt="Abstract 3"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <img
+              src="/gallery-lg1.avif"
+              alt="BECon Event"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
           </motion.div>
 
         </div>
@@ -56,10 +44,10 @@ export const About: React.FC = () => {
           className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-6"
         >
           <p>
-            eDC IIT Delhi is a dedicated cell that connects IIT Delhi’s technical strength with the world of entrepreneurship and innovation. Over the years, we have created platforms that encourage learning, meaningful dialogue, and real opportunities for growth.
+            eDC IIT Delhi is a dedicated cell that connects IIT Delhi's technical strength with the world of entrepreneurship and innovation. Over the years, we have created platforms that encourage learning, meaningful dialogue, and real opportunities for growth.
           </p>
           <p>
-            BECon is at the heart of this vision. The Nation’s biggest E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
+            BECon is at the heart of this vision. The Nation's biggest E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
           </p>
 
           {/* Stats Marquee Banner - Row 1 (Left) */}
