@@ -188,7 +188,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                                     alt={s.name}
                                     loading="lazy"
                                     decoding="async"
-                                    className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
+                                    className="w-full h-full object-contain filter transition-all duration-300 opacity-80 group-hover:opacity-100"
                                 />
                             </motion.div>
                         ))}

@@ -112,7 +112,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     style={{ touchAction: isMobile ? 'auto' : 'none' }}
                                     onTap={() => isMobile && setActiveId(activeId === items[0]?.id ? null : items[0]?.id)}
                                 >
-                                    <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[0]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
+                                    <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
                                     <div
                                         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                         onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[0]); }}
@@ -134,7 +134,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     style={{ touchAction: isMobile ? 'auto' : 'none' }}
                                     onTap={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
                                 >
-                                    <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[2]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
+                                    <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
                                     <div
                                         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                         onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[2]); }}
@@ -159,7 +159,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     style={{ touchAction: isMobile ? 'auto' : 'none' }}
                                     onTap={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
                                 >
-                                    <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[1]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
+                                    <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
                                     <div
                                         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                         onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[1]); }}
@@ -181,7 +181,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     style={{ touchAction: isMobile ? 'auto' : 'none' }}
                                     onTap={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
                                 >
-                                    <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className={`w-full h-full object-cover transition-all duration-500 ${activeId === items[3]?.id ? 'grayscale-0' : 'grayscale'} ${!isMobile ? 'group-hover:grayscale-0' : ''}`} draggable={false} />
+                                    <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
                                     <div
                                         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
                                         onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[3]); }}

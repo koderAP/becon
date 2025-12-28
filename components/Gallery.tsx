@@ -36,7 +36,7 @@ export const Gallery: React.FC = () => {
                     {[...images, ...images, ...images].map((src, index) => (
                         <div
                             key={index}
-                            className="relative w-[300px] sm:w-[400px] h-[200px] sm:h-[280px] rounded-2xl overflow-hidden shrink-0 border border-white/10 group grayscale hover:grayscale-0 transition-all duration-500"
+                            className="relative w-[300px] sm:w-[400px] h-[200px] sm:h-[280px] rounded-2xl overflow-hidden shrink-0 border border-white/10 group hover:scale-[1.02] transition-all duration-500"
                             style={{ transform: 'translateZ(0)' }}
                         >
                             <img

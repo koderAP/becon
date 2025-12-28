@@ -88,7 +88,7 @@ const TeamMemberCard: React.FC<{ member: TeamMember; index: number }> = ({ membe
                     src={member.img}
                     alt={member.name}
                     loading="lazy"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover transition-all duration-500"
                 />
             </div>
             <h3 className="text-sm md:text-xl font-bold text-white mb-0.5 md:mb-1 truncate">{member.name}</h3>
@@ -204,7 +204,7 @@ export const TeamPage: React.FC = () => {
                                                 src={member.img}
                                                 alt={member.name}
                                                 loading="lazy"
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                                className="w-full h-full object-cover transition-all duration-500"
                                             />
                                         </div>
                                         <h3 className="text-xs md:text-sm font-bold text-white truncate">{member.name}</h3>

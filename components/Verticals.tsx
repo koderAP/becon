@@ -140,8 +140,8 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
             key={v.id}
             onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
             className={`group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedId === v.id
-                ? 'border-purple-500'
-                : 'border-white/10 hover:border-white/30'
+              ? 'border-purple-500'
+              : 'border-white/10 hover:border-white/30'
               }`}
           >
             {/* Background Image */}
@@ -150,7 +150,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
                 src={v.image}
                 alt={v.title}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 opacity-60 group-hover:opacity-80"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-70 group-hover:opacity-90"
               />
             )}
 
