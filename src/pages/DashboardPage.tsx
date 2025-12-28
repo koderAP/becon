@@ -239,12 +239,18 @@ export const DashboardPage: React.FC = () => {
 
             const avatarUrl = urlData.publicUrl + '?t=' + Date.now(); // Cache bust
 
-            // Update user metadata
+            // Update user metadata (for immediate display)
             const { error: updateError } = await supabase.auth.updateUser({
                 data: { avatar_url: avatarUrl }
             });
 
             if (updateError) throw updateError;
+
+            // ALSO update the database so it persists across Google re-logins
+            await supabase
+                .from('user_profiles')
+                .update({ avatar_url: avatarUrl })
+                .eq('id', user.id);
 
             setAvatarPreview(avatarUrl);
             setUserProfile(prev => ({ ...prev, avatar: avatarUrl }));
