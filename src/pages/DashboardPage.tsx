@@ -305,6 +305,25 @@ export const DashboardPage: React.FC = () => {
 
         setUserProfile(profile);
         setEditedProfile(profile);
+
+        // Sync with backend to trigger profile creation & welcome email
+        const syncProfile = async () => {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.access_token) {
+                    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+                    await fetch(`${API_URL}/api/user/profile`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${session.access_token}`,
+                        },
+                    });
+                }
+            } catch (error) {
+                console.warn('Profile sync failed (non-critical):', error);
+            }
+        };
+        syncProfile();
     }, [user, loading, navigate]);
 
     // Events & Passes - Empty for now (registration coming soon)
