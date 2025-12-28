@@ -69,7 +69,7 @@ export const SignupPage: React.FC = () => {
                 // Send welcome email via backend
                 try {
                     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-                    await fetch(`${API_URL}/user/welcome-email`, {
+                    await fetch(`${API_URL}/api/user/welcome-email`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://becon-2026.web.app/sitemap.xml
