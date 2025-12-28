@@ -4,7 +4,11 @@ import { Footer } from '../../components/Footer';
 import { Mail, MapPin, Phone, Send, MessageSquare, User, AtSign, ArrowRight } from 'lucide-react';
 import { PageHeader } from '../../components/PageHeader';
 
+import { toast } from 'sonner';
+import { apiRequest } from '../lib/api';
+
 export const Contact: React.FC = () => {
+    const [loading, setLoading] = useState(false);
     const [formState, setFormState] = useState({
         name: '',
         email: '',
@@ -19,10 +23,23 @@ export const Contact: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted:', formState);
+        setLoading(true);
+
+        try {
+            await apiRequest('/api/user/contact', 'POST', {
+                name: formState.name,
+                email: formState.email,
+                message: formState.message
+            });
+            toast.success('Message sent successfully! We will get back to you soon.');
+            setFormState({ name: '', email: '', subject: '', message: '' });
+        } catch (error: any) {
+            toast.error(error.message || 'Failed to send message');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -66,7 +83,7 @@ export const Contact: React.FC = () => {
                             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-blue-500/30 transition-colors">
                                 <Mail className="w-8 h-8 text-blue-400 mb-4" />
                                 <h4 className="font-semibold text-lg mb-1">Email Us</h4>
-                                <a href="mailto:contact@becon.in" className="text-gray-400 hover:text-white transition-colors">contact@becon.in</a>
+                                <a href="mailto:edciitd.team@gmail.com" className="text-gray-400 hover:text-white transition-colors">edciitd.team@gmail.com</a>
                             </div>
                             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-pink-500/30 transition-colors">
                                 <Phone className="w-8 h-8 text-pink-400 mb-4" />
@@ -120,6 +137,7 @@ export const Contact: React.FC = () => {
                                         placeholder="John Doe"
                                         className="w-full bg-black/20 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
                                         required
+                                        disabled={loading}
                                     />
                                 </div>
                             </div>
@@ -136,6 +154,7 @@ export const Contact: React.FC = () => {
                                         placeholder="john@example.com"
                                         className="w-full bg-black/20 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
                                         required
+                                        disabled={loading}
                                     />
                                 </div>
                             </div>
@@ -150,15 +169,17 @@ export const Contact: React.FC = () => {
                                     rows={5}
                                     className="w-full bg-black/20 border border-white/10 rounded-2xl p-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all resize-none"
                                     required
+                                    disabled={loading}
                                 ></textarea>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full bg-white text-black font-bold py-4 rounded-2xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 group"
+                                disabled={loading}
+                                className="w-full bg-white text-black font-bold py-4 rounded-2xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                Send Message
-                                <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                {loading ? 'Sending...' : 'Send Message'}
+                                {!loading && <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
                             </button>
                         </form>
                     </motion.div>
