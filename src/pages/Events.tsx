@@ -600,33 +600,20 @@ export const Events: React.FC = () => {
                                                     viewport={{ once: true, margin: "-100px" }}
                                                     transition={{ duration: 0.8, delay: i * 0.1 }}
                                                     onClick={() => setSelectedEvent(event)}
-                                                    className={`cursor-pointer group flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                                                    className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
                                                 >
                                                     {/* Content Section */}
                                                     <div className="flex-1 space-y-6 text-left">
-                                                        <div className="flex items-center gap-3">
-                                                            <span className="h-[1px] w-8 bg-purple-500"></span>
-                                                            <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
-                                                        </div>
 
                                                         <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none group-hover:text-purple-300 transition-colors">
                                                             {event.title}
                                                         </h3>
 
                                                         <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                                            {event.description}
+                                                            {event.description.length > 150
+                                                                ? `${event.description.substring(0, 150)}...`
+                                                                : event.description}
                                                         </p>
-
-                                                        <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
-                                                            <div className="flex items-center gap-2">
-                                                                <Calendar size={16} className="text-white" />
-                                                                <span>{event.date}</span>
-                                                            </div>
-                                                            <div className="flex items-center gap-2">
-                                                                <MapPin size={16} className="text-white" />
-                                                                <span>{event.location}</span>
-                                                            </div>
-                                                        </div>
 
                                                         <span className="inline-flex items-center gap-2 text-white font-semibold text-lg group-hover:text-purple-400 transition-colors pt-4">
                                                             View Details
@@ -635,7 +622,7 @@ export const Events: React.FC = () => {
                                                     </div>
 
                                                     {/* Image Section */}
-                                                    <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden">
+                                                    <div className="w-full md:w-[320px] aspect-square relative rounded-3xl overflow-hidden shrink-0">
                                                         <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
                                                         <img
                                                             src={event.image}
@@ -689,43 +676,23 @@ export const Events: React.FC = () => {
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.8, delay: i * 0.1 }}
                                 onClick={() => setSelectedEvent(event)}
-                                className={`cursor-pointer group flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                                className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
                             >
                                 {/* Content Section */}
                                 <div className="flex-1 space-y-6 text-left">
-                                    <div className="flex items-center gap-3">
-                                        <span className="h-[1px] w-8 bg-purple-500"></span>
-                                        <span className="text-purple-400 font-bold tracking-widest text-sm uppercase">{event.category}</span>
-                                    </div>
+
 
                                     <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
                                         {event.title}
                                     </h3>
 
                                     <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                        {event.description.length > 330
-                                            ? `${event.description.substring(0, 330)}...`
+                                        {event.description.length > 150
+                                            ? `${event.description.substring(0, 150)}...`
                                             : event.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-6 text-sm text-gray-500 pt-4">
-                                        <div className="flex items-center gap-2">
-                                            <Calendar size={16} className="text-white" />
-                                            <span>{event.date.split('|')[0].trim()}</span>
-                                        </div>
-                                        {event.date.includes('|') && (
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center">
-                                                    <span className="w-2.5 h-0.5 bg-white"></span>
-                                                </div>
-                                                <span>{event.date.split('|')[1].trim()}</span>
-                                            </div>
-                                        )}
-                                        <div className="flex items-center gap-2">
-                                            <MapPin size={16} className="text-white" />
-                                            <span>{event.location}</span>
-                                        </div>
-                                    </div>
+
 
                                     <button
                                         onClick={(e) => {
@@ -740,7 +707,7 @@ export const Events: React.FC = () => {
                                 </div>
 
                                 {/* Image Section */}
-                                <div className="flex-1 w-full aspect-square md:aspect-[4/3] relative rounded-3xl overflow-hidden group">
+                                <div className="w-full md:w-[320px] aspect-square relative rounded-3xl overflow-hidden shrink-0 group">
                                     <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
                                     <img
                                         src={event.image}

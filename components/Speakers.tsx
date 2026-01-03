@@ -83,15 +83,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/40 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                {/* Social Icons Overlay - Bottom Right */}
-                <div className="absolute bottom-5 right-5 flex gap-3 z-10">
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#0077b5] transition-colors duration-300 shadow-lg cursor-pointer">
-                    <Linkedin size={20} />
-                  </div>
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-gray-900 group-hover:text-[#E1306C] transition-colors duration-300 shadow-lg cursor-pointer">
-                    <Instagram size={20} />
-                  </div>
-                </div>
+
               </div>
 
               {/* Info Below Image */}

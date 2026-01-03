@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from './SectionHeading';
+import { StatsMarquee } from './StatsMarquee';
 
 export const About: React.FC = () => {
   return (
@@ -50,71 +51,32 @@ export const About: React.FC = () => {
             BECon is at the heart of this vision. The Nation's biggest E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
           </p>
 
-          {/* Stats Marquee Banner - Row 1 (Left) */}
-          <div className="pt-12 w-full overflow-hidden relative mask-linear-fade">
-            {/* Gradient Masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
-
-            <div
-              className="flex whitespace-nowrap gap-16 animate-stats-left"
-              style={{ willChange: 'transform', width: 'max-content' }}
-            >
-              {[...Array(6)].flatMap(() => [
+          <div className="space-y-12 pt-12">
+            <StatsMarquee
+              items={[
                 { label: "Overall Footfall", value: "60K+" },
                 { label: "Participants", value: "15K+" },
                 { label: "Ministries", value: "10+" },
                 { label: "Alumni Network", value: "1L+" },
-              ]).map((stat, i) => (
-                <div key={`row1-${i}`} className="flex flex-col items-center">
-                  <h3 className="text-5xl md:text-6xl font-bold text-white mb-2">{stat.value}</h3>
-                  <p className="text-sm md:text-base uppercase tracking-widest text-purple-400 font-semibold">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+              ]}
+              speed={20}
+              colorClass="text-purple-400"
+              direction="left"
+            />
 
-          {/* Stats Marquee Banner - Row 2 (Right) */}
-          <div className="pt-8 w-full overflow-hidden relative mask-linear-fade">
-            {/* Gradient Masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
-
-            <div
-              className="flex whitespace-nowrap gap-16 animate-stats-right"
-              style={{ willChange: 'transform', width: 'max-content' }}
-            >
-              {[...Array(6)].flatMap(() => [
+            <StatsMarquee
+              items={[
                 { label: "Events", value: "30+" },
                 { label: "Startups", value: "4K+" },
                 { label: "Institutes", value: "3500+" },
                 { label: "Investment", value: "50Cr+" },
-              ]).map((stat, i) => (
-                <div key={`row2-${i}`} className="flex flex-col items-center">
-                  <h3 className="text-5xl md:text-6xl font-bold text-white mb-2">{stat.value}</h3>
-                  <p className="text-sm md:text-base uppercase tracking-widest text-blue-400 font-semibold">{stat.label}</p>
-                </div>
-              ))}
-            </div>
+              ]}
+              speed={20}
+              colorClass="text-blue-400"
+              direction="right"
+              className="mt-8"
+            />
           </div>
-
-          {/* CSS Keyframes for stats marquee */}
-          <style>{`
-            @keyframes stats-left {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            @keyframes stats-right {
-              0% { transform: translateX(-50%); }
-              100% { transform: translateX(0); }
-            }
-            .animate-stats-left {
-              animation: stats-left 25s linear infinite;
-            }
-            .animate-stats-right {
-              animation: stats-right 25s linear infinite;
-            }
-          `}</style>
         </motion.div>
       </div>
 

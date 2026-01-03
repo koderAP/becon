@@ -12,6 +12,7 @@ import { TeamPage } from './src/pages/TeamPage';
 import { TermsPage } from './src/pages/TermsPage';
 import { LoginPage } from './src/pages/LoginPage';
 import { SignupPage } from './src/pages/SignupPage';
+import { PronoteSignupPage } from './src/pages/PronoteSignupPage';
 import { DashboardPage } from './src/pages/DashboardPage';
 import AdminLogin from './src/pages/AdminLogin';
 import AdminDashboard from './src/pages/AdminDashboard';
@@ -45,6 +46,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/pronote/register" element={<PronoteSignupPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />

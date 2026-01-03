@@ -36,7 +36,7 @@ export const Tickets: React.FC = () => {
                         className="relative flex justify-center lg:justify-start"
                     >
                         <motion.img
-                            src="/becon-ticket-final.avif"
+                            src="/becon-ticket-updated.avif"
                             alt="BECon Ticket"
                             className="w-full max-w-md lg:max-w-lg object-contain drop-shadow-[0_0_50px_rgba(139,92,246,0.3)]"
                             animate={{ y: [0, -20, 0] }}
