@@ -25,9 +25,9 @@ interface RegionalCity {
 }
 
 const regionalCities: RegionalCity[] = [
-    { name: 'Bangalore', image: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&q=80&w=400' },
     { name: 'Mumbai', image: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&q=80&w=400' },
     { name: 'Chennai', image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Bengalore', image: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&q=80&w=400' },
     { name: 'Guwahati', image: '/guwahati.avif' },
     { name: 'Jaipur', image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&q=80&w=400' },
     { name: 'Delhi', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=400' },
@@ -455,8 +455,9 @@ const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: 
 };
 
 export const Events: React.FC = () => {
-    const [isRegionalsExpanded, setIsRegionalsExpanded] = useState(false);
+    const [isRegionalsExpanded, setIsRegionalsExpanded] = useState(true);
     const [selectedEvent, setSelectedEvent] = useState<EventCard | null>(null);
+    const [expandedRegionalId, setExpandedRegionalId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     // Simulate loading delay
@@ -465,6 +466,14 @@ export const Events: React.FC = () => {
             setIsLoading(false);
         }, 2000);
         return () => clearTimeout(timer);
+    }, []);
+
+    // Auto-close dropdown with animation after page loads
+    React.useEffect(() => {
+        const closeTimer = setTimeout(() => {
+            setIsRegionalsExpanded(false);
+        }, 1500);
+        return () => clearTimeout(closeTimer);
     }, []);
 
     // Lock body scroll when modal is open
@@ -500,149 +509,187 @@ export const Events: React.FC = () => {
 
                 {/* REGIONALS SECTION - HIGHLIGHTED AT TOP */}
                 <div className="mb-20">
-                    {/* Regionals Clickable Banner */}
+                    {/* Cities Collage Banner with REGIONALS overlay */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        onClick={() => setIsRegionalsExpanded(!isRegionalsExpanded)}
-                        className="relative cursor-pointer group"
+                        className="relative rounded-3xl overflow-hidden mb-12"
                     >
-                        <div className="relative overflow-hidden rounded-3xl">
-                            {/* Purple Gradient Background */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-purple-600/30 via-purple-900/20 to-black"></div>
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-500/30 rounded-full blur-[120px]"></div>
-
-                            <div className="relative z-10 py-16 px-8 md:px-16 text-center">
-                                {/* Big Title */}
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6">
-                                    REGIONALS
-                                </h1>
-
-                                <h2 className="text-xl md:text-2xl font-semibold text-white mb-3">
-                                    Regionals – Taking BECon Across India
-                                </h2>
-
-                                <div className="flex items-center justify-center gap-3 text-purple-300 group-hover:text-white transition-colors">
-                                    <span className="text-sm font-semibold uppercase tracking-wider">
-                                        {isRegionalsExpanded ? 'Collapse' : 'Explore Regionals'}
-                                    </span>
-                                    <ChevronDown
-                                        className={`w-5 h-5 transition-transform duration-300 ${isRegionalsExpanded ? 'rotate-180' : ''}`}
+                        {/* Cities Image Strip with Tilted Partitions */}
+                        <div className="flex h-[300px] md:h-[400px]">
+                            {regionalCities.map((city, i) => (
+                                <div
+                                    key={city.name}
+                                    className="relative overflow-hidden"
+                                    style={{
+                                        flex: (i > 0 && i < regionalCities.length - 1) ? 1.05 : 1,
+                                        clipPath: i === 0
+                                            ? 'polygon(0 0, 100% 0, 75% 100%, 0 100%)'
+                                            : i === regionalCities.length - 1
+                                                ? 'polygon(25% 0, 100% 0, 100% 100%, 0 100%)'
+                                                : 'polygon(25% 0, 100% 0, 75% 100%, 0 100%)',
+                                        marginLeft: i > 0 ? '-8%' : '0'
+                                    }}
+                                >
+                                    <img
+                                        src={city.image}
+                                        alt={city.name}
+                                        className="w-full h-full object-cover"
                                     />
+                                    <div className="absolute inset-0 bg-black/40" />
                                 </div>
+                            ))}
+                        </div>
+
+                        {/* Overlay Content */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-2">
+                                REGIONALS
+                            </h1>
+                            <p className="text-lg md:text-xl text-gray-200">
+                                Regionals - Taking BECon Across India
+                            </p>
+                        </div>
+
+                        {/* City Names Strip */}
+                        <div className="absolute bottom-20 left-0 right-0 flex">
+                            {regionalCities.map((city) => (
+                                <div key={city.name} className="flex-1 py-3 text-center">
+                                    <span className="text-white text-xs md:text-sm font-semibold uppercase tracking-wider">
+                                        {city.name}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Know More Section - Integrated into banner */}
+                        <div
+                            className="absolute bottom-0 left-0 right-0 py-8 bg-gradient-to-t from-[#0a0514] via-[#0a0514]/90 to-transparent backdrop-blur-sm cursor-pointer group"
+                            onClick={() => setIsRegionalsExpanded(!isRegionalsExpanded)}
+                        >
+                            <div className="flex items-center justify-center gap-3 text-white/90 hover:text-white transition-colors">
+                                <span className="text-lg md:text-xl font-semibold tracking-wide">Know More</span>
+                                <ChevronDown
+                                    className={`w-6 h-6 transition-transform duration-300 ${isRegionalsExpanded ? 'rotate-180' : ''}`}
+                                />
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* Expandable Regional Content */}
-                    <AnimatePresence>
-                        {(isRegionalsExpanded || isLoading) && (
+                    {/* Dropdown Content - Regional Events */}
+                    <AnimatePresence initial={false}>
+                        {isRegionalsExpanded && (
                             <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.5, ease: "easeInOut" }}
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
                                 className="overflow-hidden"
                             >
-                                <div className="pt-12 space-y-16">
-                                    {/* Intro Text */}
-                                    <div className="max-w-3xl mx-auto text-center">
-                                        <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                                            Regionals carry BECon beyond IIT Delhi into key startup hubs across the country. Bringing together{' '}
-                                            <span className="text-white font-semibold">Moonshot, Blueprint, and the Start-Up Clinic</span>{' '}
-                                            under one umbrella, they create powerful city-level ecosystems where founders can pitch, learn, connect, and grow with real support.
-                                        </p>
+                                {/* Section Title */}
+                                <div className="text-center mb-8">
+                                    <h2 className="text-3xl md:text-4xl font-bold text-white">Events</h2>
+                                </div>
 
-                                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold italic leading-tight text-white">
-                                            If innovation needs reach,<br />
-                                            Regionals make sure it gets there.
-                                        </h3>
-                                    </div>
+                                {/* Regional Events - Horizontal Accordion Layout */}
+                                <div className="flex gap-2 h-[450px] md:h-[550px]">
+                                    {[
+                                        regionalEventsData.find(e => e.id === 'startup-clinic-regional'),
+                                        regionalEventsData.find(e => e.id === 'moonshot-regional'),
+                                        regionalEventsData.find(e => e.id === 'blueprint-regional'),
+                                    ].filter(Boolean).map((event) => {
+                                        const isSelected = expandedRegionalId === event!.id;
+                                        const hasSelection = expandedRegionalId !== null;
 
-                                    {/* Cities Grid */}
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                                        {regionalCities.map((city, i) => (
+                                        return (
                                             <motion.div
-                                                key={city.name}
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: i * 0.1 }}
-                                                className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer"
+                                                key={event!.id}
+                                                layout
+                                                initial={false}
+                                                animate={{
+                                                    flex: isSelected ? 2.5 : hasSelection ? 0.75 : 1,
+                                                }}
+                                                transition={{ duration: 0.5, ease: "easeInOut" }}
+                                                onClick={() => setExpandedRegionalId(isSelected ? null : event!.id)}
+                                                className="relative cursor-pointer overflow-hidden rounded-xl border border-purple-500/30"
                                             >
-                                                <img
-                                                    src={city.image}
-                                                    alt={city.name}
-                                                    loading="lazy"
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                                                <div className="absolute bottom-4 left-4">
-                                                    <h4 className="text-xl font-bold text-white">{city.name}</h4>
+                                                {/* Background - Image for collapsed, Purple gradient for expanded */}
+                                                <div className="absolute inset-0">
+                                                    {/* Image Background (visible when NOT selected) */}
+                                                    <div className={`absolute inset-0 transition-opacity duration-500 ${isSelected ? 'opacity-0' : 'opacity-100'}`}>
+                                                        <img
+                                                            src={event!.image}
+                                                            alt={event!.title}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                                                    </div>
+
+                                                    {/* Purple Gradient Background (visible when selected) */}
+                                                    <div className={`absolute inset-0 transition-opacity duration-500 ${isSelected ? 'opacity-100' : 'opacity-0'}`}>
+                                                        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/90 via-[#1a0a2e] to-[#0a0514]" />
+                                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-purple-500/20 rounded-full blur-[80px]" />
+                                                    </div>
+                                                </div>
+
+                                                {/* Collapsed State - Title at Bottom (visible on non-selected cards) */}
+                                                <div className={`absolute inset-0 flex items-end justify-center p-4 md:p-6 transition-opacity duration-300 ${isSelected ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                                                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white text-center leading-tight uppercase tracking-wide">
+                                                        {event!.title.split(' – ')[0].replace('Start-Up', 'START-UP')}
+                                                    </h3>
+                                                </div>
+
+                                                {/* Expanded State - Full Content (visible only on selected card) */}
+                                                <div className={`absolute inset-0 flex flex-col p-5 md:p-8 overflow-y-auto transition-opacity duration-300 ${isSelected ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                                    {/* Title */}
+                                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 uppercase">
+                                                        {event!.title.split(' – ')[0]}
+                                                    </h2>
+
+                                                    {/* Subtitle */}
+                                                    <p className="text-purple-300 text-sm md:text-base mb-1">
+                                                        Pitch to India's leading investors on a national stage.
+                                                    </p>
+                                                    <p className="text-purple-300/80 text-xs md:text-sm mb-4">
+                                                        Take your next funding round to the right room.
+                                                    </p>
+
+                                                    {/* Description */}
+                                                    <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-5">
+                                                        {event!.description}
+                                                    </p>
+
+                                                    {/* Why Join */}
+                                                    {event!.whyJoin && (
+                                                        <div className="mb-5">
+                                                            <h4 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">
+                                                                Why Apply for {event!.title.split(' – ')[0]}?
+                                                            </h4>
+                                                            <ul className="space-y-1.5">
+                                                                {event!.whyJoin.map((point, idx) => (
+                                                                    <li key={idx} className="flex items-start gap-2 text-gray-300 text-xs md:text-sm">
+                                                                        <span className="text-white mt-0.5">•</span>
+                                                                        <span>{point}</span>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Register Button */}
+                                                    <div className="mt-auto pt-3">
+                                                        <button
+                                                            onClick={(e) => e.stopPropagation()}
+                                                            className="w-full md:w-auto px-8 py-3 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold text-sm uppercase tracking-wider hover:from-yellow-400 hover:to-orange-400 transition-all"
+                                                        >
+                                                            Register
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </motion.div>
-                                        ))}
-                                    </div>
-
-                                    {/* Regional Events - Same card style as main events */}
-                                    <div>
-                                        <div className="flex items-center gap-4 mb-8">
-                                            <div className="w-12 h-[2px] bg-white"></div>
-                                            <span className="text-lg text-gray-300 uppercase tracking-widest">Regional Events</span>
-                                        </div>
-
-                                        <div className="space-y-24">
-                                            {regionalEventsData.map((event, i) => (
-                                                <motion.div
-                                                    key={event.id}
-                                                    initial={{ opacity: 0, y: 40 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true, margin: "-100px" }}
-                                                    transition={{ duration: 0.8, delay: i * 0.1 }}
-                                                    onClick={() => setSelectedEvent(event)}
-                                                    className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-                                                >
-                                                    {/* Content Section */}
-                                                    <div className="flex-1 space-y-6 text-left">
-
-                                                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none group-hover:text-purple-300 transition-colors">
-                                                            {event.title}
-                                                        </h3>
-
-                                                        <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                                            {event.description.length > 150
-                                                                ? `${event.description.substring(0, 150)}...`
-                                                                : event.description}
-                                                        </p>
-
-                                                        <span className="inline-flex items-center gap-2 text-white font-semibold text-lg group-hover:text-purple-400 transition-colors pt-4">
-                                                            View Details
-                                                            <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                                                        </span>
-                                                    </div>
-
-                                                    {/* Image Section */}
-                                                    <div className="w-full md:w-[320px] aspect-square relative rounded-3xl overflow-hidden shrink-0">
-                                                        <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
-                                                        <img
-                                                            src={event.image}
-                                                            alt={event.title}
-                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                        />
-                                                        {/* Subtle overlay */}
-                                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                                                    </div>
-                                                </motion.div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Register Button */}
-                                    <div className="flex justify-center">
-                                        <button disabled className="px-8 py-3 rounded-full bg-white/20 text-white/60 font-bold cursor-not-allowed border border-white/20">
-                                            Coming Soon
-                                        </button>
-                                    </div>
+                                        );
+                                    })}
                                 </div>
                             </motion.div>
                         )}
