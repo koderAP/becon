@@ -20,10 +20,10 @@ interface BentoTile {
 
 // First bento strip pattern (6 cols × 2 rows = 12 cells)
 const bentoStrip1: BentoTile[] = [
-    { src: '/gallery/gallery-new-1.avif', cols: 2, rows: 2 }, // 4 cells
+    { src: '/gallery/DSC00795.avif', cols: 2, rows: 2 }, // 4 cells - New image
     { src: '/gallery/gallery-new-2.avif', cols: 1, rows: 1 }, // 1 cell
     { src: '/gallery/gallery-new-3.avif', cols: 1, rows: 1 }, // 1 cell
-    { src: '/gallery/gallery-1.avif', cols: 2, rows: 1 },     // 2 cells
+    { src: '/gallery/DSC01157.avif', cols: 2, rows: 1 },     // 2 cells - New image
     { src: '/gallery/gallery-2.avif', cols: 2, rows: 1 },     // 2 cells
     { src: '/gallery/gallery-3.avif', cols: 1, rows: 1 },     // 1 cell
     { src: '/gallery/gallery-4.avif', cols: 1, rows: 1 },     // 1 cell = 12 total
@@ -32,8 +32,8 @@ const bentoStrip1: BentoTile[] = [
 // Second bento strip pattern (12 cells)
 const bentoStrip2: BentoTile[] = [
     { src: '/gallery/gallery-new-4.avif', cols: 1, rows: 2 }, // 2 cells
-    { src: '/gallery/gallery-new-5.avif', cols: 2, rows: 1 }, // 2 cells
-    { src: '/gallery/gallery-new-6.avif', cols: 2, rows: 2 }, // 4 cells
+    { src: '/gallery/DSC02517.avif', cols: 2, rows: 1 }, // 2 cells - New image
+    { src: '/gallery/DSC02587.avif', cols: 2, rows: 2 }, // 4 cells - New image
     { src: '/gallery/gallery-5.avif', cols: 1, rows: 1 },     // 1 cell
     { src: '/gallery/gallery-6.avif', cols: 2, rows: 1 },     // 2 cells
     { src: '/gallery/gallery-new-7.avif', cols: 1, rows: 1 }, // 1 cell = 12 total
@@ -42,11 +42,11 @@ const bentoStrip2: BentoTile[] = [
 // Third bento strip pattern (12 cells)
 const bentoStrip3: BentoTile[] = [
     { src: '/gallery/gallery-9.avif', cols: 2, rows: 1 },     // 2 cells
-    { src: '/gallery/gallery-10.avif', cols: 1, rows: 2 },    // 2 cells
-    { src: '/gallery/gallery-11.avif', cols: 2, rows: 2 },    // 4 cells
+    { src: '/gallery/DSC07026.avif', cols: 1, rows: 2 },    // 2 cells - New image
+    { src: '/gallery/gallery-new-1.avif', cols: 2, rows: 2 },    // 4 cells
     { src: '/gallery/gallery-7.avif', cols: 1, rows: 1 },     // 1 cell
     { src: '/gallery/gallery-8.avif', cols: 2, rows: 1 },     // 2 cells
-    { src: '/gallery/gallery-1.avif', cols: 1, rows: 1 },     // 1 cell = 12 total
+    { src: '/gallery/gallery-new-6.avif', cols: 1, rows: 1 },     // 1 cell = 12 total
 ];
 
 const baseSize = 180; // Base grid cell size in pixels

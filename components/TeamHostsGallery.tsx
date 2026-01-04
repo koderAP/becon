@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, Reorder, AnimatePresence } from 'framer-motion';
-import { X, Linkedin, Instagram } from 'lucide-react';
+import { X, Linkedin, Phone } from 'lucide-react';
 
 export interface HostMember {
     id: number;
@@ -9,7 +9,7 @@ export interface HostMember {
     img: string;
     bio?: string;
     linkedin?: string;
-    instagram?: string;
+    phone?: string;
 }
 
 interface TeamHostsGalleryProps {
@@ -86,10 +86,22 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className={isLoading ? "" : "cursor-grab active:cursor-grabbing"}
+                    className={isLoading ? "" : items.length > 1 ? "cursor-grab active:cursor-grabbing" : ""}
                 >
                     {isLoading ? (
                         <SkeletonCollage />
+                    ) : items.length === 1 ? (
+                        /* Single Host - Large Featured Card */
+                        <div
+                            className="relative rounded-3xl overflow-hidden group border border-white/10 shadow-2xl bg-[#0a0a0a] aspect-[3/4] max-w-md mx-auto cursor-pointer"
+                            onClick={() => setSelectedHost(items[0])}
+                        >
+                            <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">{items[0]?.name}</h3>
+                                <p className="text-purple-400 text-lg">{items[0]?.role}</p>
+                            </div>
+                        </div>
                     ) : (
                         /* 2 Columns with alternating tall/short pattern - Draggable */
                         <Reorder.Group
@@ -122,74 +134,80 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                     </div>
                                 </Reorder.Item>
 
-                                <Reorder.Item
-                                    key={items[2]?.id}
-                                    value={items[2]}
-                                    as="div"
-                                    whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                    drag={!isMobile}
-                                    dragMomentum={false}
-                                    dragElastic={0.15}
-                                    className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
-                                    style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                    onTap={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
-                                >
-                                    <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                        onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[2]); }}
+                                {items[2] && (
+                                    <Reorder.Item
+                                        key={items[2]?.id}
+                                        value={items[2]}
+                                        as="div"
+                                        whileDrag={{ scale: 1.05, zIndex: 50 }}
+                                        drag={!isMobile}
+                                        dragMomentum={false}
+                                        dragElastic={0.15}
+                                        className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
+                                        style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                        onTap={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
                                     >
-                                        <h3 className="text-lg md:text-xl font-bold text-white">{items[2]?.name}</h3>
-                                        <p className="text-blue-400 text-sm">{items[2]?.role}</p>
-                                    </div>
-                                </Reorder.Item>
+                                        <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
+                                        <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
+                                            onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[2]); }}
+                                        >
+                                            <h3 className="text-lg md:text-xl font-bold text-white">{items[2]?.name}</h3>
+                                            <p className="text-blue-400 text-sm">{items[2]?.role}</p>
+                                        </div>
+                                    </Reorder.Item>
+                                )}
                             </div>
 
                             {/* Column 2: Indices 1 and 3 */}
                             <div className="flex flex-col gap-4">
-                                <Reorder.Item
-                                    key={items[1]?.id}
-                                    value={items[1]}
-                                    as="div"
-                                    whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                    drag={!isMobile}
-                                    dragMomentum={false}
-                                    dragElastic={0.15}
-                                    className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
-                                    style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                    onTap={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
-                                >
-                                    <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                        onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[1]); }}
+                                {items[1] && (
+                                    <Reorder.Item
+                                        key={items[1]?.id}
+                                        value={items[1]}
+                                        as="div"
+                                        whileDrag={{ scale: 1.05, zIndex: 50 }}
+                                        drag={!isMobile}
+                                        dragMomentum={false}
+                                        dragElastic={0.15}
+                                        className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
+                                        style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                        onTap={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
                                     >
-                                        <h3 className="text-lg md:text-xl font-bold text-white">{items[1]?.name}</h3>
-                                        <p className="text-purple-400 text-sm">{items[1]?.role}</p>
-                                    </div>
-                                </Reorder.Item>
+                                        <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
+                                        <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
+                                            onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[1]); }}
+                                        >
+                                            <h3 className="text-lg md:text-xl font-bold text-white">{items[1]?.name}</h3>
+                                            <p className="text-purple-400 text-sm">{items[1]?.role}</p>
+                                        </div>
+                                    </Reorder.Item>
+                                )}
 
-                                <Reorder.Item
-                                    key={items[3]?.id}
-                                    value={items[3]}
-                                    as="div"
-                                    whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                    drag={!isMobile}
-                                    dragMomentum={false}
-                                    dragElastic={0.15}
-                                    className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
-                                    style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                    onTap={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
-                                >
-                                    <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                        onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[3]); }}
+                                {items[3] && (
+                                    <Reorder.Item
+                                        key={items[3]?.id}
+                                        value={items[3]}
+                                        as="div"
+                                        whileDrag={{ scale: 1.05, zIndex: 50 }}
+                                        drag={!isMobile}
+                                        dragMomentum={false}
+                                        dragElastic={0.15}
+                                        className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
+                                        style={{ touchAction: isMobile ? 'auto' : 'none' }}
+                                        onTap={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
                                     >
-                                        <h3 className="text-lg md:text-xl font-bold text-white">{items[3]?.name}</h3>
-                                        <p className="text-blue-400 text-sm">{items[3]?.role}</p>
-                                    </div>
-                                </Reorder.Item>
+                                        <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
+                                        <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
+                                            onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[3]); }}
+                                        >
+                                            <h3 className="text-lg md:text-xl font-bold text-white">{items[3]?.name}</h3>
+                                            <p className="text-blue-400 text-sm">{items[3]?.role}</p>
+                                        </div>
+                                    </Reorder.Item>
+                                )}
                             </div>
                         </Reorder.Group>
                     )}
@@ -248,24 +266,26 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                                         )}
 
                                         <div className="flex gap-4">
-                                            <a
-                                                href={selectedHost.linkedin || '#'}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded-lg hover:bg-[#006699] transition-colors"
-                                            >
-                                                <Linkedin size={18} />
-                                                <span className="text-sm font-medium">LinkedIn</span>
-                                            </a>
-                                            <a
-                                                href={selectedHost.instagram || '#'}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white rounded-lg hover:opacity-90 transition-opacity"
-                                            >
-                                                <Instagram size={18} />
-                                                <span className="text-sm font-medium">Instagram</span>
-                                            </a>
+                                            {selectedHost.linkedin && (
+                                                <a
+                                                    href={selectedHost.linkedin}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded-lg hover:bg-[#006699] transition-colors"
+                                                >
+                                                    <Linkedin size={18} />
+                                                    <span className="text-sm font-medium">LinkedIn</span>
+                                                </a>
+                                            )}
+                                            {selectedHost.phone && (
+                                                <a
+                                                    href={`tel:${selectedHost.phone}`}
+                                                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                                                >
+                                                    <Phone size={18} />
+                                                    <span className="text-sm font-medium">Call</span>
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 </motion.div>
