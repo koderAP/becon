@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Sponsor } from '../types';
 import { SectionHeading } from './SectionHeading';
 
@@ -191,9 +192,12 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
 
             <div className="mt-16 sm:mt-24 lg:mt-32 text-center">
                 <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">Interested in sponsoring BECon 2026?</p>
-                <button className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all uppercase tracking-wider text-xs sm:text-sm font-bold">
+                <Link
+                    to="/contact"
+                    className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all uppercase tracking-wider text-xs sm:text-sm font-bold"
+                >
                     Become a Sponsor
-                </button>
+                </Link>
             </div>
         </div>
     );

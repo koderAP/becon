@@ -61,20 +61,28 @@ const TeamMemberCard: React.FC<{ member: TeamMember; index: number }> = ({ membe
                     className="w-full h-full object-cover transition-all duration-500"
                 />
             </div>
-            <h3 className="text-sm md:text-xl font-bold text-white mb-0.5 md:mb-1 truncate">{member.name}</h3>
-            <p className="text-purple-400 font-medium text-xs md:text-base mb-2 md:mb-4 truncate">{member.role}</p>
 
-            <div className="flex gap-2 md:gap-4">
-                {member.linkedin && (
-                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0077b5] transition-colors">
-                        <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
-                    </a>
-                )}
-                {member.phone && (
-                    <a href={`tel:${member.phone}`} className="text-gray-400 hover:text-green-500 transition-colors">
-                        <Phone className="w-4 h-4 md:w-5 md:h-5" />
-                    </a>
-                )}
+            {/* Name, Role and Icons Row */}
+            <div className="flex items-center justify-between">
+                {/* Name and Role */}
+                <div className="flex-1 min-w-0">
+                    <h3 className="text-sm md:text-xl font-bold text-white mb-0.5 md:mb-1 truncate">{member.name}</h3>
+                    <p className="text-purple-400 font-medium text-xs md:text-base truncate">{member.role}</p>
+                </div>
+
+                {/* Social Icons - Vertical on right */}
+                <div className="flex flex-col gap-2 ml-2">
+                    {member.linkedin && (
+                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0077b5] transition-colors">
+                            <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
+                        </a>
+                    )}
+                    {member.phone && (
+                        <a href={`tel:${member.phone}`} className="text-gray-400 hover:text-green-500 transition-colors">
+                            <Phone className="w-4 h-4 md:w-5 md:h-5" />
+                        </a>
+                    )}
+                </div>
             </div>
         </motion.div>
     );

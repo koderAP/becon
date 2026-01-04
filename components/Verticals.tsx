@@ -106,14 +106,21 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       {preview && (
         <>
           <div className="flex flex-row items-center justify-between gap-2 mb-3">
-            <SectionHeading>Experience BECon</SectionHeading>
+            <div className="flex items-center gap-4">
+              <span className="w-8 h-[2px] bg-white"></span>
+              <span className="text-sm md:text-base text-gray-300 font-medium uppercase tracking-wider">Theme Domains</span>
+            </div>
             <Link
               to="/events"
-              className="flex items-center gap-2 text-sm sm:text-base text-white hover:text-purple-400 transition-colors group"
+              className="flex items-center gap-2 text-sm sm:text-base text-gray-400 hover:text-purple-400 transition-colors group"
             >
               Explore all events <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-8">
+            DOMAINS TO EXPLORE <br />
+            <span className="text-gray-500">IN BECon'26</span>
+          </h1>
           <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-8 text-left">
             Across keynote stages, startup platforms, hackathons, and innovation showcases,
             BECon brings together the minds, ideas, and ecosystems shaping what comes next.
@@ -132,49 +139,74 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       </motion.div>
 
       {!preview && (
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold leading-tight mb-8 sm:mb-10 lg:mb-12"
-        >
-          Theme Domains in <br className="hidden sm:block" />
-          <span className="text-gray-500">BECon Deep Tech Summit</span>
-        </motion.h1>
+        <div className="mb-12">
+          <SectionHeading className="mb-6">THEME DOMAINS</SectionHeading>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-bold text-white leading-tight uppercase"
+          >
+            DOMAINS TO EXPLORE<br />
+            <span className="text-gray-500">IN BECon'26</span>
+          </motion.h1>
+        </div>
       )}
 
-      {/* Theme Domains Grid */}
-      <AnimeStagger className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 md:gap-4 sm:overflow-visible mb-4 scrollbar-hide" staggerDelay={150}>
+      <AnimeStagger
+        className="flex overflow-x-auto pb-8 -mx-4 px-4 gap-4 md:grid md:grid-cols-5 md:gap-6 md:pb-0 md:px-0 md:mx-0 snap-x hide-scrollbar"
+        staggerDelay={150}
+      >
         {themeDomains.map((v) => (
-          <motion.div
-            key={v.id}
-            onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
-            className={`group relative flex-shrink-0 w-40 sm:w-auto h-40 md:h-48 rounded-2xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedId === v.id
-              ? 'border-purple-500'
-              : 'border-white/10 hover:border-white/30'
-              }`}
-          >
-            {/* Background Image */}
-            {v.image && (
-              <img
-                src={v.image}
-                alt={v.title}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-70 group-hover:opacity-90"
-              />
-            )}
+          <div key={v.id} className="min-w-[280px] md:min-w-0 snap-center group relative w-full aspect-square perspective-1000">
+            <div
+              className="relative w-full h-full flip-card-inner"
+            >
+              {/* Box Shadow / Glow Effect behind the card */}
+              <div className="absolute -inset-0.5 bg-purple-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
 
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+              {/* FRONT SIDE */}
+              <div className="absolute inset-0 w-full h-full backface-hidden rounded-xl overflow-hidden border border-white/10 bg-[#0a0514]">
+                {/* Image */}
+                {v.image ? (
+                  <img
+                    src={v.image}
+                    alt={v.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-[#1a1a1a]" />
+                )}
+                {/* Gradient Overlay & Title for Front */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex items-end justify-center p-4">
+                  <h3 className="text-sm md:text-base font-bold text-white uppercase tracking-wider text-center">{v.title}</h3>
+                </div>
+              </div>
 
-            {/* Hover Gradient Background - Subtle */}
-            <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+              {/* BACK SIDE */}
+              <div
+                className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-xl overflow-hidden bg-black"
+              >
+                {/* Rotating Border Effect - Matches Ray of Light */}
+                <div className="absolute inset-0 overflow-hidden rounded-xl">
+                  <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_320deg,#c084fc_360deg)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
 
-            <div className="absolute inset-0 flex items-end justify-center p-4 text-center">
-              <h3 className={`text-xs md:text-sm font-medium transition-colors ${selectedId === v.id ? 'text-purple-300' : 'text-white'
-                }`}>{v.title}</h3>
+                {/* Inner Content Container (Inset 2px to show 2px border) */}
+                <div className="absolute inset-[2px] bg-[#0a0514] rounded-xl flex flex-col items-center justify-center p-4 text-center">
+                  {/* Purple Gradient Background inside back card */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-blue-900/10 opacity-50" />
+
+                  <div className="relative z-10 space-y-3">
+                    <v.icon className="w-8 h-8 text-purple-400 mx-auto" />
+                    <h3 className="text-sm font-bold text-white uppercase">{v.title}</h3>
+                    <p className="text-xs text-gray-400 line-clamp-4">{v.description}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </AnimeStagger>
 
@@ -196,48 +228,73 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       </AnimatePresence>
 
       {/* Wider Landscape Subsection */}
-      <h3 className="text-base sm:text-lg font-semibold text-gray-300 uppercase tracking-wider mt-8 mb-2">Wider Landscape</h3>
+      {/* adding some space */}
+      <div className="h-12 md:h-20" />
 
-      <p className="text-gray-500 text-base mb-4">Explore other domains too in the summit</p>
+      <div className="mb-0 md:mb-20">
+        <h3 className="text-3xl md:text-5xl font-bold mb-10">
+          <span className="text-white">Wider</span> <span className="text-gray-500">Landscape</span>
+        </h3>
 
-      {/* Wider Landscape - Horizontal Scroll */}
-      <div className="flex overflow-x-auto pb-4 gap-3 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
-        {widerLandscape.map((v) => (
-          <motion.div
-            key={v.id}
-            onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
-            className={`group relative flex-shrink-0 w-44 sm:w-52 h-24 sm:h-28 rounded-xl border overflow-hidden cursor-pointer transition-all duration-300 snap-center ${selectedId === v.id
-              ? 'border-purple-500 bg-purple-500/10'
-              : 'border-white/10 bg-white/5 hover:border-white/30'
-              }`}
-          >
-            {/* Hover Gradient Background */}
-            <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
-
-            <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
-              <h3 className={`text-sm font-medium transition-colors ${selectedId === v.id ? 'text-purple-300' : 'text-gray-300 group-hover:text-white'
-                }`}>{v.title}</h3>
+        {/* DESKTOP VIEW (Grid) */}
+        <div className="hidden md:grid grid-cols-2 gap-x-16 gap-y-0">
+          {widerLandscape.map((v) => (
+            <div key={v.id} className="group relative">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/10 overflow-hidden">
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-purple-400 to-transparent -translate-x-full ray-of-light" />
+              </div>
+              <div className="flex items-center justify-between py-6 hover:bg-white/5 transition-colors px-2 rounded-lg cursor-pointer">
+                <div className="flex flex-col flex-1 pr-6">
+                  <h4 className="text-xl md:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors loading-tight">{v.title}</h4>
+                  <div className="description-reveal text-sm text-gray-400 leading-relaxed font-light">{v.description}</div>
+                </div>
+                <Brain size={32} className="text-gray-400 group-hover:text-white stroke-[1.5] transition-colors flex-shrink-0" />
+              </div>
             </div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
+
+        {/* MOBILE VIEW (Slider with 4 columns - 8 items paired) */}
+        <div className="flex md:hidden overflow-x-auto pb-8 -mx-4 px-4 gap-4 snap-x hide-scrollbar">
+          {(() => {
+            // Group all 8 items into 4 pairs
+            const slides = [];
+            for (let i = 0; i < widerLandscape.length; i += 2) {
+              slides.push(widerLandscape.slice(i, i + 2));
+            }
+
+            return slides.map((slideGroup, groupIndex) => (
+              <div key={`slide-${groupIndex}`} className="min-w-[85vw] snap-center flex flex-col gap-4">
+                {slideGroup.map((v) => (
+                  <div
+                    key={v.id}
+                    className="group relative flex-1 bg-white/5 rounded-xl border border-white/10 overflow-hidden cursor-pointer touch-manipulation active:scale-[0.98] transition-transform duration-200"
+                    onClick={() => setSelectedId(selectedId === v.id ? null : v.id)}
+                  >
+                    {/* Removed Ray Animation for Mobile to prevent sticky hover issues */}
+
+                    <div className="flex flex-col p-6 h-full select-none justify-center">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className={`text-lg font-bold transition-colors duration-200 ${selectedId === v.id ? 'text-purple-400' : 'text-white'}`}>{v.title}</h4>
+                        <Brain size={24} className={`transition-colors flex-shrink-0 ${selectedId === v.id ? 'text-white' : 'text-gray-500'}`} />
+                      </div>
+
+                      {/* Click-to-Reveal Description */}
+                      <div className={`grid transition-all duration-300 ease-in-out ${selectedId === v.id ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
+                        <div className="overflow-hidden">
+                          <p className="text-sm text-gray-400 leading-relaxed">{v.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ));
+          })()}
+        </div>
       </div>
 
-      {/* Wider Landscape Description Panel */}
-      <AnimatePresence>
-        {selectedData && widerLandscape.some(v => v.id === selectedId) && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="mt-4 overflow-hidden"
-          >
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-gray-300 text-sm md:text-base">{selectedData.description}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Removed redundant Wider Landscape Description Panel */}
 
       {/* FEATURED EVENTS SECTION (Only on Full Page) */}
       {

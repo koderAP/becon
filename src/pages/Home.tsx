@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
                 <Speakers preview onViewAll={() => navigate('/speakers')} />
             </section>
 
-            <section id="gallery">
+            <section id="gallery">                
                 <InfiniteBentoCarousel
                     title="Past Glimpses"
                     subtitle="Memories from previous BECon summits"
