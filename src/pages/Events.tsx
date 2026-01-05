@@ -760,7 +760,7 @@ export const Events: React.FC = () => {
                                 initial={{ opacity: 0, y: 40 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-100px" }}
-                                transition={{ duration: 0.8, delay: i * 0.1 }}
+                                transition={{ duration: 0.4, delay: i * 0.05 }}
                                 onClick={() => setSelectedEvent(event)}
                                 className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
                             >

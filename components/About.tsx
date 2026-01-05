@@ -59,7 +59,7 @@ export const About: React.FC = () => {
                 { label: "Ministries", value: "10+" },
                 { label: "Alumni Network", value: "1L+" },
               ]}
-              speed={20}
+              speed={30}
               colorClass="text-purple-400"
               direction="left"
             />
@@ -71,7 +71,7 @@ export const About: React.FC = () => {
                 { label: "Institutes", value: "3500+" },
                 { label: "Investment", value: "50Cr+" },
               ]}
-              speed={20}
+              speed={30}
               colorClass="text-blue-400"
               direction="right"
               className="mt-8"

@@ -248,7 +248,6 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
                   <h4 className="text-xl md:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors loading-tight">{v.title}</h4>
                   <div className="description-reveal text-sm text-gray-400 leading-relaxed font-light">{v.description}</div>
                 </div>
-                <Brain size={32} className="text-gray-400 group-hover:text-white stroke-[1.5] transition-colors flex-shrink-0" />
               </div>
             </div>
           ))}
@@ -276,7 +275,6 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
                     <div className="flex flex-col p-6 h-full select-none justify-center">
                       <div className="flex items-center justify-between mb-2">
                         <h4 className={`text-lg font-bold transition-colors duration-200 ${selectedId === v.id ? 'text-purple-400' : 'text-white'}`}>{v.title}</h4>
-                        <Brain size={24} className={`transition-colors flex-shrink-0 ${selectedId === v.id ? 'text-white' : 'text-gray-500'}`} />
                       </div>
 
                       {/* Click-to-Reveal Description */}

@@ -89,27 +89,56 @@ export const SpeakersPage: React.FC = () => {
                             animate="visible"
                         >
                             {[
-                                "Sachin Bansal", "Ritesh Agarwal", "Raghuram Rajan", "Nikhil Kamath", "Anand Chandrasekaran",
-                                "Sanjeev Bikhchandani", "Dara Khosrowshahi", "Deepinder Goyal", "Mark Zuckerberg", "Elie Seidman",
-                                "Jack Dorsey", "Prashanth Prakash", "Aman Gupta", "Ashneer Grover", "Kunal Bahl",
-                                "Hemant Taneja", "Rohit Bansal", "Azhar Iqubal", "Amit Jain", "Vijay Shekhar Sharma",
-                                "Nitin Gadkari", "Tanmay Bhat", "Bryan Johnson", "Gaurav Chaudhary", "Gurudev Ravi Shankar",
-                                "BVR Mohan Reddy", "Nuseir Yassin", "Manoj Kohli", "Radhika Gupta", "Terry Wu",
-                                "Prashant Tandon", "Ruchira Shukla", "Alok Mittal", "Bill Gates", "Kiran Bedi",
-                                "Prashant Pitti", "Rajan Anandan"
-                            ].map((name, i) => {
-                                const imagePath = `/speakers/${name.replace(/\s+/g, '')}.avif`;
+                                { name: "Sachin Bansal", role: "Co-founder, Flipkart & CEO, Navi" },
+                                { name: "Ritesh Agarwal", role: "Founder & CEO, OYO" },
+                                { name: "Raghuram Rajan", role: "Ex-Governor, RBI & Professor, Chicago Booth" },
+                                { name: "Nikhil Kamath", role: "Co-founder, Zerodha & True Beacon" },
+                                { name: "Anand Chandrasekaran", role: "Partner, General Catalyst" },
+                                { name: "Sanjeev Bikhchandani", role: "Founder, Info Edge (Naukri.com)" },
+                                { name: "Dara Khosrowshahi", role: "CEO, Uber" },
+                                { name: "Deepinder Goyal", role: "Founder & CEO, Zomato" },
+                                { name: "Mark Zuckerberg", role: "Founder & CEO, Meta" },
+                                { name: "Elie Seidman", role: "Former CEO, Tinder" },
+                                { name: "Jack Dorsey", role: "Co-founder, Block & Ex-CEO, Twitter" },
+                                { name: "Prashanth Prakash", role: "Founding Partner, Accel India" },
+                                { name: "Aman Gupta", role: "Co-founder & CMO, boAt" },
+                                { name: "Ashneer Grover", role: "Founder, Third Unicorn (Ex-BharatPe)" },
+                                { name: "Kunal Bahl", role: "Co-founder, Snapdeal & Titan Capital" },
+                                { name: "Hemant Taneja", role: "CEO & Managing Director, General Catalyst" },
+                                { name: "Rohit Bansal", role: "Co-founder & COO, Snapdeal" },
+                                { name: "Azhar Iqubal", role: "Co-founder & Chairman, Inshorts" },
+                                { name: "Amit Jain", role: "CEO & Co-founder, CarDekho" },
+                                { name: "Vijay Shekhar Sharma", role: "Founder & CEO, Paytm" },
+                                { name: "Nitin Gadkari", role: "Minister for Road Transport & Highways" },
+                                { name: "Tanmay Bhat", role: "Comedian, YouTuber & Investor" },
+                                { name: "Bryan Johnson", role: "Founder, Blueprint & Kernel" },
+                                { name: "Gaurav Chaudhary", role: "Tech YouTuber (Technical Guruji)" },
+                                { name: "Gurudev Ravi Shankar", role: "Founder, The Art of Living" },
+                                { name: "BVR Mohan Reddy", role: "Founder Chairman, Cyient" },
+                                { name: "Nuseir Yassin", role: "Founder & CEO, Nas Daily" },
+                                { name: "Manoj Kohli", role: "Ex-Country Head, Softbank India" },
+                                { name: "Radhika Gupta", role: "MD & CEO, Edelweiss Mutual Fund" },
+                                { name: "Terry Wu", role: "Neuroscientist & Speaker" },
+                                { name: "Prashant Tandon", role: "Co-founder & CEO, Tata 1mg" },
+                                { name: "Ruchira Shukla", role: "Head, Synapses (Ex-IFC)" },
+                                { name: "Alok Mittal", role: "Co-founder & CEO, Indifi" },
+                                { name: "Bill Gates", role: "Co-chair, Bill & Melinda Gates Foundation" },
+                                { name: "Kiran Bedi", role: "Former Lt. Governor, Puducherry" },
+                                { name: "Prashant Pitti", role: "Co-founder, EaseMyTrip" },
+                                { name: "Rajan Anandan", role: "Managing Director, Peak XV Partners" }
+                            ].map((speaker, i) => {
+                                const imagePath = `/speakers/${speaker.name.replace(/\s+/g, '')}.avif`;
                                 return (
                                     <motion.div key={i} className="group relative" variants={itemVariants}>
                                         <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
                                             <img
                                                 src={imagePath}
-                                                alt={name}
+                                                alt={speaker.name}
                                                 loading="lazy"
                                                 decoding="async"
                                                 className="w-full h-full object-cover transition-all duration-500"
                                                 onError={(e) => {
-                                                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
+                                                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(speaker.name)}&background=random`;
                                                 }}
                                             />
 
@@ -120,8 +149,8 @@ export const SpeakersPage: React.FC = () => {
 
                                         </div>
                                         <div className="text-left">
-                                            <h3 className="text-xl font-bold text-white mb-1">{name}</h3>
-                                            <p className="text-gray-500 text-sm">Industry Leader</p>
+                                            <h3 className="text-xl font-bold text-white mb-1">{speaker.name}</h3>
+                                            <p className="text-gray-500 text-sm">{speaker.role}</p>
                                         </div>
                                     </motion.div>
                                 );
