@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Sponsors } from '../../components/Sponsors';
 import { Footer } from '../../components/Footer';
 import { PageHeader } from '../../components/PageHeader';
@@ -31,9 +32,12 @@ export const SponsorsPage: React.FC = () => {
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
                         We are currently onboarding partners for this year's summit. Join us in shaping the future.
                     </p>
-                    <button className="px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-colors">
+                    <Link
+                        to="/contact"
+                        className="inline-block px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-colors"
+                    >
                         Become a Sponsor
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="border-t border-white/10 pt-20">
