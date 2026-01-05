@@ -821,27 +821,28 @@ export const DashboardPage: React.FC = () => {
                             {registeredEvents.length > 0 ? (
                                 <div className="space-y-3">
                                     {registeredEvents.map((event, index) => (
-                                        <motion.div
-                                            key={event.id}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.6 + index * 0.1 }}
-                                            className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600/30 to-blue-600/30 flex items-center justify-center">
-                                                    <Trophy size={20} className="text-purple-400" />
+                                        <Link to={`/events?event=${event.id}`} key={event.id}>
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.6 + index * 0.1 }}
+                                                className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group cursor-pointer"
+                                            >
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600/30 to-blue-600/30 flex items-center justify-center">
+                                                        <Trophy size={20} className="text-purple-400" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-semibold group-hover:text-purple-400 transition-colors">{event.name}</h4>
+                                                        <p className="text-sm text-gray-500">{event.date}</p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <h4 className="font-semibold group-hover:text-purple-400 transition-colors">{event.name}</h4>
-                                                    <p className="text-sm text-gray-500">{event.date}</p>
-                                                </div>
-                                            </div>
-                                            <span className={`text-xs px-3 py-1 rounded-full border ${getStatusBadge(event.status)}`}>
-                                                {event.status === 'confirmed' && <CheckCircle size={12} className="inline mr-1" />}
-                                                {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
-                                            </span>
-                                        </motion.div>
+                                                <span className={`text-xs px-3 py-1 rounded-full border ${getStatusBadge(event.status)}`}>
+                                                    {event.status === 'confirmed' && <CheckCircle size={12} className="inline mr-1" />}
+                                                    {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                                                </span>
+                                            </motion.div>
+                                        </Link>
                                     ))}
                                 </div>
                             ) : (

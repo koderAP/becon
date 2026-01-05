@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from '../../components/Footer';
 import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X, CheckCircle, ExternalLink, Loader2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { PageHeader } from '../../components/PageHeader';
 import { createPortal } from 'react-dom';
 import { useEventRegistration } from '../hooks/useEventRegistration';
@@ -463,6 +463,7 @@ export const Events: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useAuth();
     const { isRegistered, registerForEvent, markAsRegistered, cancelRegistration, registering } = useEventRegistration();
+    const [searchParams] = useSearchParams();
 
     // Event registration info (which events use Unstop)
     const unstopEvents: Record<string, string> = {
@@ -471,6 +472,18 @@ export const Events: React.FC = () => {
         'blueprint': 'https://unstop.com/blueprint',
         'grand-moonshot': 'https://unstop.com/grand-moonshot',
     };
+
+    // Auto-open event modal if ?event= query param is present
+    React.useEffect(() => {
+        const eventId = searchParams.get('event');
+        if (eventId) {
+            // Find the event in eventsData
+            const event = eventsData.find(e => e.id === eventId);
+            if (event) {
+                setSelectedEvent(event);
+            }
+        }
+    }, [searchParams]);
 
     // Simulate loading delay
     React.useEffect(() => {
@@ -568,7 +581,7 @@ export const Events: React.FC = () => {
                         <div className="absolute bottom-20 left-0 right-0 flex">
                             {regionalCities.map((city) => (
                                 <div key={city.name} className="flex-1 py-3 text-center">
-                                    <span className="text-white text-xs md:text-sm font-semibold uppercase tracking-wider">
+                                    <span className="text-white text-[6px] md:text-sm font-semibold uppercase tracking-wider">
                                         {city.name}
                                     </span>
                                 </div>
@@ -616,8 +629,8 @@ export const Events: React.FC = () => {
                                     <h2 className="text-3xl md:text-4xl font-bold text-white">Events</h2>
                                 </div>
 
-                                {/* Regional Events - Horizontal Accordion Layout */}
-                                <div className="flex gap-2 h-[450px] md:h-[550px]">
+                                {/* Regional Events - Horizontal Slider on Mobile, Accordion on Desktop */}
+                                <div className="flex gap-2 md:gap-2 h-[350px] md:h-[550px] overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-hide pb-4 md:pb-0">
                                     {[
                                         regionalEventsData.find(e => e.id === 'startup-clinic-regional'),
                                         regionalEventsData.find(e => e.id === 'moonshot-regional'),
@@ -638,7 +651,7 @@ export const Events: React.FC = () => {
                                                 onMouseEnter={() => window.innerWidth >= 768 && setExpandedRegionalId(event!.id)}
                                                 onMouseLeave={() => window.innerWidth >= 768 && setExpandedRegionalId(null)}
                                                 onClick={() => window.innerWidth < 768 && setExpandedRegionalId(isSelected ? null : event!.id)}
-                                                className="relative cursor-pointer overflow-hidden rounded-xl border border-purple-500/30"
+                                                className="relative cursor-pointer overflow-hidden rounded-xl border border-purple-500/30 min-w-[280px] md:min-w-0 snap-center flex-shrink-0 md:flex-shrink"
                                             >
                                                 {/* Background - Image for collapsed, Purple gradient for expanded */}
                                                 <div className="absolute inset-0">
