@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from '../../components/Footer';
-import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X, CheckCircle, ExternalLink, Loader2 } from 'lucide-react';
+import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X, CheckCircle, ExternalLink, Loader2, Rocket } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { PageHeader } from '../../components/PageHeader';
 import { createPortal } from 'react-dom';
 import { useEventRegistration } from '../hooks/useEventRegistration';
 import { useAuth } from '../contexts/AuthContext';
+
+// Event types for filtering
+type EventType = 'strategy' | 'main' | 'showcase' | 'sessions';
 
 interface EventCard {
     id: string;
@@ -19,6 +22,7 @@ interface EventCard {
     image?: string;
     featured?: boolean;
     isRegional?: boolean;
+    eventType?: EventType;
 }
 
 interface RegionalCity {
@@ -98,12 +102,13 @@ const toRegional = (base: SharedEventBase, id: string, featured?: boolean): Even
 });
 
 // Helper to create main summit event variant
-const toMain = (base: SharedEventBase, id: string, date: string, location: string, featured?: boolean): EventCard => ({
+const toMain = (base: SharedEventBase, id: string, date: string, location: string, featured?: boolean, eventType?: EventType): EventCard => ({
     id: `${id}-main`,
     ...base,
     date,
     location,
     featured,
+    eventType,
 });
 
 // ============= REGIONAL EVENTS =============
@@ -131,6 +136,7 @@ const eventsData: EventCard[] = [
         category: 'hackathon',
         featured: true,
         image: '/events/e-rakshaHackathon.avif',
+        eventType: 'strategy',
     },
     {
         id: 'moonshot-main',
@@ -148,6 +154,7 @@ const eventsData: EventCard[] = [
         category: 'competition',
         featured: true,
         image: '/events/Grandmoonshot.avif',
+        eventType: 'main',
     },
     {
         id: 'innoverse',
@@ -164,6 +171,7 @@ const eventsData: EventCard[] = [
         location: 'Exhibition Grounds',
         category: 'exhibition',
         image: '/events/innoverse.avif',
+        eventType: 'showcase',
     },
     {
         id: 'autospark',
@@ -180,8 +188,9 @@ const eventsData: EventCard[] = [
         location: 'Outdoor Arena',
         category: 'exhibition',
         image: '/events/autospark.avif',
+        eventType: 'showcase',
     },
-    toMain(sharedEvents.blueprint, 'blueprint', 'Feb 1, 2026', 'Seminar Hall'),
+    toMain(sharedEvents.blueprint, 'blueprint', 'Feb 1, 2026', 'Seminar Hall', false, 'strategy'),
     {
         id: 'launchpad',
         title: 'Launchpad – Startup Expo',
@@ -197,8 +206,9 @@ const eventsData: EventCard[] = [
         location: 'Exhibition Grounds',
         category: 'exhibition',
         image: '/events/launchpad.avif',
+        eventType: 'showcase',
     },
-    toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer'),
+    toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer', false, 'sessions'),
     {
         id: 'policysphere',
         title: 'Policysphere',
@@ -214,6 +224,7 @@ const eventsData: EventCard[] = [
         location: 'Senate Hall',
         category: 'networking',
         image: '/events/Policysphere.avif',
+        eventType: 'sessions',
     },
     {
         id: 'colab',
@@ -230,6 +241,7 @@ const eventsData: EventCard[] = [
         location: 'Networking Zone',
         category: 'networking',
         image: '/events/Co-lab.avif',
+        eventType: 'main',
     },
     {
         id: 'strategy-competitions',
@@ -246,6 +258,7 @@ const eventsData: EventCard[] = [
         location: 'LHC Classrooms',
         category: 'competition',
         image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
+        eventType: 'strategy',
     },
     {
         id: 'bootcamp',
@@ -262,6 +275,7 @@ const eventsData: EventCard[] = [
         location: 'Maker Space',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800',
+        eventType: 'sessions',
     },
     {
         id: 'workshops',
@@ -278,6 +292,7 @@ const eventsData: EventCard[] = [
         location: 'LHC Classrooms',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800',
+        eventType: 'sessions',
     },
     {
         id: 'grand-moonshot',
@@ -295,6 +310,7 @@ const eventsData: EventCard[] = [
         category: 'competition',
         featured: true,
         image: '/events/Grandmoonshot.avif',
+        eventType: 'main',
     },
     {
         id: 'keynotes-panels',
@@ -311,6 +327,7 @@ const eventsData: EventCard[] = [
         location: 'Dogra Hall',
         category: 'keynote',
         image: '/events/keynote.avif',
+        eventType: 'sessions',
     },
 ];
 
@@ -461,6 +478,7 @@ export const Events: React.FC = () => {
     const [selectedEvent, setSelectedEvent] = useState<EventCard | null>(null);
     const [expandedRegionalId, setExpandedRegionalId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
     const { user } = useAuth();
     const { isRegistered, registerForEvent, markAsRegistered, cancelRegistration, registering } = useEventRegistration();
     const [searchParams] = useSearchParams();
@@ -743,8 +761,65 @@ export const Events: React.FC = () => {
                     className="flex items-center gap-4 mb-8"
                 >
                     <div className="w-12 h-[2px] bg-white"></div>
-                    <span className="text-lg text-gray-300 uppercase tracking-widest">Main Summit Events</span>
+                    <span className="text-lg text-gray-300 uppercase tracking-widest">
+                        {activeFilter === 'strategy' ? 'Strategy Competitions' :
+                            activeFilter === 'main' ? 'Main Events' :
+                                activeFilter === 'showcase' ? 'Showcase & Exhibitions' :
+                                    activeFilter === 'sessions' ? 'Sessions & Workshops' :
+                                        'All Events'}
+                    </span>
                 </motion.div>
+
+                {/* Mobile Filter Tabs - Horizontal scroll */}
+                <div className="md:hidden sticky top-20 z-40 bg-black/90 backdrop-blur-md py-3 px-4 -mx-4 mb-8">
+                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                        <button
+                            onClick={() => setActiveFilter(null)}
+                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === null
+                                ? 'bg-white text-black'
+                                : 'bg-white/10 text-white hover:bg-white/20'
+                                }`}
+                        >
+                            All
+                        </button>
+                        <button
+                            onClick={() => setActiveFilter('strategy')}
+                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'strategy'
+                                ? 'bg-yellow-500 text-black'
+                                : 'bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/40'
+                                }`}
+                        >
+                            Strategy
+                        </button>
+                        <button
+                            onClick={() => setActiveFilter('main')}
+                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'main'
+                                ? 'bg-purple-500 text-white'
+                                : 'bg-purple-500/20 text-purple-400 hover:bg-purple-500/40'
+                                }`}
+                        >
+                            Main
+                        </button>
+                        <button
+                            onClick={() => setActiveFilter('showcase')}
+                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'showcase'
+                                ? 'bg-cyan-500 text-black'
+                                : 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/40'
+                                }`}
+                        >
+                            Showcase
+                        </button>
+                        <button
+                            onClick={() => setActiveFilter('sessions')}
+                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'sessions'
+                                ? 'bg-pink-500 text-white'
+                                : 'bg-pink-500/20 text-pink-400 hover:bg-pink-500/40'
+                                }`}
+                        >
+                            Sessions
+                        </button>
+                    </div>
+                </div>
 
                 {/* Events Grid */}
                 {/* Events List - Alternating Layout */}
@@ -754,57 +829,59 @@ export const Events: React.FC = () => {
                             <SkeletonMainCard key={i} />
                         ))
                     ) : (
-                        eventsData.map((event, i) => (
-                            <motion.div
-                                key={event.id}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ duration: 0.4, delay: i * 0.05 }}
-                                onClick={() => setSelectedEvent(event)}
-                                className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-                            >
-                                {/* Content Section */}
-                                <div className="flex-1 space-y-6 text-left">
+                        eventsData
+                            .filter(event => !activeFilter || event.eventType === activeFilter)
+                            .map((event, i) => (
+                                <motion.div
+                                    key={event.id}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    transition={{ duration: 0.4, delay: i * 0.05 }}
+                                    onClick={() => setSelectedEvent(event)}
+                                    className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                                >
+                                    {/* Content Section */}
+                                    <div className="flex-1 space-y-6 text-left">
 
 
-                                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
-                                        {event.title}
-                                    </h3>
+                                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
+                                            {event.title}
+                                        </h3>
 
-                                    <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                        {event.description.length > 150
-                                            ? `${event.description.substring(0, 150)}...`
-                                            : event.description}
-                                    </p>
+                                        <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                                            {event.description.length > 150
+                                                ? `${event.description.substring(0, 150)}...`
+                                                : event.description}
+                                        </p>
 
 
 
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setSelectedEvent(event);
-                                        }}
-                                        className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
-                                    >
-                                        Know More
-                                        <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                                    </button>
-                                </div>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setSelectedEvent(event);
+                                            }}
+                                            className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
+                                        >
+                                            Know More
+                                            <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                                        </button>
+                                    </div>
 
-                                {/* Image Section */}
-                                <div className="w-full md:w-[320px] aspect-square relative rounded-3xl overflow-hidden shrink-0 group">
-                                    <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
-                                    <img
-                                        src={event.image}
-                                        alt={event.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                    {/* Subtle overlay */}
-                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                                </div>
-                            </motion.div>
-                        )))}
+                                    {/* Image Section */}
+                                    <div className="w-full md:w-[320px] aspect-square relative rounded-3xl overflow-hidden shrink-0 group">
+                                        <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
+                                        <img
+                                            src={event.image}
+                                            alt={event.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                        {/* Subtle overlay */}
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                                    </div>
+                                </motion.div>
+                            )))}
                 </div>
 
             </div>
@@ -907,52 +984,14 @@ export const Events: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                {/* Dynamic Register Button */}
-                                                {isRegistered(selectedEvent.id) ? (
-                                                    <button
-                                                        onClick={() => cancelRegistration(selectedEvent.id)}
-                                                        className="flex-1 md:flex-none px-8 py-4 bg-emerald-600/20 text-emerald-400 font-bold text-lg rounded-xl border border-emerald-500/30 flex items-center justify-center gap-2 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 transition-all group"
-                                                    >
-                                                        <CheckCircle size={20} />
-                                                        <span className="group-hover:hidden">Registered</span>
-                                                        <span className="hidden group-hover:inline">Cancel?</span>
-                                                    </button>
-                                                ) : unstopEvents[selectedEvent.id] ? (
-                                                    <div className="flex-1 md:flex-none flex gap-2">
-                                                        <a
-                                                            href={unstopEvents[selectedEvent.id]}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg rounded-xl flex items-center justify-center gap-2 hover:from-purple-500 hover:to-blue-500 transition-all"
-                                                        >
-                                                            Register on Unstop
-                                                            <ExternalLink size={18} />
-                                                        </a>
-                                                        {user && (
-                                                            <button
-                                                                onClick={() => markAsRegistered(selectedEvent.id)}
-                                                                disabled={registering === selectedEvent.id}
-                                                                className="px-4 py-4 bg-white/10 text-white/70 font-medium rounded-xl border border-white/20 hover:bg-white/20 transition-all text-sm"
-                                                            >
-                                                                {registering === selectedEvent.id ? <Loader2 size={18} className="animate-spin" /> : "I've Registered"}
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => registerForEvent(selectedEvent.id)}
-                                                        disabled={registering === selectedEvent.id || !user}
-                                                        className="flex-1 md:flex-none px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg rounded-xl flex items-center justify-center gap-2 hover:from-purple-500 hover:to-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                                    >
-                                                        {registering === selectedEvent.id ? (
-                                                            <><Loader2 size={20} className="animate-spin" /> Registering...</>
-                                                        ) : !user ? (
-                                                            'Login to Register'
-                                                        ) : (
-                                                            <>Register Now <ArrowRight size={20} /></>
-                                                        )}
-                                                    </button>
-                                                )}
+
+                                                {/* Coming Soon - Registration temporarily disabled */}
+                                                <button
+                                                    disabled
+                                                    className="flex-1 md:flex-none px-8 py-4 bg-gray-700 text-gray-400 font-bold text-lg rounded-xl flex items-center justify-center gap-2 cursor-not-allowed"
+                                                >
+                                                    Registration Coming Soon
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -1010,6 +1049,96 @@ export const Events: React.FC = () => {
                         </div>
                     </motion.div>
                 </a>,
+                document.body
+            )}
+
+            {/* Left-side Floating Event Type Filter Tabs - Desktop */}
+            {createPortal(
+                <div className="fixed left-0 top-48 z-[9999] hidden md:flex flex-col gap-1">
+                    {/* Strategy Competitions */}
+                    <button
+                        onClick={() => setActiveFilter(activeFilter === 'strategy' ? null : 'strategy')}
+                        className="group cursor-pointer"
+                    >
+                        <motion.div
+                            whileHover={{ x: 8 }}
+                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'strategy'
+                                ? 'bg-yellow-500 shadow-[0_0_20px_rgba(250,204,21,0.5)]'
+                                : 'bg-yellow-500/20 hover:bg-yellow-500/40'
+                                }`}
+                        >
+                            <span
+                                className={`font-bold text-xs tracking-widest ${activeFilter === 'strategy' ? 'text-black' : 'text-yellow-400'}`}
+                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                            >
+                                STRATEGY
+                            </span>
+                        </motion.div>
+                    </button>
+
+                    {/* Main Events */}
+                    <button
+                        onClick={() => setActiveFilter(activeFilter === 'main' ? null : 'main')}
+                        className="group cursor-pointer"
+                    >
+                        <motion.div
+                            whileHover={{ x: 8 }}
+                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'main'
+                                ? 'bg-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]'
+                                : 'bg-purple-500/20 hover:bg-purple-500/40'
+                                }`}
+                        >
+                            <span
+                                className={`font-bold text-xs tracking-widest ${activeFilter === 'main' ? 'text-white' : 'text-purple-400'}`}
+                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                            >
+                                MAIN
+                            </span>
+                        </motion.div>
+                    </button>
+
+                    {/* Showcase */}
+                    <button
+                        onClick={() => setActiveFilter(activeFilter === 'showcase' ? null : 'showcase')}
+                        className="group cursor-pointer"
+                    >
+                        <motion.div
+                            whileHover={{ x: 8 }}
+                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'showcase'
+                                ? 'bg-cyan-500 shadow-[0_0_20px_rgba(34,211,238,0.5)]'
+                                : 'bg-cyan-500/20 hover:bg-cyan-500/40'
+                                }`}
+                        >
+                            <span
+                                className={`font-bold text-xs tracking-widest ${activeFilter === 'showcase' ? 'text-black' : 'text-cyan-400'}`}
+                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                            >
+                                SHOWCASE
+                            </span>
+                        </motion.div>
+                    </button>
+
+                    {/* Sessions */}
+                    <button
+                        onClick={() => setActiveFilter(activeFilter === 'sessions' ? null : 'sessions')}
+                        className="group cursor-pointer"
+                    >
+                        <motion.div
+                            whileHover={{ x: 8 }}
+                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'sessions'
+                                ? 'bg-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.5)]'
+                                : 'bg-pink-500/20 hover:bg-pink-500/40'
+                                }`}
+                        >
+                            <span
+                                className={`font-bold text-xs tracking-widest ${activeFilter === 'sessions' ? 'text-white' : 'text-pink-400'}`}
+                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                            >
+                                SESSIONS
+                            </span>
+                        </motion.div>
+                    </button>
+                </div>,
                 document.body
             )}
 

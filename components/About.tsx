@@ -40,8 +40,8 @@ export const About: React.FC = () => {
                 className="w-full h-full"
               />
             </Suspense>
-            {/* Cover overlay to hide Spline watermark */}
-            <div className="absolute bottom-0 right-0 w-48 h-14 bg-[#E3E3E3] pointer-events-none" />
+            {/* Cover overlay to hide Spline watermark - responsive sizing */}
+            <div className="absolute bottom-0 right-0 w-32 h-10 sm:w-40 sm:h-12 md:w-48 md:h-14 bg-[#E3E3E3] pointer-events-none" />
           </motion.div>
 
         </div>
