@@ -121,6 +121,24 @@ const regionalEventsData: EventCard[] = [
 
 const eventsData: EventCard[] = [
     {
+        id: 'grand-moonshot',
+        title: 'Grand Moonshot',
+        description: "The Grand Moonshot is the flagship fundraising arena at IIT Delhi where India's most promising, growth-ready startups pitch to leading national and global venture capital firms. Final top teams pitch in front of a real audience in the arena and investors to raise funding. This isn't just a pitch—it's a high-stakes opportunity to secure funding, gain massive visibility, and prove your mettle on a national stage. If you're ready to raise big, this is the stage that makes it real.",
+        whyJoin: [
+            'Pitch to top Indian and global VCs',
+            'A trusted stage built for serious fundraising',
+            'Powerful visibility among investors and industry leaders',
+            'Opportunities for partnerships and rapid scale',
+            "Recognition on one of India's most influential startup platforms"
+        ],
+        date: 'Feb 2, 2026',
+        location: 'Dogra Hall',
+        category: 'competition',
+        featured: true,
+        image: '/events/Grandmoonshot.avif',
+        eventType: 'main',
+    },
+    {
         id: 'e-raksha-hackathon',
         title: 'e-Raksha Hackathon',
         description: "The e-Raksha Hackathon is one of Asia's largest deep-tech innovation arenas, bringing together some of the brightest engineering minds to solve challenges in defence, electronics, and intelligent hardware. It focuses on creating practical, scalable solutions with real application potential, supported by guidance from industry leaders, research experts, and partner institutions. If you want to build technology that truly counts, this is the place to do it.",
@@ -136,26 +154,9 @@ const eventsData: EventCard[] = [
         category: 'hackathon',
         featured: true,
         image: '/events/e-rakshaHackathon.avif',
-        eventType: 'strategy',
-    },
-    {
-        id: 'moonshot-main',
-        title: 'Moonshot – Funding Platform',
-        description: "Moonshot is for startups that are already building, growing, and ready to scale further. It brings strong Seed to Series A ventures to pitch before top venture capitalists and investment leaders from India and across the world. The strongest startups move forward to the Grand Moonshot at IIT Delhi, where they present to global VCs, deep-tech leaders, and ecosystem partners. If your startup is ready for its next leap, Moonshot gives you the platform to raise.",
-        whyJoin: [
-            'Direct access to leading VCs and investment firms',
-            'A credible fundraising platform trusted by the ecosystem',
-            'Powerful national visibility among investors, leaders, and media',
-            'Sharp feedback to strengthen your pitch and funding readiness',
-            'A pathway to the Grand Moonshot at IIT Delhi'
-        ],
-        date: 'Jan 31, 2026',
-        location: 'Main Auditorium',
-        category: 'competition',
-        featured: true,
-        image: '/events/Grandmoonshot.avif',
         eventType: 'main',
     },
+
     {
         id: 'innoverse',
         title: 'Innoverse – TechDisplay',
@@ -190,7 +191,7 @@ const eventsData: EventCard[] = [
         image: '/events/autospark.avif',
         eventType: 'showcase',
     },
-    toMain(sharedEvents.blueprint, 'blueprint', 'Feb 1, 2026', 'Seminar Hall', false, 'strategy'),
+
     {
         id: 'launchpad',
         title: 'Launchpad – Startup Expo',
@@ -208,7 +209,7 @@ const eventsData: EventCard[] = [
         image: '/events/launchpad.avif',
         eventType: 'showcase',
     },
-    toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer', false, 'sessions'),
+    toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer', false, 'main'),
     {
         id: 'policysphere',
         title: 'Policysphere',
@@ -224,7 +225,7 @@ const eventsData: EventCard[] = [
         location: 'Senate Hall',
         category: 'networking',
         image: '/events/Policysphere.avif',
-        eventType: 'sessions',
+        eventType: 'main',
     },
     {
         id: 'colab',
@@ -244,20 +245,122 @@ const eventsData: EventCard[] = [
         eventType: 'main',
     },
     {
-        id: 'strategy-competitions',
-        title: 'Strategy Competitions',
-        description: "The Strategy Competitions feature curated challenges that mirror real-world business, consulting, and technology scenarios. They test analytical thinking, creativity, and decision-making under pressure, helping participants refine how they think, plan, and respond to complex situations. If real-world strategy excites you, this is your arena.",
+        id: 'startup-debate',
+        title: 'Startup Debate | StartUp the Debate 4.0',
+        description: "StartUp the Debate 4.0 is an intellectually stimulating debate competition organized by BECon’26 in collaboration with DebSoc IIT Delhi. The event challenges participants to critically analyze contemporary startup and business issues, articulate structured arguments, and propose thoughtful solutions in a conventional debate format.",
         whyJoin: [
-            'Tackle industry-inspired real-world problem statements',
-            'Strengthen analytical thinking and structured decision-making',
-            'Experience pressure-driven strategy building',
-            'Learn through competitive yet meaningful challenges',
-            'Prepare for high-impact roles in business, consulting, and tech'
+            'Sharpen critical thinking and structured argumentation skills',
+            'Engage with contemporary startup and business challenges',
+            'Compete in a high-quality intellectual environment',
+            'Collaborate with DebSoc IIT Delhi and BECon’26',
+            'Gain recognition for analytical and communication excellence'
         ],
-        date: 'Jan 31, 2026',
+        date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
+        image: '/gallery/DSC02587.avif',
+        eventType: 'strategy',
+    },
+    {
+        id: 'biz-e',
+        title: 'Biz-E 4.0 | Beyond the Seen',
+        description: "Biz-E 4.0: Beyond the Seen is a high-energy SciBizTech quiz competition at BECon’26, hosted by IIT Delhi. The event blends science, business, and technology into a fast-paced quizzing experience designed to test knowledge, strategy, and presence of mind.",
+        whyJoin: [
+            'Test knowledge across science, business, and technology',
+            'Experience competitive quizzing in a high-pressure format',
+            'Compete against sharp minds from across institutions',
+            'Enhance strategic thinking and decision-making',
+            'Win recognition in a flagship BECon quiz event'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'LHC Classrooms',
+        category: 'competition',
+        image: '/gallery/DSC01157.avif',
+        eventType: 'strategy',
+    },
+    {
+        id: 'purpose-to-profit',
+        title: 'Purpose to Profit | Enactus IIT Delhi',
+        description: "Purpose to Profit is an inter-college competition organized by Enactus IIT Delhi, focused on transforming socially impactful ideas into scalable business solutions. Teams work on the theme ‘Scaling India’s Superfood from Local Wetlands to Global Retail’, modernizing the Makhana (Fox Nut) industry for sustainable impact.",
+        whyJoin: [
+            'Work on real-world social and environmental challenges',
+            'Learn to convert impact-driven ideas into scalable businesses',
+            'Collaborate in interdisciplinary teams',
+            'Gain exposure to social entrepreneurship frameworks',
+            'Compete under a nationally relevant theme'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'LHC Classrooms',
+        category: 'competition',
+        image: '/gallery/DSC02517.avif',
+        eventType: 'strategy',
+    },
+    {
+        id: 'ipl-auction',
+        title: 'IPL Auction Simulation',
+        description: "The IPL Auction Simulation is a strategy-based event where participants simulate a real IPL auction. Teams bid on cricket players using a fixed budget to build the strongest possible team, balancing performance, value, and constraints.",
+        whyJoin: [
+            'Experience real-world auction dynamics',
+            'Apply strategy, analytics, and budget optimization',
+            'Compete in a fun yet decision-intensive environment',
+            'Test team-building and valuation skills',
+            'Engage with sports-business intersections'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'LHC Classrooms',
+        category: 'competition',
+        image: '/gallery/DSC07026.avif',
+        eventType: 'strategy',
+    },
+    {
+        id: 'midas-touch',
+        title: 'Private Equity | Midas Touch',
+        description: "Midas Touch is a Private Equity and Venture Capital themed competition introducing participants to venture investing through an expert-led session. Teams build and justify portfolio strategies, with finalists evaluated by a jury of VCs on investment rationale and presentation quality.",
+        whyJoin: [
+            'Learn PE and VC fundamentals from experienced investors',
+            'Practice portfolio construction and investment strategy',
+            'Receive feedback from a professional VC jury',
+            'Develop financial and analytical thinking',
+            'Present to and network with industry professionals'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'LHC Classrooms',
+        category: 'competition',
+        image: '/gallery/gallery-new-6.avif',
+        eventType: 'strategy',
+    },
+    {
+        id: 'tdcc',
+        title: 'TDCC | Startup Simulation',
+        description: "TDCC is a two-day startup simulation competition where participants step into the role of CEOs of fictional startups. Teams make real-time decisions across product development, market analysis, fundraising, and crisis management.",
+        whyJoin: [
+            'Experience end-to-end startup decision-making',
+            'Understand trade-offs in product, market, and funding',
+            'Develop leadership and crisis-management skills',
+            'Compete in a fast-paced simulation environment',
+            'Learn practical startup execution dynamics'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'LHC Classrooms',
+        category: 'competition',
+        image: '/gallery/gallery-1.avif',
+        eventType: 'strategy',
+    },
+    {
+        id: 'startup-auction',
+        title: 'Startup Auction',
+        description: "The Startup Auction is a simulation-based competition where participants bid on a curated set of existing startups using a fixed budget. The winning team is the one whose selected portfolio demonstrates the highest projected growth.",
+        whyJoin: [
+            'Learn startup evaluation and growth assessment',
+            'Practice capital allocation and portfolio strategy',
+            'Understand key drivers of startup scalability',
+            'Compete in an investor-style simulation',
+            'Sharpen analytical and forecasting skills'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'LHC Classrooms',
+        category: 'competition',
+        image: '/gallery/gallery-7.avif',
         eventType: 'strategy',
     },
     {
@@ -275,7 +378,7 @@ const eventsData: EventCard[] = [
         location: 'Maker Space',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800',
-        eventType: 'sessions',
+        eventType: 'main',
     },
     {
         id: 'workshops',
@@ -292,43 +395,315 @@ const eventsData: EventCard[] = [
         location: 'LHC Classrooms',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800',
-        eventType: 'sessions',
+        eventType: 'main',
     },
+
     {
-        id: 'grand-moonshot',
-        title: 'Grand Moonshot',
-        description: "The Grand Moonshot is the flagship fundraising arena at IIT Delhi where India's most promising, growth-ready startups pitch to leading national and global venture capital firms. Built for ventures with real traction, strong metrics, and scalable business models, it offers a high-credibility platform to raise funding, form strategic partnerships, and accelerate scale. If you're ready to raise big, this is the stage that makes it real.",
+        id: 'incubator-summit',
+        title: 'Incubator Summit',
+        description: "The Incubator Summit at BECon is a curated, outcome-driven platform that brings together top incubators and accelerators from across India with high-potential startups. Designed to eliminate friction in the startup–incubator discovery process, the summit enables founders to pitch, connect, and network directly with decision-makers—quickly, efficiently, and at scale. It compresses months of outreach and follow-ups into focused, high-signal interactions that move startups forward.",
         whyJoin: [
-            'Pitch to top Indian and global VCs',
-            'A trusted stage built for serious fundraising',
-            'Powerful visibility among investors and industry leaders',
-            'Opportunities for partnerships and rapid scale',
-            "Recognition on one of India's most influential startup platforms"
+            'Fastest access to leading incubators and accelerators in India',
+            'Direct pitching to program heads and investment teams—no cold outreach',
+            'High-quality networking with ecosystem leaders who matter',
+            'Clear next steps toward incubation, acceleration, pilots, and funding',
+            'Founder-first format focused on real outcomes, not just discussions'
         ],
-        date: 'Feb 2, 2026',
-        location: 'Dogra Hall',
-        category: 'competition',
-        featured: true,
-        image: '/events/Grandmoonshot.avif',
+        date: 'Feb 1, 2026',
+        location: 'Senate Hall',
+        category: 'networking',
+        image: '/gallery/gallery-new-6.avif',
         eventType: 'main',
     },
     {
-        id: 'keynotes-panels',
-        title: 'Keynotes & Panels',
-        description: "Keynotes & Panels bring together global leaders, visionary founders, policymakers, and top investors to discuss where technology, business, and innovation are headed next. Through powerful conversations, fireside chats, and unapologetically honest discussions, these sessions decode real experiences, real decisions, and real journeys that shape the future. If you want insight with impact, this is your front row.",
+        id: 'influencer-summit',
+        title: 'Influencer Summit',
+        description: "The Influencer Summit at BECon is a global gathering of top creators, influencers, and digital leaders from India and around the world. The summit serves as a high-energy platform for insightful discussions, keynote sessions, and panel conversations on content creation, personal branding, influence at scale, and the evolving creator economy. Designed to be highly interactive, it enables influencers to engage directly with the audience, share real-world experiences, and build meaningful connections—while also celebrating excellence through awards across multiple competitions and categories.",
         whyJoin: [
-            'Hear directly from global leaders and iconic founders',
-            'Understand real decisions behind major milestones',
-            'Gain perspective on the future of technology, innovation, and business',
-            'Learn through honest, unscripted conversations',
-            'Leave with ideas that challenge, inspire, and push you forward'
+            'Learn directly from leading global and Indian influencers through talks and sessions',
+            'Network one-on-one with creators, industry leaders, and fellow aspirants',
+            'Gain insights into content strategy, growth, monetization, and brand building',
+            'Engage and interact—Q&A, discussions, and audience-driven conversations',
+            'Celebrate impact and creativity through awards recognizing outstanding talent and innovation'
+        ],
+        date: 'Feb 2, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/DSC02587.avif',
+        eventType: 'main',
+    },
+    // --- FIRESIDE CHATS ---
+    {
+        id: 'fireside-hitesh-kaushik',
+        title: 'Fireside Chat: Hitesh Oberoi & Kaushik Dutta',
+        description: "Join an in-depth conversation with a seasoned tech industry leader and a growth strategist as they discuss what it takes to build, scale and sustain multi-vertical digital platforms. They’ll share firsthand insights on adapting technology, fostering innovation and leading teams through evolving markets.",
+        whyJoin: [
+            'Digital platform evolution',
+            'Strategic leadership',
+            'Technology-led growth'
         ],
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/events/keynote.avif',
+        image: '/gallery/gallery-2.avif',
         eventType: 'sessions',
     },
+    {
+        id: 'fireside-fintech',
+        title: 'Fireside Chat: Stashfin & Mobikwik',
+        description: "Experience a high-energy fireside with leaders from the financial technology space as they explore how emerging fintech trends are democratizing access to credit and payments. They will unpack product design thinking, market challenges, and approaches to expanding financial inclusion at scale.",
+        whyJoin: [
+            'Fintech disruption',
+            'Digital payments',
+            'Consumer credit access',
+            'Regulation and innovation'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-3.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'fireside-manu-jain',
+        title: 'Fireside Chat: Manu Jain',
+        description: "A conversation with a consumer tech executive who has driven large-scale adoption and brand growth. Topics will span product strategy, regional market leadership, community building, and lessons on creating consumer-first technology products.",
+        whyJoin: [
+            'Product strategy',
+            'Consumer engagement',
+            'Leadership in competitive markets'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-new-7.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'fireside-radhika-ghai',
+        title: 'Fireside Chat: Radhika Ghai',
+        description: "Hear from a pioneering entrepreneur about the realities of starting and scaling consumer-focused ventures. This session will dive into entrepreneurial mindset, team building, operational challenges, and insights from navigating multiple successful ventures.",
+        whyJoin: [
+            'Startup storytelling',
+            'Growth strategy',
+            'Building resilient ventures'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-6.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'fireside-spinny',
+        title: 'Fireside Chat: Spinny Founders',
+        description: "Join a conversation with innovators who reimagined a traditional industry by leveraging digital transparency, trust, and customer-first operations. They will share experiences on creating seamless user experiences and breaking entrenched market norms using technology.",
+        whyJoin: [
+            'Disruptive marketplaces',
+            'Customer experience',
+            'Digital transformation'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-5.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'fireside-namit-malhotra',
+        title: 'Fireside Chat: Namit Malhotra',
+        description: "An engaging dialogue with a leader from the creative and media technology world about blending storytelling with innovation. Expect discussions on scaling creative enterprises internationally, driving visionary projects, and balancing business leadership with artistic ambition.",
+        whyJoin: [
+            'Creative tech leadership',
+            'Global scaling strategies',
+            'Innovation in media'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-4.avif',
+        eventType: 'sessions',
+    },
+
+    // --- PANELS ---
+    {
+        id: 'panel-aerospace',
+        title: 'Aerospace Panel',
+        description: "Experts and leaders from aerospace engineering, commercial aviation, space launch systems, and defense aviation converge to discuss the future of flight and aerospace innovation. The panel will explore emerging technologies, sustainability, and strategic trends shaping global aerospace capabilities.",
+        whyJoin: [
+            'Sustainable aviation & green propulsion technologies',
+            'Additive manufacturing and advanced materials',
+            'AI/ML for predictive maintenance and avionics optimization',
+            'Challenges in supply chains & global operations'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-8.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'panel-biotech',
+        title: 'Biotech Panel',
+        description: "Leading voices in biotechnology — spanning research, healthcare, agriculture, and industrial biotech — share their perspectives on breakthroughs that are redefining human health and biological systems.",
+        whyJoin: [
+            'Precision medicine and genomic engineering',
+            'Bioengineering for sustainable agriculture',
+            'Translational research & regulatory pathways',
+            'Commercialization of biotech breakthroughs'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-9.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'panel-spacetech',
+        title: 'SpaceTech Panel',
+        description: "Visionaries from the space ecosystem — including startups, investors, researchers, and technologists — discuss how space technologies are evolving beyond Earth’s orbit into commercial, scientific, and societal domains.",
+        whyJoin: [
+            'Emerging trends in commercial space ventures',
+            'Satellite technologies and data services',
+            'Challenges of scaling in a high-capital industry',
+            'Broader impacts of space innovation on Earth industries'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-10.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'panel-ai',
+        title: 'AI Panel',
+        description: "Top AI leaders from industry and academia engage in a forward-looking discussion on artificial intelligence — its innovations, ethical considerations, and real-world impacts across sectors.",
+        whyJoin: [
+            'Responsible AI & governance',
+            'AI deployment in real-world systems',
+            'Emerging AI research frontiers',
+            'Cross-domain AI applications'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-11.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'panel-semiconductor',
+        title: 'Semiconductor Panel',
+        description: "Industry leaders and technologists in semiconductors explore the strategic significance of microchips, advanced fabrication, and global semiconductor supply ecosystems.",
+        whyJoin: [
+            'Chip design trends and manufacturing challenges',
+            'Foundry ecosystems and global supply resilience',
+            'Role of semiconductors in AI, edge compute, and IoT',
+            'National policy and innovation incentives'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-new-1.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'panel-deeptech-vc',
+        title: 'DeepTech VC Panel',
+        description: "A compelling discussion featuring venture capitalists specializing in deep tech. Panelists explore investment strategies, frontier technologies with scaling potential, and the unique challenges and rewards of funding deep tech startups.",
+        whyJoin: [
+            'Principles of deep tech investing',
+            'High-impact sectors: AI, semiconductors, biotech, spacetech',
+            'Evaluating science-driven startups',
+            'Bridging the gap from lab to market'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-new-2.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'panel-iitd-effect',
+        title: 'IITD Effect Panel',
+        description: "An exclusive gathering of IIT Delhi alumni who are leading as venture capitalists, founders, researchers, and domain experts. They discuss how their IITD experience shaped their paths and how they drive innovation across sectors.",
+        whyJoin: [
+            'Translating academic excellence into industry impact',
+            'Alumni stories: challenges, lessons, and success',
+            'Building high-growth ventures from technical roots',
+            'Navigating global tech ecosystems'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-new-3.avif',
+        eventType: 'sessions',
+    },
+
+    // --- KEYNOTES ---
+    {
+        id: 'keynote-sanjeev',
+        title: 'Keynote: Sanjeev Bhikhchandani',
+        description: "This keynote session features a trailblazing visionary entrepreneur whose journey from early career beginnings to becoming a driving force in the digital ecosystem reflects resilience, foresight, and transformative impact. The speaker will share insights on building thriving platforms from the ground up, navigating the challenges of innovation, and shaping ecosystems that empower millions to achieve their aspirations.",
+        whyJoin: [
+            'Foundational mindset of successful innovators',
+            'Navigating entrepreneurial uncertainty',
+            'Creating sustainable impact in technology-driven markets',
+            'Lessons on scaling vision into reality'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/speakers/SanjeevBikhchandani.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'keynote-vijay',
+        title: 'Keynote: Vijay Thadani',
+        description: "In this keynote, a distinguished leadership strategist and talent architect will unpack what it means to lead in an era defined by rapid technological change and evolving learning paradigms. With decades of experience guiding human capital and industry transformation, the speaker will explore how visionary leaders can cultivate adaptive talent ecosystems, foster meaningful learning journeys, and align organizational purpose with future skills needs.",
+        whyJoin: [
+            'Reimagining talent development for future-fit careers',
+            'Leadership frameworks for innovation-first organizations',
+            'Building adaptive learning cultures',
+            'Strategic thinking in times of flux'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-new-4.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'keynote-chandan',
+        title: 'Keynote: Chandan Mendiratta',
+        description: "Join a strategic growth and brand leadership expert as they share the art and science of building meaningful connections between organizations and their audiences. Drawing from a multifaceted career spanning brand building, consumer engagement, and market expansion, this session will delve into how leaders craft compelling narratives, scale brand influence, and stay agile in dynamic competitive landscapes.",
+        whyJoin: [
+            'Strategic building of brand identity and culture',
+            'The role of storytelling in organizational growth',
+            'Aligning brand vision with market and societal trends',
+            'Leadership insights from scaling dynamic teams and products'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/gallery/gallery-new-5.avif',
+        eventType: 'sessions',
+    },
+    {
+        id: 'keynote-manoj',
+        title: 'Keynote: Manoj Kohli',
+        description: "This keynote invites you to engage with a global growth architect and transformational leader whose career has shaped high-impact organizations across sectors and continents. The session will explore how leaders drive next-level growth, cultivate high-performance cultures, and navigate large-scale transformations with clarity and integrity.",
+        whyJoin: [
+            'Leadership strategies for scaling organizations globally',
+            'Managing transformation across diverse contexts',
+            'Building strong cultures that sustain growth',
+            'Integrating innovation, governance, and execution'
+        ],
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Dogra Hall',
+        category: 'keynote',
+        image: '/speakers/ManojKohli.avif',
+        eventType: 'sessions',
+    }
 ];
 
 const categoryConfig = {
@@ -578,6 +953,7 @@ export const Events: React.FC = () => {
                                     <img
                                         src={city.image}
                                         alt={city.name}
+                                        loading="lazy"
                                         className="w-full h-full object-cover"
                                     />
                                     <div className="absolute inset-0 bg-black/40" />
@@ -678,6 +1054,7 @@ export const Events: React.FC = () => {
                                                         <img
                                                             src={event!.image}
                                                             alt={event!.title}
+                                                            loading="lazy"
                                                             className="w-full h-full object-cover"
                                                         />
                                                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -875,6 +1252,7 @@ export const Events: React.FC = () => {
                                         <img
                                             src={event.image}
                                             alt={event.title}
+                                            loading="lazy"
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         {/* Subtle overlay */}
@@ -925,6 +1303,7 @@ export const Events: React.FC = () => {
                                             <img
                                                 src={selectedEvent.image}
                                                 alt={selectedEvent.title}
+                                                loading="lazy"
                                                 className="w-full h-full object-cover"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent" />
@@ -961,7 +1340,12 @@ export const Events: React.FC = () => {
                                                 <div className="mb-10">
                                                     <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                                                         <Sparkles size={20} className="text-purple-400" />
-                                                        Why Join?
+                                                        {selectedEvent.eventType === 'sessions' ? 'Key Themes Covered' :
+                                                            selectedEvent.category === 'workshop' ? "What You'll Learn" :
+                                                                selectedEvent.category === 'competition' ? 'Why Compete?' :
+                                                                    selectedEvent.category === 'hackathon' ? 'Why Participate?' :
+                                                                        selectedEvent.category === 'exhibition' ? 'Highlights' :
+                                                                            'Why Join?'}
                                                     </h4>
                                                     <ul className="space-y-3">
                                                         {selectedEvent.whyJoin.map((reason, index) => (

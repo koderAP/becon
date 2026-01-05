@@ -9,7 +9,9 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       host: '0.0.0.0',
     },
-    plugins: [react()],
+    plugins: [
+      react(),
+    ],
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
@@ -20,5 +22,20 @@ export default defineConfig(({ mode }) => {
         "animejs": path.resolve(__dirname, "./node_modules/animejs/dist/bundles/anime.esm.js"),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            'spline': ['@splinetool/react-spline'],
+            'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+            'framer-motion': ['framer-motion'],
+            'ui-vendor': ['lucide-react', 'sonner', 'clsx', 'tailwind-merge']
+          }
+        }
+      },
+      chunkSizeWarningLimit: 1000,
+      sourcemap: false,
+    }
   };
 });

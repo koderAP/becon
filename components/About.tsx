@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from './SectionHeading';
 import { StatsMarquee } from './StatsMarquee';
@@ -7,9 +7,43 @@ import { StatsMarquee } from './StatsMarquee';
 const Spline = lazy(() => import('@splinetool/react-spline'));
 
 export const About: React.FC = () => {
+  const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to true to prevent hydration mismatch/eager load
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+
+    checkMobile(); // Initial check
+    window.addEventListener('resize', checkMobile);
+
+    // Intersection Observer to only load when in view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoadSpline(true);
+          observer.disconnect(); // Once loaded, keep it loaded
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      observer.disconnect();
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 bg-black flex flex-col justify-center">
+    <div ref={containerRef} className="min-h-screen pt-20 sm:pt-24 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 bg-black flex flex-col justify-center">
       <SectionHeading className="mb-6 sm:mb-8">The Manifesto</SectionHeading>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
@@ -34,16 +68,16 @@ export const About: React.FC = () => {
             {/* Inner container with negative margin to crop bottom watermark */}
             <div className="h-60 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
               <div className="w-full h-[calc(100%+60px)]">
-                <Suspense fallback={
-                  <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
-                    <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
-                  </div>
-                }>
-                  <Spline
-                    scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
-                    className="w-full h-full"
-                  />
-                </Suspense>
+                  <Suspense fallback={
+                    <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
+                      <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
+                    </div>
+                  }>
+                    <Spline
+                      scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
+                      className="w-full h-full"
+                    />
+                  </Suspense>
               </div>
             </div>
           </motion.div>

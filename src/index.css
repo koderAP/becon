@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Inter', sans-serif;
+
+    --color-becon-bg: #05020a;
+    --color-becon-primary: #7c3aed;
+    --color-becon-secondary: #4c1d95;
+    --color-becon-accent: #a78bfa;
+    --color-becon-glass: rgba(255, 255, 255, 0.05);
+    --color-becon-glassBorder: rgba(255, 255, 255, 0.1);
+
+    --background-image-hero-gradient: radial-gradient(circle at 50% 50%, #2e1065 0%, #05020a 70%);
+    --background-image-card-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+@layer base {
+    body {
+        background-color: var(--color-becon-bg);
+        color: white;
+        overflow-x: hidden;
+    }
+
+    /* Hide scrollbar completely */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    html {
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+    }
+}
+
+@layer utilities {
+
+    /* 3D Flip Utilities */
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    .preserve-3d {
+        transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+        transform: rotateY(180deg);
+    }
+
+    /* Animation Utilities */
+    .animate-spin-slow {
+        animation: spin-slow 4s linear infinite;
+    }
+
+    .animate-shimmer {
+        animation: shimmer 2s infinite;
+    }
+
+    .description-reveal {
+        max-height: 0;
+        opacity: 0;
+        transition: all 0.3s ease-out;
+        overflow: hidden;
+    }
+
+    .group:hover .description-reveal {
+        max-height: 100px;
+        opacity: 1;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .description-reveal {
+        max-height: 200px;
+        opacity: 1;
+        margin-top: 0.5rem;
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

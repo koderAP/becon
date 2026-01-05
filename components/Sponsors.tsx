@@ -191,10 +191,15 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
             </div>
 
             <div className="mt-16 sm:mt-24 lg:mt-32 text-center">
-                <p className="text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">Interested in sponsoring BECon 2026?</p>
+
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-10 tracking-tight">
+                    Interested in sponsoring <br className="hidden sm:block" />
+                    <span className="text-gray-400">BECon 2026?</span>
+                </h2>
+
                 <Link
                     to="/contact"
-                    className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all uppercase tracking-wider text-xs sm:text-sm font-bold"
+                    className="group inline-flex items-center justify-center px-10 py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-sm font-bold"
                 >
                     Become a Sponsor
                 </Link>
