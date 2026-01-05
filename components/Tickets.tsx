@@ -33,7 +33,7 @@ const passes: Pass[] = [
         glow: 'group-hover:border-gray-400/50 group-hover:shadow-[0_0_30px_rgba(200,200,200,0.2)]',
         features: [
             { name: 'Startup Expo', included: true },
-            { name: 'Technosphere', included: true },
+            { name: 'Tech Showcase', included: true },
             { name: 'Autospark', included: true },
             { name: 'LHC Speaker Sessions', included: true },
             { name: 'Seminar+Dogra Speaker Sessions', included: false },
@@ -55,7 +55,7 @@ const passes: Pass[] = [
         glow: 'group-hover:border-yellow-500/50 group-hover:shadow-[0_0_30px_rgba(234,179,8,0.2)]',
         features: [
             { name: 'Startup Expo', included: true },
-            { name: 'Technosphere', included: true },
+            { name: 'Tech Showcase', included: true },
             { name: 'Autospark', included: true },
             { name: 'LHC Speaker Sessions', included: true },
             { name: 'Seminar+Dogra Speaker Sessions', included: true },
@@ -77,7 +77,7 @@ const passes: Pass[] = [
         glow: 'group-hover:border-cyan-500/50 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.2)]',
         features: [
             { name: 'Startup Expo', included: true },
-            { name: 'Technosphere', included: true },
+            { name: 'Tech Showcase', included: true },
             { name: 'Autospark', included: true },
             { name: 'LHC Speaker Sessions', included: true },
             { name: 'Seminar+Dogra Speaker Sessions', included: true },

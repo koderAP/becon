@@ -49,6 +49,38 @@ const bentoStrip3: BentoTile[] = [
     { src: '/gallery/gallery-new-6.avif', cols: 1, rows: 1 },     // 1 cell = 12 total
 ];
 
+// Bottom row strips - using different images to avoid duplicates
+// Fourth bento strip pattern (12 cells)
+const bentoStrip4: BentoTile[] = [
+    { src: '/gallery/gallery-10.avif', cols: 2, rows: 2 }, // 4 cells
+    { src: '/gallery/gallery-11.avif', cols: 1, rows: 1 }, // 1 cell
+    { src: '/gallery/gallery-new-5.avif', cols: 1, rows: 1 }, // 1 cell
+    { src: '/gallery/gallery-1.avif', cols: 2, rows: 1 },     // 2 cells
+    { src: '/gallery/DSC00795.avif', cols: 2, rows: 1 },     // 2 cells
+    { src: '/gallery/gallery-new-2.avif', cols: 1, rows: 1 },     // 1 cell
+    { src: '/gallery/gallery-new-3.avif', cols: 1, rows: 1 },     // 1 cell = 12 total
+];
+
+// Fifth bento strip pattern (12 cells)
+const bentoStrip5: BentoTile[] = [
+    { src: '/gallery/DSC01157.avif', cols: 1, rows: 2 }, // 2 cells
+    { src: '/gallery/gallery-2.avif', cols: 2, rows: 1 }, // 2 cells
+    { src: '/gallery/gallery-3.avif', cols: 2, rows: 2 }, // 4 cells
+    { src: '/gallery/gallery-4.avif', cols: 1, rows: 1 },     // 1 cell
+    { src: '/gallery/DSC02517.avif', cols: 2, rows: 1 },     // 2 cells
+    { src: '/gallery/gallery-5.avif', cols: 1, rows: 1 }, // 1 cell = 12 total
+];
+
+// Sixth bento strip pattern (12 cells)
+const bentoStrip6: BentoTile[] = [
+    { src: '/gallery/gallery-6.avif', cols: 2, rows: 1 },     // 2 cells
+    { src: '/gallery/DSC02587.avif', cols: 1, rows: 2 },    // 2 cells
+    { src: '/gallery/gallery-new-4.avif', cols: 2, rows: 2 },    // 4 cells
+    { src: '/gallery/gallery-new-7.avif', cols: 1, rows: 1 },     // 1 cell
+    { src: '/gallery/gallery-9.avif', cols: 2, rows: 1 },     // 2 cells
+    { src: '/gallery/DSC07026.avif', cols: 1, rows: 1 },     // 1 cell = 12 total
+];
+
 const baseSize = 180; // Base grid cell size in pixels
 const gap = 8; // Gap between tiles
 
@@ -122,12 +154,12 @@ export const InfiniteBentoCarousel: React.FC<BentoCarouselProps> = ({
                     animation: `bento-scroll-right ${speed * 1.1}s linear infinite`,
                 }}
             >
-                <BentoStripComponent tiles={bentoStrip3} stripId="d1" />
-                <BentoStripComponent tiles={bentoStrip1} stripId="e1" />
-                <BentoStripComponent tiles={bentoStrip2} stripId="f1" />
-                <BentoStripComponent tiles={bentoStrip3} stripId="d2" />
-                <BentoStripComponent tiles={bentoStrip1} stripId="e2" />
-                <BentoStripComponent tiles={bentoStrip2} stripId="f2" />
+                <BentoStripComponent tiles={bentoStrip4} stripId="d1" />
+                <BentoStripComponent tiles={bentoStrip5} stripId="e1" />
+                <BentoStripComponent tiles={bentoStrip6} stripId="f1" />
+                <BentoStripComponent tiles={bentoStrip4} stripId="d2" />
+                <BentoStripComponent tiles={bentoStrip5} stripId="e2" />
+                <BentoStripComponent tiles={bentoStrip6} stripId="f2" />
             </div>
 
             {/* CSS Keyframes */}

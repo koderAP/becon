@@ -143,7 +143,7 @@ export const Navbar: React.FC = () => {
             style={{ pointerEvents: isCompact ? 'none' : 'auto' }}
           >
             <div className="shrink-0 flex items-center">
-              <Link to="/" className="flex items-center cursor-pointer group">
+              <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center cursor-pointer group">
                 <img src="/edclogo.avif" alt="eDC IIT Delhi" className="h-8 w-auto object-contain group-hover:opacity-80 transition-opacity" />
               </Link>
             </div>
@@ -189,7 +189,7 @@ export const Navbar: React.FC = () => {
             transition={{ duration: 0.25, ease: "easeOut" }}
             style={{ pointerEvents: showCompactContent ? 'auto' : 'none' }}
           >
-            <Link to="/" className="flex items-center cursor-pointer group shrink-0">
+            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center cursor-pointer group shrink-0">
               <img src="/edclogo.avif" alt="eDC IIT Delhi" className="h-8 w-auto object-contain group-hover:opacity-80 transition-opacity" />
             </Link>
 
@@ -210,7 +210,7 @@ export const Navbar: React.FC = () => {
       <div className="fixed top-0 left-0 right-0 z-50 md:hidden">
         <div className="flex items-center justify-between px-4 py-4 bg-transparent">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center">
             <img src="/edclogo.avif" alt="eDC IIT Delhi" className="h-8 w-auto" />
           </Link>
 

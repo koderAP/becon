@@ -308,7 +308,7 @@ export const CheckoutPage: React.FC = () => {
                             {passType === 'silver' && (
                                 <>
                                     <Feature text="Startup Expo Access" />
-                                    <Feature text="Technosphere Access" />
+                                    <Feature text="Tech Showcase Access" />
                                     <Feature text="Autospark Access" />
                                     <Feature text="LHC Speaker Sessions" />
                                 </>
@@ -338,8 +338,8 @@ export const CheckoutPage: React.FC = () => {
                             onClick={finalPrice === 0 ? handleFreeClaim : handlePayment}
                             disabled={loading || (!razorpayLoaded && finalPrice > 0)}
                             className={`w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all ${loading
-                                    ? 'bg-gray-600 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 hover:scale-[1.02]'
+                                ? 'bg-gray-600 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 hover:scale-[1.02]'
                                 }`}
                         >
                             {loading ? (
