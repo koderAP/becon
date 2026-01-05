@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useRef, useEffect } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from './SectionHeading';
 import { StatsMarquee } from './StatsMarquee';
@@ -7,34 +7,6 @@ import { StatsMarquee } from './StatsMarquee';
 const Spline = lazy(() => import('@splinetool/react-spline'));
 
 export const About: React.FC = () => {
-  const splineRef = useRef<any>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Track mouse globally and send to Spline
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (splineRef.current && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        // Normalize mouse position relative to container
-        const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-
-        // Emit look-at event to Spline (if the scene supports it)
-        try {
-          splineRef.current.emitEvent('mouseHover', 'Robot');
-        } catch {
-          // Scene may not have this event configured
-        }
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const onSplineLoad = (spline: any) => {
-    splineRef.current = spline;
-  };
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 bg-black flex flex-col justify-center">
@@ -54,7 +26,6 @@ export const About: React.FC = () => {
 
           {/* Spline 3D Scene - cropped to hide watermark */}
           <motion.div
-            ref={containerRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -71,7 +42,6 @@ export const About: React.FC = () => {
                   <Spline
                     scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
                     className="w-full h-full"
-                    onLoad={onSplineLoad}
                   />
                 </Suspense>
               </div>
