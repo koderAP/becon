@@ -274,20 +274,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Bottom Bar - Date and Venue - Fixed at bottom */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.2, duration: 0.8 }}
-        className="absolute bottom-6 md:bottom-10 lg:bottom-14 left-0 right-0 z-30 px-4 md:px-8 lg:px-12 flex justify-between items-center pointer-events-none w-full"
-      >
 
-        {/* Right: Location */}
-        <div className="pointer-events-auto text-right">
-          <p className="text-sm md:text-lg lg:text-xl xl:text-2xl font-bold text-gray-200 tracking-wide drop-shadow-lg">
-            IIT Delhi, Hauz Khas
-          </p>
-        </div>
-      </motion.div>
 
     </div>
   );
