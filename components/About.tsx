@@ -41,7 +41,7 @@ export const About: React.FC = () => {
               />
             </Suspense>
             {/* Cover overlay to hide Spline watermark - responsive sizing */}
-            <div className="absolute bottom-0 right-0 w-44 h-12 sm:w-44 sm:h-12 md:w-48 md:h-14 bg-[#E3E3E3] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-56 h-14 sm:w-52 sm:h-14 md:w-48 md:h-14 bg-[#E3E3E3] pointer-events-none" />
           </motion.div>
 
         </div>
