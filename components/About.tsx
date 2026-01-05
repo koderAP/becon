@@ -23,25 +23,28 @@ export const About: React.FC = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">Market Reality</span>
           </motion.h1>
 
-          {/* Spline 3D Scene */}
+          {/* Spline 3D Scene - cropped to hide watermark */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative w-full h-60 sm:h-72 md:h-80 lg:h-96 rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black"
+            className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-[#E3E3E3]"
           >
-            <Suspense fallback={
-              <div className="w-full h-full bg-black flex items-center justify-center">
-                <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
+            {/* Inner container with negative margin to crop bottom watermark */}
+            <div className="h-60 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
+              <div className="w-full h-[calc(100%+60px)]">
+                <Suspense fallback={
+                  <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
+                    <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
+                  </div>
+                }>
+                  <Spline
+                    scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
+                    className="w-full h-full"
+                  />
+                </Suspense>
               </div>
-            }>
-              <Spline
-                scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
-                className="w-full h-full"
-              />
-            </Suspense>
-            {/* Cover overlay to hide Spline watermark - responsive sizing */}
-            <div className="absolute bottom-0 right-0 w-56 h-14 sm:w-52 sm:h-14 md:w-48 md:h-14 bg-[#E3E3E3] pointer-events-none" />
+            </div>
           </motion.div>
 
         </div>
