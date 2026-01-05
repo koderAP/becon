@@ -9,6 +9,42 @@ import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
 import { generateBeconIdFromUserId } from '../utils/beconId';
 import { supabase } from '../lib/supabase';
+import { useEventRegistration } from '../hooks/useEventRegistration';
+
+// Event name and date mappings (matching frontend event IDs)
+const EVENT_NAMES: Record<string, string> = {
+    'e-raksha-hackathon': 'e-Raksha Hackathon',
+    'moonshot-main': 'Moonshot',
+    'innoverse': 'Innoverse',
+    'autospark': 'Autospark',
+    'blueprint': 'Blueprint',
+    'launchpad': 'Launchpad',
+    'startup-clinic': 'Startup Clinic',
+    'policysphere': 'Policysphere',
+    'colab': 'CoLab',
+    'strategy-competitions': 'Strategy Competitions',
+    'bootcamp': 'Bootcamp',
+    'workshops': 'Workshops',
+    'grand-moonshot': 'Grand Moonshot',
+    'keynotes-panels': 'Keynotes & Panels',
+};
+
+const EVENT_DATES: Record<string, string> = {
+    'e-raksha-hackathon': 'Jan 30 - Feb 1, 2026',
+    'moonshot-main': 'Jan 31, 2026',
+    'innoverse': 'Jan 30 - Feb 1, 2026',
+    'autospark': 'Jan 30 - Feb 1, 2026',
+    'blueprint': 'Feb 1, 2026',
+    'launchpad': 'Jan 30 - Feb 1, 2026',
+    'startup-clinic': 'Feb 1, 2026',
+    'policysphere': 'Feb 2, 2026',
+    'colab': 'Jan 31, 2026',
+    'strategy-competitions': 'Jan 31, 2026',
+    'bootcamp': 'Jan 30 - 31, 2026',
+    'workshops': 'Jan 30 - Feb 1, 2026',
+    'grand-moonshot': 'Feb 2, 2026',
+    'keynotes-panels': 'Jan 30 - Feb 1, 2026',
+};
 
 // ID Card Popup Component
 const IDCardModal: React.FC<{
@@ -163,6 +199,202 @@ const CountdownTimer: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
                     <span className="text-xs text-gray-500 uppercase">{unit}</span>
                 </div>
             ))}
+        </div>
+    );
+};
+
+// Pass configuration
+const PASS_CONFIG = {
+    silver: {
+        name: 'Silver Pass',
+        price: 0,
+        color: 'text-gray-300',
+        bgGradient: 'from-gray-600 to-gray-800',
+        borderColor: 'border-gray-400/50',
+        image: '/passes/silver.png',
+    },
+    gold: {
+        name: 'Gold Pass',
+        price: 199,
+        color: 'text-yellow-400',
+        bgGradient: 'from-yellow-600 to-yellow-800',
+        borderColor: 'border-yellow-500/50',
+        image: '/passes/gold.png',
+    },
+    platinum: {
+        name: 'Platinum Pass',
+        price: 399,
+        color: 'text-cyan-400',
+        bgGradient: 'from-cyan-600 to-purple-800',
+        borderColor: 'border-cyan-500/50',
+        image: '/passes/platinum.png',
+    },
+};
+
+const PASS_VALUE: Record<string, number> = { silver: 0, gold: 199, platinum: 399 };
+
+// Your Pass Card Component
+const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
+    const [userPass, setUserPass] = useState<{ pass_type: string; purchased_at: string } | null>(null);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchPass = async () => {
+            if (!userId) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const { data, error } = await supabase
+                    .from('user_passes')
+                    .select('pass_type, purchased_at')
+                    .eq('user_id', userId)
+                    .order('purchased_at', { ascending: false })
+                    .limit(1)
+                    .single();
+
+                if (data && !error) {
+                    setUserPass(data);
+                }
+            } catch (err) {
+                console.warn('No pass found');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPass();
+    }, [userId]);
+
+    const currentPassType = userPass?.pass_type as keyof typeof PASS_CONFIG | null;
+    const currentConfig = currentPassType ? PASS_CONFIG[currentPassType] : null;
+    const canUpgrade = currentPassType !== 'platinum';
+
+    const getUpgradeOptions = () => {
+        if (!currentPassType) return [
+            { type: 'silver', price: 0, label: 'Claim Free' },
+            { type: 'gold', price: 199, label: '₹199' },
+            { type: 'platinum', price: 399, label: '₹399' },
+        ];
+
+        const options = [];
+        if (currentPassType === 'silver') {
+            options.push({ type: 'gold', price: 199, label: 'Upgrade ₹199' });
+            options.push({ type: 'platinum', price: 399, label: 'Upgrade ₹399' });
+        } else if (currentPassType === 'gold') {
+            options.push({ type: 'platinum', price: 200, label: 'Upgrade ₹200' });
+        }
+        return options;
+    };
+
+    if (loading) {
+        return (
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center">
+                <Loader2 className="w-8 h-8 animate-spin mx-auto text-purple-500" />
+                <p className="text-gray-400 mt-2">Loading your pass...</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
+            <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="font-semibold text-xl flex items-center gap-2">
+                        <Ticket size={24} className="text-purple-400" />
+                        Your BECon Pass
+                    </h3>
+                    {userPass && (
+                        <span className="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            Active
+                        </span>
+                    )}
+                </div>
+
+                {userPass && currentConfig ? (
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {/* Current Pass Display */}
+                        <div className={`relative p-6 rounded-2xl bg-gradient-to-br ${currentConfig.bgGradient} border ${currentConfig.borderColor}`}>
+                            <div className="flex items-center gap-4">
+                                <img
+                                    src={currentConfig.image}
+                                    alt={currentConfig.name}
+                                    className="w-24 h-24 object-contain drop-shadow-lg"
+                                />
+                                <div>
+                                    <h4 className={`text-2xl font-bold ${currentConfig.color}`}>
+                                        {currentConfig.name}
+                                    </h4>
+                                    <p className="text-sm text-white/70 mt-1">
+                                        Purchased {new Date(userPass.purchased_at).toLocaleDateString()}
+                                    </p>
+                                    <p className="text-xs text-white/50 mt-2">
+                                        Valid for BECon 2026 • Jan 30 - Feb 1
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="absolute top-3 right-3">
+                                <CheckCircle className="text-white/80" size={24} />
+                            </div>
+                        </div>
+
+                        {/* Upgrade Options */}
+                        {canUpgrade && (
+                            <div className="flex flex-col justify-center">
+                                <h4 className="text-sm text-gray-400 mb-4 uppercase tracking-wider">Upgrade Your Pass</h4>
+                                <div className="space-y-3">
+                                    {getUpgradeOptions().map(option => (
+                                        <button
+                                            key={option.type}
+                                            onClick={() => navigate(`/checkout?pass=${option.type}&upgrade=true`)}
+                                            className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02] ${option.type === 'platinum'
+                                                ? 'bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-cyan-500/30 hover:border-cyan-500/60'
+                                                : 'bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border-yellow-500/30 hover:border-yellow-500/60'
+                                                }`}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <img
+                                                    src={PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].image}
+                                                    alt={option.type}
+                                                    className="w-10 h-10 object-contain"
+                                                />
+                                                <span className={`font-semibold ${PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].color}`}>
+                                                    {PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].name}
+                                                </span>
+                                            </div>
+                                            <span className="text-sm font-bold text-white">{option.label}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    /* No Pass - Coming Soon */
+                    <div className="py-4">
+                        <p className="text-gray-400 text-center mb-6">Pass registration coming soon!</p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {Object.entries(PASS_CONFIG).map(([type, config]) => (
+                                <div
+                                    key={type}
+                                    className={`p-6 rounded-2xl bg-gradient-to-br ${config.bgGradient}/40 border-2 ${config.borderColor}/50 text-center opacity-80`}
+                                >
+                                    <img src={config.image} alt={config.name} className="w-24 h-24 mx-auto mb-4 object-contain grayscale-[30%]" />
+                                    <h4 className={`font-bold text-xl ${config.color}`}>{config.name}</h4>
+                                    <p className="text-white/80 text-lg font-semibold mt-2">
+                                        {config.price === 0 ? 'FREE' : `₹${config.price}`}
+                                    </p>
+                                    <div className="mt-4 py-2 px-4 rounded-lg bg-white/5 text-gray-400 text-sm font-medium">
+                                        Coming Soon
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
@@ -346,8 +578,17 @@ export const DashboardPage: React.FC = () => {
         syncProfile();
     }, [user, loading, navigate]);
 
-    // Events & Passes - Empty for now (registration coming soon)
-    const registeredEvents: Event[] = [];
+    // Use event registration hook for actual data
+    const { registrations, registrationCount } = useEventRegistration();
+
+    // Map registrations to the Event interface expected by the component
+    const registeredEvents: Event[] = registrations.map(reg => ({
+        id: reg.event_id,
+        name: EVENT_NAMES[reg.event_id] || reg.event_id,
+        date: EVENT_DATES[reg.event_id] || 'Jan 30 - Feb 1, 2026',
+        status: reg.status as 'registered' | 'confirmed' | 'attended',
+    }));
+
     const passes: Pass[] = [];
 
     const eventDate = new Date('2026-01-31T09:00:00');
@@ -534,63 +775,30 @@ export const DashboardPage: React.FC = () => {
                             <p className="text-sm text-gray-500 mt-4">January 30, 2026 • IIT Delhi</p>
                         </motion.div>
 
-                        {/* Quick Stats */}
+                        {/* Quick Stats - Events Only */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="lg:col-span-3 grid grid-rows-2 gap-4"
+                            className="lg:col-span-3"
                         >
-                            <div className="bg-gradient-to-br from-purple-600/20 to-purple-900/20 border border-purple-500/20 rounded-2xl p-5 flex items-center justify-between">
+                            <div className="bg-gradient-to-br from-purple-600/20 to-purple-900/20 border border-purple-500/20 rounded-2xl p-5 flex items-center justify-between h-full">
                                 <div>
                                     <p className="text-3xl font-bold">{registeredEvents.length}</p>
                                     <p className="text-sm text-gray-400">Events Registered</p>
                                 </div>
                                 <Trophy className="text-purple-400" size={32} />
                             </div>
-                            <div className="bg-gradient-to-br from-blue-600/20 to-blue-900/20 border border-blue-500/20 rounded-2xl p-5 flex items-center justify-between">
-                                <div>
-                                    <p className="text-3xl font-bold">{passes.length}</p>
-                                    <p className="text-sm text-gray-400">Active Passes</p>
-                                </div>
-                                <Ticket className="text-blue-400" size={32} />
-                            </div>
                         </motion.div>
 
-                        {/* My Pass - Visual QR Card */}
+                        {/* Your Pass Card - Full Width with Upgrade Options */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="lg:col-span-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6"
+                            className="lg:col-span-12 relative group"
                         >
-                            <div className="flex items-center justify-between mb-4">
-                                <h3 className="font-semibold flex items-center gap-2">
-                                    <QrCode size={18} className="text-blue-400" />
-                                    My Pass
-                                </h3>
-                                <span className="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                                    Active
-                                </span>
-                            </div>
-
-                            {passes.length > 0 ? (
-                                <div className="flex items-center gap-4">
-                                    <div className="w-24 h-24 bg-white rounded-xl flex items-center justify-center p-2">
-                                        <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMSAyMSI+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTAgMGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSAxaDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDJoM3YzSDJ6TTAgOGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSA5aDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDEwaDN2M0gyem0xMi04aDd2N2gtN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTUgMWg1djVoLTV6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2IDJoM3YzaC0zek04IDBoMXYxSDh6bTIgMGgxdjFoLTF6bTIgMGgydjJoLTF2MWgtMVYxaDF6bS0yIDJoMXYxaC0xem0tMiAxaDF2MUg4em0yIDBoMXYxaC0xem0yIDFoMXYxaC0xek04IDRoMnYxSDh6bTQgMGgxdjJoLTF6bTEgMWgxdjFoLTF6TTggNmgydjJIOHptMyAwaDF2MWgtMXptMCAxdjFoMVY3aC0xem0yIDBoMXYxaC0xem0tNyAyaDJ2MUg2em0zIDBoMXYxSDl6bTIgMGgxdjFoLTF6bTIgMWgxdjFoLTF6bTEtMWgxdjFoLTF6bTIgMGgxdjFoLTF6bTEgMGgxdjFoLTF6TTggMTBoMXYxSDh6bTIgMGgxdjFoLTF6bTQgMGgxdjFoLTF6TTggMTJoMXYxSDh6bTIgMGgxdjFoLTF6bS00IDFoMXYxSDZ6bTQgMGgxdjFoLTF6bTIgMGgydjFoLTJ6bTQtNWgxdjFoLTF6bTEgMGgxdjFoLTF6bS0yIDJoMnYxaC0xdjFoLTF6bTMgMGgxdjJoLTF6bS0xIDNoMXYxaC0xeiIvPjwvc3ZnPg==')] bg-contain bg-center bg-no-repeat" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="font-bold text-lg">{passes[0].eventName}</h4>
-                                        <p className="text-sm text-purple-400">{passes[0].passType} Pass</p>
-                                        <p className="text-xs text-gray-500 mt-2">Valid until {passes[0].validUntil}</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="text-center py-6">
-                                    <Ticket size={40} className="mx-auto text-gray-600 mb-3" />
-                                    <p className="text-gray-400 text-sm">No passes yet</p>
-                                </div>
-                            )}
+                            <YourPassCard userId={user?.id} />
                         </motion.div>
 
                         {/* Registered Events */}

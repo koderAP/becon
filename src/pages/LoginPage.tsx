@@ -47,7 +47,15 @@ export const LoginPage: React.FC = () => {
             if (error) throw error;
 
             toast.success('Welcome back!');
-            navigate('/dashboard');
+
+            // Check for post-login redirect (e.g., from checkout flow)
+            const redirectUrl = sessionStorage.getItem('postLoginRedirect');
+            if (redirectUrl) {
+                sessionStorage.removeItem('postLoginRedirect');
+                navigate(redirectUrl);
+            } else {
+                navigate('/dashboard');
+            }
         } catch (error: any) {
             toast.error(error.message || 'Invalid email or password');
         } finally {

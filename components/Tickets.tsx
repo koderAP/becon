@@ -2,6 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../src/contexts/AuthContext';
+import { toast } from 'sonner';
 
 interface PassFeature {
     name: string;
@@ -70,7 +73,7 @@ const passes: Pass[] = [
         originalPrice: 999,
         price: 399,
         image: '/passes/platinum.png',
-        color: 'text-cyan-400', // Platinum/Diamond look
+        color: 'text-cyan-400',
         glow: 'group-hover:border-cyan-500/50 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.2)]',
         features: [
             { name: 'Startup Expo', included: true },
@@ -83,12 +86,22 @@ const passes: Pass[] = [
             { name: 'Influencer Conclave', included: true },
             { name: 'Incubator Summit', included: true },
             { name: 'Startup Clinic', included: true },
-            { name: 'Policysphere', included: false }, // Assuming hidden in image or excluded
+            { name: 'Policysphere', included: false },
         ]
     }
 ];
 
 export const Tickets: React.FC = () => {
+    const navigate = useNavigate();
+    const { user, loading } = useAuth();
+
+    const handleGetPass = (passId: string) => {
+        // Temporarily disabled - Coming Soon
+        toast.info('Pass registration coming soon! Stay tuned.', {
+            duration: 3000,
+        });
+    };
+
     return (
         <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 bg-[#05020a] flex flex-col items-center justify-center relative overflow-hidden" id="tickets">
 
@@ -108,7 +121,7 @@ export const Tickets: React.FC = () => {
                         <span className="uppercase tracking-widest text-sm text-gray-400">Registration</span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                        Secure Your Spot at <span className="text-gray-500">BECon <br /> DeepTech Summit Today!</span>
+                        Secure Your Spot at <span className="text-gray-500">BECon <br />DeepTech Summit Today!</span>
                     </h1>
                 </motion.div>
 
@@ -123,10 +136,10 @@ export const Tickets: React.FC = () => {
                             className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-0 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${pass.glow}`}
                         >
                             {/* Inner Gradient Border Effect */}
-                            <div className={`absolute inset-0 rounded-3xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${pass.id === 'gold' ? 'border-yellow-500/50' : pass.id === 'platinum' ? 'border-cyan-500/50' : 'border-gray-400/50'}`} />
+                            <div className={`absolute inset-0 rounded-3xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${pass.id === 'gold' ? 'border-yellow-500/50' : pass.id === 'platinum' ? 'border-cyan-500/50' : 'border-gray-400/50'}`} />
 
                             {/* Subtle Background Gradient */}
-                            <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-gradient-to-br ${pass.id === 'gold' ? 'from-yellow-500 via-transparent to-transparent' : pass.id === 'platinum' ? 'from-cyan-500 via-transparent to-transparent' : 'from-gray-500 via-transparent to-transparent'}`} />
+                            <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none bg-gradient-to-br ${pass.id === 'gold' ? 'from-yellow-500 via-transparent to-transparent' : pass.id === 'platinum' ? 'from-cyan-500 via-transparent to-transparent' : 'from-gray-500 via-transparent to-transparent'}`} />
 
                             {/* Header Section */}
                             <div className="p-8 pb-6 relative z-10">
@@ -184,6 +197,7 @@ export const Tickets: React.FC = () => {
                             {/* Action Button */}
                             <div className="p-8 pt-0 mt-auto">
                                 <button
+                                    onClick={() => handleGetPass(pass.id)}
                                     className={`w-full py-4 rounded-lg font-bold text-sm tracking-wider uppercase transition-all duration-300 
                                     ${pass.name === 'GOLD PASS'
                                             ? 'bg-[#cca43b] text-black hover:bg-[#ffe58f] hover:shadow-[0_0_20px_rgba(234,179,8,0.4)]'

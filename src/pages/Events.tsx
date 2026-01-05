@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from '../../components/Footer';
-import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X } from 'lucide-react';
+import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X, CheckCircle, ExternalLink, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../components/PageHeader';
 import { createPortal } from 'react-dom';
+import { useEventRegistration } from '../hooks/useEventRegistration';
+import { useAuth } from '../contexts/AuthContext';
 
 interface EventCard {
     id: string;
@@ -459,6 +461,16 @@ export const Events: React.FC = () => {
     const [selectedEvent, setSelectedEvent] = useState<EventCard | null>(null);
     const [expandedRegionalId, setExpandedRegionalId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { user } = useAuth();
+    const { isRegistered, registerForEvent, markAsRegistered, cancelRegistration, registering } = useEventRegistration();
+
+    // Event registration info (which events use Unstop)
+    const unstopEvents: Record<string, string> = {
+        'e-raksha-hackathon': 'https://unstop.com/e-raksha',
+        'moonshot-main': 'https://unstop.com/moonshot',
+        'blueprint': 'https://unstop.com/blueprint',
+        'grand-moonshot': 'https://unstop.com/grand-moonshot',
+    };
 
     // Simulate loading delay
     React.useEffect(() => {
@@ -882,9 +894,52 @@ export const Events: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                <button disabled className="flex-1 md:flex-none px-8 py-4 bg-white/20 text-white/60 font-bold text-lg rounded-xl cursor-not-allowed border border-white/20 flex items-center justify-center gap-2">
-                                                    Coming Soon
-                                                </button>
+                                                {/* Dynamic Register Button */}
+                                                {isRegistered(selectedEvent.id) ? (
+                                                    <button
+                                                        onClick={() => cancelRegistration(selectedEvent.id)}
+                                                        className="flex-1 md:flex-none px-8 py-4 bg-emerald-600/20 text-emerald-400 font-bold text-lg rounded-xl border border-emerald-500/30 flex items-center justify-center gap-2 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 transition-all group"
+                                                    >
+                                                        <CheckCircle size={20} />
+                                                        <span className="group-hover:hidden">Registered</span>
+                                                        <span className="hidden group-hover:inline">Cancel?</span>
+                                                    </button>
+                                                ) : unstopEvents[selectedEvent.id] ? (
+                                                    <div className="flex-1 md:flex-none flex gap-2">
+                                                        <a
+                                                            href={unstopEvents[selectedEvent.id]}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg rounded-xl flex items-center justify-center gap-2 hover:from-purple-500 hover:to-blue-500 transition-all"
+                                                        >
+                                                            Register on Unstop
+                                                            <ExternalLink size={18} />
+                                                        </a>
+                                                        {user && (
+                                                            <button
+                                                                onClick={() => markAsRegistered(selectedEvent.id)}
+                                                                disabled={registering === selectedEvent.id}
+                                                                className="px-4 py-4 bg-white/10 text-white/70 font-medium rounded-xl border border-white/20 hover:bg-white/20 transition-all text-sm"
+                                                            >
+                                                                {registering === selectedEvent.id ? <Loader2 size={18} className="animate-spin" /> : "I've Registered"}
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                ) : (
+                                                    <button
+                                                        onClick={() => registerForEvent(selectedEvent.id)}
+                                                        disabled={registering === selectedEvent.id || !user}
+                                                        className="flex-1 md:flex-none px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg rounded-xl flex items-center justify-center gap-2 hover:from-purple-500 hover:to-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        {registering === selectedEvent.id ? (
+                                                            <><Loader2 size={20} className="animate-spin" /> Registering...</>
+                                                        ) : !user ? (
+                                                            'Login to Register'
+                                                        ) : (
+                                                            <>Register Now <ArrowRight size={20} /></>
+                                                        )}
+                                                    </button>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
