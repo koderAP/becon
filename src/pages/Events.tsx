@@ -434,8 +434,8 @@ const eventsData: EventCard[] = [
     },
     // --- FIRESIDE CHATS ---
     {
-        id: 'fireside-hitesh-kaushik',
-        title: 'Fireside Chat: Hitesh Oberoi & Kaushik Dutta',
+        id: 'fireside-veteran-leader',
+        title: 'Fireside Chat with a Veteran Tech Leader & Growth Strategist',
         description: "Join an in-depth conversation with a seasoned tech industry leader and a growth strategist as they discuss what it takes to build, scale and sustain multi-vertical digital platforms. They’ll share firsthand insights on adapting technology, fostering innovation and leading teams through evolving markets.",
         whyJoin: [
             'Digital platform evolution',
@@ -445,12 +445,12 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-2.avif',
+        image: '/gallery/gallery-new-1.avif',
         eventType: 'sessions',
     },
     {
         id: 'fireside-fintech',
-        title: 'Fireside Chat: Stashfin & Mobikwik',
+        title: 'Fireside Chat with Fintech Innovators',
         description: "Experience a high-energy fireside with leaders from the financial technology space as they explore how emerging fintech trends are democratizing access to credit and payments. They will unpack product design thinking, market challenges, and approaches to expanding financial inclusion at scale.",
         whyJoin: [
             'Fintech disruption',
@@ -461,12 +461,12 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-3.avif',
+        image: '/gallery/gallery-new-2.avif',
         eventType: 'sessions',
     },
     {
-        id: 'fireside-manu-jain',
-        title: 'Fireside Chat: Manu Jain',
+        id: 'fireside-consumer-tech',
+        title: 'Fireside Chat with a Consumer Technology Leader',
         description: "A conversation with a consumer tech executive who has driven large-scale adoption and brand growth. Topics will span product strategy, regional market leadership, community building, and lessons on creating consumer-first technology products.",
         whyJoin: [
             'Product strategy',
@@ -476,12 +476,12 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-new-7.avif',
+        image: '/gallery/gallery-new-3.avif',
         eventType: 'sessions',
     },
     {
-        id: 'fireside-radhika-ghai',
-        title: 'Fireside Chat: Radhika Ghai',
+        id: 'fireside-entrepreneurial-trailblazer',
+        title: 'Fireside Chat with an Entrepreneurial Trailblazer',
         description: "Hear from a pioneering entrepreneur about the realities of starting and scaling consumer-focused ventures. This session will dive into entrepreneurial mindset, team building, operational challenges, and insights from navigating multiple successful ventures.",
         whyJoin: [
             'Startup storytelling',
@@ -491,12 +491,12 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-6.avif',
+        image: '/gallery/gallery-new-4.avif',
         eventType: 'sessions',
     },
     {
-        id: 'fireside-spinny',
-        title: 'Fireside Chat: Spinny Founders',
+        id: 'fireside-marketplace-transformation',
+        title: 'Fireside Chat with a Marketplace Transformation Leader',
         description: "Join a conversation with innovators who reimagined a traditional industry by leveraging digital transparency, trust, and customer-first operations. They will share experiences on creating seamless user experiences and breaking entrenched market norms using technology.",
         whyJoin: [
             'Disruptive marketplaces',
@@ -506,12 +506,12 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-5.avif',
+        image: '/gallery/gallery-new-5.avif',
         eventType: 'sessions',
     },
     {
-        id: 'fireside-namit-malhotra',
-        title: 'Fireside Chat: Namit Malhotra',
+        id: 'fireside-creative-visionary',
+        title: 'Fireside Chat with a Creative Technology Visionary',
         description: "An engaging dialogue with a leader from the creative and media technology world about blending storytelling with innovation. Expect discussions on scaling creative enterprises internationally, driving visionary projects, and balancing business leadership with artistic ambition.",
         whyJoin: [
             'Creative tech leadership',
@@ -521,7 +521,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-4.avif',
+        image: '/gallery/gallery-new-6.avif',
         eventType: 'sessions',
     },
 
@@ -529,7 +529,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-aerospace',
         title: 'Aerospace Panel',
-        description: "Experts and leaders from aerospace engineering, commercial aviation, space launch systems, and defense aviation converge to discuss the future of flight and aerospace innovation. The panel will explore emerging technologies, sustainability, and strategic trends shaping global aerospace capabilities.",
+        description: "Experts and leaders from aerospace engineering, commercial aviation, space launch systems, and defense aviation converge to discuss the future of flight and aerospace innovation. The panel will explore emerging technologies, sustainability, and strategic trends shaping global aerospace capabilities. Why Attend: Attendees will gain insights into how aerospace innovation is evolving — from eco-efficient aircraft to autonomous systems — and understand key engineering and market drivers impacting the next decade.",
         whyJoin: [
             'Sustainable aviation & green propulsion technologies',
             'Additive manufacturing and advanced materials',
@@ -545,7 +545,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-biotech',
         title: 'Biotech Panel',
-        description: "Leading voices in biotechnology — spanning research, healthcare, agriculture, and industrial biotech — share their perspectives on breakthroughs that are redefining human health and biological systems.",
+        description: "Leading voices in biotechnology — spanning research, healthcare, agriculture, and industrial biotech — share their perspectives on breakthroughs that are redefining human health and biological systems. Why Attend: This panel highlights the intersection of life sciences and technology, offering a roadmap for young engineers and entrepreneurs seeking to impact biotech industries.",
         whyJoin: [
             'Precision medicine and genomic engineering',
             'Bioengineering for sustainable agriculture',
@@ -561,7 +561,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-spacetech',
         title: 'SpaceTech Panel',
-        description: "Visionaries from the space ecosystem — including startups, investors, researchers, and technologists — discuss how space technologies are evolving beyond Earth’s orbit into commercial, scientific, and societal domains.",
+        description: "Visionaries from the space ecosystem — including startups, investors, researchers, and technologists — discuss how space technologies are evolving beyond Earth’s orbit into commercial, scientific, and societal domains. Why Attend: Participants will gain a 360° view of how SpaceTech is distributed geographically, technologically, and economically, including its ripple effects across other deep tech domains.",
         whyJoin: [
             'Emerging trends in commercial space ventures',
             'Satellite technologies and data services',
@@ -577,7 +577,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-ai',
         title: 'AI Panel',
-        description: "Top AI leaders from industry and academia engage in a forward-looking discussion on artificial intelligence — its innovations, ethical considerations, and real-world impacts across sectors.",
+        description: "Top AI leaders from industry and academia engage in a forward-looking discussion on artificial intelligence — its innovations, ethical considerations, and real-world impacts across sectors. Why Attend: Get insider perspectives on where AI is heading, how ethical and regulatory frameworks are evolving, and what skills future builders need to lead in AI.",
         whyJoin: [
             'Responsible AI & governance',
             'AI deployment in real-world systems',
@@ -593,7 +593,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-semiconductor',
         title: 'Semiconductor Panel',
-        description: "Industry leaders and technologists in semiconductors explore the strategic significance of microchips, advanced fabrication, and global semiconductor supply ecosystems.",
+        description: "Industry leaders and technologists in semiconductors explore the strategic significance of microchips, advanced fabrication, and global semiconductor supply ecosystems. Why Attend: Semiconductors are the cornerstone of modern technology — this panel decodes what’s next in design, processing nodes, and international competitiveness.",
         whyJoin: [
             'Chip design trends and manufacturing challenges',
             'Foundry ecosystems and global supply resilience',
@@ -609,7 +609,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-deeptech-vc',
         title: 'DeepTech VC Panel',
-        description: "A compelling discussion featuring venture capitalists specializing in deep tech. Panelists explore investment strategies, frontier technologies with scaling potential, and the unique challenges and rewards of funding deep tech startups.",
+        description: "A compelling discussion featuring venture capitalists specializing in deep tech. Panelists explore investment strategies, frontier technologies with scaling potential, and the unique challenges and rewards of funding deep tech startups. Why Attend: Understand how deep tech gets funded, what investors look for, and how founders can navigate technical risk and long development cycles.",
         whyJoin: [
             'Principles of deep tech investing',
             'High-impact sectors: AI, semiconductors, biotech, spacetech',
@@ -625,7 +625,7 @@ const eventsData: EventCard[] = [
     {
         id: 'panel-iitd-effect',
         title: 'IITD Effect Panel',
-        description: "An exclusive gathering of IIT Delhi alumni who are leading as venture capitalists, founders, researchers, and domain experts. They discuss how their IITD experience shaped their paths and how they drive innovation across sectors.",
+        description: "An exclusive gathering of IIT Delhi alumni who are leading as venture capitalists, founders, researchers, and domain experts. They discuss how their IITD experience shaped their paths and how they drive innovation across sectors. Why Attend: Inspiration meets strategy: students and professionals hear firsthand how IITD’s ecosystem creates leaders who influence technology and markets.",
         whyJoin: [
             'Translating academic excellence into industry impact',
             'Alumni stories: challenges, lessons, and success',
@@ -641,9 +641,9 @@ const eventsData: EventCard[] = [
 
     // --- KEYNOTES ---
     {
-        id: 'keynote-sanjeev',
-        title: 'Keynote: Sanjeev Bhikhchandani',
-        description: "This keynote session features a trailblazing visionary entrepreneur whose journey from early career beginnings to becoming a driving force in the digital ecosystem reflects resilience, foresight, and transformative impact. The speaker will share insights on building thriving platforms from the ground up, navigating the challenges of innovation, and shaping ecosystems that empower millions to achieve their aspirations.",
+        id: 'keynote-visionary-entrepreneur',
+        title: 'Keynote Session: Visionary Entrepreneur & Industry Pioneer',
+        description: "This keynote session features a trailblazing visionary entrepreneur whose journey from early career beginnings to becoming a driving force in the digital ecosystem reflects resilience, foresight, and transformative impact. The speaker will share insights on building thriving platforms from the ground up, navigating the challenges of innovation, and shaping ecosystems that empower millions to achieve their aspirations. Attendees will gain first-hand perspectives on leadership in times of disruption, strategies for scaling with purpose, and how to turn bold ideas into enduring institutions.",
         whyJoin: [
             'Foundational mindset of successful innovators',
             'Navigating entrepreneurial uncertainty',
@@ -653,13 +653,13 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/speakers/SanjeevBikhchandani.avif',
+        image: '/gallery/DSC02587.avif',
         eventType: 'sessions',
     },
     {
-        id: 'keynote-vijay',
-        title: 'Keynote: Vijay Thadani',
-        description: "In this keynote, a distinguished leadership strategist and talent architect will unpack what it means to lead in an era defined by rapid technological change and evolving learning paradigms. With decades of experience guiding human capital and industry transformation, the speaker will explore how visionary leaders can cultivate adaptive talent ecosystems, foster meaningful learning journeys, and align organizational purpose with future skills needs.",
+        id: 'keynote-leadership-talent',
+        title: 'Keynote Session: Leadership & Talent in the Innovation Era',
+        description: "In this keynote, a distinguished leadership strategist and talent architect will unpack what it means to lead in an era defined by rapid technological change and evolving learning paradigms. With decades of experience guiding human capital and industry transformation, the speaker will explore how visionary leaders can cultivate adaptive talent ecosystems, foster meaningful learning journeys, and align organizational purpose with future skills needs. This session will provide actionable insights for students, emerging professionals, and founders seeking to thrive in the innovation economy.",
         whyJoin: [
             'Reimagining talent development for future-fit careers',
             'Leadership frameworks for innovation-first organizations',
@@ -669,13 +669,13 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-new-4.avif',
+        image: '/gallery/DSC01157.avif',
         eventType: 'sessions',
     },
     {
-        id: 'keynote-chandan',
-        title: 'Keynote: Chandan Mendiratta',
-        description: "Join a strategic growth and brand leadership expert as they share the art and science of building meaningful connections between organizations and their audiences. Drawing from a multifaceted career spanning brand building, consumer engagement, and market expansion, this session will delve into how leaders craft compelling narratives, scale brand influence, and stay agile in dynamic competitive landscapes.",
+        id: 'keynote-growth-brand',
+        title: 'Keynote Session: Growth Strategy & Brand Leadership',
+        description: "Join a strategic growth and brand leadership expert as they share the art and science of building meaningful connections between organizations and their audiences. Drawing from a multifaceted career spanning brand building, consumer engagement, and market expansion, this session will delve into how leaders craft compelling narratives, scale brand influence, and stay agile in dynamic competitive landscapes. Expect deep reflections on creativity in strategy, growth-oriented leadership, and leveraging brand as a catalyst for long-term impact.",
         whyJoin: [
             'Strategic building of brand identity and culture',
             'The role of storytelling in organizational growth',
@@ -685,13 +685,13 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-new-5.avif',
+        image: '/gallery/DSC07026.avif',
         eventType: 'sessions',
     },
     {
-        id: 'keynote-manoj',
-        title: 'Keynote: Manoj Kohli',
-        description: "This keynote invites you to engage with a global growth architect and transformational leader whose career has shaped high-impact organizations across sectors and continents. The session will explore how leaders drive next-level growth, cultivate high-performance cultures, and navigate large-scale transformations with clarity and integrity.",
+        id: 'keynote-scaling-impact',
+        title: 'Keynote Session: Scaling Impact & Transformational Leadership',
+        description: "This keynote invites you to engage with a global growth architect and transformational leader whose career has shaped high-impact organizations across sectors and continents. The session will explore how leaders drive next-level growth, cultivate high-performance cultures, and navigate large-scale transformations with clarity and integrity. Attendees will learn frameworks for scaling products, people, and vision — as well as strategic mindsets vital for leadership in complex environments.",
         whyJoin: [
             'Leadership strategies for scaling organizations globally',
             'Managing transformation across diverse contexts',
@@ -701,7 +701,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/speakers/ManojKohli.avif',
+        image: '/gallery/DSC02517.avif',
         eventType: 'sessions',
     }
 ];
