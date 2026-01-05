@@ -176,7 +176,7 @@ export const CheckoutPage: React.FC = () => {
                 currency: currency,
                 name: 'BECon 2026',
                 description: `${passConfig.name} ${isUpgrade ? '(Upgrade)' : ''}`,
-                image: '/logo.avif',
+                image: '/logo1.avif',
                 order_id: orderId,
                 handler: async function (response: any) {
                     // Verify payment

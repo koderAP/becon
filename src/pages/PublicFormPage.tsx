@@ -206,7 +206,7 @@ export default function PublicFormPage() {
                 <div className="max-w-3xl mx-auto px-6 py-4 flex items-center gap-3">
                     <Link to="/" className="flex items-center gap-2">
                         <img
-                            src="/logo.avif"
+                            src="/logo1.avif"
                             alt="BECon 2026"
                             className="h-10 md:h-12 w-auto object-contain"
                             loading="eager"
@@ -256,10 +256,10 @@ export default function PublicFormPage() {
                                         <div
                                             key={i}
                                             className={`h-2 rounded-full transition-all ${i === currentSection
-                                                    ? "w-8 bg-[#7A32E0]"
-                                                    : i < currentSection
-                                                        ? "w-2 bg-[#7A32E0]/50"
-                                                        : "w-2 bg-[#7A32E0]/20"
+                                                ? "w-8 bg-[#7A32E0]"
+                                                : i < currentSection
+                                                    ? "w-2 bg-[#7A32E0]/50"
+                                                    : "w-2 bg-[#7A32E0]/20"
                                                 }`}
                                         />
                                     ))}

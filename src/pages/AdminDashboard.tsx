@@ -258,7 +258,7 @@ export default function AdminDashboard() {
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-3">
                             <a href="/">
-                                <img src="/logo.avif" alt="BECon 2026" className="h-10 md:h-12 w-auto object-contain" />
+                                <img src="/logo1.avif" alt="BECon 2026" className="h-10 md:h-12 w-auto object-contain" />
                             </a>
                             <div>
                                 <h1 className="text-white font-bold">Admin Dashboard</h1>

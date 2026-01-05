@@ -144,7 +144,7 @@ export const PronoteSignupPage: React.FC = () => {
 
                 <div className="relative z-10 space-y-4">
                     <Link to="/" className="inline-block">
-                        <img src="/logo.avif" alt="BECon Logo" className="h-14 w-auto" />
+                        <img src="/logo1.avif" alt="BECon Logo" className="h-14 w-auto" />
                     </Link>
                     <p className="text-sm text-gray-500">
                         © 2026 Entrepreneurship Development Cell, IIT Delhi
@@ -161,7 +161,7 @@ export const PronoteSignupPage: React.FC = () => {
                 <div className="w-full max-w-md space-y-8 relative z-10">
                     <div className="lg:hidden mb-8">
                         <Link to="/" className="inline-block mb-8">
-                            <img src="/logo.avif" alt="BECon Logo" className="h-10 w-auto" />
+                            <img src="/logo1.avif" alt="BECon Logo" className="h-10 w-auto" />
                         </Link>
                         <h2 className="text-3xl font-bold">Pronote Registration</h2>
                         <p className="text-gray-400 mt-2">IIT Delhi Students Only</p>

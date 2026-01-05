@@ -131,7 +131,7 @@ export const SignupPage: React.FC = () => {
                 {/* Logo and Copyright at bottom */}
                 <div className="relative z-10 space-y-4">
                     <Link to="/" className="inline-block">
-                        <img src="/logo.avif" alt="BECon Logo" className="h-14 w-auto" />
+                        <img src="/logo1.avif" alt="BECon Logo" className="h-14 w-auto" />
                     </Link>
                     <p className="text-sm text-gray-500">
                         © 2026 Entrepreneurship Development Cell, IIT Delhi
@@ -150,7 +150,7 @@ export const SignupPage: React.FC = () => {
                     {/* Mobile Header */}
                     <div className="lg:hidden mb-8">
                         <Link to="/" className="inline-block mb-8">
-                            <img src="/logo.avif" alt="BECon Logo" className="h-10 w-auto" />
+                            <img src="/logo1.avif" alt="BECon Logo" className="h-10 w-auto" />
                         </Link>
                         <h2 className="text-3xl font-bold">Create Account</h2>
                         <p className="text-gray-400 mt-2">Join the community today</p>

@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
                         <div>
                             <Link to="/" className="inline-block mb-8">
                                 <img
-                                    src="/logo.avif"
+                                    src="/logo1.avif"
                                     alt="BECon Logo"
                                     className="h-14 w-auto object-contain brightness-100 hover:brightness-125 transition-all duration-300 drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]"
                                 />
