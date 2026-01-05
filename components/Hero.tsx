@@ -228,8 +228,8 @@ export const Hero: React.FC = () => {
               "Engineering the Mind of Machines",
               "Crafted in India for the World"
             ]}
-            typingSpeed={80}
-            deletingSpeed={50}
+            typingSpeed={100}
+            deletingSpeed={70}
             pauseTime={2000}
             className="text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-300 tracking-wide"
           />
@@ -240,7 +240,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.8 }}
-          className="flex flex-row gap-4 md:gap-6"
+          className="flex flex-row gap-4 md:gap-6 mt-20"
         >
           {/* Register Button */}
           <Link
