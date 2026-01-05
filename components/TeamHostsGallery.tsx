@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, Reorder, AnimatePresence } from 'framer-motion';
 import { X, Linkedin, Phone } from 'lucide-react';
 
@@ -214,86 +215,89 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                 </motion.div>
             </div>
 
-            {/* Popup Modal */}
-            <AnimatePresence>
-                {selectedHost && (
-                    <>
-                        {/* Backdrop */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm"
-                            onClick={() => setSelectedHost(null)}
-                        />
+            {/* Popup Modal - Portaled to body for correct positioning */}
+            {typeof document !== 'undefined' && createPortal(
+                <AnimatePresence>
+                    {selectedHost && (
+                        <>
+                            {/* Backdrop */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md"
+                                onClick={() => setSelectedHost(null)}
+                            />
 
-                        {/* Modal Container */}
-                        <div className="fixed inset-0 z-[101] overflow-y-auto">
-                            <div className="flex min-h-full items-center justify-center p-4">
-                                <motion.div
-                                    initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    exit={{ scale: 0.9, opacity: 0 }}
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl overflow-hidden max-w-md w-full shadow-2xl"
-                                >
-                                    {/* Close Button */}
-                                    <button
-                                        onClick={() => setSelectedHost(null)}
-                                        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                            {/* Modal Container */}
+                            <div className="fixed inset-0 z-[10000] overflow-y-auto pointer-events-none">
+                                <div className="flex min-h-full items-center justify-center p-4">
+                                    <motion.div
+                                        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                                        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl overflow-hidden max-w-md w-full shadow-2xl pointer-events-auto"
                                     >
-                                        <X size={20} />
-                                    </button>
+                                        {/* Close Button */}
+                                        <button
+                                            onClick={() => setSelectedHost(null)}
+                                            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors border border-white/10"
+                                        >
+                                            <X size={20} />
+                                        </button>
 
-                                    {/* Image */}
-                                    <div className="aspect-square overflow-hidden">
-                                        <img
-                                            src={selectedHost.img}
-                                            alt={selectedHost.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="p-6">
-                                        <h2 className="text-2xl font-bold text-white mb-1">{selectedHost.name}</h2>
-                                        <p className="text-purple-400 font-medium mb-4">{selectedHost.role}</p>
-
-                                        {selectedHost.bio && (
-                                            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                                                {selectedHost.bio}
-                                            </p>
-                                        )}
-
-                                        <div className="flex gap-4">
-                                            {selectedHost.linkedin && (
-                                                <a
-                                                    href={selectedHost.linkedin}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded-lg hover:bg-[#006699] transition-colors"
-                                                >
-                                                    <Linkedin size={18} />
-                                                    <span className="text-sm font-medium">LinkedIn</span>
-                                                </a>
-                                            )}
-                                            {selectedHost.phone && (
-                                                <a
-                                                    href={`tel:${selectedHost.phone}`}
-                                                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                                                >
-                                                    <Phone size={18} />
-                                                    <span className="text-sm font-medium">Call</span>
-                                                </a>
-                                            )}
+                                        {/* Image */}
+                                        <div className="aspect-square overflow-hidden bg-white/5">
+                                            <img
+                                                src={selectedHost.img}
+                                                alt={selectedHost.name}
+                                                className="w-full h-full object-cover"
+                                            />
                                         </div>
-                                    </div>
-                                </motion.div>
+
+                                        {/* Content */}
+                                        <div className="p-6">
+                                            <h2 className="text-2xl font-bold text-white mb-1">{selectedHost.name}</h2>
+                                            <p className="text-purple-400 font-medium mb-4">{selectedHost.role}</p>
+
+                                            {selectedHost.bio && (
+                                                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                                                    {selectedHost.bio}
+                                                </p>
+                                            )}
+
+                                            <div className="flex gap-4">
+                                                {selectedHost.linkedin && (
+                                                    <a
+                                                        href={selectedHost.linkedin}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded-lg hover:bg-[#006699] transition-colors"
+                                                    >
+                                                        <Linkedin size={18} />
+                                                        <span className="text-sm font-medium">LinkedIn</span>
+                                                    </a>
+                                                )}
+                                                {selectedHost.phone && (
+                                                    <a
+                                                        href={`tel:${selectedHost.phone}`}
+                                                        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                                                    >
+                                                        <Phone size={18} />
+                                                        <span className="text-sm font-medium">Call</span>
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </div>
                             </div>
-                        </div>
-                    </>
-                )}
-            </AnimatePresence>
+                        </>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
         </div >
     );
 };

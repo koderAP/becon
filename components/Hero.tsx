@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { HeroBackground } from './HeroBackground';
 import { Typewriter } from './Typewriter';
 
@@ -218,7 +220,7 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* 3. Main Hero Content - z-20 to be above background */}
-      <div className="z-20 flex flex-col items-center text-center px-4 relative mt-12 md:mt-8">
+      <div className="z-20 flex flex-col items-center text-center px-4 relative -mt-12">
 
         {/* LOGO - BECon Logo - Emerging from background */}
         <motion.div
@@ -229,73 +231,96 @@ export const Hero: React.FC = () => {
             ease: [0.25, 0.46, 0.45, 0.94],
             delay: 0.3
           }}
-          className="relative flex items-center justify-center mb-0"
+          className="relative flex items-center justify-center mb-2"
         >
           <img
             src="/logo.avif"
             alt="BECon 2026"
-            className="w-[310px] md:w-[550px] lg:w-[720px] h-auto object-contain"
+            className="w-[295px] md:w-[520px] lg:w-[680px] h-auto object-contain"
           />
         </motion.div>
 
-        {/* Typewriter Effect - Clean Typography */}
+        {/* Typewriter Effect - Restored with new styling */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="mt-0 flex flex-col items-center max-w-[85vw] md:max-w-full mx-auto"
+          className="flex flex-col items-center"
         >
-          <div className="h-[44px] md:h-[66px] flex items-center justify-center text-center">
-            <Typewriter
-              sentences={[
-                "Engineering the Mind of Machines",
-                "Crafted in India for the World",
-                "Where Deep Tech Meets Vision"
-              ]}
-              typingSpeed={80}
-              deletingSpeed={50}
-              pauseTime={2000}
-              className="text-[20px] md:text-[33px] lg:text-[40px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-400 tracking-wide leading-tight"
-            />
-          </div>
-        </motion.div>
-
-        {/* 4. Info HUD Bar - Date & Venue - Relative Positioning to avoid overlap */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.6 }}
-          className="mt-6 md:mt-12 mb-8 w-full flex justify-center px-2"
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.2, duration: 0.8 }}
-            className="flex flex-col md:flex-row items-center gap-6 md:gap-12 text-white/80 font-light tracking-wide text-sm md:text-lg"
-          >
-            <span>30 Jan - 1 Feb 2026</span>
-            <div className="w-16 md:w-32 h-[1px] bg-white/20 hidden md:block"></div>
-            <span>IIT Delhi, Hauz Khas</span>
-            <div className="w-16 md:w-32 h-[1px] bg-white/20 hidden md:block"></div>
-
-            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 backdrop-blur-sm animate-bounce">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 5v14M19 12l-7 7-7-7" />
-              </svg>
-            </div>
-          </motion.div>
+          <Typewriter
+            sentences={[
+              "Where Deep Tech Meets Vision",
+              "Engineering the Mind of Machines",
+              "Crafted in India for the World"
+            ]}
+            typingSpeed={80}
+            deletingSpeed={50}
+            pauseTime={2000}
+            className="text-[1.4rem] md:text-[2.1rem] lg:text-[2.8rem] font-bold text-gray-300 tracking-wide"
+          />
         </motion.div>
 
       </div>
+
+      {/* 4. Bottom Bar - Date, Buttons, Venue - Moved up */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        className="absolute bottom-16 md:bottom-24 left-0 right-0 z-30 p-4 md:p-8 flex flex-col xl:grid xl:grid-cols-3 items-center gap-6 pointer-events-none w-full"
+      >
+        {/* Left: Date (Stylized) */}
+        <div className="pointer-events-auto transform -rotate-2 xl:justify-self-start">
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-purple-400 drop-shadow-[0_2px_10px_rgba(124,58,237,0.3)]"
+            style={{ textShadow: '0 0 20px rgba(124,58,237,0.5)' }}>
+            30 Jan - 1 Feb 2026
+          </h3>
+        </div>
+
+        {/* Center: Buttons with rotating ray effect on hover (same as Verticals cards) */}
+        <div className="flex flex-col md:flex-row gap-3 md:gap-6 pointer-events-auto xl:justify-self-center">
+          {/* Register Button */}
+          <Link
+            to="/signup"
+            className="group relative flex items-center justify-center gap-2 px-6 py-2 md:px-8 md:py-2.5 rounded-full overflow-hidden transition-all duration-300 hover:scale-105"
+          >
+            {/* Rotating Border Effect - Matches Verticals Ray of Light */}
+            <div className="absolute inset-0 overflow-hidden rounded-full">
+              <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_320deg,#c084fc_360deg)] animate-[spin_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+            {/* Inner background (inset to show border) */}
+            <div className="absolute inset-[2px] bg-black/80 backdrop-blur-md rounded-full" />
+            {/* Static border for non-hover */}
+            <div className="absolute inset-0 rounded-full border border-white/20 group-hover:border-transparent transition-colors duration-300" />
+            <span className="relative z-10 text-lg font-medium text-white">Register</span>
+            <ArrowRight className="relative z-10 w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+          </Link>
+
+          {/* Login Button */}
+          <Link
+            to="/login"
+            className="group relative flex items-center justify-center gap-2 px-6 py-2 md:px-8 md:py-2.5 rounded-full overflow-hidden transition-all duration-300 hover:scale-105"
+          >
+            {/* Rotating Border Effect - Matches Verticals Ray of Light */}
+            <div className="absolute inset-0 overflow-hidden rounded-full">
+              <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_320deg,#c084fc_360deg)] animate-[spin_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+            {/* Inner background (inset to show border) */}
+            <div className="absolute inset-[2px] bg-black/80 backdrop-blur-md rounded-full" />
+            {/* Static border for non-hover */}
+            <div className="absolute inset-0 rounded-full border border-white/20 group-hover:border-transparent transition-colors duration-300" />
+            <span className="relative z-10 text-lg font-medium text-white">Login</span>
+            <ArrowRight className="relative z-10 w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        {/* Right: Location */}
+        <div className="pointer-events-auto text-center xl:text-right xl:justify-self-end">
+          <p className="text-lg md:text-xl lg:text-2xl font-bold text-gray-200 tracking-wide drop-shadow-lg">
+            IIT Delhi, Hauz Khas
+          </p>
+        </div>
+      </motion.div>
 
 
     </div>

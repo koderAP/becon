@@ -587,6 +587,18 @@ export const Events: React.FC = () => {
                                 transition={{ duration: 0.4, ease: "easeInOut" }}
                                 className="overflow-hidden"
                             >
+                                {/* Interstitial Text Block - Inside Dropdown */}
+                                <div className="mb-16 mt-8 px-4 text-left">
+                                    <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-4xl mb-8">
+                                        Regionals carry BECon beyond IIT Delhi into key startup hubs across the country. Bringing together <span className="text-white font-bold">Moonshot, Blueprint, and the Start-Up Clinic</span> under one umbrella, they create powerful city-level ecosystems where founders can pitch, learn, connect, and grow with real support.
+                                    </p>
+
+                                    <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                                        If innovation needs reach,<br />
+                                        <span className="text-gray-500">Regionals make sure it gets there.</span>
+                                    </h2>
+                                </div>
+
                                 {/* Section Title */}
                                 <div className="text-center mb-8">
                                     <h2 className="text-3xl md:text-4xl font-bold text-white">Events</h2>
@@ -611,7 +623,9 @@ export const Events: React.FC = () => {
                                                     flex: isSelected ? 2.5 : hasSelection ? 0.75 : 1,
                                                 }}
                                                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                                                onClick={() => setExpandedRegionalId(isSelected ? null : event!.id)}
+                                                onMouseEnter={() => window.innerWidth >= 768 && setExpandedRegionalId(event!.id)}
+                                                onMouseLeave={() => window.innerWidth >= 768 && setExpandedRegionalId(null)}
+                                                onClick={() => window.innerWidth < 768 && setExpandedRegionalId(isSelected ? null : event!.id)}
                                                 className="relative cursor-pointer overflow-hidden rounded-xl border border-purple-500/30"
                                             >
                                                 {/* Background - Image for collapsed, Purple gradient for expanded */}
