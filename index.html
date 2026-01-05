@@ -16,6 +16,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
+  <!-- Hide Spline watermark globally -->
+  <style>
+    /* Target Spline watermark link */
+    a[href*="spline.design"],
+    a[href*="spline"] img,
+    div[style*="spline"],
+    .spline-watermark {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  </style>
   <script>
     tailwind.config = {
       theme: {
