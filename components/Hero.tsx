@@ -209,7 +209,7 @@ export const Hero: React.FC = () => {
           className="relative flex items-center justify-center mb-4 md:mb-6"
         >
           <img
-            src="/logo.avif"
+            src="/logo1.avif"
             alt="BECon 2026"
             className="w-[260px] md:w-[400px] lg:w-[520px] xl:w-[640px] 2xl:w-[720px] h-auto object-contain"
           />
@@ -280,15 +280,6 @@ export const Hero: React.FC = () => {
         transition={{ delay: 2.2, duration: 0.8 }}
         className="absolute bottom-6 md:bottom-10 lg:bottom-14 left-0 right-0 z-30 px-4 md:px-8 lg:px-12 flex justify-between items-center pointer-events-none w-full"
       >
-        {/* Left: Date (Stylized) */}
-        <div className="pointer-events-auto transform -rotate-2">
-          <h3
-            className="text-lg md:text-2xl lg:text-3xl xl:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-purple-400 drop-shadow-[0_2px_10px_rgba(124,58,237,0.3)]"
-            style={{ textShadow: '0 0 20px rgba(124,58,237,0.5)' }}
-          >
-            30 Jan - 1 Feb 2026
-          </h3>
-        </div>
 
         {/* Right: Location */}
         <div className="pointer-events-auto text-right">
