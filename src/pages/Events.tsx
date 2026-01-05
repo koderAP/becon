@@ -964,6 +964,55 @@ export const Events: React.FC = () => {
                 document.body
             )}
 
+            {/* Floating Regional PASS CTA - Right Edge - Rendered via Portal */}
+            {createPortal(
+                <a
+                    href="https://becon.edciitd.com/forms/695bd50bd15c275150c07921"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fixed right-0 top-48 z-[9999] group cursor-pointer hidden md:block"
+                >
+                    {/* Main card - slides out on hover */}
+                    <motion.div
+                        initial={{ x: 0 }}
+                        whileHover={{ x: -10 }}
+                        className="bg-black/90 backdrop-blur-md border-2 border-purple-500 rounded-l-xl overflow-hidden shadow-[0_0_20px_rgba(147,51,234,0.3)] group-hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] transition-shadow duration-300"
+                    >
+                        <div className="flex items-center">
+                            {/* Expanded content - shows on hover */}
+                            <div className="w-0 group-hover:w-48 overflow-hidden transition-all duration-300 ease-out">
+                                <div className="px-4 py-4 whitespace-nowrap">
+                                    <p className="text-purple-400 font-bold text-sm">Want to attend</p>
+                                    <p className="text-white font-bold text-sm">Regionals as Audience?</p>
+                                </div>
+                            </div>
+
+                            {/* Always visible part */}
+                            <div className="px-3 py-4 flex flex-col items-center gap-3">
+                                {/* Ticket icon */}
+                                <svg
+                                    className="w-6 h-6 text-purple-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                                </svg>
+
+                                {/* Vertical text */}
+                                <span
+                                    className="text-white font-bold text-sm tracking-widest"
+                                    style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                                >
+                                    REGIONAL PASS
+                                </span>
+                            </div>
+                        </div>
+                    </motion.div>
+                </a>,
+                document.body
+            )}
+
             <div className="relative z-50">
                 <Footer />
             </div>

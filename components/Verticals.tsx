@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Brain, Rocket, Globe, Recycle, Bot, ShoppingBag, CreditCard, Heart, Sun, Gamepad2, GraduationCap, Shield, Plane, Calendar, Clock, MapPin, ArrowUpRight, Cpu, Wifi } from 'lucide-react';
 import { Vertical } from '../types';
 import { AnimeStagger } from './AnimeStagger';
 import { SectionHeading } from './SectionHeading';
@@ -28,22 +28,21 @@ interface VerticalWithDescription extends Vertical {
 }
 
 const themeDomains: VerticalWithDescription[] = [
-  { id: 1, title: 'Artificial Intelligence', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.', image: '/ai-vertical.avif' },
-  { id: 2, title: 'Deep Tech Startups', icon: Rocket, color: 'from-purple-500 to-pink-500', description: 'Showcasing ventures built on science, engineering, and breakthrough technology.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600' },
-  { id: 3, title: 'Robotics & Automation', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Building intelligent systems that drive efficiency, precision, and next-generation capability.', image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600' },
-  { id: 4, title: 'Sustainable Tech', icon: Recycle, color: 'from-emerald-500 to-green-500', description: 'Advancing technologies that enable a cleaner, resilient, and sustainable tomorrow.', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600' },
-  { id: 5, title: 'Global Innovation', icon: Globe, color: 'from-green-500 to-teal-500', description: 'Bringing ideas, insights, and collaborations from across the world to shape the future.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600' },
+  { id: 1, title: 'Artificial Intelligence & Machine Cognition', icon: Brain, color: 'from-blue-500 to-purple-500', description: 'Exploring cutting-edge AI technologies and their real-world entrepreneurial applications.', image: '/ai-vertical.avif' },
+  { id: 2, title: 'Semiconductors & Compute Infrastructure', icon: Cpu, color: 'from-purple-500 to-pink-500', description: 'Powering the future with advanced chips, processors, and computing architectures.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600' },
+  { id: 3, title: 'Defence & Space Technologies', icon: Rocket, color: 'from-indigo-500 to-blue-600', description: 'Pushing frontiers in exploration, defence systems, and next-generation aerospace.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600' },
+  { id: 4, title: 'Robotics & Advanced Manufacturing Technologies', icon: Bot, color: 'from-red-500 to-pink-500', description: 'Building intelligent systems that drive efficiency, precision, and next-generation capability.', image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600' },
+  { id: 5, title: 'Smart Electronics & Internet of Things (IoT)', icon: Wifi, color: 'from-emerald-500 to-green-500', description: 'Connecting devices, systems, and experiences through intelligent electronics.', image: 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=600' },
 ];
 
 const widerLandscape: VerticalWithDescription[] = [
-  { id: 6, title: 'Consumer Brands', icon: ShoppingBag, color: 'from-pink-500 to-rose-500', description: 'Celebrating bold ventures shaping culture, lifestyle, and everyday experience.' },
-  { id: 7, title: 'FinTech & Digital Economy', icon: CreditCard, color: 'from-blue-600 to-indigo-600', description: 'Redefining financial access, transactions, and digital infrastructure.' },
-  { id: 8, title: 'Healthcare & MedTech', icon: Heart, color: 'from-red-500 to-rose-500', description: 'Transforming wellness, diagnostics, accessibility, and human health outcomes.' },
-  { id: 9, title: 'Climate & Clean Energy', icon: Sun, color: 'from-yellow-500 to-orange-500', description: 'Powering sustainable energy, climate resilience, and environmental responsibility.' },
-  { id: 10, title: 'Gaming & Creator Economy', icon: Gamepad2, color: 'from-purple-600 to-violet-600', description: 'Driving entertainment, digital storytelling, and cultural influence.' },
-  { id: 11, title: 'EdTech & Future of Learning', icon: GraduationCap, color: 'from-blue-400 to-cyan-400', description: 'Reinventing how knowledge is delivered, accessed, and experienced.' },
-  { id: 12, title: 'Cybersecurity & Trust', icon: Shield, color: 'from-slate-500 to-gray-500', description: 'Safeguarding systems, data, and identity in a connected world.' },
-  { id: 13, title: 'Space & Aerospace', icon: Plane, color: 'from-indigo-900 to-blue-900', description: 'Pushing frontiers in exploration, intelligence, and next-generation aviation.' },
+  { id: 6, title: 'Consumer & Industrial Services', icon: ShoppingBag, color: 'from-pink-500 to-rose-500', description: 'Celebrating bold ventures shaping culture, lifestyle, and everyday experience.' },
+  { id: 7, title: 'Healthcare, MedTech & Bio-Intelligent Platforms', icon: Heart, color: 'from-red-500 to-rose-500', description: 'Transforming wellness, diagnostics, accessibility, and human health outcomes.' },
+  { id: 8, title: 'FinTech & Digital Economy', icon: CreditCard, color: 'from-blue-600 to-indigo-600', description: 'Redefining financial access, transactions, and digital infrastructure.' },
+  { id: 9, title: 'Cybersecurity & Trusted Machine Intelligence', icon: Shield, color: 'from-slate-500 to-gray-500', description: 'Safeguarding systems, data, and identity in a connected world.' },
+  { id: 10, title: 'EdTech & Future of Deep-Tech', icon: GraduationCap, color: 'from-blue-400 to-cyan-400', description: 'Reinventing how knowledge is delivered, accessed, and experienced.' },
+  { id: 11, title: 'Gaming, Simulation & Virtual World', icon: Gamepad2, color: 'from-purple-600 to-violet-600', description: 'Driving entertainment, digital storytelling, and immersive experiences.' },
+  { id: 12, title: 'Sustainable & Climate Intelligent Technologies', icon: Sun, color: 'from-yellow-500 to-orange-500', description: 'Powering sustainable energy, climate resilience, and environmental responsibility.' },
 ];
 
 const eventsData: EventItem[] = [

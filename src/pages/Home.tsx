@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Hero } from '../../components/Hero';
 import { About } from '../../components/About';
 import { Speakers } from '../../components/Speakers';
@@ -11,6 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
+
+    // Scroll to top on page load/refresh
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="overflow-x-hidden">
@@ -30,7 +35,7 @@ export const Home: React.FC = () => {
                 <Speakers preview onViewAll={() => navigate('/speakers')} />
             </section>
 
-            <section id="gallery">                
+            <section id="gallery">
                 <InfiniteBentoCarousel
                     title="Past Glimpses"
                     subtitle="Memories from previous BECon summits"
