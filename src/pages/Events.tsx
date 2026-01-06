@@ -258,7 +258,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/DSC02587.avif',
+        image: '/events/startupdebate.avif',
         eventType: 'strategy',
     },
     {
@@ -275,7 +275,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/DSC01157.avif',
+        image: '/events/biz.avif',
         eventType: 'strategy',
     },
     {
@@ -292,7 +292,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/DSC02517.avif',
+        image: '/events/purposetoprofit.avif',
         eventType: 'strategy',
     },
     {
@@ -309,7 +309,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/DSC07026.avif',
+        image: '/events/iplauction.avif',
         eventType: 'strategy',
     },
     {
@@ -326,7 +326,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/gallery-new-6.avif',
+        image: '/events/midastouch.avif',
         eventType: 'strategy',
     },
     {
@@ -343,7 +343,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/gallery-1.avif',
+        image: '/events/twodayceo.avif',
         eventType: 'strategy',
     },
     {
@@ -360,7 +360,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
-        image: '/gallery/gallery-7.avif',
+        image: '/events/startupauction.avif',
         eventType: 'strategy',
     },
     {
@@ -412,7 +412,7 @@ const eventsData: EventCard[] = [
         date: 'Feb 1, 2026',
         location: 'Senate Hall',
         category: 'networking',
-        image: '/gallery/gallery-new-6.avif',
+        image: '/events/incubator.avif',
         eventType: 'main',
     },
     {
@@ -429,7 +429,7 @@ const eventsData: EventCard[] = [
         date: 'Feb 2, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/DSC02587.avif',
+        image: '/events/influencer.avif',
         eventType: 'main',
     },
     // --- FIRESIDE CHATS ---
@@ -539,7 +539,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-8.avif',
+        image: '/events/aerospace.avif',
         eventType: 'sessions',
     },
     {
@@ -555,7 +555,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-9.avif',
+        image: '/events/biotech.avif',
         eventType: 'sessions',
     },
     {
@@ -571,7 +571,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-10.avif',
+        image: '/events/spacetech.avif',
         eventType: 'sessions',
     },
     {
@@ -587,7 +587,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-11.avif',
+        image: '/events/aipanel.avif',
         eventType: 'sessions',
     },
     {
@@ -603,7 +603,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-new-1.avif',
+        image: '/events/semiconductor.avif',
         eventType: 'sessions',
     },
     {
@@ -619,7 +619,7 @@ const eventsData: EventCard[] = [
         date: 'Jan 30 - Feb 1, 2026',
         location: 'Dogra Hall',
         category: 'keynote',
-        image: '/gallery/gallery-new-2.avif',
+        image: '/events/deeptech.avif',
         eventType: 'sessions',
     },
     {
