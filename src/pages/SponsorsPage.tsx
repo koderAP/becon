@@ -32,12 +32,14 @@ export const SponsorsPage: React.FC = () => {
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
                         We are currently onboarding partners for this year's summit. Join us in shaping the future.
                     </p>
-                    <Link
-                        to="/contact"
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScIdbQoS1t3Jr2vobyhiqpnMeTByvDy2zdVG_fg2HH29oeKqA/viewform?usp=dialog"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-block px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-colors"
                     >
                         Become a Sponsor
-                    </Link>
+                    </a>
                 </div>
 
                 <div className="border-t border-white/10 pt-20">
