@@ -25,10 +25,30 @@ const hostMembers: HostMember[] = [
         linkedin: "https://www.linkedin.com/in/ekansh-agarwal-689301250/",
         phone: "9530153916",
     },
+    {
+        id: 20,
+        name: "Tanmay Sharma",
+        role: "Overall Coordinator",
+        img: "/Team/tanmay.avif",
+        bio: "Driving the strategic vision and execution of BECon 2026.",
+        linkedin: "https://www.linkedin.com/in/tanmay-sharma-966237253",
+        phone: "9024788538",
+    },
+    {
+        id: 22,
+        name: "Siddhesh Raj",
+        role: "Co-Overall Coordinator",
+        img: "/Team/siddhesh.avif",
+        bio: "Orchestrating operations and synergies for a seamless summit experience.",
+        linkedin: "https://www.linkedin.com/in/rajsiddhesh/",
+        phone: "7004303797",
+    },
 ];
 
 // Core Team Members from team.json
 const coreTeamMembers: TeamMember[] = [
+    { id: 21, name: "Vipinsh Mehra", role: "Director", img: "/Team/vipinsh.avif", linkedin: "https://in.linkedin.com/in/vipinsh-mehra-871398260", phone: "8882313137" },
+    { id: 23, name: "Chinmay Yadav", role: "Speaker Outreach", img: "/Team/chinmay.avif", linkedin: "https://www.linkedin.com/in/chinmay-yadav-9b7819240/", phone: "+91 82799 22387" },
     { id: 1, name: "Kartik Gupta", role: "Admin and Finance", img: "/Team/kartik.avif", linkedin: "https://www.linkedin.com/in/kartikkguppta", phone: "9116524430" },
     { id: 2, name: "Kushagrah Jain", role: "Marketing", img: "/Team/kushagrah.avif", linkedin: "https://www.linkedin.com/in/kushagrah-jain-b83187286/", phone: "7073543248" },
     { id: 3, name: "Sakshi Sharma", role: "Marketing", img: "/Team/sakshi.avif", linkedin: "https://www.linkedin.com/in/sakshisharma431/", phone: "8448060901" },
@@ -41,6 +61,7 @@ const coreTeamMembers: TeamMember[] = [
     { id: 10, name: "Pratibha Kashyap", role: "Creative", img: "/Team/pratibha.avif", linkedin: "https://www.linkedin.com/in/pratibha-kashyap/", phone: "8920491285" },
     { id: 11, name: "Kritika Chaudhary", role: "Board Events", img: "/Team/kritika.avif", linkedin: "https://www.linkedin.com/in/kritika-chaudhary1936/", phone: "8448367110" },
     { id: 12, name: "Anubhav Pandey", role: "Tech", img: "/Team/anubhav.avif", phone: null, linkedin: "https://www.linkedin.com/in/anubhavpandeyiitd/" },
+    { id: 13, name: "Aditya Jain", role: "Tech", img: "/Team/aditya.avif", phone: "9756195746" },
 ];
 
 // Reusable Team Member Card
@@ -123,9 +144,9 @@ export const TeamPage: React.FC = () => {
                 {/* Hero Section - Meet Our Host (OC) */}
                 <TeamHostsGallery
                     hosts={hostMembers}
-                    title="Meet Our Host: The Visionary Behind BECon Tech Summit"
-                    subtitle="Our Host"
-                    description="The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our host is dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
+                    title="Meet Our Hosts: The Visionaries Behind BECon Tech Summit"
+                    subtitle="Our Hosts"
+                    description="The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
                     isLoading={isLoading}
                 />
 
