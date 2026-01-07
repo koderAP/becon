@@ -1299,12 +1299,12 @@ export const Events: React.FC = () => {
 
                                     <div className="flex flex-col">
                                         {/* Image Top */}
-                                        <div className="w-full h-64 md:h-80 relative flex-shrink-0">
+                                        <div className="w-full h-64 md:h-80 relative flex-shrink-0 bg-[#05020a]">
                                             <img
                                                 src={selectedEvent.image}
                                                 alt={selectedEvent.title}
                                                 loading="lazy"
-                                                className="w-full h-full object-cover"
+                                                className="w-full h-full object-contain"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent" />
 
