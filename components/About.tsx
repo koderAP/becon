@@ -55,7 +55,7 @@ export const About: React.FC = () => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 sm:mb-8"
           >
             Where Innovation Meets <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">Market Reality</span>
+            <span className="text-gray-200">Market Reality</span>
           </motion.h1>
 
           {/* Spline 3D Scene - cropped to hide watermark */}
