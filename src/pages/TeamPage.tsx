@@ -34,40 +34,39 @@ const hostMembers: HostMember[] = [
         linkedin: "https://www.linkedin.com/in/tanmay-sharma-966237253",
         phone: "9024788538",
     },
-    {
-        id: 22,
-        name: "Siddhesh Raj",
-        role: "Co-Overall Coordinator",
-        img: "/Team/siddhesh.avif",
-        bio: "Orchestrating operations and synergies for a seamless summit experience.",
-        linkedin: "https://www.linkedin.com/in/rajsiddhesh/",
-        phone: "7004303797",
-    },
-    {
-        id: 24,
-        name: "Kunal",
-        role: "Co-Overall Coordinator",
-        img: "", // Placeholder or TBD
-        bio: "Contributing to the seamless execution of BECon 2026.",
-    },
 ];
 
 // Core Team Members from team.json
 const coreTeamMembers: TeamMember[] = [
+    // Co-OCs
+    { id: 22, name: "Siddhesh Raj", role: "Co-Overall Coordinator", img: "/Team/siddhesh.avif", linkedin: "https://www.linkedin.com/in/rajsiddhesh/", phone: "7004303797" },
+    { id: 24, name: "Kunal", role: "Co-Overall Coordinator", img: "" },
+
+    // Director
     { id: 21, name: "Vipinsh Mehra", role: "Director", img: "/Team/vipinsh.avif", linkedin: "https://in.linkedin.com/in/vipinsh-mehra-871398260", phone: "8882313137" },
-    { id: 23, name: "Chinmay Yadav", role: "Speaker Outreach", img: "/Team/chinmay.avif", linkedin: "https://www.linkedin.com/in/chinmay-yadav-9b7819240/", phone: "+91 82799 22387" },
-    { id: 1, name: "Kartik Gupta", role: "Admin and Finance", img: "/Team/kartik.avif", linkedin: "https://www.linkedin.com/in/kartikkguppta", phone: "9116524430" },
+
+    // Marketing
     { id: 2, name: "Kushagrah Jain", role: "Marketing", img: "/Team/kushagrah.avif", linkedin: "https://www.linkedin.com/in/kushagrah-jain-b83187286/", phone: "7073543248" },
     { id: 3, name: "Sakshi Sharma", role: "Marketing", img: "/Team/sakshi.avif", linkedin: "https://www.linkedin.com/in/sakshisharma431/", phone: "8448060901" },
     { id: 4, name: "Lakshya Goel", role: "Marketing", img: "/Team/lakshya.avif", linkedin: "https://www.linkedin.com/in/goellakshay/", phone: "9896961502" },
-    { id: 5, name: "Mann Agarwal", role: "Media", img: "/Team/mann.avif", linkedin: "https://www.linkedin.com/in/mann-agarwal/" },
+
+    // Speaker Outreach
+    { id: 23, name: "Chinmay Yadav", role: "Speaker Outreach", img: "/Team/chinmay.avif", linkedin: "https://www.linkedin.com/in/chinmay-yadav-9b7819240/", phone: "+91 82799 22387" },
+
+    // Events
     { id: 6, name: "Shreshth Kumar", role: "Events", img: "/Team/shresth.avif", linkedin: "https://www.linkedin.com/in/shreshthkumar-iitdelhi" },
     { id: 7, name: "Archit Tayal", role: "Events", img: "/Team/archit.avif", linkedin: "https://www.linkedin.com/in/archit-tayal485/", phone: "8318640120" },
+
+    // Publicity
     { id: 8, name: "Janit Sachdeva", role: "Publicity", img: "/Team/janit.avif", linkedin: "https://www.linkedin.com/in/janit-sachdeva/", phone: "9425775980" },
+
+    // Others
+    { id: 5, name: "Mann Agarwal", role: "Media", img: "/Team/mann.avif", linkedin: "https://www.linkedin.com/in/mann-agarwal/" },
     { id: 9, name: "Gursheen Kaur", role: "Creative", img: "/Team/gursheen.avif", phone: "9175065641" },
     { id: 10, name: "Pratibha Kashyap", role: "Creative", img: "/Team/pratibha.avif", linkedin: "https://www.linkedin.com/in/pratibha-kashyap/", phone: "8920491285" },
     { id: 11, name: "Kritika Chaudhary", role: "Board Events", img: "/Team/kritika.avif", linkedin: "https://www.linkedin.com/in/kritika-chaudhary1936/", phone: "8448367110" },
     { id: 12, name: "Anubhav Pandey", role: "Tech", img: "/Team/anubhav.avif", phone: null, linkedin: "https://www.linkedin.com/in/anubhavpandeyiitd/" },
+    { id: 1, name: "Kartik Gupta", role: "Admin and Finance", img: "/Team/kartik.avif", linkedin: "https://www.linkedin.com/in/kartikkguppta", phone: "9116524430" },
 ];
 
 // Reusable Team Member Card
