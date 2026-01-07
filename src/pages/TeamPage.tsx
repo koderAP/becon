@@ -43,6 +43,13 @@ const hostMembers: HostMember[] = [
         linkedin: "https://www.linkedin.com/in/rajsiddhesh/",
         phone: "7004303797",
     },
+    {
+        id: 24,
+        name: "Kunal",
+        role: "Co-Overall Coordinator",
+        img: "", // Placeholder or TBD
+        bio: "Contributing to the seamless execution of BECon 2026.",
+    },
 ];
 
 // Core Team Members from team.json

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, Reorder, AnimatePresence } from 'framer-motion';
-import { X, Linkedin, Phone } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Linkedin, Phone, User } from 'lucide-react';
 
 export interface HostMember {
     id: number;
@@ -23,36 +23,20 @@ interface TeamHostsGalleryProps {
 
 const SkeletonCollage = () => (
     <div className="grid grid-cols-2 gap-4 animate-pulse">
-        <div className="flex flex-col gap-4">
-            <div className="aspect-[3/4] bg-white/10 rounded-2xl border border-white/5" />
-            <div className="aspect-square bg-white/10 rounded-2xl border border-white/5" />
-        </div>
-        <div className="flex flex-col gap-4">
-            <div className="aspect-square bg-white/10 rounded-2xl border border-white/5" />
-            <div className="aspect-[3/4] bg-white/10 rounded-2xl border border-white/5" />
-        </div>
+        {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="aspect-[3/4] bg-white/10 rounded-2xl border border-white/5" />
+        ))}
     </div>
 );
 
 export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
     hosts,
     title = "Meet Our Hosts: The Visionaries Behind BECon Tech Summit",
-    subtitle = "Our Host",
+    subtitle = "Our Hosts",
     description = "The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation.",
     isLoading = false,
 }) => {
-    const [items, setItems] = useState<HostMember[]>(hosts);
     const [selectedHost, setSelectedHost] = useState<HostMember | null>(null);
-    const [isMobile, setIsMobile] = useState(false);
-    const [activeId, setActiveId] = useState<number | null>(null); // For mobile tap-to-colorize
-
-    // Detect mobile screen
-    React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
 
     return (
         <div className="mb-24">
@@ -62,6 +46,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
+                    className="order-1"
                 >
                     <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-[2px] bg-white"></div>
@@ -72,139 +57,55 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                         {title.split('BECon')[0]}
                         <span className="text-purple-400">BECon Tech Summit</span>
                     </h1>
+
+                    <p className="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
+                        {description}
+                    </p>
                 </motion.div>
 
-
-
-                {/* Right: Draggable 4-Image Collage */}
+                {/* Right: Static Grid Layout */}
                 <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className={isLoading ? "" : items.length > 1 ? "cursor-grab active:cursor-grabbing" : ""}
+                    className="order-2"
                 >
                     {isLoading ? (
                         <SkeletonCollage />
-                    ) : items.length === 1 ? (
-                        /* Single Host - Large Featured Card */
-                        <div
-                            className="relative rounded-3xl overflow-hidden group border border-white/10 shadow-2xl bg-[#0a0a0a] aspect-[3/4] max-w-md mx-auto cursor-pointer"
-                            onClick={() => setSelectedHost(items[0])}
-                        >
-                            <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
-                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">{items[0]?.name}</h3>
-                                <p className="text-purple-400 text-lg">{items[0]?.role}</p>
-                            </div>
-                        </div>
                     ) : (
-                        /* 2 Columns with alternating tall/short pattern - Draggable */
-                        <Reorder.Group
-                            axis="y"
-                            values={items}
-                            onReorder={setItems}
-                            className="grid grid-cols-2 gap-4"
-                        >
-                            {/* Column 1: Indices 0 and 2 */}
-                            <div className="flex flex-col gap-4">
-                                <Reorder.Item
-                                    key={items[0]?.id}
-                                    value={items[0]}
-                                    as="div"
-                                    whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                    drag={!isMobile}
-                                    dragMomentum={false}
-                                    dragElastic={0.15}
-                                    className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
-                                    style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                    onTap={() => isMobile && setActiveId(activeId === items[0]?.id ? null : items[0]?.id)}
+                        <div className="grid grid-cols-2 gap-4 md:gap-6">
+                            {hosts.map((host, index) => (
+                                <motion.div
+                                    key={host.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="relative rounded-2xl md:rounded-3xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-pointer aspect-[3/4]"
+                                    onClick={() => setSelectedHost(host)}
                                 >
-                                    <img src={items[0]?.img} alt={items[0]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                        onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[0]); }}
-                                    >
-                                        <h3 className="text-lg md:text-xl font-bold text-white">{items[0]?.name}</h3>
-                                        <p className="text-purple-400 text-sm">{items[0]?.role}</p>
+                                    {host.img ? (
+                                        <img
+                                            src={host.img}
+                                            alt={host.name}
+                                            loading="lazy"
+                                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition-colors">
+                                            <User size={64} className="text-white/20" />
+                                        </div>
+                                    )}
+
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-4 md:p-6 opacity-100 transition-opacity duration-300">
+                                        <h3 className="text-lg md:text-2xl font-bold text-white leading-tight mb-1">{host.name}</h3>
+                                        <p className={`text-sm md:text-base font-medium ${host.role.includes('Co-Overall') ? 'text-blue-400' : 'text-purple-400'}`}>
+                                            {host.role}
+                                        </p>
                                     </div>
-                                </Reorder.Item>
-
-                                {items[2] && (
-                                    <Reorder.Item
-                                        key={items[2]?.id}
-                                        value={items[2]}
-                                        as="div"
-                                        whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                        drag={!isMobile}
-                                        dragMomentum={false}
-                                        dragElastic={0.15}
-                                        className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
-                                        style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                        onTap={() => isMobile && setActiveId(activeId === items[2]?.id ? null : items[2]?.id)}
-                                    >
-                                        <img src={items[2]?.img} alt={items[2]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                        <div
-                                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                            onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[2]); }}
-                                        >
-                                            <h3 className="text-lg md:text-xl font-bold text-white">{items[2]?.name}</h3>
-                                            <p className="text-blue-400 text-sm">{items[2]?.role}</p>
-                                        </div>
-                                    </Reorder.Item>
-                                )}
-                            </div>
-
-                            {/* Column 2: Indices 1 and 3 */}
-                            <div className="flex flex-col gap-4">
-                                {items[1] && (
-                                    <Reorder.Item
-                                        key={items[1]?.id}
-                                        value={items[1]}
-                                        as="div"
-                                        whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                        drag={!isMobile}
-                                        dragMomentum={false}
-                                        dragElastic={0.15}
-                                        className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-square"
-                                        style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                        onTap={() => isMobile && setActiveId(activeId === items[1]?.id ? null : items[1]?.id)}
-                                    >
-                                        <img src={items[1]?.img} alt={items[1]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                        <div
-                                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                            onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[1]); }}
-                                        >
-                                            <h3 className="text-lg md:text-xl font-bold text-white">{items[1]?.name}</h3>
-                                            <p className="text-purple-400 text-sm">{items[1]?.role}</p>
-                                        </div>
-                                    </Reorder.Item>
-                                )}
-
-                                {items[3] && (
-                                    <Reorder.Item
-                                        key={items[3]?.id}
-                                        value={items[3]}
-                                        as="div"
-                                        whileDrag={{ scale: 1.05, zIndex: 50 }}
-                                        drag={!isMobile}
-                                        dragMomentum={false}
-                                        dragElastic={0.15}
-                                        className="relative rounded-2xl overflow-hidden group border border-white/10 shadow-xl bg-[#0a0a0a] cursor-grab active:cursor-grabbing aspect-[3/4]"
-                                        style={{ touchAction: isMobile ? 'auto' : 'none' }}
-                                        onTap={() => isMobile && setActiveId(activeId === items[3]?.id ? null : items[3]?.id)}
-                                    >
-                                        <img src={items[3]?.img} alt={items[3]?.name} loading="lazy" className="w-full h-full object-cover transition-all duration-500" draggable={false} />
-                                        <div
-                                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 cursor-pointer"
-                                            onClick={(e) => { e.stopPropagation(); !isMobile && setSelectedHost(items[3]); }}
-                                        >
-                                            <h3 className="text-lg md:text-xl font-bold text-white">{items[3]?.name}</h3>
-                                            <p className="text-blue-400 text-sm">{items[3]?.role}</p>
-                                        </div>
-                                    </Reorder.Item>
-                                )}
-                            </div>
-                        </Reorder.Group>
+                                </motion.div>
+                            ))}
+                        </div>
                     )}
                 </motion.div>
             </div>
@@ -243,11 +144,17 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
 
                                         {/* Image */}
                                         <div className="aspect-square overflow-hidden bg-white/5">
-                                            <img
-                                                src={selectedHost.img}
-                                                alt={selectedHost.name}
-                                                className="w-full h-full object-cover"
-                                            />
+                                            {selectedHost.img ? (
+                                                <img
+                                                    src={selectedHost.img}
+                                                    alt={selectedHost.name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center">
+                                                    <User size={96} className="text-white/20" />
+                                                </div>
+                                            )}
                                         </div>
 
                                         {/* Content */}
