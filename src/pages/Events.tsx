@@ -229,7 +229,7 @@ const eventsData: EventCard[] = [
     },
     {
         id: 'colab',
-        title: 'CoLab – Co-Founder Matchmaking',
+        title: 'CoLab – Co-Founder Catalyst',
         description: "CoLab is a dedicated platform that helps entrepreneurs connect with potential co-founders through a structured, thoughtful matchmaking format. It brings together driven builders with complementary skills, aligned intent, and shared ambition, while also providing access to mentorship and ecosystem support to help ideas grow into real ventures. If you want a co-founder who truly matches your vision, CoLab is where you'll find them.",
         whyJoin: [
             'Meet serious, like-minded entrepreneurs',

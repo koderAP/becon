@@ -73,7 +73,7 @@ export const TicketsPage: React.FC = () => {
             <PageHeader
                 title="TICKETS"
                 badge="Registration"
-                description="Secure your spot at BECon DeepTech Summit Today!"
+                description="Secure your spot at BECon Today!"
             />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 py-20">
