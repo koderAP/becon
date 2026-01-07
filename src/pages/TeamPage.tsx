@@ -61,7 +61,6 @@ const coreTeamMembers: TeamMember[] = [
     { id: 10, name: "Pratibha Kashyap", role: "Creative", img: "/Team/pratibha.avif", linkedin: "https://www.linkedin.com/in/pratibha-kashyap/", phone: "8920491285" },
     { id: 11, name: "Kritika Chaudhary", role: "Board Events", img: "/Team/kritika.avif", linkedin: "https://www.linkedin.com/in/kritika-chaudhary1936/", phone: "8448367110" },
     { id: 12, name: "Anubhav Pandey", role: "Tech", img: "/Team/anubhav.avif", phone: null, linkedin: "https://www.linkedin.com/in/anubhavpandeyiitd/" },
-    { id: 13, name: "Aditya Jain", role: "Tech", img: "/Team/aditya.avif", phone: "9756195746" },
 ];
 
 // Reusable Team Member Card
