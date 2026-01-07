@@ -85,11 +85,16 @@ export const Contact: React.FC = () => {
                                 <h4 className="font-semibold text-lg mb-1">Email Us</h4>
                                 <a href="mailto:team@edciitd.com" className="text-gray-400 hover:text-white transition-colors">team@edciitd.com</a>
                             </div>
-                            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-pink-500/30 transition-colors">
+                            <a
+                                href="https://www.linkedin.com/company/edc-iit-delhi/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 hover:border-pink-500/30 transition-colors block cursor-pointer"
+                            >
                                 <Linkedin className="w-8 h-8 text-pink-400 mb-4" />
                                 <h4 className="font-semibold text-lg mb-1">Connect</h4>
-                                <a href="https://linkedin.com/company/edc-iitd" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">eDC IIT Delhi</a>
-                            </div>
+                                <span className="text-gray-400 hover:text-white transition-colors">eDC IIT Delhi</span>
+                            </a>
                         </motion.div>
 
                         {/* Map Preview (Placeholder for iframe) */}
