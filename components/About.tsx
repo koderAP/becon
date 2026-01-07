@@ -68,16 +68,16 @@ export const About: React.FC = () => {
             {/* Inner container with negative margin to crop bottom watermark */}
             <div className="h-60 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
               <div className="w-full h-[calc(100%+60px)]">
-                  <Suspense fallback={
-                    <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
-                      <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
-                    </div>
-                  }>
-                    <Spline
-                      scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
-                      className="w-full h-full"
-                    />
-                  </Suspense>
+                <Suspense fallback={
+                  <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
+                    <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
+                  </div>
+                }>
+                  <Spline
+                    scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
+                    className="w-full h-full"
+                  />
+                </Suspense>
               </div>
             </div>
           </motion.div>
@@ -88,7 +88,7 @@ export const About: React.FC = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-6"
+          className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-6 min-w-0"
         >
           <p>
             eDC IIT Delhi is a dedicated cell that connects IIT Delhi's technical strength with the world of entrepreneurship and innovation. Over the years, we have created platforms that encourage learning, meaningful dialogue, and real opportunities for growth.
