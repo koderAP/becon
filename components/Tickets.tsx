@@ -121,7 +121,7 @@ export const Tickets: React.FC = () => {
                         <span className="uppercase tracking-widest text-sm text-gray-400">Registration</span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                        Secure Your Spot at <span className="text-gray-500">BECon <br />DeepTech Summit Today!</span>
+                        Secure Your Spot at <span className="text-gray-500">BECon Today!</span>
                     </h1>
                 </motion.div>
 

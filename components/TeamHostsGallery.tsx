@@ -54,8 +54,7 @@ export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
                     </div>
 
                     <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-                        {title.split('BECon')[0]}
-                        <span className="text-purple-400">BECon Tech Summit</span>
+                        Meet Our Hosts: The Visionaries Behind <span className="text-purple-400">BECon'26</span>
                     </h1>
 
                     <p className="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
