@@ -79,26 +79,8 @@ export const PronoteSignupPage: React.FC = () => {
             if (error) throw error;
 
             if (data?.user) {
-                const beconId = generateBeconIdFromUserId(data.user.id);
-                try {
-                    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-                    // We can reuse the welcome email or a specific pronote one if backend supported it. 
-                    // Using standard welcome for now.
-                    await fetch(`${API_URL}/api/user/welcome-email`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${data.session?.access_token}`,
-                        },
-                        body: JSON.stringify({
-                            email: formData.email,
-                            name: fullName,
-                            beconId: beconId,
-                        }),
-                    });
-                } catch (emailError) {
-                    console.warn('Welcome email failed, but signup succeeded:', emailError);
-                }
+                // Generate BECon ID locally if needed
+                generateBeconIdFromUserId(data.user.id);
             }
 
             toast.success('Welcome to Pronote! Registration successful.');

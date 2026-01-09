@@ -40,7 +40,7 @@ const hostMembers: HostMember[] = [
 const coreTeamMembers: TeamMember[] = [
     // Co-OCs
     { id: 22, name: "Siddhesh Raj", role: "Co-Overall Coordinator", img: "/Team/siddhesh.avif", linkedin: "https://www.linkedin.com/in/rajsiddhesh/", phone: "7004303797" },
-    { id: 24, name: "Kunal", role: "Co-Overall Coordinator", img: "" },
+    { id: 24, name: "Kunal", role: "Co-Overall Coordinator", img: "/Team/kunal.avif" },
 
     // Director
     { id: 21, name: "Vipinsh Mehra", role: "Director", img: "/Team/vipinsh.avif", linkedin: "https://in.linkedin.com/in/vipinsh-mehra-871398260", phone: "8882313137" },

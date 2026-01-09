@@ -11,95 +11,50 @@ interface PassFeature {
     included: boolean;
 }
 
-interface Pass {
-    id: string;
-    name: string;
-    originalPrice: number;
-    price: number | 'FREE';
-    image: string;
-    color: string;
-    glow: string;
-    features: PassFeature[];
-}
+import { PASS_CONFIG } from '../src/constants/passes';
 
-const passes: Pass[] = [
-    {
-        id: 'silver',
-        name: 'SILVER PASS',
-        originalPrice: 99,
-        price: 'FREE',
-        image: '/passes/silver.png',
-        color: 'text-gray-200',
-        glow: 'group-hover:border-gray-400/50 group-hover:shadow-[0_0_30px_rgba(200,200,200,0.2)]',
-        features: [
-            { name: 'Startup Expo', included: true },
-            { name: 'Tech Showcase', included: true },
-            { name: 'Autospark', included: true },
-            { name: 'LHC Speaker Sessions', included: true },
-            { name: 'Seminar+Dogra Speaker Sessions', included: false },
-            { name: 'Moonshot Finale', included: false },
-            { name: 'Blueprint Finale', included: false },
-            { name: 'Influencer Conclave', included: false },
-            { name: 'Incubator Summit', included: false },
-            { name: 'Startup Clinic', included: false },
-            { name: 'Policysphere', included: false },
-        ]
-    },
-    {
-        id: 'gold',
-        name: 'GOLD PASS',
-        originalPrice: 499,
-        price: 199,
-        image: '/passes/gold.png',
-        color: 'text-yellow-400',
-        glow: 'group-hover:border-yellow-500/50 group-hover:shadow-[0_0_30px_rgba(234,179,8,0.2)]',
-        features: [
-            { name: 'Startup Expo', included: true },
-            { name: 'Tech Showcase', included: true },
-            { name: 'Autospark', included: true },
-            { name: 'LHC Speaker Sessions', included: true },
-            { name: 'Seminar+Dogra Speaker Sessions', included: true },
-            { name: 'Moonshot Finale', included: true },
-            { name: 'Blueprint Finale', included: true },
-            { name: 'Influencer Conclave', included: false },
-            { name: 'Incubator Summit', included: false },
-            { name: 'Startup Clinic', included: false },
-            { name: 'Policysphere', included: false },
-        ]
-    },
-    {
-        id: 'platinum',
-        name: 'PLATINUM PASS',
-        originalPrice: 999,
-        price: 399,
-        image: '/passes/platinum.png',
-        color: 'text-cyan-400',
-        glow: 'group-hover:border-cyan-500/50 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.2)]',
-        features: [
-            { name: 'Startup Expo', included: true },
-            { name: 'Tech Showcase', included: true },
-            { name: 'Autospark', included: true },
-            { name: 'LHC Speaker Sessions', included: true },
-            { name: 'Seminar+Dogra Speaker Sessions', included: true },
-            { name: 'Moonshot Finale', included: true },
-            { name: 'Blueprint Finale', included: true },
-            { name: 'Influencer Conclave', included: true },
-            { name: 'Incubator Summit', included: true },
-            { name: 'Startup Clinic', included: true },
-            { name: 'Policysphere', included: false },
-        ]
-    }
-];
+const passes = PASS_CONFIG;
+
+import { supabase } from '../src/lib/supabase';
+import { useState, useEffect } from 'react';
 
 export const Tickets: React.FC = () => {
     const navigate = useNavigate();
     const { user, loading } = useAuth();
+    const [userPassLevel, setUserPassLevel] = useState(0);
+
+    const getPassLevel = (passId: string) => {
+        switch (passId.toLowerCase()) {
+            case 'silver': return 1;
+            case 'gold': return 2;
+            case 'platinum': return 3;
+            default: return 0;
+        }
+    };
+
+    useEffect(() => {
+        const fetchUserPass = async () => {
+            if (user) {
+                const { data } = await supabase
+                    .from('user_passes')
+                    .select('pass_type')
+                    .eq('user_id', user.id)
+                    .order('purchased_at', { ascending: false })
+                    .limit(1)
+                    .single();
+
+                if (data?.pass_type) {
+                    setUserPassLevel(getPassLevel(data.pass_type));
+                }
+            }
+        };
+        fetchUserPass();
+    }, [user]);
 
     const handleGetPass = (passId: string) => {
-        // Temporarily disabled - Coming Soon
-        toast.info('Pass registration coming soon! Stay tuned.', {
-            duration: 3000,
-        });
+        const targetLevel = getPassLevel(passId);
+        const isUpgrade = userPassLevel > 0 && userPassLevel < targetLevel;
+        navigate(`/checkout?pass=${passId}${isUpgrade ? '&upgrade=true' : ''}`);
     };
 
     return (
@@ -198,15 +153,29 @@ export const Tickets: React.FC = () => {
                             <div className="p-8 pt-0 mt-auto">
                                 <button
                                     onClick={() => handleGetPass(pass.id)}
+                                    disabled={loading || (userPassLevel >= getPassLevel(pass.id))} // Disable if loading or already owned/surpassed
                                     className={`w-full py-4 rounded-lg font-bold text-sm tracking-wider uppercase transition-all duration-300 
-                                    ${pass.name === 'GOLD PASS'
-                                            ? 'bg-[#cca43b] text-black hover:bg-[#ffe58f] hover:shadow-[0_0_20px_rgba(234,179,8,0.4)]'
-                                            : pass.name === 'PLATINUM PASS'
-                                                ? 'bg-[#5f7185] text-white hover:bg-[#8ba3bd] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]'
-                                                : 'bg-white text-black hover:bg-gray-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                                    ${
+                                        // Case 1: Already Owned or Higher Tier
+                                        userPassLevel >= getPassLevel(pass.id)
+                                            ? 'bg-gray-800 text-gray-500 cursor-not-allowed border border-white/5'
+
+                                            // Case 2: Available for Purchase/Upgrade (Gold)
+                                            : pass.name === 'GOLD PASS'
+                                                ? 'bg-[#cca43b] text-black hover:bg-[#ffe58f] hover:shadow-[0_0_20px_rgba(234,179,8,0.4)]'
+
+                                                // Case 3: Available for Purchase/Upgrade (Platinum)
+                                                : pass.name === 'PLATINUM PASS'
+                                                    ? 'bg-[#5f7185] text-white hover:bg-[#8ba3bd] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]'
+
+                                                    // Case 4: Available for Purchase (Silver/Free)
+                                                    : 'bg-white text-black hover:bg-gray-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
                                         }`}
                                 >
-                                    Get Pass
+                                    {loading ? '...' :
+                                        userPassLevel >= getPassLevel(pass.id) ? 'Owned' :
+                                            userPassLevel > 0 ? 'Upgrade' :
+                                                'Get Pass'}
                                 </button>
                             </div>
                         </motion.div>

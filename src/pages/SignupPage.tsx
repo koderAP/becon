@@ -62,28 +62,10 @@ export const SignupPage: React.FC = () => {
 
             if (error) throw error;
 
-            // Generate BECon ID and send welcome email
             if (data?.user) {
-                const beconId = generateBeconIdFromUserId(data.user.id);
-
-                // Send welcome email via backend
-                try {
-                    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-                    await fetch(`${API_URL}/api/user/welcome-email`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${data.session?.access_token}`,
-                        },
-                        body: JSON.stringify({
-                            email: formData.email,
-                            name: fullName,
-                            beconId: beconId,
-                        }),
-                    });
-                } catch (emailError) {
-                    console.warn('Welcome email failed, but signup succeeded:', emailError);
-                }
+                // Generate BECon ID locally if needed for immediate UI updates, 
+                // but Dashboard will handle the backend sync and email.
+                generateBeconIdFromUserId(data.user.id);
             }
 
             toast.success('Welcome to BECon 2026! Check your email for details.');

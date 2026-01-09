@@ -11,7 +11,7 @@ const SpeakersPage = lazy(() => import('./src/pages/SpeakersPage').then(module =
 const SponsorsPage = lazy(() => import('./src/pages/SponsorsPage').then(module => ({ default: module.SponsorsPage })));
 const Schedule = lazy(() => import('./src/pages/Schedule').then(module => ({ default: module.Schedule })));
 const Contact = lazy(() => import('./src/pages/Contact').then(module => ({ default: module.Contact })));
-const TicketsPage = lazy(() => import('./src/pages/TicketsPage').then(module => ({ default: module.TicketsPage })));
+// const TicketsPage = lazy(() => import('./src/pages/TicketsPage').then(module => ({ default: module.TicketsPage })));
 const TeamPage = lazy(() => import('./src/pages/TeamPage').then(module => ({ default: module.TeamPage })));
 const TermsPage = lazy(() => import('./src/pages/TermsPage').then(module => ({ default: module.TermsPage })));
 const LoginPage = lazy(() => import('./src/pages/LoginPage').then(module => ({ default: module.LoginPage })));
@@ -54,7 +54,8 @@ const AnimatedRoutes: React.FC = () => {
             <Route path="/sponsors" element={<SponsorsPage />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/tickets" element={<TicketsPage />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/tickets" element={<DashboardPage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/login" element={<LoginPage />} />

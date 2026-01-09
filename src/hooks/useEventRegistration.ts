@@ -65,19 +65,45 @@ export function useEventRegistration() {
     }, [registrations]);
 
     // Register for an internal event
-    const registerForEvent = async (eventId: string) => {
+    const registerForEvent = async (eventId: string, options: { silent?: boolean } = {}) => {
         if (!user) {
-            toast.error('Please login to register for events');
-            return false;
+            if (!options.silent) toast.error('Please login to register for events');
+            return { success: false, message: 'Please login to register', type: 'auth_required' };
         }
 
         if (isRegistered(eventId)) {
-            toast.info('You are already registered for this event');
-            return false;
+            if (!options.silent) toast.info('You are already registered for this event');
+            return { success: false, message: 'Already registered', type: 'already_registered' };
         }
 
         setRegistering(eventId);
         try {
+            // 1. Fetch User Pass
+            const { data: passData, error: passError } = await supabase
+                .from('user_passes')
+                .select('pass_type')
+                .eq('user_id', user.id)
+                .order('purchased_at', { ascending: false })
+                .limit(1)
+                .single();
+
+            const userPass = passData?.pass_type;
+
+            if (!userPass) {
+                const msg = 'You need a valid pass to register. Please purchase one.';
+                if (!options.silent) toast.error(msg);
+                return { success: false, message: msg, type: 'no_pass' };
+            }
+
+            // 2. Check Permissions
+            const { isEventAllowed } = await import('../constants/passes');
+            if (!isEventAllowed(userPass, eventId)) {
+                const msg = `Your ${userPass.toUpperCase()} PASS does not include this event. Please upgrade.`;
+                if (!options.silent) toast.error(msg);
+                return { success: false, message: msg, type: 'upgrade_required' };
+            }
+
+            // 3. Register
             const { error } = await supabase
                 .from('event_registrations')
                 .insert({
@@ -89,17 +115,18 @@ export function useEventRegistration() {
 
             if (error) throw error;
 
-            toast.success('Successfully registered!');
+            if (!options.silent) toast.success('Successfully registered!');
             await fetchRegistrations();
-            return true;
+            return { success: true, message: 'Successfully registered!', type: 'success' };
         } catch (err: any) {
             console.error('Registration failed:', err);
             if (err.code === '23505') {
-                toast.info('You are already registered for this event');
+                if (!options.silent) toast.info('You are already registered for this event');
+                return { success: false, message: 'Already registered', type: 'already_registered' };
             } else {
-                toast.error('Registration failed. Please try again.');
+                if (!options.silent) toast.error('Registration failed. Please try again.');
+                return { success: false, message: 'Registration failed', type: 'error' };
             }
-            return false;
         } finally {
             setRegistering(null);
         }

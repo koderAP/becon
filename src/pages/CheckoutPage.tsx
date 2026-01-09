@@ -41,6 +41,12 @@ const PASS_VALUE: Record<string, number> = {
     platinum: 399,
 };
 
+
+const PASS_LEVELS: Record<string, number> = {
+    silver: 1,
+    gold: 2,
+    platinum: 3,
+};
 declare global {
     interface Window {
         Razorpay: any;
@@ -83,7 +89,7 @@ export const CheckoutPage: React.FC = () => {
         }
     }, [user, authLoading, navigate, passType, isUpgrade]);
 
-    // Fetch current pass if upgrade
+    // Fetch current pass (ALWAYS check this to prevent downgrades)
     useEffect(() => {
         const fetchCurrentPass = async () => {
             if (!user) return;
@@ -101,10 +107,23 @@ export const CheckoutPage: React.FC = () => {
             }
         };
 
-        if (isUpgrade && user) {
+        if (user) {
             fetchCurrentPass();
         }
-    }, [user, isUpgrade]);
+    }, [user]);
+
+    // Prevent Downgrades / Re-purchasing same tier
+    useEffect(() => {
+        if (!currentPass || !user) return;
+
+        const currentLevel = PASS_LEVELS[currentPass] || 0;
+        const targetLevel = PASS_LEVELS[passType] || 0;
+
+        if (currentLevel >= targetLevel) {
+            toast.error(`You already have the ${PASS_CONFIG[currentPass as keyof typeof PASS_CONFIG]?.name} which covers this tier.`);
+            navigate('/dashboard');
+        }
+    }, [currentPass, passType, user, navigate]);
 
     // Load Razorpay script
     useEffect(() => {
@@ -176,7 +195,7 @@ export const CheckoutPage: React.FC = () => {
                 currency: currency,
                 name: 'BECon 2026',
                 description: `${passConfig.name} ${isUpgrade ? '(Upgrade)' : ''}`,
-                image: '/logo1.avif',
+                image: 'https://becon-2026.web.app/logo1.avif',
                 order_id: orderId,
                 handler: async function (response: any) {
                     // Verify payment
@@ -208,6 +227,7 @@ export const CheckoutPage: React.FC = () => {
                 prefill: {
                     name: user.user_metadata?.full_name || '',
                     email: user.email || '',
+                    contact: user.user_metadata?.phone || '',
                 },
                 theme: {
                     color: '#7c3aed',
@@ -246,7 +266,7 @@ export const CheckoutPage: React.FC = () => {
             <div className="max-w-2xl mx-auto relative z-10">
                 {/* Back Button */}
                 <Link
-                    to="/tickets"
+                    to="/dashboard"
                     className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8"
                 >
                     <ArrowLeft size={20} />

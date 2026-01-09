@@ -858,15 +858,67 @@ export const Events: React.FC = () => {
     const { isRegistered, registerForEvent, markAsRegistered, cancelRegistration, registering } = useEventRegistration();
     const [searchParams] = useSearchParams();
 
-    // Event registration info (which events use Unstop)
+    // Event registration info (Internal & External Links)
+    // Note: 'unstopEvents' handles all external links (Google Forms, Unstop, etc.)
     const unstopEvents: Record<string, string> = {
-        'e-raksha-hackathon': 'https://unstop.com/e-raksha',
-        'moonshot-main': 'https://unstop.com/moonshot',
-        'blueprint': 'https://unstop.com/blueprint',
-        'grand-moonshot': 'https://unstop.com/grand-moonshot',
+        'moonshot-main': 'https://becon.edciitd.com/forms/6934558c6b959ada62127360',
+        'blueprint': 'https://becon.edciitd.com/forms/6932c9fab6b260b21594aaad',
+        'startup-clinic': 'https://becon.edciitd.com/forms/6939cf5892c07ad44e06e259',
+        // New External Links
+        'colab': 'https://docs.google.com/forms/d/e/1FAIpQLSe1HoV9eEnE1E_2Rd21i8tCZC9cCu0QeaXT6Yka_-qNlvjYCQ/viewform?usp=publish-editor',
+        'startup-debate': 'https://unstop.com/competitions/startup-the-debate-40-iit-delhi-1615531',
+        'biz-e': 'https://unstop.com/quiz/biz-e-quiz-40-iit-delhi-1617021',
+        'purpose-to-profit': 'https://unstop.com/competitions/purpose-to-profit-enactus-iit-delhi-1616481',
+        'ipl-auction': 'https://unstop.com/competitions/ipl-auction-iit-delhi-1612805',
+        'midas-touch': 'https://unstop.com/competitions/midas-touch-iit-delhi-1612275',
+        'tdcc': 'https://unstop.com/o/ayeTALp?utm_medium=Share&utm_source=edciit4317&utm_campaign=Competitions',
+        'startup-auction': 'https://unstop.com/competitions/startup-auction-20-iit-delhi-1615579',
     };
 
+    // Special Event States
+    const closedEvents = new Set([
+        'moonshot-regional',
+        'startup-clinic-regional',
+        'e-raksha-hackathon',
+        'startup-clinic-main'
+    ]);
+
+    const inviteOnlyEvents = new Set(['policysphere']);
+    const noRegistrationEvents = new Set(['bootcamp', 'workshops']);
+    const iitdOnlyEvents = new Set(['grand-moonshot']);
+
     // Auto-open event modal if ?event= query param is present
+    const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null);
+
+    // Auto-open event modal if ?event= query param is present
+    const handleRegister = async (eventId: string) => {
+        setFeedbackMessage(null); // Clear previous messages
+
+        if (unstopEvents[eventId]) {
+            window.open(unstopEvents[eventId], '_blank');
+            await markAsRegistered(eventId);
+            setFeedbackMessage({ type: 'success', text: 'Opened in new tab!' });
+        } else {
+            const result = await registerForEvent(eventId, { silent: true });
+            if (result && typeof result === 'object') {
+                setFeedbackMessage({
+                    type: result.success ? 'success' : result.type === 'already_registered' ? 'info' : 'error',
+                    text: result.message || 'Something went wrong'
+                });
+            }
+        }
+
+        // Auto-dismiss after 3 seconds
+        setTimeout(() => {
+            setFeedbackMessage(null);
+        }, 3000);
+    };
+
+    // Clear feedback when selected event changes
+    React.useEffect(() => {
+        setFeedbackMessage(null);
+    }, [selectedEvent]);
+
     React.useEffect(() => {
         const eventId = searchParams.get('event');
         if (eventId) {
@@ -1114,10 +1166,18 @@ export const Events: React.FC = () => {
                                                     {/* Register Button */}
                                                     <div className="mt-auto pt-3">
                                                         <button
-                                                            onClick={(e) => e.stopPropagation()}
-                                                            className="w-full md:w-auto px-8 py-3 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold text-sm uppercase tracking-wider hover:from-yellow-400 hover:to-orange-400 transition-all"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                // Map regional IDs to their main event counterparts
+                                                                const registrationId = event!.id === 'startup-clinic-regional' ? 'startup-clinic' :
+                                                                    event!.id === 'moonshot-regional' ? 'moonshot-main' :
+                                                                        event!.id === 'blueprint-regional' ? 'blueprint' :
+                                                                            event!.id;
+                                                                handleRegister(registrationId);
+                                                            }}
+                                                            className="w-full md:w-auto px-8 py-3 rounded-full bg-yellow-500 text-black font-bold text-sm uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-lg hover:shadow-yellow-500/25"
                                                         >
-                                                            Register
+                                                            Register Now
                                                         </button>
                                                     </div>
                                                 </div>
@@ -1370,12 +1430,87 @@ export const Events: React.FC = () => {
 
 
                                                 {/* Coming Soon - Registration temporarily disabled */}
-                                                <button
-                                                    disabled
-                                                    className="flex-1 md:flex-none px-8 py-4 bg-gray-700 text-gray-400 font-bold text-lg rounded-xl flex items-center justify-center gap-2 cursor-not-allowed"
-                                                >
-                                                    Registration Coming Soon
-                                                </button>
+                                                {/* Registration Button */}
+                                                {/* Registration Section with Inline Feedback */}
+                                                <div className="flex-1 md:flex-none relative flex flex-col items-center">
+
+                                                    {/* Popup Feedback Message */}
+                                                    <AnimatePresence>
+                                                        {feedbackMessage && (
+                                                            <motion.div
+                                                                initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                                exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                                                                className={`absolute bottom-full mb-4 px-6 py-3 rounded-xl border backdrop-blur-md shadow-2xl z-50 w-max max-w-[320px] text-center
+                                                                    ${feedbackMessage.type === 'success' ? 'bg-green-500/10 border-green-500/30 text-green-300' :
+                                                                        feedbackMessage.type === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-300' :
+                                                                            'bg-blue-500/10 border-blue-500/30 text-blue-300'}`}
+                                                            >
+                                                                <div className="font-bold text-sm leading-relaxed">
+                                                                    {feedbackMessage.text}
+                                                                </div>
+                                                                {/* Arrow */}
+                                                                <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-3 h-3 border-r border-b 
+                                                                    ${feedbackMessage.type === 'success' ? 'bg-[#0a0514] border-green-500/30' :
+                                                                        feedbackMessage.type === 'error' ? 'bg-[#0a0514] border-red-500/30' :
+                                                                            'bg-[#0a0514] border-blue-500/30'}`}
+                                                                />
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
+
+                                                    <button
+                                                        onClick={() => {
+                                                            if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id)) return;
+                                                            handleRegister(selectedEvent.id);
+                                                        }}
+                                                        disabled={
+                                                            registering === selectedEvent.id ||
+                                                            isRegistered(selectedEvent.id) ||
+                                                            closedEvents.has(selectedEvent.id) ||
+                                                            inviteOnlyEvents.has(selectedEvent.id) ||
+                                                            noRegistrationEvents.has(selectedEvent.id)
+                                                        }
+                                                        className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300
+                                                            ${(isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id]) // Only show green if registered internally, external links always clickable unless explicitly closed
+                                                                ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
+                                                                : (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id))
+                                                                    ? 'bg-gray-800 text-gray-400 border border-gray-700 cursor-not-allowed opacity-70'
+                                                                    : 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
+                                                            } ${registering === selectedEvent.id ? 'opacity-80 cursor-wait' : ''}`}
+                                                    >
+                                                        {registering === selectedEvent.id ? (
+                                                            <>
+                                                                <Loader2 className="animate-spin text-purple-600" size={22} />
+                                                                <span className="text-gray-600">Registering...</span>
+                                                            </>
+                                                        ) : isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id] ? (
+                                                            <>
+                                                                <CheckCircle size={22} />
+                                                                Registered
+                                                            </>
+                                                        ) : closedEvents.has(selectedEvent.id) ? (
+                                                            <span className="relative text-center w-full">Registration Closed</span>
+                                                        ) : inviteOnlyEvents.has(selectedEvent.id) ? (
+                                                            <span className="relative text-center w-full">Invite Only</span>
+                                                        ) : noRegistrationEvents.has(selectedEvent.id) ? (
+                                                            <span className="relative text-center w-full">No Registration Required</span>
+                                                        ) : (
+                                                            <>
+                                                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                                <span className="relative text-center w-full">
+                                                                    {unstopEvents[selectedEvent.id] ? 'Register Now' : 'Register Now'}
+                                                                </span>
+                                                            </>
+                                                        )}
+                                                    </button>
+                                                    {/* IITD Only Warning */}
+                                                    {iitdOnlyEvents.has(selectedEvent.id) && (
+                                                        <p className="text-red-400 text-sm mt-3 font-semibold text-center">
+                                                            * Only for IIT Delhi Students
+                                                        </p>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

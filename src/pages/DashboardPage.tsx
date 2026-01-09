@@ -46,98 +46,110 @@ const EVENT_DATES: Record<string, string> = {
     'keynotes-panels': 'Jan 30 - Feb 1, 2026',
 };
 
+import { createPortal } from 'react-dom';
+
 // ID Card Popup Component
 const IDCardModal: React.FC<{
     isOpen: boolean;
     onClose: () => void;
     user: UserProfile;
-}> = ({ isOpen, onClose, user }) => (
-    <AnimatePresence>
-        {isOpen && (
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
-                style={{ minHeight: '100dvh' }}
-                onClick={onClose}
-            >
-                <motion.div
-                    initial={{ scale: 0.8, opacity: 0, rotateY: -15 }}
-                    animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-                    exit={{ scale: 0.8, opacity: 0 }}
-                    transition={{ type: 'spring', damping: 20 }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="relative w-full max-w-md"
-                    style={{ perspective: '1000px' }}
-                >
-                    {/* Card Glow */}
-                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 rounded-3xl blur-xl opacity-60" />
+}> = ({ isOpen, onClose, user }) => {
+    if (typeof document === 'undefined') return null;
 
-                    {/* ID Card */}
-                    <div className="relative bg-gradient-to-br from-[#1a0a2e] to-[#0a0a1a] rounded-3xl overflow-hidden border-2 border-purple-500/50">
-                        {/* Header Banner */}
-                        <div className="h-24 bg-gradient-to-r from-purple-600 to-blue-600 relative">
-                            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '16px 16px' }} />
-                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-28 h-28 rounded-full border-4 border-[#1a0a2e] overflow-hidden bg-gradient-to-br from-purple-500 to-blue-500">
-                                {user.avatar ? (
-                                    <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-white">
-                                        {user.name.charAt(0)}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Card Content */}
-                        <div className="pt-16 pb-8 px-6 text-center">
-                            <h2 className="text-2xl font-bold text-white mb-1">{user.name}</h2>
-                            <p className="text-gray-400 text-sm mb-4">{user.college} • {user.year}</p>
-
-                            {/* BECon ID */}
-                            <div className="bg-white/5 rounded-xl p-4 mb-4 border border-white/10">
-                                <p className="text-xs text-purple-400 uppercase tracking-wider mb-1">BECon ID</p>
-                                <h3 className="text-xl font-mono font-bold tracking-wider text-white">{user.becId}</h3>
-                            </div>
-
-                            {/* QR Code */}
-                            <div className="bg-white rounded-xl p-4 w-32 h-32 mx-auto mb-4">
-                                <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMSAyMSI+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTAgMGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSAxaDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDJoM3YzSDJ6TTAgOGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSA5aDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDEwaDN2M0gyem0xMi04aDd2N2gtN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTUgMWg1djVoLTV6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2IDJoM3YzaC0zek04IDBoMXYxSDh6bTIgMGgxdjFoLTF6bTIgMGgydjJoLTF2MWgtMVYxaDF6bS0yIDJoMXYxaC0xem0tMiAxaDF2MUg4em0yIDBoMXYxaC0xem0yIDFoMXYxaC0xek04IDRoMnYxSDh6bTQgMGgxdjJoLTF6bTEgMWgxdjFoLTF6TTggNmgydjJIOHptMyAwaDF2MWgtMXptMCAxdjFoMVY3aC0xem0yIDBoMXYxaC0xem0tNyAyaDJ2MUg2em0zIDBoMXYxSDl6bTIgMGgxdjFoLTF6bTIgMWgxdjFoLTF6bTEtMWgxdjFoLTF6bTIgMGgxdjFoLTF6bTEgMGgxdjFoLTF6TTggMTBoMXYxSDh6bTIgMGgxdjFoLTF6bTQgMGgxdjFoLTF6TTggMTJoMXYxSDh6bTIgMGgxdjFoLTF6bS00IDFoMXYxSDZ6bTQgMGgxdjFoLTF6bTIgMGgydjFoLTJ6bTQtNWgxdjFoLTF6bTEgMGgxdjFoLTF6bS0yIDJoMnYxaC0xdjFoLTF6bTMgMGgxdjJoLTF6bS0xIDNoMXYxaC0xeiIvPjwvc3ZnPg==')] bg-contain bg-center bg-no-repeat" />
-                            </div>
-
-                            {/* Contact Info */}
-                            <div className="text-sm text-gray-400 space-y-2">
-                                <div className="flex items-center justify-center gap-2">
-                                    <Mail size={14} />
-                                    <span>{user.email}</span>
-                                </div>
-                                <div className="flex items-center justify-center gap-2">
-                                    <Phone size={14} />
-                                    <span>{user.phone}</span>
-                                </div>
-                            </div>
-
-                            {/* Footer */}
-                            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-2">
-                                <Sparkles size={16} className="text-purple-400" />
-                                <span className="text-sm text-gray-400">BECon 2026 • IIT Delhi</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Close Button */}
-                    <button
+    return createPortal(
+        <AnimatePresence>
+            {isOpen && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
-                    >
-                        <X size={20} className="text-white" />
-                    </button>
-                </motion.div>
-            </motion.div>
-        )}
-    </AnimatePresence>
-);
+                        className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm"
+                    />
+
+                    {/* Modal Container */}
+                    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none">
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0, rotateY: -15 }}
+                            animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            transition={{ type: 'spring', damping: 20 }}
+                            className="relative w-full max-w-md pointer-events-auto"
+                            style={{ perspective: '1000px' }}
+                        >
+                            {/* Card Glow */}
+                            <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 rounded-3xl blur-xl opacity-60" />
+
+                            {/* ID Card */}
+                            <div className="relative bg-[#0f0518] rounded-3xl overflow-hidden border-2 border-purple-500/50 shadow-2xl">
+                                {/* Header Banner */}
+                                <div className="h-24 bg-[#1a0b2e] relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-blue-900 opacity-100" />
+                                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '16px 16px' }} />
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-28 h-28 rounded-full border-4 border-[#0f0518] overflow-hidden bg-[#1a0b2e]">
+                                        {user.avatar ? (
+                                            <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-white bg-purple-900">
+                                                {user.name.charAt(0)}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Card Content */}
+                                <div className="pt-16 pb-8 px-6 text-center bg-[#0f0518]">
+                                    <h2 className="text-2xl font-bold text-white mb-1">{user.name}</h2>
+                                    <p className="text-gray-400 text-sm mb-4">{user.college} • {user.year}</p>
+
+                                    {/* BECon ID */}
+                                    <div className="bg-[#1a0b2e] rounded-xl p-4 mb-4 border border-purple-500/20">
+                                        <p className="text-xs text-purple-400 uppercase tracking-wider mb-1">BECon ID</p>
+                                        <h3 className="text-xl font-mono font-bold tracking-wider text-white">{user.becId}</h3>
+                                    </div>
+
+                                    {/* QR Code */}
+                                    <div className="bg-white rounded-xl p-4 w-32 h-32 mx-auto mb-4">
+                                        <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMSAyMSI+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTAgMGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSAxaDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDJoM3YzSDJ6TTAgOGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSA5aDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDEwaDN2M0gyem0xMi04aDd2N2gtN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTUgMWg1djVoLTV6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2IDJoM3YzaC0zek04IDBoMXYxSDh6bTIgMGgxdjFoLTF6bTIgMGgydjJoLTF2MWgtMVYxaDF6bS0yIDJoMXYxaC0xem0tMiAxaDF2MUg4em0yIDBoMXYxaC0xem0yIDFoMXYxaC0xek04IDRoMnYxSDh6bTQgMGgxdjJoLTF6bTEgMWgxdjFoLTF6TTggNmgydjJIOHptMyAwaDF2MWgtMXptMCAxdjFoMVY3aC0xem0yIDBoMXYxaC0xem0tNyAyaDJ2MUg2em0zIDBoMXYxSDl6bTIgMGgxdjFoLTF6bTIgMWgxdjFoLTF6bTEtMWgxdjFoLTF6bTIgMGgxdjFoLTF6bTEgMGgxdjFoLTF6TTggMTBoMXYxSDh6bTIgMGgxdjFoLTF6bTQgMGgxdjFoLTF6TTggMTJoMXYxSDh6bTIgMGgxdjFoLTF6bS00IDFoMXYxSDZ6bTQgMGgxdjFoLTF6bTIgMGgydjFoLTJ6bTQtNWgxdjFoLTF6bTEgMGgxdjFoLTF6bS0yIDJoMnYxaC0xdjFoLTF6bTMgMGgxdjJoLTF6bS0xIDNoMXYxaC0xeiIvPjwvc3ZnPg==')] bg-contain bg-center bg-no-repeat" />
+                                    </div>
+
+                                    {/* Contact Info */}
+                                    <div className="text-sm text-gray-400 space-y-2">
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Mail size={14} />
+                                            <span>{user.email}</span>
+                                        </div>
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Phone size={14} />
+                                            <span>{user.phone}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Footer */}
+                                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-2">
+                                        <Sparkles size={16} className="text-purple-400" />
+                                        <span className="text-sm text-gray-400">BECon 2026 • IIT Delhi</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Close Button */}
+                            <button
+                                onClick={onClose}
+                                className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                            >
+                                <X size={20} className="text-white" />
+                            </button>
+                        </motion.div>
+                    </div>
+                </>
+            )}
+        </AnimatePresence>,
+        document.body
+    );
+};
 
 interface UserProfile {
     id: string;
@@ -208,6 +220,7 @@ const PASS_CONFIG = {
     silver: {
         name: 'Silver Pass',
         price: 0,
+        originalPrice: 99,
         color: 'text-gray-300',
         bgGradient: 'from-gray-600 to-gray-800',
         borderColor: 'border-gray-400/50',
@@ -216,6 +229,7 @@ const PASS_CONFIG = {
     gold: {
         name: 'Gold Pass',
         price: 199,
+        originalPrice: 499,
         color: 'text-yellow-400',
         bgGradient: 'from-yellow-600 to-yellow-800',
         borderColor: 'border-yellow-500/50',
@@ -224,6 +238,7 @@ const PASS_CONFIG = {
     platinum: {
         name: 'Platinum Pass',
         price: 399,
+        originalPrice: 999,
         color: 'text-cyan-400',
         bgGradient: 'from-cyan-600 to-purple-800',
         borderColor: 'border-cyan-500/50',
@@ -374,22 +389,26 @@ const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
                 ) : (
                     /* No Pass - Coming Soon */
                     <div className="py-4">
-                        <p className="text-gray-400 text-center mb-6">Pass registration coming soon!</p>
+                        <p className="text-gray-400 text-center mb-6">Choose your pass to get started</p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {Object.entries(PASS_CONFIG).map(([type, config]) => (
-                                <div
+                                <button
                                     key={type}
-                                    className={`p-6 rounded-2xl bg-gradient-to-br ${config.bgGradient}/40 border-2 ${config.borderColor}/50 text-center opacity-80`}
+                                    onClick={() => navigate(`/checkout?pass=${type}`)}
+                                    className={`p-6 rounded-2xl bg-gradient-to-br ${config.bgGradient}/40 border-2 ${config.borderColor}/50 text-center hover:scale-[1.02] transition-transform`}
                                 >
-                                    <img src={config.image} alt={config.name} className="w-24 h-24 mx-auto mb-4 object-contain grayscale-[30%]" />
+                                    <img src={config.image} alt={config.name} className="w-24 h-24 mx-auto mb-4 object-contain" />
                                     <h4 className={`font-bold text-xl ${config.color}`}>{config.name}</h4>
-                                    <p className="text-white/80 text-lg font-semibold mt-2">
-                                        {config.price === 0 ? 'FREE' : `₹${config.price}`}
-                                    </p>
-                                    <div className="mt-4 py-2 px-4 rounded-lg bg-white/5 text-gray-400 text-sm font-medium">
-                                        Coming Soon
+                                    <div className="mt-2 flex items-center justify-center gap-2">
+                                        <span className="text-gray-400 line-through text-sm">₹{config.originalPrice}</span>
+                                        <span className="text-white text-lg font-bold">
+                                            {config.price === 0 ? 'FREE' : `₹${config.price}`}
+                                        </span>
                                     </div>
-                                </div>
+                                    <div className="mt-4 py-2 px-4 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors">
+                                        Get Pass
+                                    </div>
+                                </button>
                             ))}
                         </div>
                     </div>
