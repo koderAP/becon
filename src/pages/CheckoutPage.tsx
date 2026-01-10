@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Check, Loader2, CreditCard, Sparkles } from 'lucide-react';
+import { ArrowLeft, Shield, Check, Loader2, CreditCard, Ticket } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { toast } from 'sonner';
@@ -65,6 +65,11 @@ export const CheckoutPage: React.FC = () => {
     const [currentPass, setCurrentPass] = useState<string | null>(null);
     const [razorpayLoaded, setRazorpayLoaded] = useState(false);
 
+    // Invite Code State
+    const [inviteCode, setInviteCode] = useState('');
+    const [isInviteOpen, setIsInviteOpen] = useState(false);
+    const [redeemLoading, setRedeemLoading] = useState(false);
+
     const passConfig = PASS_CONFIG[passType] || PASS_CONFIG.gold;
 
     // Calculate price (differential for upgrades)
@@ -84,7 +89,7 @@ export const CheckoutPage: React.FC = () => {
     useEffect(() => {
         if (!authLoading && !user) {
             // Store intended destination
-            sessionStorage.setItem('postLoginRedirect', `/checkout?pass=${passType}${isUpgrade ? '&upgrade=true' : ''}`);
+            sessionStorage.setItem('postLoginRedirect', `/ checkout ? pass = ${passType}${isUpgrade ? '&upgrade=true' : ''} `);
             navigate('/login');
         }
     }, [user, authLoading, navigate, passType, isUpgrade]);
@@ -137,6 +142,39 @@ export const CheckoutPage: React.FC = () => {
             document.body.removeChild(script);
         };
     }, []);
+
+    // Handle Invite Code Redemption
+    const handleRedeem = async () => {
+        if (!user || !inviteCode.trim()) return;
+
+        setRedeemLoading(true);
+        try {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const response = await fetch(`${API_URL}/api/payments/redeem-invite`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: user.id,
+                    code: inviteCode.trim()
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to redeem code');
+            }
+
+            toast.success(data.message);
+            // Redirect to dashboard
+            navigate('/dashboard');
+
+        } catch (err: any) {
+            toast.error(err.message);
+        } finally {
+            setRedeemLoading(false);
+        }
+    };
 
     // Handle Silver (FREE) pass
     const handleFreeClaim = async () => {
@@ -194,7 +232,7 @@ export const CheckoutPage: React.FC = () => {
                 amount: amount,
                 currency: currency,
                 name: 'BECon 2026',
-                description: `${passConfig.name} ${isUpgrade ? '(Upgrade)' : ''}`,
+                description: `${passConfig.name} ${isUpgrade ? '(Upgrade)' : ''} `,
                 image: 'https://becon-2026.web.app/logo1.avif',
                 order_id: orderId,
                 handler: async function (response: any) {
@@ -294,8 +332,47 @@ export const CheckoutPage: React.FC = () => {
                         )}
                     </div>
 
+
+
+
                     {/* Price Section */}
                     <div className="p-8 border-b border-white/10">
+                        {/* Invite Code Section */}
+                        {finalPrice > 0 && (
+                            <div className="mb-6">
+                                <button
+                                    onClick={() => setIsInviteOpen(!isInviteOpen)}
+                                    className="text-sm text-purple-400/80 hover:text-purple-300 transition-colors font-medium flex items-center gap-2 group"
+                                >
+                                    <Ticket size={14} className="group-hover:rotate-12 transition-transform" />
+                                    Have an invite code?
+                                </button>
+
+                                {isInviteOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        className="mt-3 flex gap-2"
+                                    >
+                                        <input
+                                            type="text"
+                                            value={inviteCode}
+                                            onChange={(e) => setInviteCode(e.target.value)}
+                                            placeholder="Enter pass code"
+                                            className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500/50 transition-all placeholder:text-gray-600"
+                                        />
+                                        <button
+                                            onClick={handleRedeem}
+                                            disabled={redeemLoading || !inviteCode.trim()}
+                                            className="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                                        >
+                                            {redeemLoading ? <Loader2 size={16} className="animate-spin" /> : 'Apply'}
+                                        </button>
+                                    </motion.div>
+                                )}
+                            </div>
+                        )}
+
                         <div className="flex items-center justify-between">
                             <span className="text-gray-400">
                                 {isUpgrade ? 'Upgrade Price' : 'Price'}

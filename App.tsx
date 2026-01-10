@@ -26,6 +26,7 @@ const AdminDashboard = lazy(() => import('./src/pages/AdminDashboard'));
 const AdminFormsPage = lazy(() => import('./src/pages/AdminFormsPage'));
 const AdminFormEditorPage = lazy(() => import('./src/pages/AdminFormEditorPage'));
 const PublicFormPage = lazy(() => import('./src/pages/PublicFormPage'));
+const InviteAdminPage = lazy(() => import('./src/pages/InviteAdminPage'));
 
 // Loading component
 const PageLoader = () => (
@@ -69,6 +70,7 @@ const AnimatedRoutes: React.FC = () => {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/forms" element={<AdminFormsPage />} />
             <Route path="/admin/forms/:id" element={<AdminFormEditorPage />} />
+            <Route path="/admin/invites" element={<InviteAdminPage />} />
             {/* Public Form Routes */}
             <Route path="/forms/:id" element={<PublicFormPage />} />
           </Routes>
