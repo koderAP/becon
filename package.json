@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.23.26",
+    "jsqr": "^1.4.0",
     "lucide-react": "^0.562.0",
     "ogl": "^1.0.11",
     "postprocessing": "^6.38.2",

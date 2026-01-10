@@ -122,15 +122,16 @@ const IDCardModal: React.FC<{
                                                 size={256}
                                                 style={{ height: "100%", maxWidth: "100%", width: "100%" }}
                                                 viewBox={`0 0 256 256`}
-                                                fgColor="#1a0a2e"
+                                                fgColor="#000000"
+                                                level="H"
                                             />
-                                            {/* BECon Logo Overlay */}
+                                            {/* BECon Logo Overlay - smaller for better scanning */}
                                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm border border-purple-100">
+                                                <div className="w-7 h-7 bg-white rounded flex items-center justify-center shadow-sm">
                                                     <img
                                                         src="/logo_qr.avif"
                                                         alt="BECon"
-                                                        className="w-7 h-7 object-contain"
+                                                        className="w-5 h-5 object-contain"
                                                     />
                                                 </div>
                                             </div>
