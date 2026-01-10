@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Check, Loader2, CreditCard, Ticket } from 'lucide-react';
+import { ArrowLeft, Shield, Check, Loader2, CreditCard, Ticket, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { toast } from 'sonner';

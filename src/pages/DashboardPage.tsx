@@ -4,6 +4,7 @@ import {
     User, Mail, Phone, Building, Calendar, Edit2, Save, X, Ticket, Trophy,
     QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera, Loader2, Fingerprint
 } from 'lucide-react';
+import QRCode from 'react-qr-code';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
@@ -110,10 +111,32 @@ const IDCardModal: React.FC<{
                                         <h3 className="text-xl font-mono font-bold tracking-wider text-white">{user.becId}</h3>
                                     </div>
 
-                                    {/* QR Code */}
-                                    <div className="bg-white rounded-xl p-4 w-32 h-32 mx-auto mb-4">
-                                        <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMSAyMSI+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTAgMGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSAxaDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDJoM3YzSDJ6TTAgOGg3djdIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMSA5aDV2NUgxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0yIDEwaDN2M0gyem0xMi04aDd2N2gtN3oiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTUgMWg1djVoLTV6Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTE2IDJoM3YzaC0zek04IDBoMXYxSDh6bTIgMGgxdjFoLTF6bTIgMGgydjJoLTF2MWgtMVYxaDF6bS0yIDJoMXYxaC0xem0tMiAxaDF2MUg4em0yIDBoMXYxaC0xem0yIDFoMXYxaC0xek04IDRoMnYxSDh6bTQgMGgxdjJoLTF6bTEgMWgxdjFoLTF6TTggNmgydjJIOHptMyAwaDF2MWgtMXptMCAxdjFoMVY3aC0xem0yIDBoMXYxaC0xem0tNyAyaDJ2MUg2em0zIDBoMXYxSDl6bTIgMGgxdjFoLTF6bTIgMWgxdjFoLTF6bTEtMWgxdjFoLTF6bTIgMGgxdjFoLTF6bTEgMGgxdjFoLTF6TTggMTBoMXYxSDh6bTIgMGgxdjFoLTF6bTQgMGgxdjFoLTF6TTggMTJoMXYxSDh6bTIgMGgxdjFoLTF6bS00IDFoMXYxSDZ6bTQgMGgxdjFoLTF6bTIgMGgydjFoLTJ6bTQtNWgxdjFoLTF6bTEgMGgxdjFoLTF6bS0yIDJoMnYxaC0xdjFoLTF6bTMgMGgxdjJoLTF6bS0xIDNoMXYxaC0xeiIvPjwvc3ZnPg==')] bg-contain bg-center bg-no-repeat" />
+                                    {/* Branded QR Code */}
+                                    <div className="relative w-40 h-40 mx-auto mb-4">
+                                        {/* Gradient border */}
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur-sm opacity-75" />
+                                        {/* QR Container */}
+                                        <div className="relative bg-white rounded-xl p-3 w-full h-full flex items-center justify-center">
+                                            <QRCode
+                                                value={user.id}
+                                                size={256}
+                                                style={{ height: "100%", maxWidth: "100%", width: "100%" }}
+                                                viewBox={`0 0 256 256`}
+                                                fgColor="#1a0a2e"
+                                            />
+                                            {/* BECon Logo Overlay */}
+                                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm border border-purple-100">
+                                                    <img
+                                                        src="/logo_qr.avif"
+                                                        alt="BECon"
+                                                        className="w-7 h-7 object-contain"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <p className="text-xs text-purple-400/60 mb-2">Scan to verify entry</p>
 
                                     {/* Contact Info */}
                                     <div className="text-sm text-gray-400 space-y-2">
