@@ -9,7 +9,7 @@ export const FloatingRegisterButton: React.FC = () => {
     // Show button only after scrolling down a bit (past hero)
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 500) {
+            if (window.scrollY > 100) {
                 setIsVisible(true);
             } else {
                 setIsVisible(false);
@@ -17,6 +17,9 @@ export const FloatingRegisterButton: React.FC = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
+        // Check initial scroll position
+        handleScroll();
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -39,7 +42,7 @@ export const FloatingRegisterButton: React.FC = () => {
                     onClick={scrollToTickets}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
-                    className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-[0_0_20px_rgba(124,58,237,0.5)] border border-white/20 backdrop-blur-md group"
+                    className="fixed bottom-6 right-6 z-[90] flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-[0_0_20px_rgba(124,58,237,0.5)] border border-white/20 backdrop-blur-md group"
                 >
                     <Ticket className="w-6 h-6" />
 
