@@ -20,6 +20,8 @@ const SignupPage = lazy(() => import('./src/pages/SignupPage').then(module => ({
 const PronoteSignupPage = lazy(() => import('./src/pages/PronoteSignupPage').then(module => ({ default: module.PronoteSignupPage })));
 const DashboardPage = lazy(() => import('./src/pages/DashboardPage').then(module => ({ default: module.DashboardPage })));
 const CheckoutPage = lazy(() => import('./src/pages/CheckoutPage').then(module => ({ default: module.CheckoutPage })));
+const PrivacyPolicyPage = lazy(() => import('./src/pages/PrivacyPolicyPage').then(module => ({ default: module.PrivacyPolicyPage })));
+const RefundPolicyPage = lazy(() => import('./src/pages/RefundPolicyPage').then(module => ({ default: module.RefundPolicyPage })));
 
 // Default exports
 const AdminLogin = lazy(() => import('./src/pages/AdminLogin'));
@@ -66,6 +68,8 @@ const AnimatedRoutes: React.FC = () => {
             <Route path="/pronote/register" element={<PronoteSignupPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/refund-policy" element={<RefundPolicyPage />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />

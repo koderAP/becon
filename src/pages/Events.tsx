@@ -888,7 +888,8 @@ export const Events: React.FC = () => {
     const iitdOnlyEvents = new Set(['grand-moonshot']);
 
     // Auto-open event modal if ?event= query param is present
-    const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null);
+    // Auto-open event modal if ?event= query param is present
+    const [feedbackMessage, setFeedbackMessage] = useState<{ eventId?: string; type: 'success' | 'error' | 'info'; text: string } | null>(null);
 
     // Auto-open event modal if ?event= query param is present
     const handleRegister = async (eventId: string) => {
@@ -897,11 +898,12 @@ export const Events: React.FC = () => {
         if (unstopEvents[eventId]) {
             window.open(unstopEvents[eventId], '_blank');
             await markAsRegistered(eventId);
-            setFeedbackMessage({ type: 'success', text: 'Opened in new tab!' });
+            setFeedbackMessage({ eventId, type: 'success', text: 'Opened in new tab!' });
         } else {
             const result = await registerForEvent(eventId, { silent: true });
             if (result && typeof result === 'object') {
                 setFeedbackMessage({
+                    eventId,
                     type: result.success ? 'success' : result.type === 'already_registered' ? 'info' : 'error',
                     text: result.message || 'Something went wrong'
                 });
@@ -1207,60 +1209,61 @@ export const Events: React.FC = () => {
                     </span>
                 </motion.div>
 
-                {/* Mobile Filter Tabs - Horizontal scroll */}
-                <div className="md:hidden sticky top-20 z-40 bg-black/90 backdrop-blur-md py-3 px-4 -mx-4 mb-8">
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {/* Filter Tabs - Horizontal scroll */}
+                <div className="sticky top-20 z-40 bg-[#05020a]/90 backdrop-blur-md py-3 -mx-4 px-4 mb-8 md:static md:bg-transparent md:backdrop-blur-none md:p-0 md:m-0 md:mb-12">
+                    <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide md:pb-0">
                         <button
                             onClick={() => setActiveFilter(null)}
-                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === null
-                                ? 'bg-white text-black'
-                                : 'bg-white/10 text-white hover:bg-white/20'
+                            className={`shrink-0 px-8 py-3 rounded-full text-base font-bold transition-all border ${activeFilter === null
+                                ? 'bg-white text-black border-white'
+                                : 'bg-white/5 text-white border-white/10 hover:bg-white/10 hover:border-white/20'
                                 }`}
                         >
-                            All
+                            All Events
                         </button>
                         <button
                             onClick={() => setActiveFilter('strategy')}
-                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'strategy'
-                                ? 'bg-yellow-500 text-black'
-                                : 'bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/40'
+                            className={`shrink-0 px-8 py-3 rounded-full text-base font-bold transition-all border ${activeFilter === 'strategy'
+                                ? 'bg-yellow-500 text-black border-yellow-500'
+                                : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20 hover:bg-yellow-500/20'
                                 }`}
                         >
-                            Strategy
+                            Strategy Competitions
                         </button>
                         <button
                             onClick={() => setActiveFilter('main')}
-                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'main'
-                                ? 'bg-purple-500 text-white'
-                                : 'bg-purple-500/20 text-purple-400 hover:bg-purple-500/40'
+                            className={`shrink-0 px-8 py-3 rounded-full text-base font-bold transition-all border ${activeFilter === 'main'
+                                ? 'bg-purple-500 text-white border-purple-500'
+                                : 'bg-purple-500/10 text-purple-400 border-purple-500/20 hover:bg-purple-500/20'
                                 }`}
                         >
-                            Main
+                            Main Events
                         </button>
                         <button
                             onClick={() => setActiveFilter('showcase')}
-                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'showcase'
-                                ? 'bg-cyan-500 text-black'
-                                : 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/40'
+                            className={`shrink-0 px-8 py-3 rounded-full text-base font-bold transition-all border ${activeFilter === 'showcase'
+                                ? 'bg-cyan-500 text-black border-cyan-500'
+                                : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20 hover:bg-cyan-500/20'
                                 }`}
                         >
-                            Showcase
+                            Showcase & Exhibitions
                         </button>
                         <button
                             onClick={() => setActiveFilter('sessions')}
-                            className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all ${activeFilter === 'sessions'
-                                ? 'bg-pink-500 text-white'
-                                : 'bg-pink-500/20 text-pink-400 hover:bg-pink-500/40'
+                            className={`shrink-0 px-8 py-3 rounded-full text-base font-bold transition-all border ${activeFilter === 'sessions'
+                                ? 'bg-pink-500 text-white border-pink-500'
+                                : 'bg-pink-500/10 text-pink-400 border-pink-500/20 hover:bg-pink-500/20'
                                 }`}
                         >
-                            Sessions
+                            Sessions & Workshops
                         </button>
                     </div>
                 </div>
 
+
                 {/* Events Grid */}
                 {/* Events List - Alternating Layout */}
-                <div className="space-y-24">
+                <div className="space-y-4">
                     {isLoading ? (
                         Array.from({ length: 4 }).map((_, i) => (
                             <SkeletonMainCard key={i} />
@@ -1271,399 +1274,370 @@ export const Events: React.FC = () => {
                             .map((event, i) => (
                                 <motion.div
                                     key={event.id}
-                                    initial={{ opacity: 0, y: 40 }}
+                                    initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    transition={{ duration: 0.4, delay: i * 0.05 }}
-                                    onClick={() => setSelectedEvent(event)}
-                                    className={`cursor-pointer group flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-5xl mx-auto ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                                    onClick={() => {
+                                        if (event.category === 'workshop' || event.eventType === 'sessions') return;
+                                        setSelectedEvent(event);
+                                    }}
+                                    className={`${event.category === 'workshop' || event.eventType === 'sessions' ? 'cursor-default' : 'cursor-pointer'} group relative bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6`}
+
                                 >
-                                    {/* Content Section */}
-                                    <div className="flex-1 space-y-6 text-left">
-
-
-                                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none">
+                                    <div className="space-y-3 flex-1">
+                                        <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-purple-400 transition-colors">
                                             {event.title}
                                         </h3>
-
-                                        <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                            {event.description.length > 150
-                                                ? `${event.description.substring(0, 150)}...`
-                                                : event.description}
+                                        <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-3xl line-clamp-2">
+                                            {event.description}
                                         </p>
-
-
-
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setSelectedEvent(event);
-                                            }}
-                                            className="group inline-flex items-center gap-2 text-white font-semibold text-lg hover:text-purple-400 transition-colors pt-4"
-                                        >
-                                            Know More
-                                            <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                                        </button>
                                     </div>
 
-                                    {/* Image Section */}
-                                    <div className="w-full md:w-[320px] aspect-square relative rounded-3xl overflow-hidden shrink-0 group">
-                                        <div className="absolute inset-0 bg-white/5 animate-pulse"></div>
-                                        <img
-                                            src={event.image}
-                                            alt={event.title}
-                                            loading="lazy"
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                        {/* Subtle overlay */}
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                                    <div className="shrink-0 relative flex flex-col items-center">
+                                        {/* Feedback Message Bubble for List Item */}
+                                        <AnimatePresence>
+                                            {feedbackMessage && feedbackMessage.eventId === event.id && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                                                    className={`absolute bottom-full mb-4 px-4 py-2 rounded-lg border backdrop-blur-md shadow-xl z-50 w-max max-w-[200px] text-center
+                                                    ${feedbackMessage.type === 'success' ? 'bg-green-500/10 border-green-500/30 text-green-300' :
+                                                            feedbackMessage.type === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-300' :
+                                                                'bg-blue-500/10 border-blue-500/30 text-blue-300'}`}
+                                                >
+                                                    <div className="font-bold text-xs leading-relaxed">
+                                                        {feedbackMessage.text}
+                                                    </div>
+                                                    {/* Arrow */}
+                                                    <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 border-r border-b 
+                                                    ${feedbackMessage.type === 'success' ? 'bg-[#0a0514] border-green-500/30' :
+                                                            feedbackMessage.type === 'error' ? 'bg-[#0a0514] border-red-500/30' :
+                                                                'bg-[#0a0514] border-blue-500/30'}`}
+                                                    />
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
+                                        {(event.category === 'workshop' || event.eventType === 'sessions') ? (
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    if (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || noRegistrationEvents.has(event.id)) return;
+                                                    handleRegister(event.id);
+                                                }}
+                                                disabled={
+                                                    registering === event.id ||
+                                                    isRegistered(event.id) ||
+                                                    closedEvents.has(event.id) ||
+                                                    inviteOnlyEvents.has(event.id) ||
+                                                    noRegistrationEvents.has(event.id)
+                                                }
+                                                className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
+                                                ${(isRegistered(event.id) && !unstopEvents[event.id])
+                                                        ? 'bg-green-500/10 text-green-400 border-green-500/20 cursor-default hover:bg-green-500/10'
+                                                        : (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || noRegistrationEvents.has(event.id))
+                                                            ? 'bg-gray-800 text-gray-400 border-gray-700 cursor-not-allowed opacity-70'
+                                                            : 'bg-white text-black border-white hover:bg-gray-200 hover:border-gray-200 hover:scale-105'
+                                                    } ${registering === event.id ? 'opacity-80 cursor-wait' : ''}`}
+                                            >
+                                                {registering === event.id ? (
+                                                    <>
+                                                        <Loader2 className="animate-spin" size={16} />
+                                                        <span>Registering...</span>
+                                                    </>
+                                                ) : isRegistered(event.id) && !unstopEvents[event.id] ? (
+                                                    <>
+                                                        <CheckCircle size={16} />
+                                                        <span>Registered</span>
+                                                    </>
+                                                ) : closedEvents.has(event.id) ? (
+                                                    <span>Closed</span>
+                                                ) : inviteOnlyEvents.has(event.id) ? (
+                                                    <span>Invite Only</span>
+                                                ) : noRegistrationEvents.has(event.id) ? (
+                                                    <span>Open Entry</span>
+                                                ) : (
+                                                    <span>Register Now</span>
+                                                )}
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setSelectedEvent(event);
+                                                }}
+                                                className="inline-flex items-center gap-2 text-white font-semibold text-sm md:text-base border border-white/20 px-6 py-2 rounded-full hover:bg-white hover:text-black transition-all group-hover:border-white"
+                                            >
+                                                Know More
+                                                <ArrowRight className="w-4 h-4" />
+                                            </button>
+                                        )}
                                     </div>
                                 </motion.div>
                             )))}
                 </div>
 
-            </div>
+            </div >
 
 
             {/* Event Details Modal - Rendered via Portal */}
-            {createPortal(
-                <AnimatePresence>
-                    {selectedEvent && (
-                        <>
-                            {/* Backdrop */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                onClick={() => setSelectedEvent(null)}
-                                className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md"
-                            />
-
-                            {/* Modal Content - Centered */}
-                            <div className="fixed inset-0 z-[10000] pointer-events-none flex items-center justify-center p-4">
+            {
+                createPortal(
+                    <AnimatePresence>
+                        {selectedEvent && (
+                            <>
+                                {/* Backdrop */}
                                 <motion.div
-                                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="relative w-full max-w-4xl bg-[#0a0514] border border-white/10 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto pointer-events-auto"
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    {/* Close Button */}
-                                    <button
-                                        onClick={() => setSelectedEvent(null)}
-                                        className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    onClick={() => setSelectedEvent(null)}
+                                    className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md"
+                                />
+
+                                {/* Modal Content - Centered */}
+                                <div className="fixed inset-0 z-[10000] pointer-events-none flex items-center justify-center p-4">
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="relative w-full max-w-4xl bg-[#0a0514] border border-white/10 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto pointer-events-auto"
+                                        onClick={(e) => e.stopPropagation()}
                                     >
-                                        <X size={20} />
-                                    </button>
+                                        {/* Close Button */}
+                                        <button
+                                            onClick={() => setSelectedEvent(null)}
+                                            className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                                        >
+                                            <X size={20} />
+                                        </button>
 
-                                    <div className="flex flex-col">
-                                        {/* Image Top */}
-                                        <div className="w-full relative flex-shrink-0 bg-[#05020a]">
-                                            <img
-                                                src={selectedEvent.image}
-                                                alt={selectedEvent.title}
-                                                loading="lazy"
-                                                className="w-full h-auto block"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent" />
+                                        <div className="flex flex-col">
+                                            {/* Image Top */}
+                                            <div className="w-full relative flex-shrink-0 bg-[#05020a]">
+                                                <img
+                                                    src={selectedEvent.image}
+                                                    alt={selectedEvent.title}
+                                                    loading="lazy"
+                                                    className="w-full h-auto block"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0514] via-transparent to-transparent" />
 
-                                            <div className="absolute top-6 left-6">
-                                                <span className="px-4 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-white/90 text-sm font-bold uppercase tracking-wider">
-                                                    {selectedEvent.category}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Content Bottom */}
-                                        <div className="w-full p-8 md:p-12 flex flex-col">
-                                            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                                                {selectedEvent.title}
-                                            </h2>
-
-                                            <div className="space-y-4 mb-8">
-                                                <div className="flex items-center gap-3 text-gray-300">
-                                                    <Calendar className="text-purple-400" />
-                                                    <span className="text-lg">{selectedEvent.date}</span>
-                                                </div>
-                                                <div className="flex items-center gap-3 text-gray-300">
-                                                    <MapPin className="text-blue-400" />
-                                                    <span className="text-lg">{selectedEvent.location}</span>
+                                                <div className="absolute top-6 left-6">
+                                                    <span className="px-4 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-white/90 text-sm font-bold uppercase tracking-wider">
+                                                        {selectedEvent.category}
+                                                    </span>
                                                 </div>
                                             </div>
 
-                                            <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-6">
-                                                <p>{selectedEvent.description}</p>
-                                            </div>
+                                            {/* Content Bottom */}
+                                            <div className="w-full p-8 md:p-12 flex flex-col">
+                                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                                                    {selectedEvent.title}
+                                                </h2>
 
-                                            {selectedEvent.whyJoin && selectedEvent.whyJoin.length > 0 && (
-                                                <div className="mb-10">
-                                                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                                                        <Sparkles size={20} className="text-purple-400" />
-                                                        {selectedEvent.eventType === 'sessions' ? 'Key Themes Covered' :
-                                                            selectedEvent.category === 'workshop' ? "What You'll Learn" :
-                                                                selectedEvent.category === 'competition' ? 'Why Compete?' :
-                                                                    selectedEvent.category === 'hackathon' ? 'Why Participate?' :
-                                                                        selectedEvent.category === 'exhibition' ? 'Highlights' :
-                                                                            'Why Join?'}
-                                                    </h4>
-                                                    <ul className="space-y-3">
-                                                        {selectedEvent.whyJoin.map((reason, index) => (
-                                                            <li key={index} className="flex items-start gap-3 text-gray-300">
-                                                                <div className="w-2 h-2 rounded-full bg-purple-500 mt-2 flex-shrink-0" />
-                                                                <span>{reason}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            )}
-
-                                            <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between gap-4">
-                                                <div className="flex -space-x-3">
-                                                    {[1, 2, 3, 4].map(i => (
-                                                        <div key={i} className="w-10 h-10 rounded-full bg-gray-800 border-2 border-[#0a0514]" />
-                                                    ))}
-                                                    <div className="w-10 h-10 rounded-full bg-purple-900/50 border-2 border-[#0a0514] flex items-center justify-center text-xs font-bold text-purple-300">
-                                                        +42
+                                                <div className="space-y-4 mb-8">
+                                                    <div className="flex items-center gap-3 text-gray-300">
+                                                        <Calendar className="text-purple-400" />
+                                                        <span className="text-lg">{selectedEvent.date}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-3 text-gray-300">
+                                                        <MapPin className="text-blue-400" />
+                                                        <span className="text-lg">{selectedEvent.location}</span>
                                                     </div>
                                                 </div>
 
+                                                <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-6">
+                                                    <p>{selectedEvent.description}</p>
+                                                </div>
 
-                                                {/* Coming Soon - Registration temporarily disabled */}
-                                                {/* Registration Button */}
-                                                {/* Registration Section with Inline Feedback */}
-                                                <div className="flex-1 md:flex-none relative flex flex-col items-center">
+                                                {selectedEvent.whyJoin && selectedEvent.whyJoin.length > 0 && (
+                                                    <div className="mb-10">
+                                                        <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                                            <Sparkles size={20} className="text-purple-400" />
+                                                            {selectedEvent.eventType === 'sessions' ? 'Key Themes Covered' :
+                                                                selectedEvent.category === 'workshop' ? "What You'll Learn" :
+                                                                    selectedEvent.category === 'competition' ? 'Why Compete?' :
+                                                                        selectedEvent.category === 'hackathon' ? 'Why Participate?' :
+                                                                            selectedEvent.category === 'exhibition' ? 'Highlights' :
+                                                                                'Why Join?'}
+                                                        </h4>
+                                                        <ul className="space-y-3">
+                                                            {selectedEvent.whyJoin.map((reason, index) => (
+                                                                <li key={index} className="flex items-start gap-3 text-gray-300">
+                                                                    <div className="w-2 h-2 rounded-full bg-purple-500 mt-2 flex-shrink-0" />
+                                                                    <span>{reason}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
 
-                                                    {/* Popup Feedback Message */}
-                                                    <AnimatePresence>
-                                                        {feedbackMessage && (
-                                                            <motion.div
-                                                                initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                                exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                                                                className={`absolute bottom-full mb-4 px-6 py-3 rounded-xl border backdrop-blur-md shadow-2xl z-50 w-max max-w-[320px] text-center
+                                                <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between gap-4">
+                                                    <div className="flex -space-x-3">
+                                                        {[1, 2, 3, 4].map(i => (
+                                                            <div key={i} className="w-10 h-10 rounded-full bg-gray-800 border-2 border-[#0a0514]" />
+                                                        ))}
+                                                        <div className="w-10 h-10 rounded-full bg-purple-900/50 border-2 border-[#0a0514] flex items-center justify-center text-xs font-bold text-purple-300">
+                                                            +42
+                                                        </div>
+                                                    </div>
+
+
+                                                    {/* Coming Soon - Registration temporarily disabled */}
+                                                    {/* Registration Button */}
+                                                    {/* Registration Section with Inline Feedback */}
+                                                    <div className="flex-1 md:flex-none relative flex flex-col items-center">
+
+                                                        {/* Popup Feedback Message */}
+                                                        <AnimatePresence>
+                                                            {feedbackMessage && (
+                                                                <motion.div
+                                                                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                                    exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                                                                    className={`absolute bottom-full mb-4 px-6 py-3 rounded-xl border backdrop-blur-md shadow-2xl z-50 w-max max-w-[320px] text-center
                                                                     ${feedbackMessage.type === 'success' ? 'bg-green-500/10 border-green-500/30 text-green-300' :
-                                                                        feedbackMessage.type === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-300' :
-                                                                            'bg-blue-500/10 border-blue-500/30 text-blue-300'}`}
-                                                            >
-                                                                <div className="font-bold text-sm leading-relaxed">
-                                                                    {feedbackMessage.text}
-                                                                </div>
-                                                                {/* Arrow */}
-                                                                <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-3 h-3 border-r border-b 
+                                                                            feedbackMessage.type === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-300' :
+                                                                                'bg-blue-500/10 border-blue-500/30 text-blue-300'}`}
+                                                                >
+                                                                    <div className="font-bold text-sm leading-relaxed">
+                                                                        {feedbackMessage.text}
+                                                                    </div>
+                                                                    {/* Arrow */}
+                                                                    <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-3 h-3 border-r border-b 
                                                                     ${feedbackMessage.type === 'success' ? 'bg-[#0a0514] border-green-500/30' :
-                                                                        feedbackMessage.type === 'error' ? 'bg-[#0a0514] border-red-500/30' :
-                                                                            'bg-[#0a0514] border-blue-500/30'}`}
-                                                                />
-                                                            </motion.div>
-                                                        )}
-                                                    </AnimatePresence>
+                                                                            feedbackMessage.type === 'error' ? 'bg-[#0a0514] border-red-500/30' :
+                                                                                'bg-[#0a0514] border-blue-500/30'}`}
+                                                                    />
+                                                                </motion.div>
+                                                            )}
+                                                        </AnimatePresence>
 
-                                                    <button
-                                                        onClick={() => {
-                                                            if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id)) return;
-                                                            handleRegister(selectedEvent.id);
-                                                        }}
-                                                        disabled={
-                                                            registering === selectedEvent.id ||
-                                                            isRegistered(selectedEvent.id) ||
-                                                            closedEvents.has(selectedEvent.id) ||
-                                                            inviteOnlyEvents.has(selectedEvent.id) ||
-                                                            noRegistrationEvents.has(selectedEvent.id)
-                                                        }
-                                                        className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300
+                                                        <button
+                                                            onClick={() => {
+                                                                if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id)) return;
+                                                                handleRegister(selectedEvent.id);
+                                                            }}
+                                                            disabled={
+                                                                registering === selectedEvent.id ||
+                                                                isRegistered(selectedEvent.id) ||
+                                                                closedEvents.has(selectedEvent.id) ||
+                                                                inviteOnlyEvents.has(selectedEvent.id) ||
+                                                                noRegistrationEvents.has(selectedEvent.id)
+                                                            }
+                                                            className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300
                                                             ${(isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id]) // Only show green if registered internally, external links always clickable unless explicitly closed
-                                                                ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
-                                                                : (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id))
-                                                                    ? 'bg-gray-800 text-gray-400 border border-gray-700 cursor-not-allowed opacity-70'
-                                                                    : 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
-                                                            } ${registering === selectedEvent.id ? 'opacity-80 cursor-wait' : ''}`}
-                                                    >
-                                                        {registering === selectedEvent.id ? (
-                                                            <>
-                                                                <Loader2 className="animate-spin text-purple-600" size={22} />
-                                                                <span className="text-gray-600">Registering...</span>
-                                                            </>
-                                                        ) : isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id] ? (
-                                                            <>
-                                                                <CheckCircle size={22} />
-                                                                Registered
-                                                            </>
-                                                        ) : closedEvents.has(selectedEvent.id) ? (
-                                                            <span className="relative text-center w-full">Registration Closed</span>
-                                                        ) : inviteOnlyEvents.has(selectedEvent.id) ? (
-                                                            <span className="relative text-center w-full">Invite Only</span>
-                                                        ) : noRegistrationEvents.has(selectedEvent.id) ? (
-                                                            <span className="relative text-center w-full">No Registration Required</span>
-                                                        ) : (
-                                                            <>
-                                                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                                <span className="relative text-center w-full">
-                                                                    {unstopEvents[selectedEvent.id] ? 'Register Now' : 'Register Now'}
-                                                                </span>
-                                                            </>
+                                                                    ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
+                                                                    : (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id))
+                                                                        ? 'bg-gray-800 text-gray-400 border border-gray-700 cursor-not-allowed opacity-70'
+                                                                        : 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
+                                                                } ${registering === selectedEvent.id ? 'opacity-80 cursor-wait' : ''}`}
+                                                        >
+                                                            {registering === selectedEvent.id ? (
+                                                                <>
+                                                                    <Loader2 className="animate-spin text-purple-600" size={22} />
+                                                                    <span className="text-gray-600">Registering...</span>
+                                                                </>
+                                                            ) : isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id] ? (
+                                                                <>
+                                                                    <CheckCircle size={22} />
+                                                                    Registered
+                                                                </>
+                                                            ) : closedEvents.has(selectedEvent.id) ? (
+                                                                <span className="relative text-center w-full">Registration Closed</span>
+                                                            ) : inviteOnlyEvents.has(selectedEvent.id) ? (
+                                                                <span className="relative text-center w-full">Invite Only</span>
+                                                            ) : noRegistrationEvents.has(selectedEvent.id) ? (
+                                                                <span className="relative text-center w-full">No Registration Required</span>
+                                                            ) : (
+                                                                <>
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                                    <span className="relative text-center w-full">
+                                                                        {unstopEvents[selectedEvent.id] ? 'Register Now' : 'Register Now'}
+                                                                    </span>
+                                                                </>
+                                                            )}
+                                                        </button>
+                                                        {/* IITD Only Warning */}
+                                                        {iitdOnlyEvents.has(selectedEvent.id) && (
+                                                            <p className="text-red-400 text-sm mt-3 font-semibold text-center">
+                                                                * Only for IIT Delhi Students
+                                                            </p>
                                                         )}
-                                                    </button>
-                                                    {/* IITD Only Warning */}
-                                                    {iitdOnlyEvents.has(selectedEvent.id) && (
-                                                        <p className="text-red-400 text-sm mt-3 font-semibold text-center">
-                                                            * Only for IIT Delhi Students
-                                                        </p>
-                                                    )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </motion.div>
-                            </div>
-                        </>
-                    )}
-                </AnimatePresence>,
-                document.body
-            )}
+                                    </motion.div>
+                                </div>
+                            </>
+                        )}
+                    </AnimatePresence>,
+                    document.body
+                )
+            }
 
             {/* Floating Regional PASS CTA - Right Edge - Rendered via Portal */}
-            {createPortal(
-                <a
-                    href="https://becon.edciitd.com/forms/695bd50bd15c275150c07921"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="fixed right-0 top-48 z-[9999] group cursor-pointer hidden md:block"
-                >
-                    {/* Main card - slides out on hover */}
-                    <motion.div
-                        initial={{ x: 0 }}
-                        whileHover={{ x: -10 }}
-                        className="bg-black/90 backdrop-blur-md border-2 border-purple-500 rounded-l-xl overflow-hidden shadow-[0_0_20px_rgba(147,51,234,0.3)] group-hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] transition-shadow duration-300"
+            {
+                createPortal(
+                    <a
+                        href="https://becon.edciitd.com/forms/695bd50bd15c275150c07921"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="fixed right-0 top-48 z-[9999] group cursor-pointer hidden md:block"
                     >
-                        <div className="flex items-center">
-                            {/* Expanded content - shows on hover */}
-                            <div className="w-0 group-hover:w-48 overflow-hidden transition-all duration-300 ease-out">
-                                <div className="px-4 py-4 whitespace-nowrap">
-                                    <p className="text-purple-400 font-bold text-sm">Want to attend</p>
-                                    <p className="text-white font-bold text-sm">Regionals as Audience?</p>
+                        {/* Main card - slides out on hover */}
+                        <motion.div
+                            initial={{ x: 0 }}
+                            whileHover={{ x: -10 }}
+                            className="bg-black/90 backdrop-blur-md border-2 border-purple-500 rounded-l-xl overflow-hidden shadow-[0_0_20px_rgba(147,51,234,0.3)] group-hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] transition-shadow duration-300"
+                        >
+                            <div className="flex items-center">
+                                {/* Expanded content - shows on hover */}
+                                <div className="w-0 group-hover:w-48 overflow-hidden transition-all duration-300 ease-out">
+                                    <div className="px-4 py-4 whitespace-nowrap">
+                                        <p className="text-purple-400 font-bold text-sm">Want to attend</p>
+                                        <p className="text-white font-bold text-sm">Regionals as Audience?</p>
+                                    </div>
+                                </div>
+
+                                {/* Always visible part */}
+                                <div className="px-3 py-4 flex flex-col items-center gap-3">
+                                    {/* Ticket icon */}
+                                    <svg
+                                        className="w-6 h-6 text-purple-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                                    </svg>
+
+                                    {/* Vertical text */}
+                                    <span
+                                        className="text-white font-bold text-sm tracking-widest"
+                                        style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                                    >
+                                        REGIONAL PASS
+                                    </span>
                                 </div>
                             </div>
-
-                            {/* Always visible part */}
-                            <div className="px-3 py-4 flex flex-col items-center gap-3">
-                                {/* Ticket icon */}
-                                <svg
-                                    className="w-6 h-6 text-purple-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-                                </svg>
-
-                                {/* Vertical text */}
-                                <span
-                                    className="text-white font-bold text-sm tracking-widest"
-                                    style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-                                >
-                                    REGIONAL PASS
-                                </span>
-                            </div>
-                        </div>
-                    </motion.div>
-                </a>,
-                document.body
-            )}
-
-            {/* Left-side Floating Event Type Filter Tabs - Desktop */}
-            {createPortal(
-                <div className="fixed left-0 top-48 z-[9999] hidden md:flex flex-col gap-1">
-                    {/* Strategy Competitions */}
-                    <button
-                        onClick={() => setActiveFilter(activeFilter === 'strategy' ? null : 'strategy')}
-                        className="group cursor-pointer"
-                    >
-                        <motion.div
-                            whileHover={{ x: 8 }}
-                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'strategy'
-                                ? 'bg-yellow-500 shadow-[0_0_20px_rgba(250,204,21,0.5)]'
-                                : 'bg-yellow-500/20 hover:bg-yellow-500/40'
-                                }`}
-                        >
-                            <span
-                                className={`font-bold text-xs tracking-widest ${activeFilter === 'strategy' ? 'text-black' : 'text-yellow-400'}`}
-                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-                            >
-                                STRATEGY
-                            </span>
                         </motion.div>
-                    </button>
+                    </a>,
+                    document.body
+                )
+            }
 
-                    {/* Main Events */}
-                    <button
-                        onClick={() => setActiveFilter(activeFilter === 'main' ? null : 'main')}
-                        className="group cursor-pointer"
-                    >
-                        <motion.div
-                            whileHover={{ x: 8 }}
-                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'main'
-                                ? 'bg-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]'
-                                : 'bg-purple-500/20 hover:bg-purple-500/40'
-                                }`}
-                        >
-                            <span
-                                className={`font-bold text-xs tracking-widest ${activeFilter === 'main' ? 'text-white' : 'text-purple-400'}`}
-                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-                            >
-                                MAIN
-                            </span>
-                        </motion.div>
-                    </button>
-
-                    {/* Showcase */}
-                    <button
-                        onClick={() => setActiveFilter(activeFilter === 'showcase' ? null : 'showcase')}
-                        className="group cursor-pointer"
-                    >
-                        <motion.div
-                            whileHover={{ x: 8 }}
-                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'showcase'
-                                ? 'bg-cyan-500 shadow-[0_0_20px_rgba(34,211,238,0.5)]'
-                                : 'bg-cyan-500/20 hover:bg-cyan-500/40'
-                                }`}
-                        >
-                            <span
-                                className={`font-bold text-xs tracking-widest ${activeFilter === 'showcase' ? 'text-black' : 'text-cyan-400'}`}
-                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-                            >
-                                SHOWCASE
-                            </span>
-                        </motion.div>
-                    </button>
-
-                    {/* Sessions */}
-                    <button
-                        onClick={() => setActiveFilter(activeFilter === 'sessions' ? null : 'sessions')}
-                        className="group cursor-pointer"
-                    >
-                        <motion.div
-                            whileHover={{ x: 8 }}
-                            className={`rounded-r-lg px-3 py-4 transition-all duration-300 ${activeFilter === 'sessions'
-                                ? 'bg-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.5)]'
-                                : 'bg-pink-500/20 hover:bg-pink-500/40'
-                                }`}
-                        >
-                            <span
-                                className={`font-bold text-xs tracking-widest ${activeFilter === 'sessions' ? 'text-white' : 'text-pink-400'}`}
-                                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-                            >
-                                SESSIONS
-                            </span>
-                        </motion.div>
-                    </button>
-                </div>,
-                document.body
-            )}
+            {/* Bottom spacer instead of side tabs */}
+            <div className="mb-20" />
 
             <div className="relative z-50">
                 <Footer />
             </div>
-        </div>
+        </div >
     );
 };
