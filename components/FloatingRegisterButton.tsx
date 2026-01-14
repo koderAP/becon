@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Ticket, ArrowRight } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const FloatingRegisterButton: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -23,10 +24,15 @@ export const FloatingRegisterButton: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const scrollToTickets = () => {
         const ticketsSection = document.getElementById('tickets');
         if (ticketsSection) {
             ticketsSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            navigate('/', { state: { scrollTo: 'tickets' } });
         }
     };
 

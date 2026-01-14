@@ -7,16 +7,24 @@ import { Sponsors } from '../../components/Sponsors';
 import { Tickets } from '../../components/Tickets';
 import { Footer } from '../../components/Footer';
 import { InfiniteBentoCarousel } from '../../components/InfiniteBentoCarousel';
-import { useNavigate } from 'react-router-dom';
-import { FloatingRegisterButton } from '../../components/FloatingRegisterButton';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    // Scroll to top on page load/refresh
+    // Scroll to top or specific section on page load
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+        if (location.state && (location.state as any).scrollTo === 'tickets') {
+            const section = document.getElementById('tickets');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                // Clear state to prevent scrolling on refresh? optional.
+            }
+        } else {
+            window.scrollTo(0, 0);
+        }
+    }, [location]);
 
     return (
         <div className="overflow-x-hidden">
@@ -54,7 +62,6 @@ export const Home: React.FC = () => {
             </section>
 
             <Footer />
-            <FloatingRegisterButton />
         </div>
     );
 };
