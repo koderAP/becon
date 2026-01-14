@@ -18,6 +18,7 @@ export const Hero: React.FC = () => {
         style={{
           perspective: '1200px',
           perspectiveOrigin: 'center center',
+          willChange: 'transform'
         }}
       >
         <motion.div
@@ -32,7 +33,7 @@ export const Hero: React.FC = () => {
             rotateX: { duration: 6, repeat: Infinity, ease: "easeInOut" },
             rotateZ: { duration: 10, repeat: Infinity, ease: "linear" },
           }}
-          style={{ transformStyle: 'preserve-3d' }}
+          style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
         >
           <img
             src="/gear1.avif"
@@ -63,6 +64,7 @@ export const Hero: React.FC = () => {
               maskSize: 'contain',
               maskRepeat: 'no-repeat',
               maskPosition: 'center',
+              willChange: 'background'
             }}
           />
         </motion.div>
@@ -76,6 +78,7 @@ export const Hero: React.FC = () => {
           className="relative w-[130px] h-[130px] md:w-[200px] md:h-[200px] lg:w-[260px] lg:h-[260px] xl:w-[300px] xl:h-[300px]"
           animate={{ rotateZ: [360, 0] }}
           transition={{ rotateZ: { duration: 20, repeat: Infinity, ease: "linear" } }}
+          style={{ willChange: 'transform' }}
         >
           <img
             src="/gear2.avif"
@@ -106,6 +109,7 @@ export const Hero: React.FC = () => {
               maskSize: 'contain',
               maskRepeat: 'no-repeat',
               maskPosition: 'center',
+              willChange: 'background'
             }}
           />
         </motion.div>
@@ -116,6 +120,7 @@ export const Hero: React.FC = () => {
         animate={{ rotate: 360, y: [0, -20, 0] }}
         transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
         className="absolute top-24 right-20 md:top-28 md:right-40 lg:top-32 lg:right-52 xl:right-64 opacity-80 hidden md:block pointer-events-none z-10"
+        style={{ willChange: 'transform' }}
       >
         <div className="relative w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-20 xl:h-20">
           <img
@@ -146,6 +151,7 @@ export const Hero: React.FC = () => {
               maskSize: 'contain',
               maskRepeat: 'no-repeat',
               maskPosition: 'center',
+              willChange: 'background'
             }}
           />
         </div>
@@ -159,6 +165,7 @@ export const Hero: React.FC = () => {
           className="relative w-[120px] h-[120px] md:w-[180px] md:h-[180px] lg:w-[220px] lg:h-[220px] xl:w-[260px] xl:h-[260px]"
           animate={{ rotate: [0, -360] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          style={{ willChange: 'transform' }}
         >
           <img
             src="/gear3.avif"
@@ -189,6 +196,7 @@ export const Hero: React.FC = () => {
               maskSize: 'contain',
               maskRepeat: 'no-repeat',
               maskPosition: 'center',
+              willChange: 'background'
             }}
           />
         </motion.div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Hero } from '../../components/Hero';
 import { About } from '../../components/About';
 import { Speakers } from '../../components/Speakers';
@@ -8,6 +8,15 @@ import { Tickets } from '../../components/Tickets';
 import { Footer } from '../../components/Footer';
 import { InfiniteBentoCarousel } from '../../components/InfiniteBentoCarousel';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+const MemoizedHero = memo(Hero);
+const MemoizedAbout = memo(About);
+const MemoizedSpeakers = memo(Speakers);
+const MemoizedVerticals = memo(Verticals);
+const MemoizedSponsors = memo(Sponsors);
+const MemoizedTickets = memo(Tickets);
+const MemoizedFooter = memo(Footer);
+const MemoizedCarousel = memo(InfiniteBentoCarousel);
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -29,23 +38,23 @@ export const Home: React.FC = () => {
     return (
         <div className="overflow-x-hidden">
             <section id="hero">
-                <Hero />
+                <MemoizedHero />
             </section>
 
             <section id="about">
-                <About />
+                <MemoizedAbout />
             </section>
 
             <section id="verticals">
-                <Verticals preview onViewAll={() => navigate('/events')} />
+                <MemoizedVerticals preview onViewAll={() => navigate('/events')} />
             </section>
 
             <section id="speakers">
-                <Speakers preview onViewAll={() => navigate('/speakers')} />
+                <MemoizedSpeakers preview onViewAll={() => navigate('/speakers')} />
             </section>
 
             <section id="gallery">
-                <InfiniteBentoCarousel
+                <MemoizedCarousel
                     title="Past Glimpses"
                     subtitle="Memories from previous BECon summits"
                     speed={50}
@@ -54,14 +63,14 @@ export const Home: React.FC = () => {
             </section>
 
             <section id="sponsors-preview">
-                <Sponsors />
+                <MemoizedSponsors />
             </section>
 
             <section id="cta">
-                <Tickets />
+                <MemoizedTickets />
             </section>
 
-            <Footer />
+            <MemoizedFooter />
         </div>
     );
 };
