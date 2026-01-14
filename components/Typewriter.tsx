@@ -1,33 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface TypewriterProps {
     sentences: string[];
     typingSpeed?: number;
-    deletingSpeed?: number;
+    deletingSpeed?: number; // Kept for interface compatibility but unused
     pauseTime?: number;
     className?: string;
     style?: React.CSSProperties;
+    fadeDuration?: number;
 }
 
 export const Typewriter: React.FC<TypewriterProps> = ({
     sentences,
     typingSpeed = 50,
-    deletingSpeed = 30,
     pauseTime = 1500,
     className = "",
     style,
+    fadeDuration = 0.5,
 }) => {
     const [displayedText, setDisplayedText] = useState('');
+    const [opacity, setOpacity] = useState(1);
     const [isBlinking, setIsBlinking] = useState(true);
 
-    // Refs to manage state inside the animation loop without dependencies
+    // Logic state
     const stateRef = useRef({
         text: '',
         sentenceIndex: 0,
-        isDeleting: false,
+        phase: 'TYPING' as 'TYPING' | 'WAITING' | 'FADING',
         lastTick: 0,
-        targetSpeed: typingSpeed
+        startWait: 0 // timestamp when waiting started
     });
 
     useEffect(() => {
@@ -35,44 +37,47 @@ export const Typewriter: React.FC<TypewriterProps> = ({
 
         const loop = (timestamp: number) => {
             const state = stateRef.current;
-
-            // Initialize start time
             if (!state.lastTick) state.lastTick = timestamp;
 
             const elapsed = timestamp - state.lastTick;
 
-            // Check if enough time has passed for the next character update
-            if (elapsed > state.targetSpeed) {
-                state.lastTick = timestamp;
+            if (state.phase === 'TYPING') {
+                if (elapsed > typingSpeed) {
+                    state.lastTick = timestamp;
+                    const currentSentence = sentences[state.sentenceIndex % sentences.length];
 
-                const currentSentence = sentences[state.sentenceIndex % sentences.length];
-
-                if (state.isDeleting) {
-                    // DELETING
-                    state.text = currentSentence.substring(0, state.text.length - 1);
-                    state.targetSpeed = deletingSpeed;
-                    setIsBlinking(false); // Stop blinking while acting
-                } else {
-                    // TYPING
-                    state.text = currentSentence.substring(0, state.text.length + 1);
-                    state.targetSpeed = typingSpeed;
-                    setIsBlinking(false);
+                    // Type next character
+                    const nextCharIndex = state.text.length;
+                    if (nextCharIndex < currentSentence.length) {
+                        state.text = currentSentence.substring(0, nextCharIndex + 1);
+                        setDisplayedText(state.text);
+                        setIsBlinking(false);
+                    } else {
+                        // Finished typing
+                        state.phase = 'WAITING';
+                        state.startWait = timestamp;
+                        setIsBlinking(true);
+                    }
                 }
-
-                setDisplayedText(state.text);
-
-                // LOGIC FOR CHANGING STATE
-                if (!state.isDeleting && state.text === currentSentence) {
-                    // Finished typing sentence -> Pause then Delete
-                    state.isDeleting = true;
-                    state.targetSpeed = pauseTime; // Wait before deleting
-                    setIsBlinking(true); // Blink while waiting
-                } else if (state.isDeleting && state.text === '') {
-                    // Finished deleting -> Move to next sentence
-                    state.isDeleting = false;
+            } else if (state.phase === 'WAITING') {
+                // Wait for pauseTime
+                if (timestamp - state.startWait > pauseTime) {
+                    state.phase = 'FADING';
+                    state.startWait = timestamp;
+                    setOpacity(0); // Trigger visual fade
+                    setIsBlinking(false); // Stop blinking cursor during fade
+                }
+            } else if (state.phase === 'FADING') {
+                // Wait for fade animation to complete
+                // fadeDuration is in seconds, so * 1000
+                if (timestamp - state.startWait > fadeDuration * 1000) {
+                    // Reset for next sentence
+                    state.phase = 'TYPING';
                     state.sentenceIndex++;
-                    state.targetSpeed = 500; // Small pause before new sentence
-                    setIsBlinking(true);
+                    state.text = '';
+                    setDisplayedText('');
+                    setOpacity(1); // Reset opacity
+                    state.lastTick = timestamp;
                 }
             }
 
@@ -82,21 +87,27 @@ export const Typewriter: React.FC<TypewriterProps> = ({
         animationFrameId = requestAnimationFrame(loop);
 
         return () => cancelAnimationFrame(animationFrameId);
-    }, [sentences, typingSpeed, deletingSpeed, pauseTime]);
+    }, [sentences, typingSpeed, pauseTime, fadeDuration]);
 
     return (
-        <span className={className} style={style}>
-            {displayedText}
+        <span className={className} style={{ ...style, position: 'relative', display: 'inline-block' }}>
             <motion.span
-                animate={{ opacity: isBlinking ? [1, 0] : 1 }}
-                transition={{
-                    duration: 0.8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    repeatType: "reverse"
-                }}
-                className="ml-1 inline-block w-[2px] h-[1em] bg-purple-500 align-middle"
-            />
+                animate={{ opacity: opacity }}
+                transition={{ duration: fadeDuration }}
+            >
+                {displayedText}
+                {/* Cursor inside the fading container so it fades too */}
+                <motion.span
+                    animate={{ opacity: isBlinking ? [1, 0] : 1 }}
+                    transition={{
+                        duration: 0.8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatType: "reverse"
+                    }}
+                    className="ml-1 inline-block w-[2px] h-[1em] bg-purple-500 align-middle"
+                />
+            </motion.span>
         </span>
     );
 };

@@ -224,13 +224,12 @@ export const Hero: React.FC = () => {
         >
           <Typewriter
             sentences={[
-              "Where Deep Tech Meets Vision",
               "Engineering the Mind of Machines",
               "Crafted in India for the World"
             ]}
-            typingSpeed={100}
-            deletingSpeed={70}
-            pauseTime={2000}
+            typingSpeed={50}
+            deletingSpeed={10}
+            pauseTime={1000}
             className="text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-300 tracking-wide"
           />
         </motion.div>

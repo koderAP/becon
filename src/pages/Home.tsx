@@ -8,6 +8,7 @@ import { Tickets } from '../../components/Tickets';
 import { Footer } from '../../components/Footer';
 import { InfiniteBentoCarousel } from '../../components/InfiniteBentoCarousel';
 import { useNavigate } from 'react-router-dom';
+import { FloatingRegisterButton } from '../../components/FloatingRegisterButton';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -53,6 +54,7 @@ export const Home: React.FC = () => {
             </section>
 
             <Footer />
+            <FloatingRegisterButton />
         </div>
     );
 };
