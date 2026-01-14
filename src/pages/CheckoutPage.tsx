@@ -132,15 +132,26 @@ export const CheckoutPage: React.FC = () => {
 
     // Load Razorpay script
     useEffect(() => {
+        // Check if script is already loaded
+        if (window.Razorpay) {
+            setRazorpayLoaded(true);
+            return;
+        }
+
+        // Check if script tag already exists (but maybe not loaded yet)
+        if (document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]')) {
+            setRazorpayLoaded(true); // Assume it's loading or loaded
+            return;
+        }
+
         const script = document.createElement('script');
         script.src = 'https://checkout.razorpay.com/v1/checkout.js';
         script.async = true;
         script.onload = () => setRazorpayLoaded(true);
+        script.onerror = () => toast.error('Failed to load payment gateway. Please check connection.');
         document.body.appendChild(script);
 
-        return () => {
-            document.body.removeChild(script);
-        };
+        // Cleanup: Don't remove script on unmount to avoid re-loading on re-visits
     }, []);
 
     // Handle Invite Code Redemption
