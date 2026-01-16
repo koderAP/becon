@@ -239,41 +239,31 @@ const CountdownTimer: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
     );
 };
 
-// Pass configuration
-const PASS_CONFIG = {
-    silver: {
-        name: 'Silver Pass',
-        price: 0,
-        originalPrice: 99,
-        color: 'text-gray-300',
-        bgGradient: 'from-gray-600 to-gray-800',
-        borderColor: 'border-gray-400/50',
-        image: '/passes/silver.png',
-    },
-    gold: {
-        name: 'Gold Pass',
-        price: 199,
-        originalPrice: 499,
-        color: 'text-yellow-400',
-        bgGradient: 'from-yellow-600 to-yellow-800',
-        borderColor: 'border-yellow-500/50',
-        image: '/passes/gold.png',
-    },
-    platinum: {
-        name: 'Platinum Pass',
-        price: 399,
-        originalPrice: 999,
-        color: 'text-cyan-400',
-        bgGradient: 'from-cyan-600 to-purple-800',
-        borderColor: 'border-cyan-500/50',
-        image: '/passes/platinum.png',
-    },
-};
+import { PASS_CONFIG as GLOBAL_PASS_CONFIG } from '../constants/passes';
 
-const PASS_VALUE: Record<string, number> = { silver: 0, gold: 199, platinum: 399 };
+// Convert array to object for backward compatibility with existing code structure or refactor usage
+const PASS_CONFIG = GLOBAL_PASS_CONFIG.reduce((acc, pass) => ({
+    ...acc,
+    [pass.id]: {
+        name: pass.name,
+        price: pass.price === 'FREE' ? 0 : pass.price,
+        originalPrice: pass.originalPrice,
+        color: pass.color,
+        bgGradient: pass.id === 'iitd_student' ? 'from-rose-600 to-pink-800' :
+            pass.id === 'platinum' ? 'from-cyan-600 to-purple-800' :
+                pass.id === 'gold' ? 'from-yellow-600 to-yellow-800' :
+                    'from-gray-600 to-gray-800', // Default/Silver
+        borderColor: pass.id === 'iitd_student' ? 'border-rose-500/50' :
+            pass.id === 'platinum' ? 'border-cyan-500/50' :
+                pass.id === 'gold' ? 'border-yellow-500/50' :
+                    'border-gray-400/50',
+        image: pass.image,
+    }
+}), {} as Record<string, any>);
+
 
 // Your Pass Card Component
-const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
+const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId }) => {
     const [userPass, setUserPass] = useState<{ pass_type: string; purchased_at: string } | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -307,11 +297,24 @@ const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
         fetchPass();
     }, [userId]);
 
+
+    // Robust check for IIT Delhi SSO or Domain
+    const isIITD = user?.app_metadata?.provider === 'azure' ||
+        user?.email?.endsWith('iitd.ac.in') ||
+        user?.email?.endsWith('.iitd.ac.in') ||
+        (user?.user_metadata?.mail && (user.user_metadata.mail.endsWith('iitd.ac.in') || user.user_metadata.mail.includes('@iitd.ac.in'))) ||
+        (user?.user_metadata?.preferred_username && user.user_metadata.preferred_username.includes('iitd.ac.in'));
+
     const currentPassType = userPass?.pass_type as keyof typeof PASS_CONFIG | null;
     const currentConfig = currentPassType ? PASS_CONFIG[currentPassType] : null;
-    const canUpgrade = currentPassType !== 'platinum';
-
     const getUpgradeOptions = () => {
+        // If already have IITD pass, no upgrades possible
+        if (currentPassType === 'iitd_student') return [];
+
+        if (isIITD) {
+            return [{ type: 'iitd_student', price: 0, label: 'Get IITD Pass (Free)' }];
+        }
+
         if (!currentPassType) return [
             { type: 'silver', price: 0, label: 'Claim Free' },
             { type: 'gold', price: 199, label: '₹199' },
@@ -327,6 +330,10 @@ const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
         }
         return options;
     };
+
+    const upgradeOptions = getUpgradeOptions();
+    // Only show upgrade section if there are options and user has a pass (if no pass, we show the "No Pass" section instead)
+    const canUpgrade = !!currentPassType && upgradeOptions.length > 0;
 
     if (loading) {
         return (
@@ -384,7 +391,7 @@ const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
                             <div className="flex flex-col justify-center">
                                 <h4 className="text-sm text-gray-400 mb-4 uppercase tracking-wider">Upgrade Your Pass</h4>
                                 <div className="space-y-3">
-                                    {getUpgradeOptions().map(option => (
+                                    {upgradeOptions.map(option => (
                                         <button
                                             key={option.type}
                                             onClick={() => navigate(`/checkout?pass=${option.type}&upgrade=true`)}
@@ -415,7 +422,20 @@ const YourPassCard: React.FC<{ userId?: string }> = ({ userId }) => {
                     <div className="py-4">
                         <p className="text-gray-400 text-center mb-6">Choose your pass to get started</p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            {Object.entries(PASS_CONFIG).map(([type, config]) => (
+                            {Object.entries(PASS_CONFIG).filter(([type]) => {
+                                // Robust check for IIT Delhi SSO or Domain
+                                const isIITD = user?.app_metadata?.provider === 'azure' ||
+                                    user?.email?.endsWith('iitd.ac.in') ||
+                                    user?.email?.endsWith('.iitd.ac.in') ||
+                                    (user?.user_metadata?.mail && (user.user_metadata.mail.endsWith('iitd.ac.in') || user.user_metadata.mail.includes('@iitd.ac.in'))) ||
+                                    (user?.user_metadata?.preferred_username && user.user_metadata.preferred_username.includes('iitd.ac.in'));
+
+                                if (isIITD) {
+                                    return type === 'iitd_student';
+                                } else {
+                                    return type !== 'iitd_student';
+                                }
+                            }).map(([type, config]: [string, any]) => (
                                 <button
                                     key={type}
                                     onClick={() => navigate(`/checkout?pass=${type}`)}
@@ -681,9 +701,16 @@ export const DashboardPage: React.FC = () => {
     };
 
     const handleLogout = async () => {
-        await signOut();
-        toast.success('Logged out successfully');
-        navigate('/login');
+        try {
+            await signOut();
+            localStorage.clear();
+            sessionStorage.clear();
+            toast.success('Logged out successfully');
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            window.location.href = '/login';
+        }
     };
 
     if (loading) {
@@ -734,7 +761,7 @@ export const DashboardPage: React.FC = () => {
                     {/* Bento Grid Layout */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
 
-                        {/* BECon ID Card - Premium Glowing Card (Clickable) */}
+
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -842,7 +869,7 @@ export const DashboardPage: React.FC = () => {
                             transition={{ delay: 0.4 }}
                             className="lg:col-span-12 relative group"
                         >
-                            <YourPassCard userId={user?.id} />
+                            <YourPassCard user={user} userId={user?.id} />
                         </motion.div>
 
                         {/* Registered Events */}

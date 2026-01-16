@@ -32,6 +32,14 @@ const PASS_CONFIG = {
         bgGradient: 'from-cyan-600 to-purple-800',
         image: '/passes/platinum.png',
     },
+    iitd_student: {
+        name: 'IIT Delhi Student Pass',
+        price: 0,
+        originalPrice: 999,
+        color: 'text-rose-400',
+        bgGradient: 'from-rose-600 to-pink-800',
+        image: '/iitd_logo.avif',
+    },
 };
 
 // Pass value for upgrade calculations
@@ -58,7 +66,7 @@ export const CheckoutPage: React.FC = () => {
     const [searchParams] = useSearchParams();
     const { user, loading: authLoading } = useAuth();
 
-    const passType = searchParams.get('pass') as 'silver' | 'gold' | 'platinum' || 'gold';
+    const passType = searchParams.get('pass') || 'gold';
     const isUpgrade = searchParams.get('upgrade') === 'true';
 
     const [loading, setLoading] = useState(false);
@@ -72,9 +80,16 @@ export const CheckoutPage: React.FC = () => {
 
     const passConfig = PASS_CONFIG[passType] || PASS_CONFIG.gold;
 
+    // Robust check for IIT Delhi SSO or Domain
+    const isIITD = user?.app_metadata?.provider === 'azure' ||
+        user?.email?.endsWith('iitd.ac.in') ||
+        user?.email?.endsWith('.iitd.ac.in') ||
+        (user?.user_metadata?.mail && (user.user_metadata.mail.endsWith('iitd.ac.in') || user.user_metadata.mail.includes('@iitd.ac.in'))) ||
+        (user?.user_metadata?.preferred_username && user.user_metadata.preferred_username.includes('iitd.ac.in'));
+
     // Calculate price (differential for upgrades)
     const calculatePrice = () => {
-        if (passType === 'silver') return 0;
+        if (passType === 'silver' || passType === 'iitd_student') return 0;
         if (isUpgrade && currentPass) {
             const currentValue = PASS_VALUE[currentPass] || 0;
             const newValue = PASS_VALUE[passType] || 0;
@@ -89,10 +104,13 @@ export const CheckoutPage: React.FC = () => {
     useEffect(() => {
         if (!authLoading && !user) {
             // Store intended destination
-            sessionStorage.setItem('postLoginRedirect', `/ checkout ? pass = ${passType}${isUpgrade ? '&upgrade=true' : ''} `);
+            sessionStorage.setItem('postLoginRedirect', `/checkout?pass=${passType}${isUpgrade ? '&upgrade=true' : ''}`);
             navigate('/login');
+        } else if (!authLoading && user && passType === 'iitd_student' && !isIITD) {
+            toast.error("This pass is exclusively for IIT Delhi students");
+            navigate('/dashboard');
         }
-    }, [user, authLoading, navigate, passType, isUpgrade]);
+    }, [user, authLoading, navigate, passType, isUpgrade, isIITD]);
 
     // Fetch current pass (ALWAYS check this to prevent downgrades)
     useEffect(() => {
@@ -195,14 +213,14 @@ export const CheckoutPage: React.FC = () => {
         try {
             const { error } = await supabase.from('user_passes').insert({
                 user_id: user.id,
-                pass_type: 'silver',
+                pass_type: passType,
                 amount_paid: 0,
                 purchased_at: new Date().toISOString(),
             });
 
             if (error) throw error;
 
-            toast.success('Silver Pass claimed successfully!');
+            toast.success(`${PASS_CONFIG[passType]?.name || 'Pass'} claimed successfully!`);
             navigate('/dashboard');
         } catch (err: any) {
             toast.error(err.message || 'Failed to claim pass');
@@ -435,6 +453,14 @@ export const CheckoutPage: React.FC = () => {
                                     <Feature text="Influencer Conclave" />
                                     <Feature text="Incubator Summit" />
                                     <Feature text="Startup Clinic" />
+                                </>
+                            )}
+                            {passType === 'iitd_student' && (
+                                <>
+                                    <Feature text="Verified IIT Delhi Student Access" />
+                                    <Feature text="Full Access to All Events" />
+                                    <Feature text="Speaker Sessions & Workshops" />
+                                    <Feature text="Exclusive Networking Opportunities" />
                                 </>
                             )}
                         </div>

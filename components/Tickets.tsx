@@ -13,7 +13,7 @@ interface PassFeature {
 
 import { PASS_CONFIG } from '../src/constants/passes';
 
-const passes = PASS_CONFIG;
+const passes = PASS_CONFIG.filter(p => p.id !== 'iitd_student');
 
 import { supabase } from '../src/lib/supabase';
 import { useState, useEffect } from 'react';
@@ -28,6 +28,7 @@ export const Tickets: React.FC = () => {
             case 'silver': return 1;
             case 'gold': return 2;
             case 'platinum': return 3;
+            case 'iitd_student': return 4;
             default: return 0;
         }
     };

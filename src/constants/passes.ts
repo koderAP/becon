@@ -85,6 +85,29 @@ export const PASS_CONFIG: Pass[] = [
             { name: 'Policysphere', included: false },
         ],
         allowedEvents: ['gold_events_plus', 'influencer-summit', 'incubator-summit', 'startup-clinic']
+    },
+    {
+        id: 'iitd_student',
+        name: 'IIT DELHI STUDENT PASS',
+        originalPrice: 999,
+        price: 'FREE',
+        image: '/iitd_logo.avif', // Using the logo as the pass image for now
+        color: 'text-rose-400',
+        glow: 'group-hover:border-rose-500/50 group-hover:shadow-[0_0_30px_rgba(244,63,94,0.2)]',
+        features: [
+            { name: 'Startup Expo', included: true },
+            { name: 'Tech Showcase', included: true },
+            { name: 'Autospark', included: true },
+            { name: 'LHC Speaker Sessions', included: true },
+            { name: 'Seminar+Dogra Speaker Sessions', included: true },
+            { name: 'Moonshot Finale', included: true },
+            { name: 'Blueprint Finale', included: true },
+            { name: 'Influencer Conclave', included: true },
+            { name: 'Incubator Summit', included: true },
+            { name: 'Startup Clinic', included: true },
+            { name: 'Policysphere', included: false },
+        ],
+        allowedEvents: ['all_access']
     }
 ];
 
@@ -112,7 +135,7 @@ export const isEventAllowed = (passId: string, eventId: string): boolean => {
     // Platinum additions
     const platinumEvents = [...goldEvents, 'influencer-summit', 'incubator-summit', 'startup-clinic'];
 
-    if (passId === 'platinum') return true; // Platinum gets everything (except maybe invite-only like Policysphere?)
+    if (passId === 'platinum' || passId === 'iitd_student') return true; // Platinum & IITD Student get everything (except maybe invite-only like Policysphere?)
     if (passId === 'gold') return goldEvents.includes(eventId) || silverEvents.includes(eventId);
     if (passId === 'silver') return silverEvents.includes(eventId);
 
