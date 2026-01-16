@@ -12,7 +12,7 @@ export const LoginPage: React.FC = () => {
     const [password, setPassword] = useState('');
     const containerRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const { signIn, signInWithGoogle } = useAuth();
+    const { signIn, signInWithGoogle, signInWithIITD } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -190,7 +190,7 @@ export const LoginPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="w-full">
+                    <div className="w-full space-y-3">
                         <button
                             type="button"
                             onClick={async () => {
@@ -223,6 +223,25 @@ export const LoginPage: React.FC = () => {
                                 />
                             </svg>
                             Continue with Google
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                try {
+                                    setIsLoading(true);
+                                    const { error } = await signInWithIITD();
+                                    if (error) throw error;
+                                } catch (error: any) {
+                                    console.error('SSO Login Error:', error);
+                                    toast.error(error.message || 'Failed to sign in with IIT Delhi SSO');
+                                    setIsLoading(false);
+                                }
+                            }}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white text-sm font-medium"
+                        >
+                            <img src="/iitd_logo.avif" alt="IIT Delhi" className="w-5 h-5 object-contain" />
+                            Sign in with IIT Delhi
                         </button>
                     </div>
 

@@ -577,7 +577,8 @@ export const DashboardPage: React.FC = () => {
             id: user.id,
             becId: beconId,
             name: metadata.full_name || user.email?.split('@')[0] || 'User',
-            email: user.email || '',
+            // Try to find the best email: 'mail' claim > 'preferred_username' (if email-like) > user.email
+            email: metadata.mail || (metadata.preferred_username && metadata.preferred_username.includes('@') ? metadata.preferred_username : user.email) || '',
             phone: metadata.phone || '',
             college: metadata.college || '',
             year: metadata.year || '2024',

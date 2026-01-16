@@ -9,6 +9,7 @@ interface AuthContextType {
     signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
     signUp: (email: string, password: string, metadata?: Record<string, any>) => Promise<{ data: { user: User | null; session: Session | null } | null; error: Error | null }>;
     signInWithGoogle: () => Promise<{ error: Error | null }>;
+    signInWithIITD: () => Promise<{ error: Error | null }>;
     signOut: () => Promise<void>;
 }
 
@@ -20,11 +21,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Check if we're handling an OAuth callback to avoid race conditions
+        const isAuthCallback = window.location.search.includes('code=') || window.location.hash.includes('access_token=');
+
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
             setUser(session?.user ?? null);
-            setLoading(false);
+            // If processing a callback, let onAuthStateChange handle loading state
+            if (!isAuthCallback) {
+                setLoading(false);
+            }
         });
 
         // Listen for auth changes
@@ -65,6 +72,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return { error };
     };
 
+    const signInWithIITD = async () => {
+        console.log('Initiating IITD SSO...');
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'azure',
+            options: {
+                scopes: 'openid email profile offline_access',
+                redirectTo: `${window.location.origin}/dashboard`,
+            }
+        });
+        if (error) console.error('IITD SSO Error:', error);
+        return { error };
+    };
+
     const signOut = async () => {
         await supabase.auth.signOut();
     };
@@ -76,6 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signIn,
         signUp,
         signInWithGoogle,
+        signInWithIITD,
         signOut,
     };
 
