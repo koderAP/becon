@@ -18,11 +18,20 @@
         ],
         "headers": [
             {
-                "source": "**",
+                "source": "/assets/**",
                 "headers": [
                     {
                         "key": "Cache-Control",
-                        "value": "no-cache, no-store, must-revalidate"
+                        "value": "public, max-age=31536000, immutable"
+                    }
+                ]
+            },
+            {
+                "source": "**/*.@(js|css|woff2|woff|ttf|eot|svg|png|jpg|jpeg|gif|ico|avif|webp)",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "public, max-age=31536000, immutable"
                     }
                 ]
             },
@@ -36,15 +45,6 @@
                 ]
             },
             {
-                "source": "**/*.@(js|css|woff2|woff|ttf|eot|svg|png|jpg|jpeg|gif|ico|avif|webp)",
-                "headers": [
-                    {
-                        "key": "Cache-Control",
-                        "value": "max-age=31536000, immutable"
-                    }
-                ]
-            },
-            {
                 "source": "**/*.@(html|json)",
                 "headers": [
                     {
@@ -54,7 +54,7 @@
                 ]
             },
             {
-                "source": "/index.html",
+                "source": "/sw.js",
                 "headers": [
                     {
                         "key": "Cache-Control",

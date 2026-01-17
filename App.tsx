@@ -22,6 +22,7 @@ const DashboardPage = lazy(() => import('./src/pages/DashboardPage').then(module
 const CheckoutPage = lazy(() => import('./src/pages/CheckoutPage').then(module => ({ default: module.CheckoutPage })));
 const PrivacyPolicyPage = lazy(() => import('./src/pages/PrivacyPolicyPage').then(module => ({ default: module.PrivacyPolicyPage })));
 const RefundPolicyPage = lazy(() => import('./src/pages/RefundPolicyPage').then(module => ({ default: module.RefundPolicyPage })));
+const PaymentSuccessPage = lazy(() => import('./src/pages/PaymentSuccessPage').then(module => ({ default: module.PaymentSuccessPage })));
 
 // Default exports
 const AdminLogin = lazy(() => import('./src/pages/AdminLogin'));
@@ -70,6 +71,7 @@ const AnimatedRoutes: React.FC = () => {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/refund-policy" element={<RefundPolicyPage />} />
+            <Route path="/payment-success" element={<PaymentSuccessPage />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />

@@ -1,22 +1,16 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Hero } from '../../components/Hero';
-import { About } from '../../components/About';
-import { Speakers } from '../../components/Speakers';
-import { Verticals } from '../../components/Verticals';
-import { Sponsors } from '../../components/Sponsors';
-import { Tickets } from '../../components/Tickets';
-import { Footer } from '../../components/Footer';
-import { InfiniteBentoCarousel } from '../../components/InfiniteBentoCarousel';
+import { SectionSkeleton } from '../../components/ui/SectionSkeleton';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const MemoizedHero = memo(Hero);
-const MemoizedAbout = memo(About);
-const MemoizedSpeakers = memo(Speakers);
-const MemoizedVerticals = memo(Verticals);
-const MemoizedSponsors = memo(Sponsors);
-const MemoizedTickets = memo(Tickets);
-const MemoizedFooter = memo(Footer);
-const MemoizedCarousel = memo(InfiniteBentoCarousel);
+// Lazy load heavy sections
+const About = lazy(() => import('../../components/About').then(module => ({ default: module.About })));
+const Speakers = lazy(() => import('../../components/Speakers').then(module => ({ default: module.Speakers })));
+const Verticals = lazy(() => import('../../components/Verticals').then(module => ({ default: module.Verticals })));
+const Sponsors = lazy(() => import('../../components/Sponsors').then(module => ({ default: module.Sponsors })));
+const Tickets = lazy(() => import('../../components/Tickets').then(module => ({ default: module.Tickets })));
+const Footer = lazy(() => import('../../components/Footer').then(module => ({ default: module.Footer })));
+const InfiniteBentoCarousel = lazy(() => import('../../components/InfiniteBentoCarousel').then(module => ({ default: module.InfiniteBentoCarousel })));
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -28,7 +22,6 @@ export const Home: React.FC = () => {
             const section = document.getElementById('tickets');
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
-                // Clear state to prevent scrolling on refresh? optional.
             }
         } else {
             window.scrollTo(0, 0);
@@ -38,39 +31,53 @@ export const Home: React.FC = () => {
     return (
         <div className="overflow-x-hidden">
             <section id="hero">
-                <MemoizedHero />
+                <Hero />
             </section>
 
-            <section id="about">
-                <MemoizedAbout />
-            </section>
+            <Suspense fallback={<SectionSkeleton />}>
+                <section id="about">
+                    <About />
+                </section>
+            </Suspense>
 
-            <section id="verticals">
-                <MemoizedVerticals preview onViewAll={() => navigate('/events')} />
-            </section>
+            <Suspense fallback={<SectionSkeleton />}>
+                <section id="verticals">
+                    <Verticals preview onViewAll={() => navigate('/events')} />
+                </section>
+            </Suspense>
 
-            <section id="speakers">
-                <MemoizedSpeakers preview onViewAll={() => navigate('/speakers')} />
-            </section>
+            <Suspense fallback={<SectionSkeleton />}>
+                <section id="speakers">
+                    <Speakers preview onViewAll={() => navigate('/speakers')} />
+                </section>
+            </Suspense>
 
-            <section id="gallery">
-                <MemoizedCarousel
-                    title="Past Glimpses"
-                    subtitle="Memories from previous BECon summits"
-                    speed={50}
-                    pauseOnHover={true}
-                />
-            </section>
+            <Suspense fallback={<SectionSkeleton />}>
+                <section id="gallery">
+                    <InfiniteBentoCarousel
+                        title="Past Glimpses"
+                        subtitle="Memories from previous BECon summits"
+                        speed={50}
+                        pauseOnHover={true}
+                    />
+                </section>
+            </Suspense>
 
-            <section id="sponsors-preview">
-                <MemoizedSponsors />
-            </section>
+            <Suspense fallback={<SectionSkeleton />}>
+                <section id="sponsors-preview">
+                    <Sponsors />
+                </section>
+            </Suspense>
 
-            <section id="cta">
-                <MemoizedTickets />
-            </section>
+            <Suspense fallback={<SectionSkeleton />}>
+                <section id="cta">
+                    <Tickets />
+                </section>
+            </Suspense>
 
-            <MemoizedFooter />
+            <Suspense fallback={<div className="h-20 bg-black" />}>
+                <Footer />
+            </Suspense>
         </div>
     );
 };

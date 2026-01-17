@@ -229,87 +229,40 @@ export const CheckoutPage: React.FC = () => {
         }
     };
 
-    // Handle paid pass purchase
+    // Handle paid pass purchase via Payment Link
     const handlePayment = async () => {
-        if (!user || !razorpayLoaded) return;
+        if (!user) return;
 
         setLoading(true);
         try {
-            // Create order on backend
             const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-            const orderResponse = await fetch(`${API_URL}/api/payments/create-order`, {
+            const response = await fetch(`${API_URL}/api/payments/create-payment-link`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     passType,
                     userId: user.id,
+                    userEmail: user.email,
+                    userName: user.user_metadata?.full_name,
                     isUpgrade,
                     currentPass,
                 }),
             });
 
-            if (!orderResponse.ok) {
-                const err = await orderResponse.json();
-                throw new Error(err.message || 'Failed to create order');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to create payment link');
             }
 
-            const { orderId, amount, currency } = await orderResponse.json();
-
-            // Open Razorpay Checkout
-            const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-                amount: amount,
-                currency: currency,
-                name: 'BECon 2026',
-                description: `${passConfig.name} ${isUpgrade ? '(Upgrade)' : ''} `,
-                image: 'https://becon-2026.web.app/logo1.avif',
-                order_id: orderId,
-                handler: async function (response: any) {
-                    // Verify payment
-                    try {
-                        const verifyResponse = await fetch(`${API_URL}/api/payments/verify`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_signature: response.razorpay_signature,
-                                userId: user.id,
-                                passType,
-                                isUpgrade,
-                            }),
-                        });
-
-                        if (!verifyResponse.ok) {
-                            const err = await verifyResponse.json();
-                            throw new Error(err.message || 'Payment verification failed');
-                        }
-
-                        toast.success(`${passConfig.name} purchased successfully!`);
-                        navigate('/dashboard');
-                    } catch (err: any) {
-                        toast.error(err.message || 'Payment verification failed');
-                    }
-                },
-                prefill: {
-                    name: user.user_metadata?.full_name || '',
-                    email: user.email || '',
-                    contact: user.user_metadata?.phone || '',
-                },
-                theme: {
-                    color: '#7c3aed',
-                },
-                modal: {
-                    ondismiss: function () {
-                        setLoading(false);
-                    },
-                },
-            };
-
-            const razorpay = new window.Razorpay(options);
-            razorpay.open();
+            if (data.success && data.paymentUrl) {
+                // Redirect to Razorpay payment page
+                window.location.href = data.paymentUrl;
+            } else {
+                throw new Error('Failed to get payment URL');
+            }
         } catch (err: any) {
-            toast.error(err.message || 'Payment failed');
+            toast.error(err.message || 'Payment initialization failed');
             setLoading(false);
         }
     };
