@@ -8,12 +8,25 @@
   <link rel="icon" href="/favicon.avif" sizes="any" />
   <link rel="icon" type="image/avif" sizes="48x48" href="/favicon.avif" />
   <link rel="apple-touch-icon" href="/favicon.avif" />
+
+  <!-- Preload critical assets to prevent duplicate loads -->
+  <link rel="preload" as="image" type="image/avif" href="/gear1.avif" />
+  <link rel="preload" as="image" type="image/avif" href="/gear2.avif" />
+  <link rel="preload" as="image" type="image/avif" href="/gear3.avif" />
+  <link rel="preload" as="image" type="image/avif" href="/gear4.avif" />
+  <link rel="preload" as="image" type="image/avif" href="/logo1.avif" />
+
   <meta name="description"
-    content="BECon 2026 - India's Premier Deep-Tech Entrepreneurship Summit at IIT Delhi. Jan 30 - Feb 1, 2026." />
-  <meta name="keywords" content="BECon, Deep-Tech, Entrepreneurship, IIT Delhi, Summit, Startup, Innovation" />
+    content="BECon 2026 - India's Premier Entrepreneurship Summit at IIT Delhi. Jan 30 - Feb 1, 2026." />
+  <meta name="keywords" content="BECon, Entrepreneurship, IIT Delhi, Summit, Startup, Innovation" />
   <meta name="theme-color" content="#7c3aed" />
-  <title>BECon 2026 | Deep-Tech Summit</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>BECon 2026 </title>
+
+  <!-- Preconnect to external domains for faster loading -->
+  <link rel="preconnect" href="https://prod.spline.design" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <!-- Hide Spline watermark globally -->
@@ -29,31 +42,6 @@
       pointer-events: none !important;
     }
   </style>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            becon: {
-              bg: '#05020a', // Very dark purple/black
-              primary: '#7c3aed', // Violet 600
-              secondary: '#4c1d95', // Violet 900
-              accent: '#a78bfa', // Violet 400
-              glass: 'rgba(255, 255, 255, 0.05)',
-              glassBorder: 'rgba(255, 255, 255, 0.1)',
-            }
-          },
-          backgroundImage: {
-            'hero-gradient': 'radial-gradient(circle at 50% 50%, #2e1065 0%, #05020a 70%)',
-            'card-gradient': 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-          }
-        }
-      }
-    }
-  </script>
   <style>
     body {
       background-color: #05020a;
@@ -158,17 +146,6 @@
       }
     }
   </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
 </head>
 
 <body>

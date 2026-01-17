@@ -8,8 +8,10 @@ const Spline = lazy(() => import('@splinetool/react-spline'));
 
 export const About: React.FC = () => {
   const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
-  const [isMobile, setIsMobile] = useState(true); // Default to true to prevent hydration mismatch/eager load
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check if mobile
@@ -18,27 +20,42 @@ export const About: React.FC = () => {
       setIsMobile(mobile);
     };
 
-    checkMobile(); // Initial check
+    checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Intersection Observer to only load when in view
-    const observer = new IntersectionObserver(
+    // Intersection Observer for Spline section
+    const splineObserver = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           setShouldLoadSpline(true);
-          observer.disconnect(); // Once loaded, keep it loaded
+          splineObserver.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '200px' }
+    );
+
+    // Intersection Observer for Video section
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoadVideo(true);
+          videoObserver.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '200px' }
     );
 
     if (containerRef.current) {
-      observer.observe(containerRef.current);
+      splineObserver.observe(containerRef.current);
+    }
+    if (videoRef.current) {
+      videoObserver.observe(videoRef.current);
     }
 
     return () => {
       window.removeEventListener('resize', checkMobile);
-      observer.disconnect();
+      splineObserver.disconnect();
+      videoObserver.disconnect();
     };
   }, []);
 
@@ -58,26 +75,31 @@ export const About: React.FC = () => {
             <span className="text-gray-500">Market Reality</span>
           </motion.h1>
 
-          {/* Spline 3D Scene - cropped to hide watermark */}
+          {/* Spline 3D Scene - Only load when in viewport and not mobile */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-[#E3E3E3]"
           >
-            {/* Inner container with negative margin to crop bottom watermark */}
             <div className="h-60 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
               <div className="w-full h-[calc(100%+60px)]">
-                <Suspense fallback={
-                  <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
-                    <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
+                {shouldLoadSpline ? (
+                  <Suspense fallback={
+                    <div className="w-full h-full bg-[#E3E3E3] flex items-center justify-center">
+                      <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full" />
+                    </div>
+                  }>
+                    <Spline
+                      scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
+                      className="w-full h-full"
+                    />
+                  </Suspense>
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-purple-900/30 to-blue-900/30 flex items-center justify-center">
+                    <div className="text-purple-400/50 text-sm">3D Experience</div>
                   </div>
-                }>
-                  <Spline
-                    scene="https://prod.spline.design/MdKiraeI2uexdEOZ/scene.splinecode"
-                    className="w-full h-full"
-                  />
-                </Suspense>
+                )}
               </div>
             </div>
           </motion.div>
@@ -126,22 +148,30 @@ export const About: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* New Video Card - Full Width */}
+      {/* Video Card - Lazy loaded */}
       <motion.div
+        ref={videoRef}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.8 }}
         className="mt-12 sm:mt-16 relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm group"
       >
-        <video
-          src="/VID-20250118-WA0171.mp4"
-          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
+        {shouldLoadVideo ? (
+          <video
+            src="/VID-20250118-WA0171.mp4"
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-purple-900/20 to-blue-900/20 flex items-center justify-center">
+            <div className="animate-pulse w-16 h-16 rounded-full bg-white/10" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
       </motion.div>
     </div>

@@ -48,7 +48,7 @@ void mainImage(out vec4 o, vec2 fragCoord) {
   vec3 p, S;
   vec4 col;
 
-  for (vec2 r = iResolution.xy, Q; ++i < 35.; O += col.w/d*col.xyz) {
+  for (vec2 r = iResolution.xy, Q; ++i < 25.; O += col.w/d*col.xyz) {
     p = z*normalize(vec3(C-.5*r,r.y)); 
     p.z -= 4.; 
     S = p;
@@ -128,12 +128,17 @@ export const PlasmaBackground = ({
     const color2Rgb = hexToRgb(color2);
     const color3Rgb = hexToRgb(color3);
 
-    // Reduce DPR for better performance
+    // Detect Safari for performance optimization
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    // Reduce DPR for better performance (especially on Safari)
+    const dpr = isSafari ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
+
     const renderer = new Renderer({
       webgl: 2,
       alpha: false,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.5)
+      dpr: dpr
     });
     const gl = renderer.gl;
     const canvas = gl.canvas;
@@ -252,6 +257,7 @@ export const PlasmaBackground = ({
         width: '100%',
         height: '100%',
         overflow: 'hidden',
+        backgroundColor: '#05020a', // Dark fallback while WebGL loads
       }}
     />
   );
