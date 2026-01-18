@@ -28,6 +28,8 @@ interface Event {
     isFeatured: boolean;
     isPublished: boolean;
     formFields: string;
+    linkedFormId?: string; // Add this too for type safety
+    minPassLevel?: string;
     _count: { registrations: number };
 }
 
@@ -37,12 +39,14 @@ const defaultFormFields: FormField[] = [
     { name: "year", label: "Year of Study", type: "select", required: true, options: ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year", "Alumni", "Faculty"] },
 ];
 
-const eventTypes = ["workshop", "hackathon", "talk", "competition", "networking", "other"];
+const eventTypes = ["strategy", "main", "sessions", "showcase", "other"];
+const passLevels = ["silver", "gold", "platinum"];
 
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [admin, setAdmin] = useState<any>(null);
     const [events, setEvents] = useState<Event[]>([]);
+    const [forms, setForms] = useState<any[]>([]); // Add forms state
     const [showModal, setShowModal] = useState(false);
     const [editingEvent, setEditingEvent] = useState<Event | null>(null);
     const [showRegistrations, setShowRegistrations] = useState<string | null>(null);
@@ -57,11 +61,13 @@ export default function AdminDashboard() {
         date: "",
         endDate: "",
         location: "",
-        type: "workshop",
+        type: "sessions",
         imageUrl: "",
         isFeatured: false,
         isPublished: true,
-        formFields: defaultFormFields,
+        formFields: defaultFormFields as FormField[],
+        minPassLevel: "silver",
+        linkedFormId: "", // Add linkedFormId
     });
 
     useEffect(() => {
@@ -70,12 +76,14 @@ export default function AdminDashboard() {
 
     const fetchData = async (retryCount = 0) => {
         try {
-            const [adminRes, eventsRes] = await Promise.all([
+            const [adminRes, eventsRes, formsRes] = await Promise.all([
                 apiRequest("/api/admin/me"),
                 apiRequest("/api/admin/events"),
+                apiRequest("/api/forms/admin/all"), // Fetch forms
             ]);
             setAdmin(adminRes.admin);
             setEvents(eventsRes.events || []);
+            setForms(formsRes.forms || []);
         } catch (error: any) {
             if (error.message?.includes("authentication") || error.message?.includes("Unauthorized")) {
                 if (retryCount < 1) {
@@ -110,17 +118,31 @@ export default function AdminDashboard() {
             date: "",
             endDate: "",
             location: "",
-            type: "workshop",
+            type: "sessions",
             imageUrl: "",
             isFeatured: false,
             isPublished: true,
             formFields: defaultFormFields,
+            minPassLevel: "silver",
+            linkedFormId: "",
         });
         setShowModal(true);
     };
 
     const openEditModal = (event: Event) => {
         setEditingEvent(event);
+        let parsedFormFields = defaultFormFields;
+        try {
+            if (typeof event.formFields === 'string') {
+                parsedFormFields = JSON.parse(event.formFields);
+            } else if (Array.isArray(event.formFields)) {
+                parsedFormFields = event.formFields;
+            }
+        } catch (e) {
+            console.error("Failed to parse formFields", e);
+            parsedFormFields = [];
+        }
+
         setFormData({
             name: event.name,
             description: event.description || "",
@@ -131,7 +153,9 @@ export default function AdminDashboard() {
             imageUrl: event.imageUrl || "",
             isFeatured: event.isFeatured,
             isPublished: event.isPublished,
-            formFields: JSON.parse(event.formFields || "[]"),
+            formFields: Array.isArray(parsedFormFields) ? parsedFormFields : [],
+            minPassLevel: event.minPassLevel || "silver",
+            linkedFormId: event.linkedFormId || "",
         });
         setShowModal(true);
     };
@@ -146,7 +170,10 @@ export default function AdminDashboard() {
         try {
             const payload = {
                 ...formData,
-                formFields: formData.formFields,
+                date: new Date(formData.date).toISOString(),
+                endDate: formData.endDate ? new Date(formData.endDate).toISOString() : null,
+                formFields: JSON.stringify(formData.formFields),
+                linkedFormId: formData.linkedFormId || null, // Ensure explicit null if empty
             };
 
             if (editingEvent) {
@@ -459,6 +486,36 @@ export default function AdminDashboard() {
                                         ))}
                                     </select>
                                 </div>
+                            </div>
+
+                            {/* Pass Level & Location (Adjusted grid) */}
+                            <div>
+                                <label className="text-sm text-[#BBC5F2] mb-1 block">Minimum Pass Level</label>
+                                <select
+                                    value={formData.minPassLevel}
+                                    onChange={(e) => setFormData({ ...formData, minPassLevel: e.target.value })}
+                                    className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#7A32E0]"
+                                >
+                                    {passLevels.map((l) => (
+                                        <option key={l} value={l}>{l.charAt(0).toUpperCase() + l.slice(1)}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Linked Form */}
+                            <div>
+                                <label className="text-sm text-[#BBC5F2] mb-1 block">Linked BECon Form (Optional)</label>
+                                <select
+                                    value={formData.linkedFormId}
+                                    onChange={(e) => setFormData({ ...formData, linkedFormId: e.target.value })}
+                                    className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#7A32E0]"
+                                >
+                                    <option value="">No Linked Form (Use default fields)</option>
+                                    {forms.map((f: any) => (
+                                        <option key={f.id} value={f.id}>{f.title}</option>
+                                    ))}
+                                </select>
+                                <p className="text-xs text-[#BBC5F2]/50 mt-1">If selected, the default fields below will be ignored.</p>
                             </div>
 
                             {/* Image URL */}

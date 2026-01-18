@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
 import { Footer } from '../../components/Footer';
 import { MapPin, Calendar, ArrowRight, Zap, Mic, Trophy, Sparkles, Code, Handshake, ChevronDown, X, CheckCircle, ExternalLink, Loader2, Rocket } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -7,9 +8,12 @@ import { PageHeader } from '../../components/PageHeader';
 import { createPortal } from 'react-dom';
 import { useEventRegistration } from '../hooks/useEventRegistration';
 import { useAuth } from '../contexts/AuthContext';
+import { apiRequest } from '../lib/api';
+import { EventFormPopup } from '../../components/EventFormPopup';
+
 
 // Event types for filtering
-type EventType = 'strategy' | 'main' | 'showcase' | 'sessions';
+type EventType = 'strategy' | 'main' | 'showcase' | 'sessions' | 'other';
 
 interface EventCard {
     id: string;
@@ -23,6 +27,10 @@ interface EventCard {
     featured?: boolean;
     isRegional?: boolean;
     eventType?: EventType;
+    linkedFormId?: string; // For dynamic events
+    minPassLevel?: string;
+    formFields?: string; // For dynamic events
+    isDynamic?: boolean;
 }
 
 interface RegionalCity {
@@ -798,13 +806,28 @@ const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
                     <div className="flex items-center gap-1.5">
                         <Calendar size={14} className="text-purple-400" />
-                        {event.date}
+                        <span>
+                            {new Date(event.date).toString() !== 'Invalid Date' && !isNaN(Date.parse(event.date)) && event.date.includes('T')
+                                ? new Date(event.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+                                : event.date}
+                        </span>
                     </div>
                     <div className="flex items-center gap-1.5">
                         <MapPin size={14} className="text-blue-400" />
-                        {event.location}
+                        <span className="truncate max-w-[150px]">{event.location}</span>
                     </div>
                 </div>
+
+                {event.whyJoin && event.whyJoin.length > 0 && (
+                    <div className="space-y-2 mb-6">
+                        {event.whyJoin.slice(0, 2).map((reason, i) => (
+                            <div key={i} className="flex items-start gap-2 text-xs text-gray-400">
+                                <div className="w-1 h-1 rounded-full bg-purple-500 mt-1.5 flex-shrink-0" />
+                                <span className="line-clamp-1">{reason}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {event.description.length > 100
@@ -855,8 +878,11 @@ export const Events: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
     const { user } = useAuth();
-    const { isRegistered, registerForEvent, markAsRegistered, cancelRegistration, registering } = useEventRegistration();
+    const { isRegistered, registerForEvent, markAsRegistered, cancelRegistration, registering, userPass, fetchRegistrations } = useEventRegistration();
     const [searchParams] = useSearchParams();
+
+    // Dynamic Events State
+    const [feedbackMessage, setFeedbackMessage] = useState<{ text: string, type: 'success' | 'error' | 'info', eventId?: string } | null>(null);
 
     // Event registration info (Internal & External Links)
     // Note: 'unstopEvents' handles all external links (Google Forms, Unstop, etc.)
@@ -887,20 +913,94 @@ export const Events: React.FC = () => {
     const noRegistrationEvents = new Set(['bootcamp', 'workshops']);
     const iitdOnlyEvents = new Set(['grand-moonshot']);
 
-    // Auto-open event modal if ?event= query param is present
-    // Auto-open event modal if ?event= query param is present
-    const [feedbackMessage, setFeedbackMessage] = useState<{ eventId?: string; type: 'success' | 'error' | 'info'; text: string } | null>(null);
 
-    // Auto-open event modal if ?event= query param is present
-    const handleRegister = async (eventId: string) => {
+    // Dynamic Events State
+    const [dynamicEvents, setDynamicEvents] = useState<EventCard[]>([]);
+    const [loadingDynamic, setLoadingDynamic] = useState(true);
+    const [formPopup, setFormPopup] = useState<{
+        isOpen: boolean;
+        eventId: string;
+        formId: string;
+        title: string;
+        isDynamic?: boolean;
+    }>({
+        isOpen: false,
+        eventId: '',
+        formId: '',
+        title: ''
+    });
+
+    // Combined Events
+    const allEvents = [...eventsData, ...dynamicEvents];
+
+    // Fetch Dynamic Events
+    React.useEffect(() => {
+        const fetchDynamicEvents = async () => {
+            try {
+                const res = await apiRequest('/api/events/public');
+                if (res.events) {
+                    const mapped: EventCard[] = res.events.map((e: any) => ({
+                        id: e.id,
+                        title: e.name,
+                        description: e.description || e.name,
+                        date: e.date,
+                        time: new Date(e.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                        location: e.location || 'TBA',
+                        category: mapCategory(e.type), // Map backend type to frontend category
+                        eventType: mapEventType(e.type),   // Map backend type to specific event type
+                        image: e.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80',
+                        isRegional: false,
+                        linkedFormId: e.linkedFormId,
+                        formFields: e.formFields,
+                        minPassLevel: e.minPassLevel,
+                        // isDynamic: true // Removed to use unified registration flow
+                    })); setDynamicEvents(mapped);
+                }
+            } catch (err) {
+                console.error("Failed to fetch dynamic events", err);
+            } finally {
+                setLoadingDynamic(false);
+            }
+        };
+
+        fetchDynamicEvents();
+    }, []);
+
+    const mapCategory = (type: string): EventCard['category'] => {
+        const mapping: Record<string, EventCard['category']> = {
+            'hackathon': 'hackathon',
+            'talk': 'keynote',
+            'workshop': 'workshop',
+            'competition': 'competition',
+            'networking': 'networking',
+            'other': 'exhibition',
+            'sessions': 'workshop' // Map sessions to workshop category
+        };
+        return mapping[type] || 'keynote';
+    };
+
+    const mapEventType = (type: string): EventType => {
+        if (type === 'workshop') return 'sessions'; // Legacy mapping
+        if (['strategy', 'main', 'showcase', 'sessions'].includes(type)) return type as EventType;
+        return 'main';
+    };
+
+    const handleRegister = async (eventId: string, formData?: any) => {
         setFeedbackMessage(null); // Clear previous messages
+
+        if (!user) {
+            setFeedbackMessage({
+                type: 'error',
+                text: 'Please login to register for events'
+            });
+            return;
+        }
 
         if (unstopEvents[eventId]) {
             window.open(unstopEvents[eventId], '_blank');
-            await markAsRegistered(eventId);
             setFeedbackMessage({ eventId, type: 'success', text: 'Opened in new tab!' });
         } else {
-            const result = await registerForEvent(eventId, { silent: true });
+            const result = await registerForEvent(eventId, { formData });
             if (result && typeof result === 'object') {
                 setFeedbackMessage({
                     eventId,
@@ -916,10 +1016,57 @@ export const Events: React.FC = () => {
         }, 3000);
     };
 
-    // Clear feedback when selected event changes
-    React.useEffect(() => {
-        setFeedbackMessage(null);
-    }, [selectedEvent]);
+    const handleAction = async (event: EventCard) => {
+        // 1. Pass Check (Shared Logic)
+        const checkPass = async () => {
+            if (!userPass) return true; // Let them try to register (or maybe block if no pass? But legacy logic was lenient)
+
+            // Dynamic Pass Check
+            if (event.minPassLevel) {
+                const levels = ['silver', 'gold', 'platinum', 'iitd_student'];
+
+                // Normalize: "GOLD PASS" -> "gold"
+                let normalizedUserPass = userPass.toLowerCase().replace(/ pass$/, '').trim();
+                // Handle "iit delhi student pass" variation if any, or just standard mapping
+                if (normalizedUserPass.includes('student')) normalizedUserPass = 'iitd_student';
+
+                const userLevelIndex = levels.indexOf(normalizedUserPass);
+
+                // map 'iitd_student' to highest level effectively for now, or treat same as platinum
+                const effectiveUserLevelIndex = normalizedUserPass === 'iitd_student' ? 3 : userLevelIndex;
+
+                const reqLevelIndex = levels.indexOf(event.minPassLevel.toLowerCase());
+
+                if (effectiveUserLevelIndex < reqLevelIndex) {
+                    toast.error(`This event requires a ${event.minPassLevel.toUpperCase()} Pass.`);
+                    return false;
+                }
+                return true;
+            }
+
+            const { isEventAllowed } = await import('../constants/passes');
+            if (!isEventAllowed(userPass, event.id)) {
+                toast.error(`Your ${userPass.toUpperCase()} Pass does not cover this event.`);
+                return false;
+            }
+            return true;
+        };
+
+        if (event.linkedFormId) {
+            setFormPopup({
+                isOpen: true,
+                eventId: event.id,
+                formId: event.linkedFormId,
+                title: event.title,
+                isDynamic: event.isDynamic
+            });
+        } else {
+            handleRegister(event.id, event.isDynamic);
+        }
+    };
+
+    // Clean up effects
+
 
     React.useEffect(() => {
         const eventId = searchParams.get('event');
@@ -1264,12 +1411,12 @@ export const Events: React.FC = () => {
                 {/* Events Grid */}
                 {/* Events List - Alternating Layout */}
                 <div className="space-y-4">
-                    {isLoading ? (
+                    {isLoading || loadingDynamic ? (
                         Array.from({ length: 4 }).map((_, i) => (
                             <SkeletonMainCard key={i} />
                         ))
                     ) : (
-                        eventsData
+                        allEvents
                             .filter(event => !activeFilter || event.eventType === activeFilter)
                             .map((event, i) => (
                                 <motion.div
@@ -1320,12 +1467,14 @@ export const Events: React.FC = () => {
                                             )}
                                         </AnimatePresence>
 
-                                        {(event.category === 'workshop' || event.eventType === 'sessions') ? (
+                                        {(event.category === 'workshop' || event.eventType === 'sessions' || event.linkedFormId) ? (
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    if (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || noRegistrationEvents.has(event.id)) return;
-                                                    handleRegister(event.id);
+                                                    if (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || (noRegistrationEvents.has(event.id) && !event.linkedFormId)) return;
+
+                                                    // Use unified handleAction
+                                                    handleAction(event);
                                                 }}
                                                 disabled={
                                                     registering === event.id ||
@@ -1519,8 +1668,8 @@ export const Events: React.FC = () => {
 
                                                         <button
                                                             onClick={() => {
-                                                                if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id)) return;
-                                                                handleRegister(selectedEvent.id);
+                                                                if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || (noRegistrationEvents.has(selectedEvent.id) && !selectedEvent.linkedFormId)) return;
+                                                                handleAction(selectedEvent);
                                                             }}
                                                             disabled={
                                                                 registering === selectedEvent.id ||
@@ -1638,6 +1787,22 @@ export const Events: React.FC = () => {
             <div className="relative z-50">
                 <Footer />
             </div>
+            {/* Event Form Popup */}
+            {formPopup.isOpen && (
+                <EventFormPopup
+                    isOpen={formPopup.isOpen}
+                    onClose={() => setFormPopup(prev => ({ ...prev, isOpen: false }))}
+                    eventId={formPopup.eventId}
+                    formId={formPopup.formId}
+                    title={formPopup.title}
+                    onSuccess={async (data, formId) => {
+                        await handleRegister(formPopup.eventId, data);
+                        setFormPopup(prev => ({ ...prev, isOpen: false }));
+                        // fetchRegistrations(); // handleRegister already returns status, but we can refresh
+                        toast.success("Successfully registered!");
+                    }}
+                />
+            )}
         </div >
     );
 };

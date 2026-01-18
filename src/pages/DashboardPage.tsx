@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { generateBeconIdFromUserId } from '../utils/beconId';
 import { supabase } from '../lib/supabase';
 import { useEventRegistration } from '../hooks/useEventRegistration';
+import { apiRequest } from '../lib/api';
 
 // Event name and date mappings (matching frontend event IDs)
 const EVENT_NAMES: Record<string, string> = {
@@ -644,14 +645,40 @@ export const DashboardPage: React.FC = () => {
 
     // Use event registration hook for actual data
     const { registrations, registrationCount } = useEventRegistration();
+    const [dynamicEventsMap, setDynamicEventsMap] = useState<Record<string, { name: string, date: string }>>({});
+
+    useEffect(() => {
+        const fetchDynamicNames = async () => {
+            try {
+                const res = await apiRequest('/api/events/public');
+                if (res.events) {
+                    const map: Record<string, { name: string, date: string }> = {};
+                    res.events.forEach((e: any) => {
+                        map[e.id] = { name: e.name, date: e.date };
+                    });
+                    setDynamicEventsMap(map);
+                }
+            } catch (err) {
+                console.error("Failed to load event details", err);
+            }
+        };
+        fetchDynamicNames();
+    }, []);
 
     // Map registrations to the Event interface expected by the component
-    const registeredEvents: Event[] = registrations.map(reg => ({
-        id: reg.event_id,
-        name: EVENT_NAMES[reg.event_id] || reg.event_id,
-        date: EVENT_DATES[reg.event_id] || 'Jan 30 - Feb 1, 2026',
-        status: reg.status as 'registered' | 'confirmed' | 'attended',
-    }));
+    const registeredEvents: Event[] = registrations.map(reg => {
+        const dynamic = dynamicEventsMap[reg.event_id];
+        const dateStr = dynamic?.date
+            ? new Date(dynamic.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            : (EVENT_DATES[reg.event_id] || 'Jan 30 - Feb 1, 2026');
+
+        return {
+            id: reg.event_id,
+            name: dynamic?.name || EVENT_NAMES[reg.event_id] || reg.event_id,
+            date: dateStr,
+            status: reg.status as 'registered' | 'confirmed' | 'attended',
+        };
+    });
 
     const passes: Pass[] = [];
 

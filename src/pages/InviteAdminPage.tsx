@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Plus, RefreshCw, Copy, Check, Users, Key } from 'lucide-react';
+import { Shield, Plus, RefreshCw, Copy, Check, Users, Key, Upload, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,23 @@ interface InviteCode {
     used_at: string | null;
 }
 
+interface BulkResult {
+    summary: {
+        total: number;
+        passesAssigned: number;
+        invitesCreated: number;
+        skipped: number;
+        errors: number;
+    };
+    details: Array<{
+        email: string;
+        status: string;
+        code?: string;
+        currentPass?: string;
+        error?: string;
+    }>;
+}
+
 export default function InviteAdminPage() {
     const [invites, setInvites] = useState<InviteCode[]>([]);
     const [loading, setLoading] = useState(true);
@@ -23,8 +40,14 @@ export default function InviteAdminPage() {
     // Create Form State
     const [passType, setPassType] = useState('gold');
     const [count, setCount] = useState(1);
-    const [activeTab, setActiveTab] = useState<'list' | 'create'>('create');
+    const [activeTab, setActiveTab] = useState<'create' | 'bulk' | 'list'>('create');
     const [checkingAuth, setCheckingAuth] = useState(true);
+
+    // Bulk Email State
+    const [bulkEmails, setBulkEmails] = useState('');
+    const [bulkPassType, setBulkPassType] = useState('gold');
+    const [bulkProcessing, setBulkProcessing] = useState(false);
+    const [bulkResult, setBulkResult] = useState<BulkResult | null>(null);
 
     useEffect(() => {
         checkAuthAndFetch();
@@ -94,6 +117,62 @@ export default function InviteAdminPage() {
         }
     };
 
+    const handleBulkSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setBulkProcessing(true);
+        setBulkResult(null);
+
+        // Parse emails - split by comma, newline, space, or semicolon
+        const emailList = bulkEmails
+            .split(/[\s,;\n]+/)
+            .map(e => e.trim())
+            .filter(e => e.length > 0);
+
+        if (emailList.length === 0) {
+            toast.error('Please enter at least one email');
+            setBulkProcessing(false);
+            return;
+        }
+
+        try {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const token = localStorage.getItem('adminToken');
+
+            const response = await fetch(`${API_URL}/api/admin/invites/bulk-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ emails: emailList, passType: bulkPassType })
+            });
+
+            if (!response.ok) throw new Error('Failed to process bulk invites');
+
+            const data = await response.json();
+            setBulkResult(data);
+            toast.success(data.message);
+            fetchInvites(); // Refresh list
+        } catch (error) {
+            toast.error('Error processing bulk invites');
+        } finally {
+            setBulkProcessing(false);
+        }
+    };
+
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const content = event.target?.result as string;
+            setBulkEmails(content);
+            toast.success(`Loaded ${file.name}`);
+        };
+        reader.readAsText(file);
+    };
+
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
         toast.success('Copied to clipboard');
@@ -133,6 +212,15 @@ export default function InviteAdminPage() {
                                 }`}
                         >
                             <Plus size={18} /> Generate New
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('bulk')}
+                            className={`w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 transition-colors ${activeTab === 'bulk'
+                                ? 'bg-purple-600/20 text-purple-400 border border-purple-500/30'
+                                : 'hover:bg-white/5 text-gray-400'
+                                }`}
+                        >
+                            <Mail size={18} /> Bulk Email
                         </button>
                         <button
                             onClick={() => setActiveTab('list')}
@@ -189,6 +277,115 @@ export default function InviteAdminPage() {
                                         Generate Codes
                                     </button>
                                 </form>
+                            </motion.div>
+                        )}
+
+                        {activeTab === 'bulk' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-[#1A1425] border border-white/5 rounded-2xl p-8"
+                            >
+                                <h2 className="text-xl font-bold mb-2">Bulk Email Invite</h2>
+                                <p className="text-gray-400 text-sm mb-6">Paste emails or upload a file. Existing users get passes directly, new emails get invite codes.</p>
+
+                                <form onSubmit={handleBulkSubmit} className="space-y-6">
+                                    <div className="space-y-2">
+                                        <label className="text-sm text-gray-400">Pass Type</label>
+                                        <select
+                                            value={bulkPassType}
+                                            onChange={(e) => setBulkPassType(e.target.value)}
+                                            className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 focus:border-purple-500 outline-none"
+                                        >
+                                            <option value="gold">Gold Pass</option>
+                                            <option value="platinum">Platinum Pass</option>
+                                            <option value="silver">Silver Pass</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm text-gray-400">Emails (comma, space, or newline separated)</label>
+                                            <label className="cursor-pointer text-purple-400 hover:text-purple-300 text-sm flex items-center gap-1">
+                                                <Upload size={14} />
+                                                Upload File
+                                                <input
+                                                    type="file"
+                                                    accept=".txt,.csv"
+                                                    onChange={handleFileUpload}
+                                                    className="hidden"
+                                                />
+                                            </label>
+                                        </div>
+                                        <textarea
+                                            value={bulkEmails}
+                                            onChange={(e) => setBulkEmails(e.target.value)}
+                                            placeholder="email1@example.com&#10;email2@example.com&#10;email3@example.com"
+                                            rows={8}
+                                            className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 focus:border-purple-500 outline-none resize-y font-mono text-sm"
+                                        />
+                                        <p className="text-xs text-gray-500">
+                                            {bulkEmails.split(/[\s,;\n]+/).filter(e => e.includes('@')).length} valid emails detected
+                                        </p>
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        disabled={bulkProcessing}
+                                        className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        {bulkProcessing ? <RefreshCw className="animate-spin" /> : <Mail />}
+                                        Process Emails
+                                    </button>
+                                </form>
+
+                                {/* Results */}
+                                {bulkResult && (
+                                    <div className="mt-8 p-6 bg-black/30 rounded-xl border border-white/5">
+                                        <h3 className="font-bold mb-4">Results</h3>
+                                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                                            <div className="text-center p-3 bg-white/5 rounded-lg">
+                                                <div className="text-2xl font-bold">{bulkResult.summary.total}</div>
+                                                <div className="text-xs text-gray-400">Total</div>
+                                            </div>
+                                            <div className="text-center p-3 bg-green-500/10 rounded-lg">
+                                                <div className="text-2xl font-bold text-green-400">{bulkResult.summary.passesAssigned}</div>
+                                                <div className="text-xs text-gray-400">Passes Assigned</div>
+                                            </div>
+                                            <div className="text-center p-3 bg-blue-500/10 rounded-lg">
+                                                <div className="text-2xl font-bold text-blue-400">{bulkResult.summary.invitesCreated}</div>
+                                                <div className="text-xs text-gray-400">Invites Created</div>
+                                            </div>
+                                            <div className="text-center p-3 bg-yellow-500/10 rounded-lg">
+                                                <div className="text-2xl font-bold text-yellow-400">{bulkResult.summary.skipped}</div>
+                                                <div className="text-xs text-gray-400">Skipped</div>
+                                            </div>
+                                            <div className="text-center p-3 bg-red-500/10 rounded-lg">
+                                                <div className="text-2xl font-bold text-red-400">{bulkResult.summary.errors}</div>
+                                                <div className="text-xs text-gray-400">Errors</div>
+                                            </div>
+                                        </div>
+
+                                        <details className="text-sm">
+                                            <summary className="cursor-pointer text-gray-400 hover:text-white">View Details ({bulkResult.details.length} entries)</summary>
+                                            <div className="mt-4 max-h-64 overflow-y-auto space-y-1">
+                                                {bulkResult.details.map((d, i) => (
+                                                    <div key={i} className="flex items-center justify-between py-1 px-2 rounded bg-white/2 text-xs font-mono">
+                                                        <span className="text-gray-300">{d.email}</span>
+                                                        <span className={`px-2 py-0.5 rounded ${d.status === 'pass_assigned' ? 'bg-green-500/20 text-green-400' :
+                                                            d.status === 'invite_created' ? 'bg-blue-500/20 text-blue-400' :
+                                                                d.status === 'already_has_pass' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                                    'bg-red-500/20 text-red-400'
+                                                            }`}>
+                                                            {d.status.replace(/_/g, ' ')}
+                                                            {d.code && ` (${d.code})`}
+                                                        </span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </details>
+                                    </div>
+                                )}
                             </motion.div>
                         )}
 

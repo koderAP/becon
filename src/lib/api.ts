@@ -5,9 +5,10 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 export async function apiRequest(
     endpoint: string,
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
-    body?: any
+    body?: any,
+    customToken?: string
 ) {
-    const token = localStorage.getItem('adminToken');
+    const token = customToken || localStorage.getItem('adminToken');
 
     const options: RequestInit = {
         method,

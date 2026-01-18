@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
+import { apiRequest } from '../lib/api';
 
 interface EventRegistration {
     id: string;
@@ -22,12 +23,13 @@ interface EventInfo {
 }
 
 export function useEventRegistration() {
-    const { user } = useAuth();
+    const { user, session } = useAuth();
     const [registrations, setRegistrations] = useState<EventRegistration[]>([]);
     const [loading, setLoading] = useState(true);
     const [registering, setRegistering] = useState<string | null>(null);
+    const [userPass, setUserPass] = useState<string | null>(null);
 
-    // Fetch user's registrations
+    // Fetch user's registrations from both tables
     const fetchRegistrations = useCallback(async () => {
         if (!user) {
             setRegistrations([]);
@@ -36,19 +38,29 @@ export function useEventRegistration() {
         }
 
         try {
-            const { data, error } = await supabase
-                .from('event_registrations')
-                .select('id, event_id, status, source, registered_at')
-                .eq('user_id', user.id);
+            // Fetch Registrations via Backend API (Bypasses RLS)
+            // PASS SESSION TOKEN
+            const token = session?.access_token;
+            const { registrations: fetchedRegistrations } = await apiRequest('/api/events/registrations', 'GET', undefined, token);
 
-            if (error) throw error;
-            setRegistrations(data || []);
+            setRegistrations(fetchedRegistrations || []);
+
+            // Fetch User Pass
+            const { data: passData } = await supabase
+                .from('user_passes')
+                .select('pass_type')
+                .eq('user_id', user.id)
+                .order('purchased_at', { ascending: false })
+                .limit(1)
+                .single();
+
+            setUserPass(passData?.pass_type || null);
         } catch (err) {
             console.error('Failed to fetch registrations:', err);
         } finally {
             setLoading(false);
         }
-    }, [user]);
+    }, [user, session]);
 
     useEffect(() => {
         fetchRegistrations();
@@ -64,8 +76,8 @@ export function useEventRegistration() {
         return registrations.find(r => r.event_id === eventId);
     }, [registrations]);
 
-    // Register for an internal event
-    const registerForEvent = async (eventId: string, options: { silent?: boolean } = {}) => {
+    // Register for an event (Internal or Dynamic)
+    const registerForEvent = async (eventId: string, options: { silent?: boolean, isDynamic?: boolean, formData?: any } = {}) => {
         if (!user) {
             if (!options.silent) toast.error('Please login to register for events');
             return { success: false, message: 'Please login to register', type: 'auth_required' };
@@ -78,55 +90,31 @@ export function useEventRegistration() {
 
         setRegistering(eventId);
         try {
-            // 1. Fetch User Pass
-            const { data: passData, error: passError } = await supabase
-                .from('user_passes')
-                .select('pass_type')
-                .eq('user_id', user.id)
-                .order('purchased_at', { ascending: false })
-                .limit(1)
-                .single();
-
-            const userPass = passData?.pass_type;
-
-            if (!userPass) {
-                const msg = 'You need a valid pass to register. Please purchase one.';
-                if (!options.silent) toast.error(msg);
-                return { success: false, message: msg, type: 'no_pass' };
-            }
-
-            // 2. Check Permissions
-            const { isEventAllowed } = await import('../constants/passes');
-            if (!isEventAllowed(userPass, eventId)) {
-                const msg = `Your ${userPass.toUpperCase()} PASS does not include this event. Please upgrade.`;
-                if (!options.silent) toast.error(msg);
-                return { success: false, message: msg, type: 'upgrade_required' };
-            }
-
-            // 3. Register
-            const { error } = await supabase
-                .from('event_registrations')
-                .insert({
-                    user_id: user.id,
-                    event_id: eventId,
-                    source: 'internal',
-                    status: 'registered'
-                });
-
-            if (error) throw error;
+            // 2. Register via Backend API (Bypasses RLS)
+            const token = session?.access_token;
+            await apiRequest('/api/events/register', 'POST', {
+                eventId,
+                isDynamic: options.isDynamic,
+                formData: options.formData
+            }, token);
 
             if (!options.silent) toast.success('Successfully registered!');
             await fetchRegistrations();
             return { success: true, message: 'Successfully registered!', type: 'success' };
         } catch (err: any) {
             console.error('Registration failed:', err);
-            if (err.code === '23505') {
+
+            // Handle specific API error responses if apiRequest throws with response data
+            // Assuming apiRequest throws an error with message property
+            const msg = err.message || 'Registration failed';
+
+            if (msg.includes('Already registered') || err.message?.includes('409')) {
                 if (!options.silent) toast.info('You are already registered for this event');
                 return { success: false, message: 'Already registered', type: 'already_registered' };
-            } else {
-                if (!options.silent) toast.error('Registration failed. Please try again.');
-                return { success: false, message: 'Registration failed', type: 'error' };
             }
+
+            if (!options.silent) toast.error(msg);
+            return { success: false, message: msg, type: 'error' };
         } finally {
             setRegistering(null);
         }
@@ -196,7 +184,8 @@ export function useEventRegistration() {
         registerForEvent,
         markAsRegistered,
         cancelRegistration,
-        refetch: fetchRegistrations,
-        registrationCount: registrations.length
+        fetchRegistrations, // Expose for manual refresh (e.g., after popup form)
+        registrationCount: registrations.length,
+        userPass // userPass is already the string value (pass_type)
     };
 }
