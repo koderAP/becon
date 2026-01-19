@@ -222,11 +222,11 @@ export const Tickets: React.FC = () => {
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                                        On-Campus Housing
+                                        Accommodation in Delhi
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                                        Walking Distance to Venue
+                                        Easy Commute
                                     </li>
                                 </ul>
                             </div>
@@ -248,7 +248,7 @@ export const Tickets: React.FC = () => {
                         </div>
                     </div>
                 </motion.div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
