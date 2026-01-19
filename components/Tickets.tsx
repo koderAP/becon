@@ -212,7 +212,7 @@ export const Tickets: React.FC = () => {
                                     Need a Place to Stay?
                                 </h3>
                                 <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg">
-                                    We've got you covered! Register for accommodation at IIT Delhi during BECon 2026. Limited slots available - book early!
+                                    We've got you covered! Register for accommodation in Delhi during BECon 2026. Limited slots available - book early!
                                 </p>
 
                                 <ul className="flex flex-wrap gap-4 mt-6 text-sm text-gray-300">
