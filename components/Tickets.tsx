@@ -182,6 +182,72 @@ export const Tickets: React.FC = () => {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Accommodation Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-16"
+                >
+                    <div className="relative bg-gradient-to-br from-[#1a0b2e] via-[#0f0518] to-[#0a0514] border border-purple-500/20 rounded-3xl p-8 md:p-10 overflow-hidden group hover:border-purple-500/40 transition-all duration-300">
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
+
+                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                            {/* Left - Icon & Text */}
+                            <div className="flex-1 text-center md:text-left">
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-300 text-xs font-semibold uppercase tracking-wider mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4" />
+                                        <path d="M2 12v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-7" />
+                                        <path d="M2 9h20v3H2z" />
+                                        <path d="M5 9v3m14-3v3" />
+                                    </svg>
+                                    Accommodation
+                                </div>
+                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                                    Need a Place to Stay?
+                                </h3>
+                                <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg">
+                                    We've got you covered! Register for accommodation at IIT Delhi during BECon 2026. Limited slots available - book early!
+                                </p>
+
+                                <ul className="flex flex-wrap gap-4 mt-6 text-sm text-gray-300">
+                                    <li className="flex items-center gap-2">
+                                        <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                        Safe & Secure
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                        On-Campus Housing
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                        Walking Distance to Venue
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Right - CTA */}
+                            <div className="shrink-0">
+                                <a
+                                    href="https://forms.gle/gYy2sYG9eQZks9Vx8"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold text-sm uppercase tracking-wider rounded-xl shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 group-hover:scale-105"
+                                >
+                                    Register Now
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M7 17l9.2-9.2M17 17V7H7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
         </div>
     );
