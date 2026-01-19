@@ -989,6 +989,7 @@ export const Events: React.FC = () => {
         setFeedbackMessage(null); // Clear previous messages
 
         if (!user) {
+            toast.error('Please login to register for events');
             setFeedbackMessage({
                 type: 'error',
                 text: 'Please login to register for events'
@@ -998,6 +999,7 @@ export const Events: React.FC = () => {
 
         if (unstopEvents[eventId]) {
             window.open(unstopEvents[eventId], '_blank');
+            toast.success('Opening event registration page...');
             setFeedbackMessage({ eventId, type: 'success', text: 'Opened in new tab!' });
         } else {
             const result = await registerForEvent(eventId, { formData });
@@ -1328,6 +1330,11 @@ export const Events: React.FC = () => {
                                                         >
                                                             Register Now
                                                         </button>
+                                                        {event!.id.includes('startup-clinic') && (
+                                                            <p className="text-yellow-400/90 text-[10px] md:text-xs font-medium mt-2 text-center leading-tight">
+                                                                *Limited Seats, Buy Gold Pass or above for Guaranteed Entry.
+                                                            </p>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </motion.div>
@@ -1715,6 +1722,12 @@ export const Events: React.FC = () => {
                                                         {iitdOnlyEvents.has(selectedEvent.id) && (
                                                             <p className="text-red-400 text-sm mt-3 font-semibold text-center">
                                                                 * Only for IIT Delhi Students
+                                                            </p>
+                                                        )}
+
+                                                        {selectedEvent.id.includes('startup-clinic') && (
+                                                            <p className="text-yellow-400/90 text-sm font-medium mt-3 text-center leading-tight">
+                                                                * Limited Seats, Buy Gold Pass or above for Guaranteed Entry.
                                                             </p>
                                                         )}
                                                     </div>

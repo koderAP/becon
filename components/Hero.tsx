@@ -206,28 +206,20 @@ export const Hero: React.FC = () => {
       <div className="z-20 flex flex-col items-center text-center px-4 relative">
 
         {/* LOGO - BECon Logo - Responsive sizing */}
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0, y: 50, filter: 'blur(20px)' }}
-          animate={{ scale: 1, opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{
-            duration: 1.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-            delay: 0.3
-          }}
-          className="relative flex items-center justify-center mb-4 md:mb-6"
-        >
+        {/* LOGO - BECon Logo - Responsive sizing */}
+        <div className="relative flex items-center justify-center mb-4 md:mb-6">
           <img
             src="/logo1.avif"
             alt="BECon 2026"
             className="w-[260px] md:w-[400px] lg:w-[520px] xl:w-[640px] 2xl:w-[720px] h-auto object-contain"
           />
-        </motion.div>
+        </div>
 
         {/* Typewriter Effect - Responsive sizing */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
           className="flex flex-col items-center mb-8 md:mb-10"
         >
           <Typewriter
@@ -246,7 +238,7 @@ export const Hero: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
           className="flex flex-row gap-4 md:gap-6 mt-20"
         >
           {/* Register Button */}
