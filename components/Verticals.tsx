@@ -113,7 +113,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
               to="/events"
               className="flex items-center gap-2 text-sm sm:text-base text-gray-400 hover:text-purple-400 transition-colors group"
             >
-              Explore all events <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              Explore BECon <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-8">

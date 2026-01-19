@@ -31,7 +31,7 @@ const scheduleData: DaySchedule[] = [
         label: 'Kickoff',
         labelColor: 'bg-purple-600',
         title: 'Day 1: Main Conference',
-        introDescription: 'Welcome to the Becon Tech Summit. Kick off the day with an introduction from the event organizers and a sneak peek of what\'s in store.',
+        introDescription: 'Welcome to the Becon. Kick off the day with an introduction from the event organizers and a sneak peek of what\'s in store.',
         events: [
             {
                 time: '10.30-11.30 AM',

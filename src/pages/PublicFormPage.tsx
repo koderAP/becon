@@ -363,7 +363,7 @@ export default function PublicFormPage() {
                                         className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#7A32E0]"
                                     >
                                         <option value="">Select...</option>
-                                        {field.options.map((opt) => (
+                                        {(field.options || []).map((opt) => (
                                             <option key={opt} value={opt}>{opt}</option>
                                         ))}
                                     </select>
@@ -371,7 +371,7 @@ export default function PublicFormPage() {
 
                                 {field.type === "radio" && (
                                     <div className="space-y-2">
-                                        {field.options.map((opt) => (
+                                        {(field.options || []).map((opt) => (
                                             <label key={opt} className="flex items-center gap-3 cursor-pointer">
                                                 <input
                                                     type="radio"
@@ -389,7 +389,7 @@ export default function PublicFormPage() {
 
                                 {field.type === "checkbox" && (
                                     <div className="space-y-2">
-                                        {field.options.map((opt) => (
+                                        {(field.options || []).map((opt) => (
                                             <label key={opt} className="flex items-center gap-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"

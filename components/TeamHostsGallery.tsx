@@ -31,9 +31,9 @@ const SkeletonCollage = () => (
 
 export const TeamHostsGallery: React.FC<TeamHostsGalleryProps> = ({
     hosts,
-    title = "Meet Our Hosts: The Visionaries Behind BECon Tech Summit",
+    title = "Meet Our Hosts: The Visionaries Behind BECon",
     subtitle = "Our Hosts",
-    description = "The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation.",
+    description = "The BECon is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation.",
     isLoading = false,
 }) => {
     const [selectedHost, setSelectedHost] = useState<HostMember | null>(null);

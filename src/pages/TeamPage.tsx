@@ -151,7 +151,7 @@ export const TeamPage: React.FC = () => {
                     hosts={hostMembers}
                     title="Meet Our Hosts: The Visionaries Behind BECon'26"
                     subtitle="Our Hosts"
-                    description="The BECon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
+                    description="The BECon is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation."
                     isLoading={isLoading}
                 />
 

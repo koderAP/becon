@@ -25,7 +25,7 @@ export const ExperienceBECon: React.FC = () => {
                     to="/events"
                     className="inline-flex items-center gap-2 text-white hover:text-purple-400 transition-colors group font-medium"
                 >
-                    Explore all events
+                    Explore BECon
                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
             </motion.div>

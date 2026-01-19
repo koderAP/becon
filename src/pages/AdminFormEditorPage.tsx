@@ -276,7 +276,7 @@ export default function AdminFormEditorPage() {
             type: field.type,
             required: field.required,
             placeholder: field.placeholder || "",
-            options: field.options.length > 0 ? field.options : [""],
+            options: (field.options || []).length > 0 ? field.options : [""],
             imageUrl: field.imageUrl || "",
             section: field.section || 0,
         });
@@ -319,7 +319,7 @@ export default function AdminFormEditorPage() {
             return { ...f, options: opts };
         });
     };
-    const removeOption = (index: number) => setNewField(f => ({ ...f, options: f.options.filter((_, i) => i !== index) }));
+    const removeOption = (index: number) => setNewField(f => ({ ...f, options: (f.options || []).filter((_, i) => i !== index) }));
 
     if (loading) {
         return (
@@ -685,7 +685,7 @@ export default function AdminFormEditorPage() {
                                 <div>
                                     <label className="text-sm text-[#BBC5F2] mb-1 block">Options</label>
                                     <div className="space-y-2">
-                                        {newField.options.map((opt, i) => (
+                                        {(newField.options || []).map((opt, i) => (
                                             <div key={i} className="flex gap-2">
                                                 <input
                                                     type="text"

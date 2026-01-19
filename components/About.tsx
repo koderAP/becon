@@ -116,7 +116,7 @@ export const About: React.FC = () => {
             eDC IIT Delhi is a dedicated cell that connects IIT Delhi's technical strength with the world of entrepreneurship and innovation. Over the years, we have created platforms that encourage learning, meaningful dialogue, and real opportunities for growth.
           </p>
           <p>
-            BECon is at the heart of this vision. The Nation's biggest E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
+            BECon is at the heart of this vision. The Nation's biggest student-run E-summit brings together founders, leaders, investors, and young innovators to connect, reflect, and shape ideas that truly matter. BECon is about building the mindset, purpose, and ecosystem needed to turn ideas into lasting impact.
           </p>
 
           <div className="space-y-12 pt-12">

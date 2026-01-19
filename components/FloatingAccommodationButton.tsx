@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Ticket } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Bed } from 'lucide-react';
 
-export const FloatingRegisterButton: React.FC = () => {
+export const FloatingAccommodationButton: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     // Show button only after scrolling down a bit (past hero)
@@ -23,16 +22,8 @@ export const FloatingRegisterButton: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const scrollToTickets = () => {
-        const ticketsSection = document.getElementById('tickets');
-        if (ticketsSection) {
-            ticketsSection.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            navigate('/', { state: { scrollTo: 'tickets' } });
-        }
+    const openAccommodationForm = () => {
+        window.open('https://forms.gle/gYy2sYG9eQZks9Vx8', '_blank');
     };
 
     return (
@@ -44,11 +35,11 @@ export const FloatingRegisterButton: React.FC = () => {
                     exit={{ opacity: 0, y: 50, scale: 0.8 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={scrollToTickets}
-                    className="fixed bottom-6 right-6 z-[90] flex items-center justify-center gap-0 md:gap-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 md:px-6 md:py-4 rounded-full shadow-[0_0_20px_rgba(124,58,237,0.5)] border border-white/20 backdrop-blur-md group font-bold tracking-wide"
+                    onClick={openAccommodationForm}
+                    className="fixed bottom-6 left-6 z-[90] flex items-center justify-center gap-0 md:gap-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 md:px-6 md:py-4 rounded-full shadow-[0_0_20px_rgba(124,58,237,0.5)] border border-white/20 backdrop-blur-md group font-bold tracking-wide"
                 >
-                    <Ticket className="w-6 h-6 md:w-5 md:h-5" />
-                    <span className="hidden md:inline text-sm">Register for Passes</span>
+                    <Bed className="w-6 h-6 md:w-5 md:h-5" />
+                    <span className="hidden md:inline text-sm">Accommodation</span>
                 </motion.button>
             )}
         </AnimatePresence>

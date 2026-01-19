@@ -55,7 +55,7 @@ export const SpeakersPage: React.FC = () => {
             <PageHeader
                 title="SPEAKERS"
                 badge="Our Guests"
-                description="Meet the visionaries and industry leaders shaping the future of deep tech."
+                description="Meet the visionaries and industry leaders shaping the future of innovation."
             />
 
             <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">

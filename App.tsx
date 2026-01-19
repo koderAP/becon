@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 import { FloatingRegisterButton } from './components/FloatingRegisterButton';
+import { FloatingAccommodationButton } from './components/FloatingAccommodationButton';
 
 // Lazy load pages
 const Home = lazy(() => import('./src/pages/Home').then(module => ({ default: module.Home })));
@@ -114,6 +115,7 @@ const AppContent: React.FC = () => {
         }}
       />
       <FloatingRegisterButton />
+      <FloatingAccommodationButton />
     </div>
   );
 };

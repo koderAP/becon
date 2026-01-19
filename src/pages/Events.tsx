@@ -131,7 +131,7 @@ const eventsData: EventCard[] = [
     {
         id: 'grand-moonshot',
         title: 'Grand Moonshot',
-        description: "The Grand Moonshot is the flagship fundraising arena at IIT Delhi where India's most promising, growth-ready startups pitch to leading national and global venture capital firms. Final top teams pitch in front of a real audience in the arena and investors to raise funding. This isn't just a pitch—it's a high-stakes opportunity to secure funding, gain massive visibility, and prove your mettle on a national stage. If you're ready to raise big, this is the stage that makes it real.",
+        description: "The Grand Moonshot is the flagship fundraising arena at IIT Delhi where India's most promising, growth-ready startups from regional locations pitch to leading national and global venture capital firms and an audience of 5000+. Final top teams pitch in front of a real audience in the arena and investors to raise funding. This isn't just a pitch—it's a high-stakes opportunity to secure funding, gain massive visibility, and prove your mettle on a national stage. If you're ready to raise big, this is the stage that makes it real.",
         whyJoin: [
             'Pitch to top Indian and global VCs',
             'A trusted stage built for serious fundraising',
@@ -139,8 +139,8 @@ const eventsData: EventCard[] = [
             'Opportunities for partnerships and rapid scale',
             "Recognition on one of India's most influential startup platforms"
         ],
-        date: 'Feb 2, 2026',
-        location: 'Dogra Hall',
+        date: 'Feb 1, 2026',
+        location: 'Open Air Theatre, IIT Delhi',
         category: 'competition',
         featured: true,
         image: '/events/Grandmoonshot.avif',
@@ -149,7 +149,7 @@ const eventsData: EventCard[] = [
     {
         id: 'e-raksha-hackathon',
         title: 'e-Raksha Hackathon',
-        description: "The e-Raksha Hackathon is one of Asia's largest deep-tech innovation arenas, bringing together some of the brightest engineering minds to solve challenges in defence, electronics, and intelligent hardware. It focuses on creating practical, scalable solutions with real application potential, supported by guidance from industry leaders, research experts, and partner institutions. If you want to build technology that truly counts, this is the place to do it.",
+        description: "The e-Raksha Hackathon is one of India's largest deep-tech hackathons in collaboration with Ministry of Home Affairs and Cyberpeace, bringing together some of the brightest engineering minds to solve challenges in defence, electronics, and intelligent hardware. It focuses on creating practical, scalable solutions with real application potential, supported by guidance from industry leaders, research experts, and partner institutions. If you want to build technology that truly counts, this is the place to do it.",
         whyJoin: [
             'Work on high-impact, nationally relevant problem statements',
             'Mentorship from domain experts, researchers, and industry leaders',
@@ -157,8 +157,8 @@ const eventsData: EventCard[] = [
             'Strong ecosystem support for piloting and next-step development',
             'Recognition on one of the most respected deep-tech stages in Asia'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Lecture Hall Complex',
+        date: 'Jan 17 - Jan 18, 2026',
+        location: 'RNI Park, IIT Delhi',
         category: 'hackathon',
         featured: true,
         image: '/events/e-rakshaHackathon.avif',
@@ -167,8 +167,8 @@ const eventsData: EventCard[] = [
 
     {
         id: 'innoverse',
-        title: 'Innoverse – TechDisplay',
-        description: "Innoverse is a national-scale showcase of cutting-edge technologies across drones, defence systems, robotics, manufacturing automation, and chip design. It brings together startups, R&D teams, and innovators to demonstrate real capabilities, exchange knowledge, and explore meaningful applications. By connecting academia, industry, and entrepreneurship on one stage, Innoverse enables genuine collaboration, career discovery, and informed innovation. If you want to interact with serious technology and the people building it, Innoverse is the place to be.",
+        title: 'Technoverse – Tech Showcase',
+        description: "Technoverse is a national-scale showcase of cutting-edge technologies across drones, defence systems, robotics, manufacturing automation, and chip design. It brings together startups, R&D teams, and innovators to demonstrate real capabilities, exchange knowledge, and explore meaningful applications. By connecting academia, industry, and entrepreneurship on one stage, Innoverse enables genuine collaboration, career discovery, and informed innovation. If you want to interact with serious technology and the people building it, Innoverse is the place to be.",
         whyJoin: [
             'Experience breakthrough technologies up close',
             'Engage directly with innovators, researchers, and founders',
@@ -177,7 +177,7 @@ const eventsData: EventCard[] = [
             'Explore careers and pathways in future-focused technologies'
         ],
         date: 'Jan 30 - Feb 1, 2026',
-        location: 'Exhibition Grounds',
+        location: 'LHC Lane, IIT Delhi',
         category: 'exhibition',
         image: '/events/innoverse.avif',
         eventType: 'showcase',
@@ -194,7 +194,7 @@ const eventsData: EventCard[] = [
             "Be part of conversations shaping tomorrow's mobility"
         ],
         date: 'Jan 30 - Feb 1, 2026',
-        location: 'Outdoor Arena',
+        location: 'Wind Tunnel Lane, IIT Delhi',
         category: 'exhibition',
         image: '/events/autospark.avif',
         eventType: 'showcase',
@@ -229,7 +229,7 @@ const eventsData: EventCard[] = [
             'Scope for collaboration and institutional support',
             'A platform that aligns innovation with national and sectoral priorities'
         ],
-        date: 'Feb 2, 2026',
+        date: 'Jan 30 - Feb 1, 2026',
         location: 'Senate Hall',
         category: 'networking',
         image: '/events/Policysphere.avif',
@@ -246,8 +246,8 @@ const eventsData: EventCard[] = [
             'Access mentorship and ecosystem support',
             'Form strong teams that can truly scale'
         ],
-        date: 'Jan 31, 2026',
-        location: 'Networking Zone',
+        date: 'Jan 17, 18, 31 - Feb 1, 2026',
+        location: 'LH 121, IIT Delhi',
         category: 'networking',
         image: '/events/Co-lab.avif',
         eventType: 'main',
@@ -417,16 +417,16 @@ const eventsData: EventCard[] = [
             'Clear next steps toward incubation, acceleration, pilots, and funding',
             'Founder-first format focused on real outcomes, not just discussions'
         ],
-        date: 'Feb 1, 2026',
-        location: 'Senate Hall',
+        date: 'Jan 30 - Feb 1, 2026',
+        location: 'Red Square, IIT Delhi',
         category: 'networking',
         image: '/events/incubator.avif',
         eventType: 'main',
     },
     {
         id: 'influencer-summit',
-        title: 'Influencer Summit',
-        description: "The Influencer Summit at BECon is a global gathering of top creators, influencers, and digital leaders from India and around the world. The summit serves as a high-energy platform for insightful discussions, keynote sessions, and panel conversations on content creation, personal branding, influence at scale, and the evolving creator economy. Designed to be highly interactive, it enables influencers to engage directly with the audience, share real-world experiences, and build meaningful connections—while also celebrating excellence through awards across multiple competitions and categories.",
+        title: 'Creators Conclave',
+        description: "The Creators Conclave at BECon is a global gathering of top creators, influencers, and digital leaders from India and around the world. The summit serves as a high-energy platform for insightful discussions, keynote sessions, and panel conversations on content creation, personal branding, influence at scale, and the evolving creator economy. Designed to be highly interactive, it enables influencers to engage directly with the audience, share real-world experiences, and build meaningful connections—while also celebrating excellence through awards across multiple competitions and categories.",
         whyJoin: [
             'Learn directly from leading global and Indian influencers through talks and sessions',
             'Network one-on-one with creators, industry leaders, and fellow aspirants',
@@ -434,8 +434,8 @@ const eventsData: EventCard[] = [
             'Engage and interact—Q&A, discussions, and audience-driven conversations',
             'Celebrate impact and creativity through awards recognizing outstanding talent and innovation'
         ],
-        date: 'Feb 2, 2026',
-        location: 'Dogra Hall',
+        date: 'Jan 31 - Feb 1, 2026',
+        location: 'LH 121, IIT Delhi',
         category: 'keynote',
         image: '/events/influencer.avif',
         eventType: 'main',

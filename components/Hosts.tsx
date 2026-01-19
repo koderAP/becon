@@ -23,11 +23,11 @@ export const Hosts: React.FC = () => {
             className="text-5xl md:text-6xl font-bold leading-tight mb-8"
         >
             Meet Our Hosts: The <br />
-            Visionaries Behind <span className="text-gray-500">BECon <br /> Tech Summit</span>
+            Visionaries Behind <span className="text-gray-500">BECon <br /></span>
         </motion.h1>
 
         <p className="text-gray-400 text-lg mb-12 max-w-xl">
-            The Becon Tech Summit is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation.
+            The Becon is brought to you by a team of passionate innovators and student leaders. Our hosts are dedicated to shaping the future of technology by bringing together the brightest minds in AI, automation, and digital transformation.
         </p>
 
         <div className="text-4xl font-handwriting text-gray-500 opacity-80" style={{ fontFamily: 'cursive' }}>
