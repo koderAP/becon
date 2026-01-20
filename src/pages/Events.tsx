@@ -27,10 +27,19 @@ interface EventCard {
     featured?: boolean;
     isRegional?: boolean;
     eventType?: EventType;
-    linkedFormId?: string; // For dynamic events
     minPassLevel?: string;
     formFields?: string; // For dynamic events
     isDynamic?: boolean;
+    linkedFormId?: string; // For dynamic events
+    customButtons?: EventButton[];
+}
+
+interface EventButton {
+    text: string;
+    url?: string;
+    type?: 'primary' | 'secondary' | 'outline';
+    action?: 'register';
+    disabled?: boolean;
 }
 
 interface RegionalCity {
@@ -145,6 +154,31 @@ const eventsData: EventCard[] = [
         featured: true,
         image: '/events/Grandmoonshot.avif',
         eventType: 'main',
+        customButtons: [
+            { text: 'Apply (Startups)', url: 'https://becon.edciitd.com/forms/6934558c6b959ada62127360', type: 'primary' },
+            { text: 'Register as Audience (IITD Only)', action: 'register', type: 'secondary' }
+        ]
+    },
+    {
+        id: 'blueprint-finale',
+        title: 'Blueprint Finale',
+        description: "Blueprint is designed for founders at the early stages of their startup journey who are looking for clarity, direction, and expert mentorship. It helps teams refine their ideas, understand real-world market fit, and strengthen how they think, plan, and build. Shortlisted startups present before experienced founders, industry mentors, and early-stage investors, gaining structured insights and long-term support. If you're building your startup story, Blueprint helps you shape it right.",
+        whyJoin: [
+            'Access to industry mentors and experienced founders',
+            'Structured guidance to refine ideas and strategy',
+            "Real-world feedback from people who've built before",
+            'Clarity on business model, product direction, and growth',
+            'Pathway to the Grand Summit at IIT Delhi with national visibility'
+        ],
+        date: 'Feb 1, 2026',
+        location: 'LHC',
+        category: 'competition',
+        featured: false,
+        image: '/events/Blueprint.avif',
+        eventType: 'main',
+        customButtons: [
+            { text: 'Register as Audience', action: 'register', type: 'primary' }
+        ]
     },
     {
         id: 'e-raksha-hackathon',
@@ -181,6 +215,10 @@ const eventsData: EventCard[] = [
         category: 'exhibition',
         image: '/events/innoverse.avif',
         eventType: 'showcase',
+        customButtons: [
+            { text: 'Apply', url: 'https://docs.google.com/forms/d/e/1FAIpQLScm7QP3Lx3rheWpmZdAvYqv5HCkL7t6O4SWyj0xfaoVEFTzrg/viewform', type: 'primary' },
+            { text: 'Register as Audience', action: 'register', type: 'secondary' }
+        ]
     },
     {
         id: 'autospark',
@@ -198,6 +236,10 @@ const eventsData: EventCard[] = [
         category: 'exhibition',
         image: '/events/autospark.avif',
         eventType: 'showcase',
+        customButtons: [
+            { text: 'Apply', url: 'https://docs.google.com/forms/d/e/1FAIpQLScZCJTPgVV65htz-cBQfSzNh9p92L-YU1Jdi2C7G9HHWkoing/viewform?usp=publish-editor', type: 'primary' },
+            { text: 'Register as Audience', action: 'register', type: 'secondary' }
+        ]
     },
 
     {
@@ -216,8 +258,15 @@ const eventsData: EventCard[] = [
         category: 'exhibition',
         image: '/events/launchpad.avif',
         eventType: 'showcase',
+        customButtons: [
+            { text: 'Apply', url: 'https://docs.google.com/forms/d/e/1FAIpQLScQ35mQOSYzwUWR3N4I7ASMgUIzzHvY9HwVDrpdCXMM-YlT5Q/viewform', type: 'primary' },
+            { text: 'Register as Audience', action: 'register', type: 'secondary' }
+        ]
     },
-    toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer', false, 'main'),
+    {
+        ...toMain(sharedEvents.startupClinic, 'startup-clinic', 'Feb 1, 2026', 'LHC Foyer', false, 'main'),
+        linkedFormId: '257a172b-1f19-45c6-800f-b851b722bbd7'
+    },
     {
         id: 'policysphere',
         title: 'Policysphere',
@@ -251,6 +300,9 @@ const eventsData: EventCard[] = [
         category: 'networking',
         image: '/events/Co-lab.avif',
         eventType: 'main',
+        customButtons: [
+            { text: 'Apply', url: 'https://forms.gle/x96pktsTHEYcrKyLA', type: 'primary' }
+        ]
     },
     {
         id: 'startup-debate',
@@ -268,6 +320,9 @@ const eventsData: EventCard[] = [
         category: 'competition',
         image: '/events/startupdebate.avif',
         eventType: 'strategy',
+        customButtons: [
+            { text: 'Apply', url: 'https://unstop.com/p/startup-the-debate-40-iit-delhi-1615531', type: 'primary' }
+        ]
     },
     {
         id: 'biz-e',
@@ -439,9 +494,13 @@ const eventsData: EventCard[] = [
         category: 'networking',
         image: '/events/incubator.avif',
         eventType: 'main',
+        customButtons: [
+            { text: 'Apply as Incubator', url: 'https://becon.edciitd.com/forms/424993b4-3e6b-49ce-8228-e6caa479ae2a', type: 'primary' },
+            { text: 'Apply as Visitor', action: 'register', type: 'secondary' }
+        ]
     },
     {
-        id: 'influencer-summit',
+        id: 'creators-conclave',
         title: 'Creators Conclave',
         description: "The Creators Conclave at BECon is a global gathering of top creators, influencers, and digital leaders from India and around the world. The summit serves as a high-energy platform for insightful discussions, keynote sessions, and panel conversations on content creation, personal branding, influence at scale, and the evolving creator economy. Designed to be highly interactive, it enables influencers to engage directly with the audience, share real-world experiences, and build meaningful connections—while also celebrating excellence through awards across multiple competitions and categories.",
         whyJoin: [
@@ -456,6 +515,9 @@ const eventsData: EventCard[] = [
         category: 'keynote',
         image: '/events/influencer.avif',
         eventType: 'main',
+        customButtons: [
+            { text: 'Register as Audience', action: 'register', type: 'primary' }
+        ]
     },
     // --- FIRESIDE CHATS ---
     {
@@ -1492,50 +1554,75 @@ export const Events: React.FC = () => {
                                             )}
                                         </AnimatePresence>
 
-                                        {(event.category === 'workshop' || event.eventType === 'sessions' || event.linkedFormId) ? (
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    if (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || (noRegistrationEvents.has(event.id) && !event.linkedFormId)) return;
+                                        {(event.category === 'workshop' || event.eventType === 'sessions') ? (
+                                            event.customButtons ? (
+                                                <div className="flex flex-col gap-2 w-full md:w-auto">
+                                                    {event.customButtons.map((btn, idx) => (
+                                                        <button
+                                                            key={idx}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                if (btn.url) {
+                                                                    window.open(btn.url, '_blank');
+                                                                } else if (btn.action === 'register') {
+                                                                    handleAction(event);
+                                                                }
+                                                            }}
+                                                            className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
+                                                                ${btn.type === 'secondary'
+                                                                    ? 'bg-transparent text-white border-white/30 hover:bg-white/10'
+                                                                    : 'bg-white text-black border-white hover:bg-gray-200 hover:scale-105'
+                                                                }`}
+                                                        >
+                                                            {btn.text}
+                                                            {btn.url && <ExternalLink size={14} />}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || (noRegistrationEvents.has(event.id) && !event.linkedFormId)) return;
 
-                                                    // Use unified handleAction
-                                                    handleAction(event);
-                                                }}
-                                                disabled={
-                                                    registering === event.id ||
-                                                    isRegistered(event.id) ||
-                                                    closedEvents.has(event.id) ||
-                                                    inviteOnlyEvents.has(event.id) ||
-                                                    noRegistrationEvents.has(event.id)
-                                                }
-                                                className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
-                                                ${(isRegistered(event.id) && !unstopEvents[event.id])
-                                                        ? 'bg-green-500/10 text-green-400 border-green-500/20 cursor-default hover:bg-green-500/10'
-                                                        : (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || noRegistrationEvents.has(event.id))
-                                                            ? 'bg-gray-800 text-gray-400 border-gray-700 cursor-not-allowed opacity-70'
-                                                            : 'bg-white text-black border-white hover:bg-gray-200 hover:border-gray-200 hover:scale-105'
-                                                    } ${registering === event.id ? 'opacity-80 cursor-wait' : ''}`}
-                                            >
-                                                {registering === event.id ? (
-                                                    <>
-                                                        <Loader2 className="animate-spin" size={16} />
-                                                        <span>Registering...</span>
-                                                    </>
-                                                ) : isRegistered(event.id) && !unstopEvents[event.id] ? (
-                                                    <>
-                                                        <CheckCircle size={16} />
-                                                        <span>Registered</span>
-                                                    </>
-                                                ) : closedEvents.has(event.id) ? (
-                                                    <span>Closed</span>
-                                                ) : inviteOnlyEvents.has(event.id) ? (
-                                                    <span>Invite Only</span>
-                                                ) : noRegistrationEvents.has(event.id) ? (
-                                                    <span>Open Entry</span>
-                                                ) : (
-                                                    <span>Register Now</span>
-                                                )}
-                                            </button>
+                                                        handleAction(event);
+                                                    }}
+                                                    disabled={
+                                                        registering === event.id ||
+                                                        isRegistered(event.id) ||
+                                                        closedEvents.has(event.id) ||
+                                                        inviteOnlyEvents.has(event.id) ||
+                                                        noRegistrationEvents.has(event.id)
+                                                    }
+                                                    className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
+                                                    ${(isRegistered(event.id) && !unstopEvents[event.id])
+                                                            ? 'bg-green-500/10 text-green-400 border-green-500/20 cursor-default hover:bg-green-500/10'
+                                                            : (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || noRegistrationEvents.has(event.id))
+                                                                ? 'bg-gray-800 text-gray-400 border-gray-700 cursor-not-allowed opacity-70'
+                                                                : 'bg-white text-black border-white hover:bg-gray-200 hover:border-gray-200 hover:scale-105'
+                                                        } ${registering === event.id ? 'opacity-80 cursor-wait' : ''}`}
+                                                >
+                                                    {registering === event.id ? (
+                                                        <>
+                                                            <Loader2 className="animate-spin" size={16} />
+                                                            <span>Registering...</span>
+                                                        </>
+                                                    ) : isRegistered(event.id) && !unstopEvents[event.id] ? (
+                                                        <>
+                                                            <CheckCircle size={16} />
+                                                            <span>Registered</span>
+                                                        </>
+                                                    ) : closedEvents.has(event.id) ? (
+                                                        <span>Closed</span>
+                                                    ) : inviteOnlyEvents.has(event.id) ? (
+                                                        <span>Invite Only</span>
+                                                    ) : noRegistrationEvents.has(event.id) ? (
+                                                        <span>Open Entry</span>
+                                                    ) : (
+                                                        <span>Register Now</span>
+                                                    )}
+                                                </button>
+                                            )
                                         ) : (
                                             <button
                                                 onClick={(e) => {
@@ -1691,51 +1778,77 @@ export const Events: React.FC = () => {
                                                             )}
                                                         </AnimatePresence>
 
-                                                        <button
-                                                            onClick={() => {
-                                                                if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || (noRegistrationEvents.has(selectedEvent.id) && !selectedEvent.linkedFormId)) return;
-                                                                handleAction(selectedEvent);
-                                                            }}
-                                                            disabled={
-                                                                registering === selectedEvent.id ||
-                                                                isRegistered(selectedEvent.id) ||
-                                                                closedEvents.has(selectedEvent.id) ||
-                                                                inviteOnlyEvents.has(selectedEvent.id) ||
-                                                                noRegistrationEvents.has(selectedEvent.id)
-                                                            }
-                                                            className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300
+                                                        {selectedEvent.customButtons ? (
+                                                            <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
+                                                                {selectedEvent.customButtons.map((btn, idx) => (
+                                                                    <button
+                                                                        key={idx}
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            if (btn.url) {
+                                                                                window.open(btn.url, '_blank');
+                                                                            } else if (btn.action === 'register') {
+                                                                                handleAction(selectedEvent);
+                                                                            }
+                                                                        }}
+                                                                        className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300 w-full md:w-auto
+                                                                        ${btn.type === 'primary'
+                                                                                ? 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
+                                                                                : 'bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/50'
+                                                                            }`}
+                                                                    >
+                                                                        {btn.text}
+                                                                        {btn.url && <ExternalLink className="ml-2" size={18} />}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        ) : (
+                                                            <button
+                                                                onClick={() => {
+                                                                    if (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || (noRegistrationEvents.has(selectedEvent.id) && !selectedEvent.linkedFormId)) return;
+                                                                    handleAction(selectedEvent);
+                                                                }}
+                                                                disabled={
+                                                                    registering === selectedEvent.id ||
+                                                                    isRegistered(selectedEvent.id) ||
+                                                                    closedEvents.has(selectedEvent.id) ||
+                                                                    inviteOnlyEvents.has(selectedEvent.id) ||
+                                                                    noRegistrationEvents.has(selectedEvent.id)
+                                                                }
+                                                                className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300 w-full md:w-auto
                                                             ${(isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id]) // Only show green if registered internally, external links always clickable unless explicitly closed
-                                                                    ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
-                                                                    : (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id))
-                                                                        ? 'bg-gray-800 text-gray-400 border border-gray-700 cursor-not-allowed opacity-70'
-                                                                        : 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
-                                                                } ${registering === selectedEvent.id ? 'opacity-80 cursor-wait' : ''}`}
-                                                        >
-                                                            {registering === selectedEvent.id ? (
-                                                                <>
-                                                                    <Loader2 className="animate-spin text-purple-600" size={22} />
-                                                                    <span className="text-gray-600">Registering...</span>
-                                                                </>
-                                                            ) : isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id] ? (
-                                                                <>
-                                                                    <CheckCircle size={22} />
-                                                                    Registered
-                                                                </>
-                                                            ) : closedEvents.has(selectedEvent.id) ? (
-                                                                <span className="relative text-center w-full">Registration Closed</span>
-                                                            ) : inviteOnlyEvents.has(selectedEvent.id) ? (
-                                                                <span className="relative text-center w-full">Invite Only</span>
-                                                            ) : noRegistrationEvents.has(selectedEvent.id) ? (
-                                                                <span className="relative text-center w-full">No Registration Required</span>
-                                                            ) : (
-                                                                <>
-                                                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                                    <span className="relative text-center w-full">
-                                                                        {unstopEvents[selectedEvent.id] ? 'Register Now' : 'Register Now'}
-                                                                    </span>
-                                                                </>
-                                                            )}
-                                                        </button>
+                                                                        ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
+                                                                        : (closedEvents.has(selectedEvent.id) || inviteOnlyEvents.has(selectedEvent.id) || noRegistrationEvents.has(selectedEvent.id))
+                                                                            ? 'bg-gray-800 text-gray-400 border border-gray-700 cursor-not-allowed opacity-70'
+                                                                            : 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
+                                                                    } ${registering === selectedEvent.id ? 'opacity-80 cursor-wait' : ''}`}
+                                                            >
+                                                                {registering === selectedEvent.id ? (
+                                                                    <>
+                                                                        <Loader2 className="animate-spin text-purple-600" size={22} />
+                                                                        <span className="text-gray-600">Registering...</span>
+                                                                    </>
+                                                                ) : isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id] ? (
+                                                                    <>
+                                                                        <CheckCircle size={22} />
+                                                                        Registered
+                                                                    </>
+                                                                ) : closedEvents.has(selectedEvent.id) ? (
+                                                                    <span className="relative text-center w-full">Registration Closed</span>
+                                                                ) : inviteOnlyEvents.has(selectedEvent.id) ? (
+                                                                    <span className="relative text-center w-full">Invite Only</span>
+                                                                ) : noRegistrationEvents.has(selectedEvent.id) ? (
+                                                                    <span className="relative text-center w-full">No Registration Required</span>
+                                                                ) : (
+                                                                    <>
+                                                                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                                        <span className="relative text-center w-full">
+                                                                            {unstopEvents[selectedEvent.id] ? 'Register Now' : 'Register Now'}
+                                                                        </span>
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                        )}
                                                         {/* IITD Only Warning */}
                                                         {iitdOnlyEvents.has(selectedEvent.id) && (
                                                             <p className="text-red-400 text-sm mt-3 font-semibold text-center">
