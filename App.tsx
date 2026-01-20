@@ -44,27 +44,6 @@ const PageLoader = () => (
 const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
 
-  // Remove preloader when App mounts
-  // Remove preloader when App mounts
-  React.useEffect(() => {
-    const preloader = document.getElementById('global-preloader');
-    if (preloader) {
-      if (location.pathname === '/') {
-        // Force minimum visibility time ONLY on Home page
-        setTimeout(() => {
-          preloader.style.transition = 'opacity 0.5s ease';
-          preloader.style.opacity = '0';
-          setTimeout(() => {
-            preloader.remove();
-          }, 500);
-        }, 4000);
-      } else {
-        // Remove immediately on other pages (in case the inline script didn't catch it)
-        preloader.remove();
-      }
-    }
-  }, []);
-
   return (
     <AnimatePresence mode='wait'>
       <motion.div

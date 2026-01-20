@@ -372,6 +372,23 @@ const eventsData: EventCard[] = [
         eventType: 'strategy',
     },
     {
+        id: 'reel-the-deal',
+        title: 'Reel the Deal',
+        description: "Reel the Deal is an online creator–brand deal-making challenge by BECon, IIT Delhi, designed to bridge the gap between college creators and real startups. Participants work on authentic marketing briefs, creating impactful reels for emerging brands, and get evaluated directly by founders and brand leaders. Powered by Grifi and featuring startup partners like Coding Ninjas, Gimi Michi, and Dopamine Store, the challenge offers real exposure, hands-on marketing experience, and a chance to stand out in the creator economy.",
+        whyJoin: [
+            "Create reels based on real marketing briefs from live startups",
+            "Get evaluated by startup founders and brand leaders",
+            "Gain real-world exposure in the creator and marketing ecosystem",
+            "Build a strong portfolio with practical brand collaborations",
+            "Compete for a ₹25,000 prize pool"
+        ],
+        date: 'Jan 21 - Jan 31, 2026',
+        location: 'Online | Unstop',
+        category: 'competition',
+        image: '/reel_deal.avif',
+        eventType: 'strategy',
+    },
+    {
         id: 'bootcamp',
         title: 'Bootcamp – Building the Future',
         description: "The Bootcamp is an intensive, hands-on learning experience for innovators working in IoT, hardware, and autonomous technologies. Guided by expert mentors, participants move beyond theory to design and prototype real solutions that address real challenges, while gaining clarity, confidence, and strong technical grounding. If you want to build the future, this is where you start shaping it.",
@@ -899,6 +916,7 @@ export const Events: React.FC = () => {
         'midas-touch': 'https://unstop.com/competitions/midas-touch-iit-delhi-1612275',
         'tdcc': 'https://unstop.com/o/ayeTALp?utm_medium=Share&utm_source=edciit4317&utm_campaign=Competitions',
         'startup-auction': 'https://unstop.com/competitions/startup-auction-20-iit-delhi-1615579',
+        'reel-the-deal': 'https://unstop.com/competitions/reel-the-deal-iit-delhi-1621694',
     };
 
     // Special Event States

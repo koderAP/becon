@@ -269,6 +269,33 @@ export default function AdminDashboard() {
         toast.success("CSV downloaded!");
     };
 
+    const handleExportEmails = async (iitdOnly: boolean) => {
+        try {
+            const token = localStorage.getItem('adminToken');
+            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/export/emails?format=csv&iitdOnly=${iitdOnly}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Export failed');
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = iitdOnly ? 'becon_iitd_emails.csv' : 'becon_all_emails.csv';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            toast.success(`Exported ${iitdOnly ? 'IITD' : 'all'} emails successfully`);
+        } catch (error) {
+            console.error('Export error:', error);
+            toast.error('Failed to export emails');
+        }
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-[#0F0C1A] flex items-center justify-center">
@@ -323,12 +350,26 @@ export default function AdminDashboard() {
                 {/* Actions Bar */}
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-2xl font-bold text-white">Events</h2>
-                    <button
-                        onClick={openCreateModal}
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#7A32E0] to-[#6F7EEA] text-white rounded-lg font-medium hover:opacity-90 transition"
-                    >
-                        <Plus className="w-4 h-4" /> Create Event
-                    </button>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => handleExportEmails(false)}
+                            className="flex items-center gap-2 px-4 py-2 bg-[#1A1425] border border-[#7A32E0]/50 text-[#B488FF] rounded-lg font-medium hover:bg-[#7A32E0]/10 transition"
+                        >
+                            <Download className="w-4 h-4" /> All Emails
+                        </button>
+                        <button
+                            onClick={() => handleExportEmails(true)}
+                            className="flex items-center gap-2 px-4 py-2 bg-[#1A1425] border border-[#7A32E0]/50 text-[#B488FF] rounded-lg font-medium hover:bg-[#7A32E0]/10 transition"
+                        >
+                            <Download className="w-4 h-4" /> IITD Emails
+                        </button>
+                        <button
+                            onClick={openCreateModal}
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#7A32E0] to-[#6F7EEA] text-white rounded-lg font-medium hover:opacity-90 transition"
+                        >
+                            <Plus className="w-4 h-4" /> Create Event
+                        </button>
+                    </div>
                 </div>
 
                 {/* Events Grid */}

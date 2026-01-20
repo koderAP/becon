@@ -12,7 +12,7 @@ export const Hero: React.FC = () => {
       {/* Reusable Hero Background (Plasma Only) */}
       <HeroBackground />
 
-      {/* Right Middle Gear - responsive sizing */}
+      {/* Right Middle Gear - responsive sizing - optimized for performance */}
       <motion.div
         className="absolute -right-16 top-[30%] md:-right-20 lg:-right-24 pointer-events-none z-20"
         style={{
@@ -23,17 +23,8 @@ export const Hero: React.FC = () => {
       >
         <motion.div
           className="relative w-[150px] h-[150px] md:w-[220px] md:h-[220px] lg:w-[300px] lg:h-[300px] xl:w-[350px] xl:h-[350px]"
-          animate={{
-            rotateY: [-35, 35, -35],
-            rotateX: [10, -0, 10],
-            rotateZ: [0, 360],
-          }}
-          transition={{
-            rotateY: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-            rotateX: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-            rotateZ: { duration: 10, repeat: Infinity, ease: "linear" },
-          }}
-          style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         >
           <img
             src="/gear1.avif"
@@ -52,7 +43,7 @@ export const Hero: React.FC = () => {
                 'linear-gradient(135deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
               ]
             }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             style={{
               mixBlendMode: 'hard-light',
               opacity: 0.85,
@@ -77,7 +68,7 @@ export const Hero: React.FC = () => {
         <motion.div
           className="relative w-[130px] h-[130px] md:w-[200px] md:h-[200px] lg:w-[260px] lg:h-[260px] xl:w-[300px] xl:h-[300px]"
           animate={{ rotateZ: [360, 0] }}
-          transition={{ rotateZ: { duration: 20, repeat: Infinity, ease: "linear" } }}
+          transition={{ rotateZ: { duration: 200, repeat: Infinity, ease: "linear" } }}
           style={{ willChange: 'transform' }}
         >
           <img
@@ -97,7 +88,7 @@ export const Hero: React.FC = () => {
                 'linear-gradient(315deg, rgba(76, 29, 149, 0.9) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.9) 100%)',
               ]
             }}
-            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
             style={{
               mixBlendMode: 'hard-light',
               opacity: 0.85,

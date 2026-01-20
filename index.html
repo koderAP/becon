@@ -149,21 +149,6 @@
 </head>
 
 <body>
-  <!-- Global Preloader -->
-  <div id="global-preloader"
-    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; background: #05020a; display: flex; align-items: center; justify-content: center;">
-    <img src="/preloader.gif" alt="Loading..." style="width: 30vw; min-width: 280px; height: auto;" />
-  </div>
-  <script>
-    // Immediately hide preloader if not on home page
-    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
-      const preloader = document.getElementById('global-preloader');
-      if (preloader) {
-        preloader.style.display = 'none';
-        preloader.remove();
-      }
-    }
-  </script>
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>

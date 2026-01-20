@@ -33,17 +33,18 @@ export const Typewriter: React.FC<TypewriterProps> = ({
     });
 
     useEffect(() => {
-        let animationFrameId: number;
+        let timeoutId: ReturnType<typeof setTimeout>;
 
-        const loop = (timestamp: number) => {
+        const tick = () => {
             const state = stateRef.current;
-            if (!state.lastTick) state.lastTick = timestamp;
+            const now = performance.now();
+            if (!state.lastTick) state.lastTick = now;
 
-            const elapsed = timestamp - state.lastTick;
+            const elapsed = now - state.lastTick;
 
             if (state.phase === 'TYPING') {
                 if (elapsed > typingSpeed) {
-                    state.lastTick = timestamp;
+                    state.lastTick = now;
                     const currentSentence = sentences[state.sentenceIndex % sentences.length];
 
                     // Type next character
@@ -55,38 +56,36 @@ export const Typewriter: React.FC<TypewriterProps> = ({
                     } else {
                         // Finished typing
                         state.phase = 'WAITING';
-                        state.startWait = timestamp;
+                        state.startWait = now;
                         setIsBlinking(true);
                     }
                 }
+                timeoutId = setTimeout(tick, typingSpeed);
             } else if (state.phase === 'WAITING') {
                 // Wait for pauseTime
-                if (timestamp - state.startWait > pauseTime) {
+                if (now - state.startWait > pauseTime) {
                     state.phase = 'FADING';
-                    state.startWait = timestamp;
-                    setOpacity(0); // Trigger visual fade
-                    setIsBlinking(false); // Stop blinking cursor during fade
+                    state.startWait = now;
+                    setOpacity(0);
+                    setIsBlinking(false);
                 }
+                timeoutId = setTimeout(tick, 100); // Check less frequently during pause
             } else if (state.phase === 'FADING') {
-                // Wait for fade animation to complete
-                // fadeDuration is in seconds, so * 1000
-                if (timestamp - state.startWait > fadeDuration * 1000) {
-                    // Reset for next sentence
+                if (now - state.startWait > fadeDuration * 1000) {
                     state.phase = 'TYPING';
                     state.sentenceIndex++;
                     state.text = '';
                     setDisplayedText('');
-                    setOpacity(1); // Reset opacity
-                    state.lastTick = timestamp;
+                    setOpacity(1);
+                    state.lastTick = now;
                 }
+                timeoutId = setTimeout(tick, 100); // Check less frequently during fade
             }
-
-            animationFrameId = requestAnimationFrame(loop);
         };
 
-        animationFrameId = requestAnimationFrame(loop);
+        timeoutId = setTimeout(tick, typingSpeed);
 
-        return () => cancelAnimationFrame(animationFrameId);
+        return () => clearTimeout(timeoutId);
     }, [sentences, typingSpeed, pauseTime, fadeDuration]);
 
     return (
