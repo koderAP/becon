@@ -40,6 +40,24 @@ export const Home: React.FC = () => {
                 </section>
             </Suspense>
 
+            {/* Video Section */}
+            <section className="relative py-16 bg-black">
+                <div className="max-w-6xl mx-auto px-4">
+                    <video
+                        className="w-full rounded-2xl shadow-2xl"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                    >
+                        <source src="/website_video.webm" type="video/webm" />
+                        <source src="/website_video.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </section>
+
             <Suspense fallback={<SectionSkeleton />}>
                 <section id="verticals">
                     <Verticals preview onViewAll={() => navigate('/events')} />
