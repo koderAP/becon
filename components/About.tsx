@@ -1,33 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from './SectionHeading';
 import { StatsMarquee } from './StatsMarquee';
 
 export const About: React.FC = () => {
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Intersection Observer for Video section
-    const videoObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setShouldLoadVideo(true);
-          videoObserver.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '200px' }
-    );
-
-    if (videoRef.current) {
-      videoObserver.observe(videoRef.current);
-    }
-
-    return () => {
-      videoObserver.disconnect();
-    };
-  }, []);
 
   return (
     <div ref={containerRef} className="min-h-screen pt-20 sm:pt-24 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 bg-black flex flex-col justify-center">
@@ -115,33 +92,6 @@ export const About: React.FC = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Video Card - Lazy loaded */}
-      <motion.div
-        ref={videoRef}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="mt-12 sm:mt-16 relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm group"
-      >
-        {shouldLoadVideo ? (
-          <video
-            src="/VID-20250118-WA0171.mp4"
-            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-purple-900/20 to-blue-900/20 flex items-center justify-center">
-            <div className="animate-pulse w-16 h-16 rounded-full bg-white/10" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
-      </motion.div>
     </div>
   );
 };
