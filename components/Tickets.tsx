@@ -66,10 +66,7 @@ export const Tickets: React.FC = () => {
             <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-blue-900/10 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto w-full relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                <div
                     className="mb-16 text-center md:text-left"
                 >
                     <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
@@ -79,16 +76,12 @@ export const Tickets: React.FC = () => {
                     <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                         Secure Your Spot at <span className="text-gray-500">BECon Today!</span>
                     </h1>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {passes.map((pass, index) => (
-                        <motion.div
+                        <div
                             key={pass.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
                             className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-0 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${pass.glow}`}
                         >
                             {/* Inner Gradient Border Effect */}
@@ -179,16 +172,12 @@ export const Tickets: React.FC = () => {
                                                 'Get Pass'}
                                 </button>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
                 {/* Accommodation Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
+                <div
                     className="mt-16"
                 >
                     <div className="relative bg-gradient-to-br from-[#1a0b2e] via-[#0f0518] to-[#0a0514] border border-purple-500/20 rounded-3xl p-8 md:p-10 overflow-hidden group hover:border-purple-500/40 transition-all duration-300">
@@ -247,7 +236,7 @@ export const Tickets: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div >
         </div >
     );

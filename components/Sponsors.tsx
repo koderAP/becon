@@ -58,14 +58,11 @@ const FormModal: React.FC<FormModalProps> = ({ isOpen, onClose, title, formType,
     if (typeof document === 'undefined') return null;
 
     return createPortal(
-        <AnimatePresence>
+        <>
             {isOpen && (
                 <>
                     {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                    <div
                         className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md"
                         onClick={onClose}
                     />
@@ -73,10 +70,7 @@ const FormModal: React.FC<FormModalProps> = ({ isOpen, onClose, title, formType,
                     {/* Modal Container */}
                     <div className="fixed inset-0 z-[10000] overflow-y-auto pointer-events-none">
                         <div className="flex min-h-full items-center justify-center p-4">
-                            <motion.div
-                                initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                                animate={{ scale: 1, opacity: 1, y: 0 }}
-                                exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            <div
                                 onClick={(e) => e.stopPropagation()}
                                 className="relative bg-[#0a0a15] border border-white/10 rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl pointer-events-auto"
                             >
@@ -130,12 +124,12 @@ const FormModal: React.FC<FormModalProps> = ({ isOpen, onClose, title, formType,
                                         </button>
                                     </form>
                                 )}
-                            </motion.div>
+                            </div>
                         </div>
                     </div>
                 </>
             )}
-        </AnimatePresence>,
+        </>,
         document.body
     );
 };
@@ -149,10 +143,7 @@ interface InterestCardProps {
 }
 
 const InterestCard: React.FC<InterestCardProps> = ({ icon, title, description, buttonText, onClick }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+    <div
         className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 hover:border-purple-500/50 transition-all duration-300 group h-full flex flex-col"
     >
         <div className="flex items-start gap-4 flex-1">
@@ -170,7 +161,7 @@ const InterestCard: React.FC<InterestCardProps> = ({ icon, title, description, b
                 </button>
             </div>
         </div>
-    </motion.div>
+    </div>
 );
 
 export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className = "", isLoading = false }) => {
@@ -214,11 +205,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                 {isLoading ? (
                     <SkeletonSponsorImage />
                 ) : (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                    <div
                         className="relative rounded-3xl overflow-hidden"
                     >
                         {/* Image Container */}
@@ -231,7 +218,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ showHeader = true, className
                                 className="w-full h-auto"
                             />
                         </div>
-                    </motion.div>
+                    </div>
                 )}
             </div>
 

@@ -12,21 +12,15 @@ export const About: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
         <div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+          <h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 sm:mb-8"
           >
             Where Innovation Meets <br className="hidden sm:block" />
             <span className="text-gray-500">Market Reality</span>
-          </motion.h1>
+          </h1>
 
           {/* Featured Image - Replaced Spline for performance */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+          <div
             className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10"
           >
             <div className="h-60 sm:h-72 md:h-80 lg:h-96 overflow-hidden relative">
@@ -47,14 +41,11 @@ export const About: React.FC = () => {
               {/* Bottom fade for depth */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
             </div>
-          </motion.div>
+          </div>
 
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+        <div
           className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-6 min-w-0"
         >
           <p>
@@ -90,7 +81,7 @@ export const About: React.FC = () => {
               className="mt-8"
             />
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

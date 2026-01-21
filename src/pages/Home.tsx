@@ -1,16 +1,14 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect } from 'react';
 import { Hero } from '../../components/Hero';
 import { SectionSkeleton } from '../../components/ui/SectionSkeleton';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-// Lazy load heavy sections
-const About = lazy(() => import('../../components/About').then(module => ({ default: module.About })));
-const Speakers = lazy(() => import('../../components/Speakers').then(module => ({ default: module.Speakers })));
-const Verticals = lazy(() => import('../../components/Verticals').then(module => ({ default: module.Verticals })));
-const Sponsors = lazy(() => import('../../components/Sponsors').then(module => ({ default: module.Sponsors })));
-const Tickets = lazy(() => import('../../components/Tickets').then(module => ({ default: module.Tickets })));
-const Footer = lazy(() => import('../../components/Footer').then(module => ({ default: module.Footer })));
-const InfiniteBentoCarousel = lazy(() => import('../../components/InfiniteBentoCarousel').then(module => ({ default: module.InfiniteBentoCarousel })));
+import { About } from '../../components/About';
+import { Speakers } from '../../components/Speakers';
+import { Verticals } from '../../components/Verticals';
+import { Sponsors } from '../../components/Sponsors';
+import { Tickets } from '../../components/Tickets';
+import { Footer } from '../../components/Footer';
+import { InfiniteBentoCarousel } from '../../components/InfiniteBentoCarousel';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -34,11 +32,9 @@ export const Home: React.FC = () => {
                 <Hero />
             </section>
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <section id="about">
-                    <About />
-                </section>
-            </Suspense>
+            <section id="about">
+                <About />
+            </section>
 
             {/* Video Section */}
             <section className="relative py-16 bg-black">
@@ -58,44 +54,32 @@ export const Home: React.FC = () => {
                 </div>
             </section>
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <section id="verticals">
-                    <Verticals preview onViewAll={() => navigate('/events')} />
-                </section>
-            </Suspense>
+            <section id="verticals">
+                <Verticals preview onViewAll={() => navigate('/events')} />
+            </section>
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <section id="speakers">
-                    <Speakers preview onViewAll={() => navigate('/speakers')} />
-                </section>
-            </Suspense>
+            <section id="speakers">
+                <Speakers preview onViewAll={() => navigate('/speakers')} />
+            </section>
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <section id="gallery">
-                    <InfiniteBentoCarousel
-                        title="Past Glimpses"
-                        subtitle="Memories from previous BECon summits"
-                        speed={50}
-                        pauseOnHover={true}
-                    />
-                </section>
-            </Suspense>
+            <section id="gallery">
+                <InfiniteBentoCarousel
+                    title="Past Glimpses"
+                    subtitle="Memories from previous BECon summits"
+                    speed={50}
+                    pauseOnHover={true}
+                />
+            </section>
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <section id="sponsors-preview">
-                    <Sponsors />
-                </section>
-            </Suspense>
+            <section id="sponsors-preview">
+                <Sponsors />
+            </section>
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <section id="cta">
-                    <Tickets />
-                </section>
-            </Suspense>
+            <section id="cta">
+                <Tickets />
+            </section>
 
-            <Suspense fallback={<div className="h-20 bg-black" />}>
-                <Footer />
-            </Suspense>
+            <Footer />
         </div>
     );
 };

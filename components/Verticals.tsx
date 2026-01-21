@@ -128,27 +128,21 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       )}
 
       {/* Core Verticals Subsection */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+      <div
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3"
       >
         <h3 className="text-base sm:text-lg font-semibold text-gray-300 uppercase tracking-wider">{preview ? 'Core Verticals' : 'Domains'}</h3>
-      </motion.div>
+      </div>
 
       {!preview && (
         <div className="mb-12">
           <SectionHeading className="mb-6">THEME DOMAINS</SectionHeading>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <h1
             className="text-4xl md:text-6xl font-bold text-white leading-tight uppercase"
           >
             DOMAINS TO EXPLORE<br />
             <span className="text-gray-500">IN BECon'26</span>
-          </motion.h1>
+          </h1>
         </div>
       )}
 
@@ -297,33 +291,23 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
       {
         !preview && (
           <div className="mt-32">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
+            <div
               className="flex items-center gap-4 mb-8"
             >
               <div className="w-12 h-[2px] bg-white"></div>
               <span className="text-lg text-gray-300 uppercase tracking-widest">Upcoming Highlights</span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <h1
               className="text-5xl md:text-7xl font-bold leading-tight mb-16"
             >
               Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Events</span>
-            </motion.h1>
+            </h1>
 
             <div className="space-y-24">
               {eventsData.map((event, i) => (
-                <motion.div
+                <div
                   key={event.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, delay: i * 0.1 }}
                   className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
                 >
                   {/* Content Section */}
@@ -373,7 +357,7 @@ export const Verticals: React.FC<VerticalsProps> = ({ preview = false, onViewAll
                     {/* Subtle overlay */}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

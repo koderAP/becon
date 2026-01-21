@@ -25,10 +25,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
     <div className={`px-4 sm:px-6 md:px-12 lg:px-20 ${preview ? 'py-10' : 'pb-16 sm:pb-20'} ${className} ${!className.includes('bg-') ? 'bg-[#05020a]' : ''}`}>
       {showHeader && (
         <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+          <div
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4"
           >
             <SectionHeading>{preview ? 'Past Speakers' : 'Our Guests'}</SectionHeading>
@@ -41,20 +38,17 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
                 View All Speakers <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
             )}
-          </motion.div>
+          </div>
 
           {!preview && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <div
               className="mb-10 sm:mb-16 lg:mb-20"
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-2">
                 Discover Leading Masters and <br className="hidden lg:block" />
                 <span className="text-gray-500">Creative Visionaries</span>
               </h1>
-            </motion.div>
+            </div>
           )}
         </>
       )}
@@ -66,12 +60,8 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
           : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'
           }`}>
           {displaySpeakers.map((s, i) => (
-            <motion.div
+            <div
               key={s.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
               className={`flex-shrink-0 ${preview ? 'w-[260px] sm:w-[280px] md:w-[300px]' : 'w-full'
                 } group snap-center cursor-pointer`}
             >
@@ -91,15 +81,12 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
                 <h3 className="text-xl font-bold text-white mb-1">{s.name}</h3>
                 <p className="text-gray-500 text-sm">{s.designation}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
 
           {/* Add "See All" Card if in Preview Mode */}
           {preview && (
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+            <div
               onClick={onViewAll}
               className="flex-shrink-0 w-[180px] sm:w-[200px] md:w-[220px] group snap-center cursor-pointer"
             >
@@ -110,7 +97,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
                 <span className="text-lg font-bold text-white text-center px-4">See All</span>
                 <span className="text-purple-400 text-xs font-medium mt-1 text-center px-4">Past Speakers</span>
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
       </div>
