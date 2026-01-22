@@ -15,7 +15,7 @@ import pastSpeakersData from '../src/data/past_speakers.json';
 const speakers = pastSpeakersData;
 
 export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, showHeader = true, className = "" }) => {
-  const displaySpeakers = speakers;
+  const displaySpeakers = preview ? speakers.slice(0, 5) : speakers;
 
   return (
     <div className={`px-4 sm:px-6 md:px-12 lg:px-20 ${preview ? 'py-10' : 'pb-16 sm:pb-20'} ${className} ${!className.includes('bg-') ? 'bg-[#05020a]' : ''}`}>
@@ -53,7 +53,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
       <div className={`${preview ? 'overflow-x-auto' : ''}`}>
         <div className={`${preview
           ? 'flex gap-4 sm:gap-6 pb-4 snap-x overflow-x-auto'
-          : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'
+          : 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'
           }`}>
           {displaySpeakers.map((s, i) => (
             <div
