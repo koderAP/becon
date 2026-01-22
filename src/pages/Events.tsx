@@ -496,7 +496,6 @@ const eventsData: EventCard[] = [
         eventType: 'main',
         customButtons: [
             { text: 'Apply as Startup', url: 'https://becon.edciitd.com/forms/424993b4-3e6b-49ce-8228-e6caa479ae2a', type: 'primary' },
-            { text: 'Apply as Visitor', action: 'register', type: 'secondary' }
         ]
     },
     {
@@ -1557,27 +1556,42 @@ export const Events: React.FC = () => {
                                         {(event.category === 'workshop' || event.eventType === 'sessions') ? (
                                             event.customButtons ? (
                                                 <div className="flex flex-col gap-2 w-full md:w-auto">
-                                                    {event.customButtons.map((btn, idx) => (
-                                                        <button
-                                                            key={idx}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                if (btn.url) {
-                                                                    window.open(btn.url, '_blank');
-                                                                } else if (btn.action === 'register') {
-                                                                    handleAction(event);
-                                                                }
-                                                            }}
-                                                            className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
-                                                                ${btn.type === 'secondary'
-                                                                    ? 'bg-transparent text-white border-white/30 hover:bg-white/10'
-                                                                    : 'bg-white text-black border-white hover:bg-gray-200 hover:scale-105'
-                                                                }`}
-                                                        >
-                                                            {btn.text}
-                                                            {btn.url && <ExternalLink size={14} />}
-                                                        </button>
-                                                    ))}
+                                                    {event.customButtons.map((btn, idx) => {
+                                                        const isReg = btn.action === 'register' && isRegistered(event.id) && !unstopEvents[event.id];
+                                                        return (
+                                                            <button
+                                                                key={idx}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (isReg) return;
+                                                                    if (btn.url) {
+                                                                        window.open(btn.url, '_blank');
+                                                                    } else if (btn.action === 'register') {
+                                                                        handleAction(event);
+                                                                    }
+                                                                }}
+                                                                className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
+                                                                    ${isReg
+                                                                        ? 'bg-green-500/10 text-green-400 border-green-500/20 cursor-default hover:bg-green-500/10'
+                                                                        : btn.type === 'secondary'
+                                                                            ? 'bg-transparent text-white border-white/30 hover:bg-white/10'
+                                                                            : 'bg-white text-black border-white hover:bg-gray-200 hover:scale-105'
+                                                                    }`}
+                                                            >
+                                                                {isReg ? (
+                                                                    <>
+                                                                        <CheckCircle size={14} />
+                                                                        <span>Registered</span>
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        {btn.text}
+                                                                        {btn.url && <ExternalLink size={14} />}
+                                                                    </>
+                                                                )}
+                                                            </button>
+                                                        );
+                                                    })}
                                                 </div>
                                             ) : (
                                                 <button
@@ -1780,27 +1794,42 @@ export const Events: React.FC = () => {
 
                                                         {selectedEvent.customButtons ? (
                                                             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
-                                                                {selectedEvent.customButtons.map((btn, idx) => (
-                                                                    <button
-                                                                        key={idx}
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation();
-                                                                            if (btn.url) {
-                                                                                window.open(btn.url, '_blank');
-                                                                            } else if (btn.action === 'register') {
-                                                                                handleAction(selectedEvent);
-                                                                            }
-                                                                        }}
-                                                                        className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300 w-full md:w-auto
-                                                                        ${btn.type === 'primary'
-                                                                                ? 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
-                                                                                : 'bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/50'
-                                                                            }`}
-                                                                    >
-                                                                        {btn.text}
-                                                                        {btn.url && <ExternalLink className="ml-2" size={18} />}
-                                                                    </button>
-                                                                ))}
+                                                                {selectedEvent.customButtons.map((btn, idx) => {
+                                                                    const isReg = btn.action === 'register' && isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id];
+                                                                    return (
+                                                                        <button
+                                                                            key={idx}
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                if (isReg) return;
+                                                                                if (btn.url) {
+                                                                                    window.open(btn.url, '_blank');
+                                                                                } else if (btn.action === 'register') {
+                                                                                    handleAction(selectedEvent);
+                                                                                }
+                                                                            }}
+                                                                            className={`relative overflow-hidden group px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center transition-all duration-300 w-full md:w-auto
+                                                                            ${isReg
+                                                                                    ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
+                                                                                    : btn.type === 'primary'
+                                                                                        ? 'bg-white text-black hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]'
+                                                                                        : 'bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/50'
+                                                                                }`}
+                                                                        >
+                                                                            {isReg ? (
+                                                                                <>
+                                                                                    <CheckCircle size={22} className="mr-2" />
+                                                                                    Registered
+                                                                                </>
+                                                                            ) : (
+                                                                                <>
+                                                                                    {btn.text}
+                                                                                    {btn.url && <ExternalLink className="ml-2" size={18} />}
+                                                                                </>
+                                                                            )}
+                                                                        </button>
+                                                                    );
+                                                                })}
                                                             </div>
                                                         ) : (
                                                             <button
