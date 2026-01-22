@@ -10,9 +10,13 @@ interface SpeakersProps {
   className?: string;
 }
 
-import attendeesData from '../src/data/speakers_2026.json';
-
-const speakers = attendeesData;
+const speakers = [
+  { id: 1, name: "Sachin Bansal", designation: "Co-Founder, Flipkart", img: "/speakers/SachinBansal.avif" },
+  { id: 2, name: "Mark Zuckerberg", designation: "CEO, Meta", img: "/speakers/MarkZuckerberg.avif" },
+  { id: 3, name: "Deepinder Goyal", designation: "CEO, Zomato", img: "/speakers/DeepinderGoyal.avif" },
+  { id: 4, name: "Bill Gates", designation: "Co-Founder, Microsoft", img: "/speakers/BillGates.avif" },
+  { id: 5, name: "Raghuram Rajan", designation: "Former Governor, RBI", img: "/speakers/RaghuramRajan.avif" },
+];
 
 export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, showHeader = true, className = "" }) => {
   const displaySpeakers = speakers;
@@ -24,7 +28,7 @@ export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, 
           <div
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4"
           >
-            <SectionHeading>{preview ? 'Confirmed Speakers' : 'Our Guests'}</SectionHeading>
+            <SectionHeading>{preview ? 'Past Speakers' : 'Our Guests'}</SectionHeading>
 
             {preview && onViewAll && (
               <button
