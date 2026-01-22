@@ -132,7 +132,11 @@ export const SpeakersPage: React.FC = () => {
                     </div>
                 </div>
                 <div className="-mt-10">
-                    <Speakers preview={false} showHeader={false} className="px-0 bg-transparent" />
+                    <Speakers
+                        preview={false}
+                        showHeader={false}
+                        className="!px-0 !sm:px-0 !md:px-0 !lg:px-0 bg-transparent !pb-0"
+                    />
                 </div>
             </div>
 
