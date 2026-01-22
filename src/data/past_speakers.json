@@ -1,0 +1,224 @@
+[
+    {
+        "id": 1,
+        "name": "Sachin Bansal",
+        "designation": "Co-Founder, Flipkart",
+        "img": "/speakers/SachinBansal.avif"
+    },
+    {
+        "id": 2,
+        "name": "Mark Zuckerberg",
+        "designation": "CEO, Meta",
+        "img": "/speakers/MarkZuckerberg.avif"
+    },
+    {
+        "id": 3,
+        "name": "Deepinder Goyal",
+        "designation": "CEO, Zomato",
+        "img": "/speakers/DeepinderGoyal.avif"
+    },
+    {
+        "id": 4,
+        "name": "Bill Gates",
+        "designation": "Co-Founder, Microsoft",
+        "img": "/speakers/BillGates.avif"
+    },
+    {
+        "id": 5,
+        "name": "Raghuram Rajan",
+        "designation": "Former Governor, RBI",
+        "img": "/speakers/RaghuramRajan.avif"
+    },
+    {
+        "id": 6,
+        "name": "Ritesh Agarwal",
+        "designation": "Founder & CEO, OYO",
+        "img": "/speakers/RiteshAgarwal.avif"
+    },
+    {
+        "id": 7,
+        "name": "Nikhil Kamath",
+        "designation": "Co-founder, Zerodha",
+        "img": "/speakers/NikhilKamath.avif"
+    },
+    {
+        "id": 8,
+        "name": "Anand Chandrasekaran",
+        "designation": "Partner, General Catalyst",
+        "img": "/speakers/AnandChandrasekaran.avif"
+    },
+    {
+        "id": 9,
+        "name": "Sanjeev Bikhchandani",
+        "designation": "Founder, Info Edge",
+        "img": "/speakers/SanjeevBikhchandani.avif"
+    },
+    {
+        "id": 10,
+        "name": "Dara Khosrowshahi",
+        "designation": "CEO, Uber",
+        "img": "/speakers/DaraKhosrowshahi.avif"
+    },
+    {
+        "id": 11,
+        "name": "Elie Seidman",
+        "designation": "Former CEO, Tinder",
+        "img": "/speakers/ElieSeidman.avif"
+    },
+    {
+        "id": 12,
+        "name": "Jack Dorsey",
+        "designation": "Co-founder, Block",
+        "img": "/speakers/JackDorsey.avif"
+    },
+    {
+        "id": 13,
+        "name": "Prashanth Prakash",
+        "designation": "Partner, Accel",
+        "img": "/speakers/PrashanthPrakash.avif"
+    },
+    {
+        "id": 14,
+        "name": "Aman Gupta",
+        "designation": "Co-founder, boAt",
+        "img": "/speakers/AmanGupta.avif"
+    },
+    {
+        "id": 15,
+        "name": "Ashneer Grover",
+        "designation": "Founder, Third Unicorn",
+        "img": "/speakers/AshneerGrover.avif"
+    },
+    {
+        "id": 16,
+        "name": "Kunal Bahl",
+        "designation": "Co-founder, Snapdeal",
+        "img": "/speakers/KunalBahl.avif"
+    },
+    {
+        "id": 17,
+        "name": "Hemant Taneja",
+        "designation": "CEO, General Catalyst",
+        "img": "/speakers/HemantTaneja.avif"
+    },
+    {
+        "id": 18,
+        "name": "Rohit Bansal",
+        "designation": "Co-founder, Snapdeal",
+        "img": "/speakers/RohitBansal.avif"
+    },
+    {
+        "id": 19,
+        "name": "Azhar Iqubal",
+        "designation": "Co-founder, Inshorts",
+        "img": "/speakers/AzharIqubal.avif"
+    },
+    {
+        "id": 20,
+        "name": "Amit Jain",
+        "designation": "CEO, CarDekho",
+        "img": "/speakers/AmitJain.avif"
+    },
+    {
+        "id": 21,
+        "name": "Vijay Shekhar Sharma",
+        "designation": "Founder, Paytm",
+        "img": "/speakers/VijayShekharSharma.avif"
+    },
+    {
+        "id": 22,
+        "name": "Nitin Gadkari",
+        "designation": "Minister, Road Transport",
+        "img": "/speakers/NitinGadkari.avif"
+    },
+    {
+        "id": 23,
+        "name": "Tanmay Bhat",
+        "designation": "Comedian & Investor",
+        "img": "/speakers/TanmayBhat.avif"
+    },
+    {
+        "id": 24,
+        "name": "Bryan Johnson",
+        "designation": "Founder, Kernel",
+        "img": "/speakers/BryanJohnson.avif"
+    },
+    {
+        "id": 25,
+        "name": "Gaurav Chaudhary",
+        "designation": "Tech YouTuber",
+        "img": "/speakers/GauravChaudhary.avif"
+    },
+    {
+        "id": 26,
+        "name": "Gurudev Ravi Shankar",
+        "designation": "Founder, Art of Living",
+        "img": "/speakers/GurudevRaviShankar.avif"
+    },
+    {
+        "id": 27,
+        "name": "BVR Mohan Reddy",
+        "designation": "Founder, Cyient",
+        "img": "/speakers/BVRMohanReddy.avif"
+    },
+    {
+        "id": 28,
+        "name": "Nuseir Yassin",
+        "designation": "Nas Daily",
+        "img": "/speakers/NuseirYassin.avif"
+    },
+    {
+        "id": 29,
+        "name": "Manoj Kohli",
+        "designation": "Ex-Softbank",
+        "img": "/speakers/ManojKohli.avif"
+    },
+    {
+        "id": 30,
+        "name": "Radhika Gupta",
+        "designation": "CEO, Edelweiss MF",
+        "img": "/speakers/RadhikaGupta.avif"
+    },
+    {
+        "id": 31,
+        "name": "Terry Wu",
+        "designation": "Neuroscientist",
+        "img": "/speakers/TerryWu.avif"
+    },
+    {
+        "id": 32,
+        "name": "Prashant Tandon",
+        "designation": "CEO, Tata 1mg",
+        "img": "/speakers/PrashantTandon.avif"
+    },
+    {
+        "id": 33,
+        "name": "Ruchira Shukla",
+        "designation": "Head, Synapses",
+        "img": "/speakers/RuchiraShukla.avif"
+    },
+    {
+        "id": 34,
+        "name": "Alok Mittal",
+        "designation": "CEO, Indifi",
+        "img": "/speakers/AlokMittal.avif"
+    },
+    {
+        "id": 35,
+        "name": "Kiran Bedi",
+        "designation": "Former Lt. Governor",
+        "img": "/speakers/KiranBedi.avif"
+    },
+    {
+        "id": 36,
+        "name": "Prashant Pitti",
+        "designation": "Co-founder, EaseMyTrip",
+        "img": "/speakers/PrashantPitti.avif"
+    },
+    {
+        "id": 37,
+        "name": "Rajan Anandan",
+        "designation": "MD, Peak XV",
+        "img": "/speakers/RajanAnandan.avif"
+    }
+]

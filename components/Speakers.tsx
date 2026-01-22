@@ -10,13 +10,9 @@ interface SpeakersProps {
   className?: string;
 }
 
-const speakers = [
-  { id: 1, name: "Sachin Bansal", designation: "Co-Founder, Flipkart", img: "/speakers/SachinBansal.avif" },
-  { id: 2, name: "Mark Zuckerberg", designation: "CEO, Meta", img: "/speakers/MarkZuckerberg.avif" },
-  { id: 3, name: "Deepinder Goyal", designation: "CEO, Zomato", img: "/speakers/DeepinderGoyal.avif" },
-  { id: 4, name: "Bill Gates", designation: "Co-Founder, Microsoft", img: "/speakers/BillGates.avif" },
-  { id: 5, name: "Raghuram Rajan", designation: "Former Governor, RBI", img: "/speakers/RaghuramRajan.avif" },
-];
+import pastSpeakersData from '../src/data/past_speakers.json';
+
+const speakers = pastSpeakersData;
 
 export const Speakers: React.FC<SpeakersProps> = ({ preview = false, onViewAll, showHeader = true, className = "" }) => {
   const displaySpeakers = speakers;
