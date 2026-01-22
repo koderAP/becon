@@ -96,6 +96,32 @@ export const PASS_CONFIG: Pass[] = [
         allowedEvents: ['startup-expo', 'tech-showcase', 'autospark', 'lhc-sessions', 'dogra-sessions', 'onground-activities', 'seminar-sessions', 'moonshot-delhi', 'blueprint-finale', 'workshops', 'creator-conclave', 'incubator-summit', 'startup-clinic']
     },
     {
+        id: 'priority',
+        name: 'PRIORITY PASS',
+        originalPrice: 2499,
+        price: 1299,
+        image: 'CROWN_ICON', // Placeholder, handled in UI
+        color: 'text-green-400',
+        glow: 'group-hover:border-green-500/50 group-hover:shadow-[0_0_30px_rgba(74,222,128,0.2)]',
+        features: [
+            { name: 'Startup Expo', included: true },
+            { name: 'Tech Showcase', included: true },
+            { name: 'Autospark', included: true },
+            { name: 'LHC Speaker Sessions', included: true },
+            { name: 'Dogra Speaker Sessions', included: true },
+            { name: 'Onground Activities', included: true },
+            { name: 'Seminar Speaker Sessions', included: true },
+            { name: 'Moonshot Delhi', included: true },
+            { name: 'Blueprint Finale', included: true },
+            { name: 'Workshops', included: true },
+            { name: 'Creator Conclave', included: true },
+            { name: 'Incubator Summit', included: true },
+            { name: 'Startup Clinic', included: true },
+            { name: 'Policysphere', included: true },
+        ],
+        allowedEvents: ['all_access']
+    },
+    {
         id: 'iitd_student',
         name: 'IIT DELHI STUDENT PASS',
         originalPrice: 999,
@@ -146,7 +172,13 @@ export const isEventAllowed = (passId: string, eventId: string): boolean => {
     // Platinum additions
     const platinumEvents = [...goldEvents, 'influencer-summit', 'incubator-summit', 'startup-clinic'];
 
-    if (passId === 'platinum' || passId === 'iitd_student') return true; // Platinum & IITD Student get everything (except maybe invite-only like Policysphere?)
+    // Priority gets everything
+    if (passId === 'priority') return true;
+
+    // Policy Sphere is exclusive to Priority
+    if (eventId === 'policysphere' || eventId === 'policy-sphere') return false;
+
+    if (passId === 'platinum' || passId === 'iitd_student') return true; // Platinum & IITD Student get everything else
     if (passId === 'gold') return goldEvents.includes(eventId) || silverEvents.includes(eventId);
     if (passId === 'silver') return silverEvents.includes(eventId);
 

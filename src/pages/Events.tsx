@@ -1112,7 +1112,7 @@ export const Events: React.FC = () => {
 
             // Dynamic Pass Check
             if (event.minPassLevel) {
-                const levels = ['silver', 'gold', 'platinum', 'iitd_student'];
+                const levels = ['silver', 'gold', 'platinum', 'priority', 'iitd_student'];
 
                 // Normalize: "GOLD PASS" -> "gold"
                 let normalizedUserPass = userPass.toLowerCase().replace(/ pass$/, '').trim();

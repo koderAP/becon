@@ -40,7 +40,7 @@ const defaultFormFields: FormField[] = [
 ];
 
 const eventTypes = ["strategy", "main", "sessions", "showcase", "other"];
-const passLevels = ["silver", "gold", "platinum"];
+const passLevels = ["silver", "gold", "platinum", "priority"];
 
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);

@@ -310,9 +310,11 @@ const ScannerPage: React.FC = () => {
                                     {/* PROMINENT PASS TYPE BANNER */}
                                     <div className={`rounded-2xl p-6 mb-6 text-center border-2 ${result.passType === 'platinum'
                                         ? 'bg-gradient-to-br from-cyan-900/50 to-purple-900/50 border-cyan-500/60'
-                                        : result.passType === 'gold'
-                                            ? 'bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-500/60'
-                                            : 'bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-gray-500/60'
+                                        : result.passType === 'priority'
+                                            ? 'bg-gradient-to-br from-green-900/50 to-emerald-900/50 border-green-500/60'
+                                            : result.passType === 'gold'
+                                                ? 'bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-500/60'
+                                                : 'bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-gray-500/60'
                                         }`}>
                                         <img
                                             src={`/passes/${result.passType}.png`}
@@ -320,8 +322,9 @@ const ScannerPage: React.FC = () => {
                                             className="w-24 h-24 mx-auto mb-3 object-contain drop-shadow-lg"
                                         />
                                         <h3 className={`text-2xl font-bold uppercase tracking-wider ${result.passType === 'platinum' ? 'text-cyan-400'
-                                            : result.passType === 'gold' ? 'text-yellow-400'
-                                                : 'text-gray-300'
+                                            : result.passType === 'priority' ? 'text-green-400'
+                                                : result.passType === 'gold' ? 'text-yellow-400'
+                                                    : 'text-gray-300'
                                             }`}>
                                             {result.passType} Pass
                                         </h3>

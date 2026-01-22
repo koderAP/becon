@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Check, Loader2, CreditCard, Ticket, Sparkles } from 'lucide-react';
+import { ArrowLeft, Shield, Check, Loader2, CreditCard, Ticket, Sparkles, Crown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { toast } from 'sonner';
@@ -32,6 +32,14 @@ const PASS_CONFIG = {
         bgGradient: 'from-cyan-600 to-purple-800',
         image: '/passes/platinum.png',
     },
+    priority: {
+        name: 'Priority Pass',
+        price: 1299,
+        originalPrice: 2499,
+        color: 'text-green-400',
+        bgGradient: 'from-green-600 to-emerald-900',
+        image: 'CROWN_ICON',
+    },
     iitd_student: {
         name: 'IIT Delhi Student Pass',
         price: 0,
@@ -47,6 +55,7 @@ const PASS_VALUE: Record<string, number> = {
     silver: 0,
     gold: 199,
     platinum: 399,
+    priority: 1299,
 };
 
 
@@ -54,6 +63,7 @@ const PASS_LEVELS: Record<string, number> = {
     silver: 1,
     gold: 2,
     platinum: 3,
+    priority: 4,
 };
 declare global {
     interface Window {
@@ -301,11 +311,17 @@ export const CheckoutPage: React.FC = () => {
                 >
                     {/* Header */}
                     <div className={`bg-gradient-to-r ${passConfig.bgGradient} p-8 text-center`}>
-                        <img
-                            src={passConfig.image}
-                            alt={passConfig.name}
-                            className="w-32 h-32 mx-auto mb-4 object-contain"
-                        />
+                        {passConfig.image === 'CROWN_ICON' ? (
+                            <div className="flex justify-center mb-4">
+                                <Crown className="w-24 h-24 text-white drop-shadow-md" strokeWidth={1.5} />
+                            </div>
+                        ) : (
+                            <img
+                                src={passConfig.image}
+                                alt={passConfig.name}
+                                className="w-32 h-32 mx-auto mb-4 object-contain"
+                            />
+                        )}
                         <h1 className="text-3xl font-bold">{passConfig.name}</h1>
                         {isUpgrade && currentPass && (
                             <p className="text-white/70 mt-2">
@@ -406,6 +422,14 @@ export const CheckoutPage: React.FC = () => {
                                     <Feature text="Influencer Conclave" />
                                     <Feature text="Incubator Summit" />
                                     <Feature text="Startup Clinic" />
+                                </>
+                            )}
+                            {passType === 'priority' && (
+                                <>
+                                    <Feature text="All Platinum Benefits" />
+                                    <Feature text="Policysphere Access" />
+                                    <Feature text="Priority Entry & Seating" />
+                                    <Feature text="Exclusive Networking" />
                                 </>
                             )}
                             {passType === 'iitd_student' && (

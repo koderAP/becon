@@ -252,12 +252,14 @@ const PASS_CONFIG = GLOBAL_PASS_CONFIG.reduce((acc, pass) => ({
         color: pass.color,
         bgGradient: pass.id === 'iitd_student' ? 'from-rose-600 to-pink-800' :
             pass.id === 'platinum' ? 'from-cyan-600 to-purple-800' :
-                pass.id === 'gold' ? 'from-yellow-600 to-yellow-800' :
-                    'from-gray-600 to-gray-800', // Default/Silver
+                pass.id === 'priority' ? 'from-green-600 to-emerald-900' :
+                    pass.id === 'gold' ? 'from-yellow-600 to-yellow-800' :
+                        'from-gray-600 to-gray-800', // Default/Silver
         borderColor: pass.id === 'iitd_student' ? 'border-rose-500/50' :
             pass.id === 'platinum' ? 'border-cyan-500/50' :
-                pass.id === 'gold' ? 'border-yellow-500/50' :
-                    'border-gray-400/50',
+                pass.id === 'priority' ? 'border-green-500/50' :
+                    pass.id === 'gold' ? 'border-yellow-500/50' :
+                        'border-gray-400/50',
         image: pass.image,
     }
 }), {} as Record<string, any>);
@@ -320,14 +322,19 @@ const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId 
             { type: 'silver', price: 0, label: 'Claim Free' },
             { type: 'gold', price: 199, label: '₹199' },
             { type: 'platinum', price: 399, label: '₹399' },
+            { type: 'priority', price: 1299, label: '₹1299' },
         ];
 
         const options = [];
         if (currentPassType === 'silver') {
             options.push({ type: 'gold', price: 199, label: 'Upgrade ₹199' });
             options.push({ type: 'platinum', price: 399, label: 'Upgrade ₹399' });
+            options.push({ type: 'priority', price: 1299, label: 'Upgrade ₹1299' });
         } else if (currentPassType === 'gold') {
             options.push({ type: 'platinum', price: 200, label: 'Upgrade ₹200' });
+            options.push({ type: 'priority', price: 1100, label: 'Upgrade ₹1100' });
+        } else if (currentPassType === 'platinum') {
+            options.push({ type: 'priority', price: 900, label: 'Upgrade ₹900' });
         }
         return options;
     };
@@ -398,7 +405,9 @@ const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId 
                                             onClick={() => navigate(`/checkout?pass=${option.type}&upgrade=true`)}
                                             className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02] ${option.type === 'platinum'
                                                 ? 'bg-gradient-to-r from-cyan-600/20 to-purple-600/20 border-cyan-500/30 hover:border-cyan-500/60'
-                                                : 'bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border-yellow-500/30 hover:border-yellow-500/60'
+                                                : option.type === 'priority'
+                                                    ? 'bg-gradient-to-r from-green-600/20 to-emerald-600/20 border-green-500/30 hover:border-green-500/60'
+                                                    : 'bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border-yellow-500/30 hover:border-yellow-500/60'
                                                 }`}
                                         >
                                             <div className="flex items-center gap-3">

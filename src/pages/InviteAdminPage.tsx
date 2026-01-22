@@ -252,6 +252,7 @@ export default function InviteAdminPage() {
                                         >
                                             <option value="gold">Gold Pass</option>
                                             <option value="platinum">Platinum Pass</option>
+                                            <option value="priority">Priority Pass</option>
                                             <option value="silver">Silver Pass</option>
                                         </select>
                                     </div>
@@ -299,6 +300,7 @@ export default function InviteAdminPage() {
                                         >
                                             <option value="gold">Gold Pass</option>
                                             <option value="platinum">Platinum Pass</option>
+                                            <option value="priority">Priority Pass</option>
                                             <option value="silver">Silver Pass</option>
                                         </select>
                                     </div>

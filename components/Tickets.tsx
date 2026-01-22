@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, X } from 'lucide-react';
+import { Check, X, Crown } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../src/contexts/AuthContext';
@@ -28,7 +28,8 @@ export const Tickets: React.FC = () => {
             case 'silver': return 1;
             case 'gold': return 2;
             case 'platinum': return 3;
-            case 'iitd_student': return 4;
+            case 'priority': return 4;
+            case 'iitd_student': return 5;
             default: return 0;
         }
     };
@@ -78,40 +79,45 @@ export const Tickets: React.FC = () => {
                     </h1>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-[95%] lg:w-[90%] mx-auto">
                     {passes.map((pass, index) => (
                         <div
                             key={pass.id}
                             className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-0 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${pass.glow}`}
                         >
                             {/* Inner Gradient Border Effect */}
-                            <div className={`absolute inset-0 rounded-3xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${pass.id === 'gold' ? 'border-yellow-500/50' : pass.id === 'platinum' ? 'border-cyan-500/50' : 'border-gray-400/50'}`} />
+                            <div className={`absolute inset-0 rounded-3xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${pass.id === 'gold' ? 'border-yellow-500/50' : pass.id === 'platinum' ? 'border-cyan-500/50' : pass.id === 'priority' ? 'border-green-500/50' : 'border-gray-400/50'}`} />
 
                             {/* Subtle Background Gradient */}
-                            <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none bg-gradient-to-br ${pass.id === 'gold' ? 'from-yellow-500 via-transparent to-transparent' : pass.id === 'platinum' ? 'from-cyan-500 via-transparent to-transparent' : 'from-gray-500 via-transparent to-transparent'}`} />
+                            <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none bg-gradient-to-br ${pass.id === 'gold' ? 'from-yellow-500 via-transparent to-transparent' : pass.id === 'platinum' ? 'from-cyan-500 via-transparent to-transparent' : pass.id === 'priority' ? 'from-green-500 via-transparent to-transparent' : 'from-gray-500 via-transparent to-transparent'}`} />
+
 
                             {/* Header Section */}
-                            <div className="p-8 pb-6 relative z-10">
+                            <div className="p-5 pb-3 relative z-10">
                                 <div className="flex justify-between items-start">
                                     <div className="flex flex-col">
-                                        <span className="text-gray-500 text-lg line-through font-medium decoration-red-500/60 decoration-2 mb-1">
+                                        <span className="text-gray-500 text-sm line-through font-medium decoration-red-500/60 decoration-2 mb-0.5">
                                             ₹{pass.originalPrice}
                                         </span>
                                         <div className="flex items-baseline gap-1">
-                                            {pass.price !== 'FREE' && <span className="text-2xl font-bold text-white">₹</span>}
-                                            <span className={`text-5xl font-black ${pass.name === 'SILVER PASS' ? 'text-white' : pass.color} tracking-tight`}>
+                                            {pass.price !== 'FREE' && <span className="text-xl font-bold text-white">₹</span>}
+                                            <span className={`text-4xl font-black ${pass.name === 'SILVER PASS' ? 'text-white' : pass.color} tracking-tight`}>
                                                 {pass.price}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Small Floating Image - INCREASED SIZE & TILTED */}
-                                    <div className="w-56 h-32 ml-4 -mt-6">
-                                        <img src={pass.image} alt={pass.name} className="w-full h-full object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] transform rotate-12 group-hover:rotate-0 group-hover:scale-110 transition-all duration-500" />
+                                    <div className="w-40 h-24 ml-2 -mt-4 flex items-center justify-center">
+                                        {pass.image === 'CROWN_ICON' ? (
+                                            <Crown className={`w-16 h-16 ${pass.color} drop-shadow-[0_4px_10px_rgba(34,197,94,0.5)] transform rotate-12 group-hover:rotate-0 group-hover:scale-110 transition-all duration-500`} strokeWidth={1.5} />
+                                        ) : (
+                                            <img src={pass.image} alt={pass.name} className="w-full h-full object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] transform rotate-12 group-hover:rotate-0 group-hover:scale-110 transition-all duration-500" />
+                                        )}
                                     </div>
                                 </div>
 
-                                <h3 className={`text-2xl font-bold uppercase tracking-wide mt-4 ${pass.name === 'SILVER PASS' ? 'text-gray-200' : pass.color}`}>
+                                <h3 className={`text-xl font-bold uppercase tracking-wide mt-3 ${pass.name === 'SILVER PASS' ? 'text-gray-200' : pass.color}`}>
                                     {pass.name}
                                 </h3>
                             </div>
@@ -122,12 +128,12 @@ export const Tickets: React.FC = () => {
                             </div>
 
                             {/* Features List */}
-                            <div className="p-8 pt-6 flex-1 relative z-10">
-                                <ul className="space-y-4">
+                            <div className="p-5 pt-3 flex-1 relative z-10">
+                                <ul className="space-y-3">
                                     {pass.features.map((feature, idx) => (
                                         <li key={idx} className="flex items-center gap-3">
                                             {feature.included ? (
-                                                <div className={`p-0.5 rounded-full ${pass.id === 'gold' ? 'bg-yellow-500/20 text-yellow-400' : pass.id === 'platinum' ? 'bg-cyan-500/20 text-cyan-400' : 'bg-green-500/20 text-green-400'}`}>
+                                                <div className={`p-0.5 rounded-full ${pass.id === 'gold' ? 'bg-yellow-500/20 text-yellow-400' : pass.id === 'platinum' ? 'bg-cyan-500/20 text-cyan-400' : pass.id === 'priority' ? 'bg-green-500/20 text-green-400' : 'bg-green-500/20 text-green-400'}`}>
                                                     <Check size={12} strokeWidth={4} />
                                                 </div>
                                             ) : (
@@ -135,7 +141,7 @@ export const Tickets: React.FC = () => {
                                                     <X size={12} strokeWidth={4} />
                                                 </div>
                                             )}
-                                            <span className={`text-sm font-medium tracking-wide ${feature.included ? 'text-gray-300' : 'text-gray-600'}`}>
+                                            <span className={`text-xs font-medium tracking-wide ${feature.included ? 'text-gray-300' : 'text-gray-600'}`}>
                                                 {feature.name}
                                             </span>
                                         </li>
@@ -144,11 +150,11 @@ export const Tickets: React.FC = () => {
                             </div>
 
                             {/* Action Button */}
-                            <div className="p-8 pt-0 mt-auto">
+                            <div className="p-5 pt-0 mt-auto">
                                 <button
                                     onClick={() => handleGetPass(pass.id)}
                                     disabled={loading || (userPassLevel >= getPassLevel(pass.id))} // Disable if loading or already owned/surpassed
-                                    className={`w-full py-4 rounded-lg font-bold text-sm tracking-wider uppercase transition-all duration-300 
+                                    className={`w-full py-3 rounded-lg font-bold text-xs tracking-wider uppercase transition-all duration-300 
                                     ${
                                         // Case 1: Already Owned or Higher Tier
                                         userPassLevel >= getPassLevel(pass.id)
@@ -162,8 +168,12 @@ export const Tickets: React.FC = () => {
                                                 : pass.name === 'PLATINUM PASS'
                                                     ? 'bg-[#5f7185] text-white hover:bg-[#8ba3bd] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]'
 
-                                                    // Case 4: Available for Purchase (Silver/Free)
-                                                    : 'bg-white text-black hover:bg-gray-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                                                    // Case 4: Available for Purchase/Upgrade (Priority)
+                                                    : pass.name === 'PRIORITY PASS'
+                                                        ? 'bg-green-600 text-white hover:bg-green-500 hover:shadow-[0_0_20px_rgba(34,197,94,0.3)]'
+
+                                                        // Case 5: Available for Purchase (Silver/Free)
+                                                        : 'bg-white text-black hover:bg-gray-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
                                         }`}
                                 >
                                     {loading ? '...' :
