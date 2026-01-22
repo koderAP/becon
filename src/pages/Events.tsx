@@ -154,6 +154,7 @@ const eventsData: EventCard[] = [
         featured: true,
         image: '/events/Grandmoonshot.avif',
         eventType: 'main',
+        minPassLevel: 'iitd_student',
         customButtons: [
             { text: 'Apply (Startups)', url: 'https://becon.edciitd.com/forms/6934558c6b959ada62127360', type: 'primary' },
             { text: 'Register as Audience (IITD Only)', action: 'register', type: 'secondary' }
@@ -1099,8 +1100,15 @@ export const Events: React.FC = () => {
 
     const handleAction = async (event: EventCard) => {
         // 1. Pass Check (Shared Logic)
+        // 1. Pass Check (Shared Logic)
         const checkPass = async () => {
-            if (!userPass) return true; // Let them try to register (or maybe block if no pass? But legacy logic was lenient)
+            // Strict check for minPassLevel events
+            if (event.minPassLevel && !userPass) {
+                toast.error(`This event requires a ${event.minPassLevel.toUpperCase()} Pass.`);
+                return false;
+            }
+
+            if (!userPass) return true; // Let them try (for legacy open events)
 
             // Dynamic Pass Check
             if (event.minPassLevel) {
@@ -1132,6 +1140,8 @@ export const Events: React.FC = () => {
             }
             return true;
         };
+
+        if (!(await checkPass())) return;
 
         if (event.linkedFormId) {
             setFormPopup({
@@ -1796,6 +1806,7 @@ export const Events: React.FC = () => {
                                                             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
                                                                 {selectedEvent.customButtons.map((btn, idx) => {
                                                                     const isReg = btn.action === 'register' && isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id];
+                                                                    console.log(`[Debug Button] Event: ${selectedEvent.id}, Action: ${btn.action}, Registered: ${isRegistered(selectedEvent.id)}, IsUnstop: ${!!unstopEvents[selectedEvent.id]}, isRegResult: ${isReg}`);
                                                                     return (
                                                                         <button
                                                                             key={idx}

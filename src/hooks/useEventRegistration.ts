@@ -110,6 +110,7 @@ export function useEventRegistration() {
 
             if (msg.includes('Already registered') || err.message?.includes('409')) {
                 if (!options.silent) toast.info('You are already registered for this event');
+                await fetchRegistrations(); // Sync state with backend
                 return { success: false, message: 'Already registered', type: 'already_registered' };
             }
 
