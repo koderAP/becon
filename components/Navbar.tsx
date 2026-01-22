@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Menu, X, User } from 'lucide-react';
+import { ArrowUpRight, Menu, X, User, Download } from 'lucide-react';
 import { useAuth } from '../src/contexts/AuthContext';
 
 interface NavItem {
@@ -28,6 +28,28 @@ export const Navbar: React.FC = () => {
   const ticking = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    setDeferredPrompt(null);
+  };
 
   // Get auth state from Supabase
   const { user, loading } = useAuth();
@@ -266,10 +288,24 @@ export const Navbar: React.FC = () => {
                   <ArrowUpRight size={18} />
                 </Link>
               </nav>
+
+              {/* Install App Button (only visible if installable) */}
+              {deferredPrompt && (
+                <div className="px-4 pb-4">
+                  <button
+                    onClick={handleInstallClick}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-purple-600 text-white rounded-xl text-base font-semibold hover:bg-purple-700 transition-colors"
+                  >
+                    <Download size={18} />
+                    Install App
+                  </button>
+                </div>
+              )}
+
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </div >
     </>
   );
 };
