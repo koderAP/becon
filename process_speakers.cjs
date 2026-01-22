@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 
 const inputFile = 'speakers_list.txt';
 const outputDir = 'public/speakers/2026';
-const outputJson = path.join(outputDir, 'speakers_2026.json');
+const outputJson = path.join('src/data', 'speakers_2026.json');
 
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
@@ -19,9 +19,22 @@ const speakers = [];
 const downloadImage = (url, filepath) => {
     return new Promise((resolve, reject) => {
         const file = fs.createWriteStream(filepath);
-        https.get(url, (response) => {
+        const options = new URL(url);
+        const reqOptions = {
+            hostname: options.hostname,
+            path: options.pathname + options.search,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+        };
+
+        https.get(reqOptions, (response) => {
             if (response.statusCode === 301 || response.statusCode === 302) {
                 downloadImage(response.headers.location, filepath).then(resolve).catch(reject);
+                return;
+            }
+            if (response.statusCode !== 200) {
+                fs.unlink(filepath, () => reject(new Error(`Status ${response.statusCode}`)));
                 return;
             }
             response.pipe(file);
@@ -58,11 +71,43 @@ const processSpeakers = async () => {
             const targetImage = `${cleanName}.avif`;
             const targetPath = path.join(outputDir, targetImage);
 
+            // local image check
+            const remainingSpeakersDir = '../remaining_speakers';
+            let localImageFound = false;
+
+            if (fs.existsSync(remainingSpeakersDir)) {
+                // local image check
+                const localDirs = ['../remaining_speakers', '../newspeakers'];
+                let localImageFound = false;
+
+                for (const dir of localDirs) {
+                    if (localImageFound) break;
+                    if (fs.existsSync(dir)) {
+                        const files = fs.readdirSync(dir);
+                        for (const file of files) {
+                            const fileCleanName = file.toLowerCase().replace(/[^a-z0-9]/g, '');
+                            // Remove honorifics from cleanName for matching
+                            const nameForMatch = cleanName.replace(/^(mr|ms|dr|prof)/, '');
+
+                            if (fileCleanName.includes(nameForMatch)) {
+                                const sourcePath = path.join(dir, file);
+                                console.log(`Found local image for ${name} in ${dir}: ${file}`);
+                                fs.copyFileSync(sourcePath, tempImage);
+                                localImageFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
             try {
-                await downloadImage(imageUrl, tempImage);
+                if (!localImageFound) {
+                    await downloadImage(imageUrl, tempImage);
+                }
                 // Convert to avif
                 try {
-                    execSync(`ffmpeg -y -i "${tempImage}" -c:v liblibaom-av1 -crf 30 -b:v 0 -cpu-used 8 "${targetPath}"`, { stdio: 'ignore' });
+                    execSync(`ffmpeg -y -i "${tempImage}" -c:v libaom-av1 -crf 30 -b:v 0 -cpu-used 8 "${targetPath}"`, { stdio: 'ignore' });
                     // Fallback to simpler encoder if av1 fails or use libwebp as alternative if needed, but av1 requested
                     // Actually let's try generic libaom-av1 or just -c:v libaom-av1
                     // Ensure ffmpeg command is robust. If it fails, maybe input format issue.
@@ -85,6 +130,10 @@ const processSpeakers = async () => {
 
             } catch (err) {
                 console.error(`Failed to download image for ${name}: ${err.message}`);
+                if (fs.existsSync(targetPath)) {
+                    console.log(`Using existing image for ${name} despite download failure.`);
+                    finalImageName = `/speakers/2026/${targetImage}`;
+                }
             }
         }
 
