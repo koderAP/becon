@@ -495,7 +495,7 @@ const eventsData: EventCard[] = [
         image: '/events/incubator.avif',
         eventType: 'main',
         customButtons: [
-            { text: 'Apply as Incubator', url: 'https://becon.edciitd.com/forms/424993b4-3e6b-49ce-8228-e6caa479ae2a', type: 'primary' },
+            { text: 'Apply as Startup', url: 'https://becon.edciitd.com/forms/424993b4-3e6b-49ce-8228-e6caa479ae2a', type: 'primary' },
             { text: 'Apply as Visitor', action: 'register', type: 'secondary' }
         ]
     },
