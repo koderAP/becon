@@ -1,0 +1,170 @@
+[
+  {
+    "id": 100,
+    "name": "Mr. Ramprakash Ramamoorthy",
+    "designation": "Director of AI Research, Zoho",
+    "img": "/speakers/2026/mrramprakashramamoorthy.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 101,
+    "name": "Mr. Namit Malhotra",
+    "designation": "CEO, DNEG (Academy Award Winner for Inception and Interstellar)",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 102,
+    "name": "Mr. Chandan Mendiratta",
+    "designation": "CBO, Zepto (Quick Commerce Unicorn)",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 103,
+    "name": "Mr. Jithendra Vepa",
+    "designation": "Chief Scientist, Observe.AI",
+    "img": "/speakers/2026/mrjithendravepa.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 104,
+    "name": "Mr. Kaushik Dutta",
+    "designation": "Chairman, Eternal (Board Member: Ather, Hero FinCorp)",
+    "img": "/speakers/2026/mrkaushikdutta.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 105,
+    "name": "Ms. Radhika Ghai",
+    "designation": "Co-founder, ShopClues",
+    "img": "/speakers/2026/msradhikaghai.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 106,
+    "name": "Sanjeev Bhikhchandani",
+    "designation": "Founder - Info Edge",
+    "img": "/speakers/2026/sanjeevbhikhchandani.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 107,
+    "name": "Mr. Hitesh Oberoi",
+    "designation": "MD - Info Edge",
+    "img": "/speakers/2026/mrhiteshoberoi.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 108,
+    "name": "Sharath Keshava Narayana",
+    "designation": "CEO - Sanas.AI",
+    "img": "/speakers/2026/sharathkeshavanarayana.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 109,
+    "name": "Sanjay Sharma",
+    "designation": "Senior Vice President - Zydus life",
+    "img": "/speakers/2026/sanjaysharma.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 110,
+    "name": "Niraj Singh",
+    "designation": "Founder & CEO - Spinny",
+    "img": "/speakers/2026/nirajsingh.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 111,
+    "name": "Dr. R. Shivaraman",
+    "designation": "Co-founder, Big Bang Boom Solutions Pvt. Ltd.",
+    "img": "/speakers/2026/drrshivaraman.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 112,
+    "name": "Prince Kohli",
+    "designation": "CEO - Sauce Labs",
+    "img": "/speakers/2026/princekohli.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 113,
+    "name": "Shailaz Nag",
+    "designation": "Founder - DotPe, PayU",
+    "img": "/speakers/2026/shailaznag.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 114,
+    "name": "Sameer Mahandru",
+    "designation": "Founder - IndoBevs",
+    "img": "/speakers/2026/sameermahandru.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 115,
+    "name": "Vivek Mishra",
+    "designation": "CEO and Co-founder, Raphe mPhibr",
+    "img": "/speakers/2026/vivekmishra.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 116,
+    "name": "Sarita Ahlawat",
+    "designation": "Co-founder, Botlab Dynamics",
+    "img": "/speakers/2026/saritaahlawat.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 117,
+    "name": "Raj and DK",
+    "designation": "Film directors",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 118,
+    "name": "Niranjan Hiranandani",
+    "designation": "Hiranandani Group",
+    "img": "/speakers/2026/niranjanhiranandani.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 119,
+    "name": "Amit Khatri",
+    "designation": "Co-founder, Noise",
+    "img": "/speakers/2026/amitkhatri.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 120,
+    "name": "Ranbir Singh",
+    "designation": "Founder - GeneSic Semiconductor",
+    "img": "/speakers/2026/ranbirsingh.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 121,
+    "name": "Durga Prasad Mishra",
+    "designation": "Director - Neuroscience Business, Pfizer",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 122,
+    "name": "Pratham Mittal",
+    "designation": "Founder - Masters' Union",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 123,
+    "name": "Shaily Mehrotra",
+    "designation": "CEO and Founder - Fixderma",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  }
+]
