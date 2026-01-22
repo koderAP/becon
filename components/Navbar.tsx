@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Menu, X, User, Download, Building } from 'lucide-react';
 import { useAuth } from '../src/contexts/AuthContext';
+import { toast } from 'sonner';
 
 interface NavItem {
   label: string;
@@ -44,7 +45,10 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    if (!deferredPrompt) {
+      toast.info("To install, open browser options and select 'Add to Home Screen'");
+      return;
+    }
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     console.log(`User response to the install prompt: ${outcome}`);
@@ -280,7 +284,7 @@ export const Navbar: React.FC = () => {
 
                 {/* Accommodation Link (Mobile Only) */}
                 <a
-                  href="https://becon.edciitd.com/forms/accommodation"
+                  href='https://forms.gle/gYy2sYG9eQZks9Vx8'
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/5 hover:text-purple-400 transition-colors"
@@ -304,17 +308,15 @@ export const Navbar: React.FC = () => {
               </nav>
 
               {/* Install App Button (only visible if installable) */}
-              {deferredPrompt && (
-                <div className="px-4 pb-4">
-                  <button
-                    onClick={handleInstallClick}
-                    className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-purple-600 text-white rounded-xl text-base font-semibold hover:bg-purple-700 transition-colors"
-                  >
-                    <Download size={18} />
-                    Install App
-                  </button>
-                </div>
-              )}
+              <div className="px-4 pb-4">
+                <button
+                  onClick={handleInstallClick}
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-purple-600 text-white rounded-xl text-base font-semibold hover:bg-purple-700 transition-colors"
+                >
+                  <Download size={18} />
+                  Install App
+                </button>
+              </div>
 
             </motion.div>
           )}
