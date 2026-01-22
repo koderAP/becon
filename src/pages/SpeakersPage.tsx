@@ -61,9 +61,9 @@ export const SpeakersPage: React.FC = () => {
                 description="Meet the visionaries, industry leaders, and pioneers joining us for BECon 2026."
             />
 
-            <div className="relative z-20 py-20 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
-                <div className="border-t border-white/10 pt-20">
-                    <div className="flex items-center gap-4 mb-12">
+            <div className="relative z-20 py-8 px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+                <div className="border-t border-white/10 pt-8">
+                    <div className="flex items-center gap-4 mb-8">
                         <div className="w-12 h-[2px] bg-white"></div>
                         <span className="text-lg text-gray-300 uppercase tracking-widest">BECon'26 Speakers</span>
                     </div>

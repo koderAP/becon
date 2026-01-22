@@ -1806,7 +1806,7 @@ export const Events: React.FC = () => {
                                                             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
                                                                 {selectedEvent.customButtons.map((btn, idx) => {
                                                                     const isReg = btn.action === 'register' && isRegistered(selectedEvent.id) && !unstopEvents[selectedEvent.id];
-                                                                    console.log(`[Debug Button] Event: ${selectedEvent.id}, Action: ${btn.action}, Registered: ${isRegistered(selectedEvent.id)}, IsUnstop: ${!!unstopEvents[selectedEvent.id]}, isRegResult: ${isReg}`);
+
                                                                     return (
                                                                         <button
                                                                             key={idx}
