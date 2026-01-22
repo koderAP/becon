@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Menu, X, User, Download } from 'lucide-react';
+import { ArrowUpRight, Menu, X, User, Download, Building } from 'lucide-react';
 import { useAuth } from '../src/contexts/AuthContext';
 
 interface NavItem {
@@ -277,6 +277,20 @@ export const Navbar: React.FC = () => {
                     {item.label}
                   </button>
                 ))}
+
+                {/* Accommodation Link (Mobile Only) */}
+                <a
+                  href="https://becon.edciitd.com/forms/accommodation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/5 hover:text-purple-400 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Building size={18} />
+                    Accommodation
+                  </span>
+                  <ArrowUpRight size={16} className="opacity-50" />
+                </a>
 
                 {/* Login/Dashboard Button */}
                 <Link
