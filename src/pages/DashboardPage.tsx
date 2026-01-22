@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
     User, Mail, Phone, Building, Calendar, Edit2, Save, X, Ticket, Trophy,
-    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera, Loader2, Fingerprint
+    QrCode, Clock, Sparkles, ArrowRight, CheckCircle, LogOut, Settings, Bell, Camera, Loader2, Fingerprint, Crown
 } from 'lucide-react';
 import QRCode from 'react-qr-code';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -372,11 +372,17 @@ const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId 
                         {/* Current Pass Display */}
                         <div className={`relative p-6 rounded-2xl bg-gradient-to-br ${currentConfig.bgGradient} border ${currentConfig.borderColor}`}>
                             <div className="flex items-center gap-4">
-                                <img
-                                    src={currentConfig.image}
-                                    alt={currentConfig.name}
-                                    className="w-24 h-24 object-contain drop-shadow-lg"
-                                />
+                                {currentConfig.image === 'CROWN_ICON' ? (
+                                    <div className="w-24 h-24 flex items-center justify-center bg-green-500/20 rounded-full border border-green-500/30 drop-shadow-lg">
+                                        <Crown className="w-12 h-12 text-green-400" />
+                                    </div>
+                                ) : (
+                                    <img
+                                        src={currentConfig.image}
+                                        alt={currentConfig.name}
+                                        className="w-24 h-24 object-contain drop-shadow-lg"
+                                    />
+                                )}
                                 <div>
                                     <h4 className={`text-2xl font-bold ${currentConfig.color}`}>
                                         {currentConfig.name}
@@ -411,11 +417,15 @@ const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId 
                                                 }`}
                                         >
                                             <div className="flex items-center gap-3">
-                                                <img
-                                                    src={PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].image}
-                                                    alt={option.type}
-                                                    className="w-10 h-10 object-contain"
-                                                />
+                                                {PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].image === 'CROWN_ICON' ? (
+                                                    <Crown className="w-8 h-8 text-green-400" />
+                                                ) : (
+                                                    <img
+                                                        src={PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].image}
+                                                        alt={option.type}
+                                                        className="w-10 h-10 object-contain"
+                                                    />
+                                                )}
                                                 <span className={`font-semibold ${PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].color}`}>
                                                     {PASS_CONFIG[option.type as keyof typeof PASS_CONFIG].name}
                                                 </span>
@@ -451,7 +461,13 @@ const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId 
                                     onClick={() => navigate(`/checkout?pass=${type}`)}
                                     className={`p-6 rounded-2xl bg-gradient-to-br ${config.bgGradient}/40 border-2 ${config.borderColor}/50 text-center hover:scale-[1.02] transition-transform`}
                                 >
-                                    <img src={config.image} alt={config.name} className="w-24 h-24 mx-auto mb-4 object-contain" />
+                                    {config.image === 'CROWN_ICON' ? (
+                                        <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center bg-green-500/20 rounded-full border border-green-500/30">
+                                            <Crown className="w-12 h-12 text-green-400" />
+                                        </div>
+                                    ) : (
+                                        <img src={config.image} alt={config.name} className="w-24 h-24 mx-auto mb-4 object-contain" />
+                                    )}
                                     <h4 className={`font-bold text-xl ${config.color}`}>{config.name}</h4>
                                     <div className="mt-2 flex items-center justify-center gap-2">
                                         <span className="text-gray-400 line-through text-sm">₹{config.originalPrice}</span>
