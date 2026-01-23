@@ -403,6 +403,86 @@ export default function PublicFormPage() {
                                         ))}
                                     </div>
                                 )}
+
+                                {field.type === "file" && (
+                                    <div className="space-y-2">
+                                        <div className="relative">
+                                            <input
+                                                type="file"
+                                                id={`file-${field.id}`}
+                                                className="hidden"
+                                                onChange={async (e) => {
+                                                    const file = e.target.files?.[0];
+                                                    if (!file) return;
+
+                                                    // limit 5MB
+                                                    if (file.size > 5 * 1024 * 1024) {
+                                                        toast.error("File size must be less than 5MB");
+                                                        return;
+                                                    }
+
+                                                    const toastId = toast.loading("Uploading file...");
+                                                    try {
+                                                        // Upload to Supabase
+                                                        const { createClient } = await import('@supabase/supabase-js');
+                                                        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+                                                        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+                                                        const supabase = createClient(supabaseUrl, supabaseKey);
+
+                                                        const fileExt = file.name.split('.').pop();
+                                                        const fileName = `${field.id}_${Date.now()}.${fileExt}`;
+                                                        const filePath = `${form.id}/${fileName}`;
+
+                                                        const { error: uploadError } = await supabase.storage
+                                                            .from('form_uploads')
+                                                            .upload(filePath, file);
+
+                                                        if (uploadError) throw uploadError;
+
+                                                        const { data: { publicUrl } } = supabase.storage
+                                                            .from('form_uploads')
+                                                            .getPublicUrl(filePath);
+
+                                                        setFormData({ ...formData, [field.id]: publicUrl });
+                                                        toast.success("File uploaded successfully", { id: toastId });
+                                                    } catch (error: any) {
+                                                        console.error("Upload error:", error);
+                                                        toast.error("Failed to upload file", { id: toastId });
+                                                    }
+                                                }}
+                                            />
+                                            {formData[field.id] ? (
+                                                <div className="flex items-center gap-3 p-3 bg-[#7A32E0]/10 border border-[#7A32E0]/30 rounded-lg">
+                                                    <span className="text-white text-sm truncate max-w-[200px]">
+                                                        {formData[field.id].split('/').pop()}
+                                                    </span>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setFormData({ ...formData, [field.id]: "" })}
+                                                        className="text-red-400 hover:text-red-300 text-sm"
+                                                    >
+                                                        Remove
+                                                    </button>
+                                                    <a
+                                                        href={formData[field.id]}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-[#B488FF] hover:text-white text-sm ml-auto"
+                                                    >
+                                                        View
+                                                    </a>
+                                                </div>
+                                            ) : (
+                                                <label
+                                                    htmlFor={`file-${field.id}`}
+                                                    className="flex items-center justify-center gap-2 px-4 py-8 border-2 border-dashed border-[#7A32E0]/30 rounded-lg cursor-pointer hover:bg-[#7A32E0]/5 transition-colors"
+                                                >
+                                                    <span className="text-[#BBC5F2]">Click to upload file</span>
+                                                </label>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ))}
 

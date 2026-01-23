@@ -57,6 +57,7 @@ const fieldTypes = [
     { value: "select", label: "Dropdown" },
     { value: "radio", label: "Radio Buttons" },
     { value: "checkbox", label: "Checkboxes" },
+    { value: "file", label: "File Upload" },
 ];
 
 // Sortable Field Item Component
