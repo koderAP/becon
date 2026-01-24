@@ -35,12 +35,24 @@ function renderFormattedText(text: string) {
         return (
             <p key={pIndex} className={pIndex > 0 ? "mt-3" : ""}>
                 {lines.map((line, lIndex) => {
-                    const parts = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+                    const parts = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*|https?:\/\/[^\s]+)/g);
                     const processed = parts.map((part, partIndex) => {
                         if (part.startsWith("**") && part.endsWith("**")) {
                             return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
                         } else if (part.startsWith("*") && part.endsWith("*")) {
                             return <em key={partIndex}>{part.slice(1, -1)}</em>;
+                        } else if (part.match(/^https?:\/\//)) {
+                            return (
+                                <a
+                                    key={partIndex}
+                                    href={part}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-blue-300 underline break-all"
+                                >
+                                    {part}
+                                </a>
+                            );
                         }
                         return part;
                     });

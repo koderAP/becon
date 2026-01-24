@@ -26,6 +26,48 @@ interface FormField {
     imageUrl?: string;
 }
 
+// Helper to render formatted text with links
+function renderFormattedText(text: string) {
+    const paragraphs = text.split(/\n\n+/);
+    return paragraphs.map((paragraph, pIndex) => {
+        const lines = paragraph.split(/\n/);
+        return (
+            <p key={pIndex} className={pIndex > 0 ? "mt-3" : ""}>
+                {lines.map((line, lIndex) => {
+                    const parts = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*|https?:\/\/[^\s]+)/g);
+                    const processed = parts.map((part, partIndex) => {
+                        if (part.startsWith("**") && part.endsWith("**")) {
+                            return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
+                        } else if (part.startsWith("*") && part.endsWith("*")) {
+                            return <em key={partIndex}>{part.slice(1, -1)}</em>;
+                        } else if (part.match(/^https?:\/\//)) {
+                            return (
+                                <a
+                                    key={partIndex}
+                                    href={part}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-blue-300 underline break-all"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    {part}
+                                </a>
+                            );
+                        }
+                        return part;
+                    });
+                    return (
+                        <span key={lIndex}>
+                            {lIndex > 0 && <br />}
+                            {processed}
+                        </span>
+                    );
+                })}
+            </p>
+        );
+    });
+}
+
 export const EventFormPopup: React.FC<EventFormPopupProps> = ({ isOpen, onClose, eventId, formId, title, onSuccess }) => {
     const { user } = useAuth();
     const [fields, setFields] = useState<FormField[]>([]);
@@ -109,6 +151,34 @@ export const EventFormPopup: React.FC<EventFormPopupProps> = ({ isOpen, onClose,
         }
     };
 
+    const handleFileUpload = async (file: File, fieldId: string) => {
+        try {
+            const { supabase } = await import('../src/lib/supabase');
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+            const filePath = `form_uploads/${fileName}`;
+
+            // Show loading toast or state if needed (optional)
+            const toastId = toast.loading("Uploading file...");
+
+            const { error: uploadError } = await supabase.storage
+                .from('form_uploads')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data } = supabase.storage
+                .from('form_uploads')
+                .getPublicUrl(filePath);
+
+            setFormData(prev => ({ ...prev, [fieldId]: data.publicUrl }));
+            toast.success("File uploaded successfully", { id: toastId });
+        } catch (error: any) {
+            console.error('Upload error:', error);
+            toast.error("Failed to upload file: " + error.message);
+        }
+    };
+
     if (typeof document === 'undefined') return null;
 
     return createPortal(
@@ -145,7 +215,11 @@ export const EventFormPopup: React.FC<EventFormPopupProps> = ({ isOpen, onClose,
                                     <div className="flex justify-between items-start mb-6">
                                         <div>
                                             <h3 className="text-xl font-bold text-white">{title}</h3>
-                                            {description && <p className="text-gray-400 text-sm mt-1">{description}</p>}
+                                            {description && (
+                                                <div className="text-gray-400 text-sm mt-1">
+                                                    {renderFormattedText(description)}
+                                                </div>
+                                            )}
                                         </div>
                                         <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
                                             <X size={24} />
@@ -171,6 +245,15 @@ export const EventFormPopup: React.FC<EventFormPopupProps> = ({ isOpen, onClose,
                                                     <label className="block text-sm text-gray-300 mb-1.5 font-medium">
                                                         {field.label} {field.required && <span className="text-purple-400">*</span>}
                                                     </label>
+                                                    {field.imageUrl && (
+                                                        <div className="mb-3 rounded-lg overflow-hidden border border-white/10">
+                                                            <img
+                                                                src={field.imageUrl}
+                                                                alt={field.label}
+                                                                className="w-full h-auto max-h-64 object-contain bg-white/5"
+                                                            />
+                                                        </div>
+                                                    )}
                                                     {field.type === 'textarea' ? (
                                                         <textarea
                                                             required={field.required}
@@ -191,6 +274,23 @@ export const EventFormPopup: React.FC<EventFormPopupProps> = ({ isOpen, onClose,
                                                                 <option key={opt} value={opt} className="bg-[#0a0a15]">{opt}</option>
                                                             ))}
                                                         </select>
+                                                    ) : field.type === 'file' ? (
+                                                        <div>
+                                                            <input
+                                                                type="file"
+                                                                required={field.required && !formData[field.id]} // Only required if no file uploaded yet
+                                                                onChange={(e) => {
+                                                                    const file = e.target.files?.[0];
+                                                                    if (file) handleFileUpload(file, field.id);
+                                                                }}
+                                                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-500 cursor-pointer"
+                                                            />
+                                                            {formData[field.id] && (
+                                                                <p className="mt-2 text-xs text-green-400 flex items-center gap-1">
+                                                                    <CheckCircle size={12} /> File uploaded
+                                                                </p>
+                                                            )}
+                                                        </div>
                                                     ) : (
                                                         <input
                                                             type={field.type}

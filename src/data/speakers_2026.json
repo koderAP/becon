@@ -1,10 +1,297 @@
 [
   {
+    "id": 118,
+    "name": "Mr. Sanjeev Bikhchandani",
+    "designation": "Founder at Info Edge (India) Ltd",
+    "img": "/speakers/2026/mrsanjeevbikhchandani.avif",
+    "linkedin": "https://www.linkedin.com/in/sanjeev-bikhchandani-501261/?originalSubdomain=in"
+  },
+  {
+    "id": 104,
+    "name": "Mr. Niranjan Hiranandani",
+    "designation": "Hiranandani Group",
+    "img": "/speakers/2026/mrniranjanhiranandani_original.webp",
+    "linkedin": "https://www.linkedin.com/in/dr-niranjan-hiranandani/?originalSubdomain=in"
+  },
+  {
     "id": 100,
     "name": "NV Sir",
     "designation": "CEO & Founder at Motion Education Pvt. Ltd.",
     "img": "/speakers/2026/nvsir.avif",
     "linkedin": "https://www.linkedin.com/in/nitin-vijay-motion/?originalSubdomain=in"
+  },
+  {
+    "id": 141,
+    "name": "Pratham Mittal",
+    "designation": "Founder - Masters' Union",
+    "img": "/speakers/2026/prathammittal.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 119,
+    "name": "Ms. Nikita Dutta",
+    "designation": "Actress and Model",
+    "img": "/speakers/2026/msnikitadutta.avif",
+    "linkedin": "https://www.linkedin.com/in/nikita-dutta-actress/"
+  },
+  {
+    "id": 120,
+    "name": "Mr. Ashneer Grover",
+    "designation": "Co-founder at BharatPe",
+    "img": "/speakers/2026/mrashneergrover.avif",
+    "linkedin": "https://www.linkedin.com/in/ashneer-grover/"
+  },
+  {
+    "id": 134,
+    "name": "Ms. Shraddha Sharma",
+    "designation": "CEO at YourStory",
+    "img": "/speakers/2026/msshraddhasharma.avif",
+    "linkedin": "https://in.linkedin.com/in/sharmashradha"
+  },
+  {
+    "id": 136,
+    "name": "Mr. Ankur Warikoo",
+    "designation": "Entrepreneur (Founder at WebVeda) and Content Creator",
+    "img": "/speakers/2026/mrankurwarikoo.avif",
+    "linkedin": "https://www.linkedin.com/in/warikoo/?originalSubdomain=in"
+  },
+  {
+    "id": 120,
+    "name": "Mr. Raghav Chandra",
+    "designation": "Co-Founder at Urban Company",
+    "img": "/speakers/2026/mrraghavchandra.avif",
+    "linkedin": "https://www.linkedin.com/in/raghavchandra/?originalSubdomain=in"
+  },
+  {
+    "id": 142,
+    "name": "Shaily Mehrotra",
+    "designation": "CEO and Founder - Fixderma",
+    "img": "/speakers/2026/shailymehrotra.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 117,
+    "name": "Mr. Sudhir Chaudhary",
+    "designation": "Editor-in-chief of DD News",
+    "img": "/speakers/2026/mrsudhirchaudhary.avif",
+    "linkedin": "https://www.linkedin.com/in/sudhir-chaudhary-099615236/?originalSubdomain=in"
+  },
+  {
+    "id": 105,
+    "name": "Mr. Hitesh Oberoi",
+    "designation": "Managing Director & Chief Executive Officer (CEO) at Info Edge",
+    "img": "/speakers/2026/mrhiteshoberoi.avif",
+    "linkedin": "https://www.linkedin.com/in/hitesh-oberoi-490260/?originalSubdomain=in"
+  },
+  {
+    "id": 111,
+    "name": "Air Chief Marshal (Retd.) R. K. S. Bhadauria",
+    "designation": "Former Chief of the Air Staff, Indian Air Force",
+    "img": "/speakers/2026/airchiefmarshalretdrksbhadauria.avif",
+    "linkedin": "https://www.linkedin.com/in/rakesh-kumar-singh-bhadauria-767135222/?originalSubdomain=in"
+  },
+  {
+    "id": 137,
+    "name": "Mr. Namit Malhotra",
+    "designation": "CEO, DNEG (Academy Award Winner for Inception and Interstellar)",
+    "img": "/speakers/2026/mrnamitmalhotra.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 106,
+    "name": "Mr. Kaushik Dutta",
+    "designation": "Chairman at Zomato",
+    "img": "/speakers/2026/mrkaushikdutta.avif",
+    "linkedin": "https://www.linkedin.com/in/kaushik-dutta-02576538/?originalSubdomain=in"
+  },
+  {
+    "id": 138,
+    "name": "Mr. Chandan Mendiratta",
+    "designation": "CBO, Zepto (Quick Commerce Unicorn)",
+    "img": "/speakers/2026/mrchandanmendiratta.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 113,
+    "name": "Mr. Shailaz Nag",
+    "designation": "Founder at DotPe; Co-Founder & Board Member at PayU",
+    "img": "/speakers/2026/mrshailaznag.avif",
+    "linkedin": "https://www.linkedin.com/in/shailaz-nag-60500b4/?originalSubdomain=in"
+  },
+  {
+    "id": 135,
+    "name": "Mr. Niraj Singh",
+    "designation": "Founder and CEO at Spinny",
+    "img": "/speakers/2026/mrnirajsingh.avif",
+    "linkedin": "https://in.linkedin.com/in/niraj-singh-67159715"
+  },
+  {
+    "id": 115,
+    "name": "Mr. Alok Mittal",
+    "designation": "Co-Founder at Indian Angel Network",
+    "img": "/speakers/2026/mralokmittal.avif",
+    "linkedin": "https://www.linkedin.com/in/alok-mittal-590a/?originalSubdomain=in"
+  },
+  {
+    "id": 114,
+    "name": "Mr. Vikram Gupta",
+    "designation": "Founder at IvyCap Ventures",
+    "img": "/speakers/2026/mrvikramgupta.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 132,
+    "name": "Mr. Nitin Agarwal",
+    "designation": "Co-Founder of GlobalBees",
+    "img": "/speakers/2026/mrnitinagarwal.avif",
+    "linkedin": "https://in.linkedin.com/in/nitinagarwal1976"
+  },
+  {
+    "id": 139,
+    "name": "Raj and DK",
+    "designation": "Film directors",
+    "img": "/speakers/2026/rajanddk.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 107,
+    "name": "Mr. Amit Khatri",
+    "designation": "Co-Founder at Noise",
+    "img": "/speakers/2026/mramitkhatri.avif",
+    "linkedin": "https://www.linkedin.com/in/iamamitkhatri/"
+  },
+  {
+    "id": 130,
+    "name": "Mr. Nitin Jain",
+    "designation": "Co-Founder OfBusiness",
+    "img": "/speakers/2026/mrnitinjain.avif",
+    "linkedin": "https://www.linkedin.com/in/nitin-jain-17b82310/?originalSubdomain=in"
+  },
+  {
+    "id": 108,
+    "name": "Mr. Sameer Mahandru",
+    "designation": "Founder & Managing Director at IndoBevs",
+    "img": "/speakers/2026/mrsameermahandru.avif",
+    "linkedin": "https://www.linkedin.com/in/mahandru/?originalSubdomain=in"
+  },
+  {
+    "id": 131,
+    "name": "Mr. Shashank Sinha",
+    "designation": "CEO at Drools",
+    "img": "/speakers/2026/mrshashanksinha.avif",
+    "linkedin": "https://www.linkedin.com/in/dr-shashank-sinha/?originalSubdomain=in"
+  },
+  {
+    "id": 128,
+    "name": "Ms. Radhika Ghai",
+    "designation": "Co-Founder at ShopClues",
+    "img": "/speakers/2026/msradhikaghai.avif",
+    "linkedin": "https://www.linkedin.com/in/radhikaghai/?originalSubdomain=in"
+  },
+  {
+    "id": 116,
+    "name": "Mr. Saharsh Sharma",
+    "designation": "Vice President at Chiratae Ventures",
+    "img": "/speakers/2026/mrsaharshsharma.avif",
+    "linkedin": "https://www.linkedin.com/in/saharsh-sharma/?originalSubdomain=in"
+  },
+  {
+    "id": 123,
+    "name": "Mr. Prince Kohli",
+    "designation": "CEO at Sauce Labs",
+    "img": "/speakers/2026/mrprincekohli.avif",
+    "linkedin": "https://www.linkedin.com/in/princekohli/"
+  },
+  {
+    "id": 124,
+    "name": "Mr. Sharath Keshava Narayana",
+    "designation": "CEO at Sanas.AI",
+    "img": "/speakers/2026/mrsharathkeshavanarayana.avif",
+    "linkedin": "https://www.linkedin.com/in/sharathkishan/"
+  },
+  {
+    "id": 121,
+    "name": "Mr. Ramprakash Ramamoorthy",
+    "designation": "Director of AI Research at Zoho",
+    "img": "/speakers/2026/mrramprakashramamoorthy.avif",
+    "linkedin": "https://www.linkedin.com/in/ramprakashramamoorthy/?originalSubdomain=in"
+  },
+  {
+    "id": 122,
+    "name": "Mr. Jithendra Vepa",
+    "designation": "Chief Scientist at Observe.AI",
+    "img": "/speakers/2026/mrjithendravepa.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 129,
+    "name": "Mr. Tejinderpal Miglani",
+    "designation": "Co-Founder at Incedo Inc.",
+    "img": "/speakers/2026/mrtejinderpalmiglani.avif",
+    "linkedin": "https://www.linkedin.com/in/tsmiglani/?originalSubdomain=in"
+  },
+  {
+    "id": 112,
+    "name": "Mr. Ravinder Singh",
+    "designation": "Board Advisor of Indian Space Association",
+    "img": "/speakers/2026/mrravindersingh.avif",
+    "linkedin": "https://www.linkedin.com/in/ravinps/?originalSubdomain=in"
+  },
+  {
+    "id": 127,
+    "name": "Mr. Ranbir Singh",
+    "designation": "Founder at GeneSiC Semiconductor",
+    "img": "/speakers/2026/mrranbirsingh.avif",
+    "linkedin": "https://www.linkedin.com/in/ranbirsingh/"
+  },
+  {
+    "id": 126,
+    "name": "Mr. Chirag Gupta",
+    "designation": "Senior Director & S3 India Head at AMD",
+    "img": "/speakers/2026/mrchiraggupta.avif",
+    "linkedin": "https://www.linkedin.com/in/chirag-gupta-394b1734/?originalSubdomain=in"
+  },
+  {
+    "id": 133,
+    "name": "Mr. Gursimran Kalra",
+    "designation": "COO at Minus Zero",
+    "img": "/speakers/2026/mrgursimrankalra.avif",
+    "linkedin": "https://in.linkedin.com/in/gursimran-kalra"
+  },
+  {
+    "id": 109,
+    "name": "Mr. Sanjay R. Sharma",
+    "designation": "Senior Vice President at Zydus Lifesciences Ltd",
+    "img": "/speakers/2026/mrsanjayrsharma.avif",
+    "linkedin": "https://www.linkedin.com/in/sanjay-sharma-5787109/?originalSubdomain=in"
+  },
+  {
+    "id": 140,
+    "name": "Durga Prasad Mishra",
+    "designation": "Director - Neuroscience Business, Pfizer",
+    "img": "/speakers/placeholder.avif",
+    "linkedin": ""
+  },
+  {
+    "id": 110,
+    "name": "Mr. Kuldeep Sharma",
+    "designation": "Business Development Manager at Agilent Technologies",
+    "img": "/speakers/2026/mrkuldeepsharma.avif",
+    "linkedin": "https://www.linkedin.com/in/kuldeep-sharma-ph-d-mba-ab445114/?originalSubdomain=in"
+  },
+  {
+    "id": 125,
+    "name": "Mr Anant Ahuja",
+    "designation": "Director ESG & Sustainability at Shahi Exports",
+    "img": "/speakers/2026/mranantahuja.avif",
+    "linkedin": "https://www.linkedin.com/in/anant-ahuja43/?originalSubdomain=in"
+  },
+  {
+    "id": 119,
+    "name": "Mr. Bipin Shah",
+    "designation": "Founder at ZeroPearl",
+    "img": "/speakers/2026/mrbipinshah.avif",
+    "linkedin": "https://www.linkedin.com/in/bipinzeropearl/?originalSubdomain=in"
   },
   {
     "id": 101,
@@ -26,278 +313,5 @@
     "designation": "Managing Director & Co-Founder at BotLab Dynamics",
     "img": "/speakers/2026/drsaritaahlawat.avif",
     "linkedin": "https://www.linkedin.com/in/sarita-ahlawat/?originalSubdomain=in"
-  },
-  {
-    "id": 104,
-    "name": "Mr. Niranjan Hiranandani",
-    "designation": "Hiranandani Group",
-    "img": "/speakers/2026/mrniranjanhiranandani.png",
-    "linkedin": "https://www.linkedin.com/in/dr-niranjan-hiranandani/?originalSubdomain=in"
-  },
-  {
-    "id": 105,
-    "name": "Mr. Hitesh Oberoi",
-    "designation": "Managing Director & Chief Executive Officer (CEO) at Info Edge",
-    "img": "/speakers/2026/mrhiteshoberoi.avif",
-    "linkedin": "https://www.linkedin.com/in/hitesh-oberoi-490260/?originalSubdomain=in"
-  },
-  {
-    "id": 106,
-    "name": "Mr. Kaushik Dutta",
-    "designation": "Chairman at Zomato",
-    "img": "/speakers/2026/mrkaushikdutta.avif",
-    "linkedin": "https://www.linkedin.com/in/kaushik-dutta-02576538/?originalSubdomain=in"
-  },
-  {
-    "id": 107,
-    "name": "Mr. Amit Khatri",
-    "designation": "Co-Founder at Noise",
-    "img": "/speakers/2026/mramitkhatri.avif",
-    "linkedin": "https://www.linkedin.com/in/iamamitkhatri/"
-  },
-  {
-    "id": 108,
-    "name": "Mr. Sameer Mahandru",
-    "designation": "Founder & Managing Director at IndoBevs",
-    "img": "/speakers/2026/mrsameermahandru.avif",
-    "linkedin": "https://www.linkedin.com/in/mahandru/?originalSubdomain=in"
-  },
-  {
-    "id": 109,
-    "name": "Mr. Sanjay R. Sharma",
-    "designation": "Senior Vice President at Zydus Lifesciences Ltd",
-    "img": "/speakers/2026/mrsanjayrsharma.avif",
-    "linkedin": "https://www.linkedin.com/in/sanjay-sharma-5787109/?originalSubdomain=in"
-  },
-  {
-    "id": 110,
-    "name": "Mr. Kuldeep Sharma",
-    "designation": "Business Development Manager at Agilent Technologies",
-    "img": "/speakers/2026/mrkuldeepsharma.avif",
-    "linkedin": "https://www.linkedin.com/in/kuldeep-sharma-ph-d-mba-ab445114/?originalSubdomain=in"
-  },
-  {
-    "id": 111,
-    "name": "Air Chief Marshal (Retd.) R. K. S. Bhadauria",
-    "designation": "Former Chief of the Air Staff, Indian Air Force",
-    "img": "/speakers/2026/airchiefmarshalretdrksbhadauria.avif",
-    "linkedin": "https://www.linkedin.com/in/rakesh-kumar-singh-bhadauria-767135222/?originalSubdomain=in"
-  },
-  {
-    "id": 112,
-    "name": "Mr. Ravinder Singh",
-    "designation": "Board Advisor of Indian Space Association",
-    "img": "/speakers/2026/mrravindersingh.avif",
-    "linkedin": "https://www.linkedin.com/in/ravinps/?originalSubdomain=in"
-  },
-  {
-    "id": 113,
-    "name": "Mr. Shailaz Nag",
-    "designation": "Founder at DotPe; Co-Founder & Board Member at PayU",
-    "img": "/speakers/2026/mrshailaznag.avif",
-    "linkedin": "https://www.linkedin.com/in/shailaz-nag-60500b4/?originalSubdomain=in"
-  },
-  {
-    "id": 114,
-    "name": "Mr. Vikram Gupta",
-    "designation": "Founder at IvyCap Ventures",
-    "img": "/speakers/2026/mrvikramgupta.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 115,
-    "name": "Mr. Alok Mittal",
-    "designation": "Co-Founder at Indian Angel Network",
-    "img": "/speakers/2026/mralokmittal.avif",
-    "linkedin": "https://www.linkedin.com/in/alok-mittal-590a/?originalSubdomain=in"
-  },
-  {
-    "id": 116,
-    "name": "Mr. Saharsh Sharma",
-    "designation": "Vice President at Chiratae Ventures",
-    "img": "/speakers/2026/mrsaharshsharma.avif",
-    "linkedin": "https://www.linkedin.com/in/saharsh-sharma/?originalSubdomain=in"
-  },
-  {
-    "id": 117,
-    "name": "Mr. Sudhir Chaudhary",
-    "designation": "Editor-in-chief of DD News",
-    "img": "/speakers/2026/mrsudhirchaudhary.avif",
-    "linkedin": "https://www.linkedin.com/in/sudhir-chaudhary-099615236/?originalSubdomain=in"
-  },
-  {
-    "id": 118,
-    "name": "Mr. Sanjeev Bikhchandani",
-    "designation": "Founder at Info Edge (India) Ltd",
-    "img": "/speakers/2026/mrsanjeevbikhchandani.avif",
-    "linkedin": "https://www.linkedin.com/in/sanjeev-bikhchandani-501261/?originalSubdomain=in"
-  },
-  {
-    "id": 119,
-    "name": "Mr. Bipin Shah",
-    "designation": "Founder at ZeroPearl",
-    "img": "/speakers/2026/mrbipinshah.avif",
-    "linkedin": "https://www.linkedin.com/in/bipinzeropearl/?originalSubdomain=in"
-  },
-  {
-    "id": 120,
-    "name": "Mr. Raghav Chandra",
-    "designation": "Co-Founder at Urban Company",
-    "img": "/speakers/2026/mrraghavchandra.avif",
-    "linkedin": "https://www.linkedin.com/in/raghavchandra/?originalSubdomain=in"
-  },
-  {
-    "id": 121,
-    "name": "Mr. Ramprakash Ramamoorthy",
-    "designation": "Director of AI Research at Zoho",
-    "img": "/speakers/2026/mrramprakashramamoorthy.avif",
-    "linkedin": "https://www.linkedin.com/in/ramprakashramamoorthy/?originalSubdomain=in"
-  },
-  {
-    "id": 122,
-    "name": "Mr. Jithendra Vepa",
-    "designation": "Chief Scientist at Observe.AI",
-    "img": "/speakers/2026/mrjithendravepa.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 123,
-    "name": "Mr. Prince Kohli",
-    "designation": "CEO at Sauce Labs",
-    "img": "/speakers/2026/mrprincekohli.avif",
-    "linkedin": "https://www.linkedin.com/in/princekohli/"
-  },
-  {
-    "id": 124,
-    "name": "Mr. Sharath Keshava Narayana",
-    "designation": "CEO at Sanas.AI",
-    "img": "/speakers/2026/mrsharathkeshavanarayana.avif",
-    "linkedin": "https://www.linkedin.com/in/sharathkishan/"
-  },
-  {
-    "id": 125,
-    "name": "Mr Anant Ahuja",
-    "designation": "Director ESG & Sustainability at Shahi Exports",
-    "img": "/speakers/2026/mranantahuja.avif",
-    "linkedin": "https://www.linkedin.com/in/anant-ahuja43/?originalSubdomain=in"
-  },
-  {
-    "id": 126,
-    "name": "Mr. Chirag Gupta",
-    "designation": "Senior Director & S3 India Head at AMD",
-    "img": "/speakers/2026/mrchiraggupta.avif",
-    "linkedin": "https://www.linkedin.com/in/chirag-gupta-394b1734/?originalSubdomain=in"
-  },
-  {
-    "id": 127,
-    "name": "Mr. Ranbir Singh",
-    "designation": "Founder at GeneSiC Semiconductor",
-    "img": "/speakers/2026/mrranbirsingh.avif",
-    "linkedin": "https://www.linkedin.com/in/ranbirsingh/"
-  },
-  {
-    "id": 128,
-    "name": "Ms. Radhika Ghai",
-    "designation": "Co-Founder at ShopClues",
-    "img": "/speakers/2026/msradhikaghai.avif",
-    "linkedin": "https://www.linkedin.com/in/radhikaghai/?originalSubdomain=in"
-  },
-  {
-    "id": 129,
-    "name": "Mr. Tejinderpal Miglani",
-    "designation": "Co-Founder at Incedo Inc.",
-    "img": "/speakers/2026/mrtejinderpalmiglani.avif",
-    "linkedin": "https://www.linkedin.com/in/tsmiglani/?originalSubdomain=in"
-  },
-  {
-    "id": 130,
-    "name": "Mr. Nitin Jain",
-    "designation": "Co-Founder OfBusiness",
-    "img": "/speakers/2026/mrnitinjain.avif",
-    "linkedin": "https://www.linkedin.com/in/nitin-jain-17b82310/?originalSubdomain=in"
-  },
-  {
-    "id": 131,
-    "name": "Mr. Shashank Sinha",
-    "designation": "CEO at Drools",
-    "img": "/speakers/2026/mrshashanksinha.avif",
-    "linkedin": "https://www.linkedin.com/in/dr-shashank-sinha/?originalSubdomain=in"
-  },
-  {
-    "id": 132,
-    "name": "Mr. Nitin Agarwal",
-    "designation": "Co-Founder of GlobalBees",
-    "img": "/speakers/2026/mrnitinagarwal.avif",
-    "linkedin": "https://in.linkedin.com/in/nitinagarwal1976"
-  },
-  {
-    "id": 133,
-    "name": "Mr. Gursimran Kalra",
-    "designation": "COO at Minus Zero",
-    "img": "/speakers/2026/mrgursimrankalra.avif",
-    "linkedin": "https://in.linkedin.com/in/gursimran-kalra"
-  },
-  {
-    "id": 134,
-    "name": "Ms. Shraddha Sharma",
-    "designation": "CEO at YourStory",
-    "img": "/speakers/2026/msshraddhasharma.avif",
-    "linkedin": "https://in.linkedin.com/in/sharmashradha"
-  },
-  {
-    "id": 135,
-    "name": "Mr. Niraj Singh",
-    "designation": "Founder and CEO at Spinny",
-    "img": "/speakers/2026/mrnirajsingh.avif",
-    "linkedin": "https://in.linkedin.com/in/niraj-singh-67159715"
-  },
-  {
-    "id": 136,
-    "name": "Mr. Ankur Warikoo",
-    "designation": "Entrepreneur (Founder at WebVeda) and Content Creator",
-    "img": "/speakers/2026/mrankurwarikoo.avif",
-    "linkedin": "https://www.linkedin.com/in/warikoo/?originalSubdomain=in"
-  },
-  {
-    "id": 137,
-    "name": "Mr. Namit Malhotra",
-    "designation": "CEO, DNEG (Academy Award Winner for Inception and Interstellar)",
-    "img": "/speakers/2026/mrnamitmalhotra.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 138,
-    "name": "Mr. Chandan Mendiratta",
-    "designation": "CBO, Zepto (Quick Commerce Unicorn)",
-    "img": "/speakers/2026/mrchandanmendiratta.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 139,
-    "name": "Raj and DK",
-    "designation": "Film directors",
-    "img": "/speakers/2026/rajanddk.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 140,
-    "name": "Durga Prasad Mishra",
-    "designation": "Director - Neuroscience Business, Pfizer",
-    "img": "/speakers/placeholder.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 141,
-    "name": "Pratham Mittal",
-    "designation": "Founder - Masters' Union",
-    "img": "/speakers/2026/prathammittal.avif",
-    "linkedin": ""
-  },
-  {
-    "id": 142,
-    "name": "Shaily Mehrotra",
-    "designation": "CEO and Founder - Fixderma",
-    "img": "/speakers/2026/shailymehrotra.avif",
-    "linkedin": ""
   }
 ]

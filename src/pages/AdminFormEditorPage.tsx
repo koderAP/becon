@@ -501,7 +501,22 @@ export default function AdminFormEditorPage() {
                                                     <span className="text-white text-sm">
                                                         {Array.isArray(resp.data[field.id])
                                                             ? resp.data[field.id].join(", ")
-                                                            : resp.data[field.id] || "-"}
+                                                            : (
+                                                                (() => {
+                                                                    const val = String(resp.data[field.id] || "-");
+                                                                    return val.trim().startsWith('http') ? (
+                                                                        <a
+                                                                            href={val}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="text-blue-400 hover:text-blue-300 underline break-all"
+                                                                        >
+                                                                            View Link
+                                                                        </a>
+                                                                    ) : val;
+                                                                })()
+                                                            )
+                                                        }
                                                     </span>
                                                 </div>
                                             ))}

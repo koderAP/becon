@@ -81,7 +81,7 @@ export const SpeakersPage: React.FC = () => {
                             initial="hidden"
                             animate="visible"
                         >
-                            {attendeesData.map((speaker, i) => (
+                            {attendeesData.map((speaker: any, i) => (
                                 <motion.div key={speaker.id || i} className="group relative" variants={itemVariants}>
                                     <div className="relative aspect-square rounded-[32px] overflow-hidden mb-4 bg-[#111] border border-white/5">
                                         <img
@@ -90,6 +90,7 @@ export const SpeakersPage: React.FC = () => {
                                             loading="lazy"
                                             decoding="async"
                                             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                                            style={{ objectPosition: speaker.objectPosition || 'center' }}
                                             onError={(e) => {
                                                 (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(speaker.name)}&background=random`;
                                             }}

@@ -143,11 +143,20 @@ export default function AdminDashboard() {
             parsedFormFields = [];
         }
 
+        // Helper to format date for datetime-local input (local time)
+        const formatForInput = (dateString: string) => {
+            if (!dateString) return "";
+            const date = new Date(dateString);
+            // Get local date parts to avoid timezone shifting
+            const pad = (n: number) => n < 10 ? '0' + n : n;
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        };
+
         setFormData({
             name: event.name,
             description: event.description || "",
-            date: event.date.slice(0, 16),
-            endDate: event.endDate?.slice(0, 16) || "",
+            date: formatForInput(event.date),
+            endDate: formatForInput(event.endDate || ""),
             location: event.location || "",
             type: event.type,
             imageUrl: event.imageUrl || "",
@@ -173,19 +182,29 @@ export default function AdminDashboard() {
                 date: new Date(formData.date).toISOString(),
                 endDate: formData.endDate ? new Date(formData.endDate).toISOString() : null,
                 formFields: JSON.stringify(formData.formFields),
-                linkedFormId: formData.linkedFormId || null, // Ensure explicit null if empty
+                linkedFormId: formData.linkedFormId || null,
             };
 
+            let savedEvent;
             if (editingEvent) {
-                await apiRequest(`/api/admin/events/${editingEvent.id}`, "PUT", payload);
+                const res = await apiRequest(`/api/admin/events/${editingEvent.id}`, "PUT", payload);
+                savedEvent = res.event;
                 toast.success("Event updated successfully");
+
+                // Update local state immediately
+                setEvents(events.map(e => e.id === savedEvent.id ? savedEvent : e));
             } else {
-                await apiRequest("/api/admin/events", "POST", payload);
+                const res = await apiRequest("/api/admin/events", "POST", payload);
+                savedEvent = res.event;
                 toast.success("Event created successfully");
+
+                // Add to local state immediately
+                setEvents([savedEvent, ...events]);
             }
 
             setShowModal(false);
-            fetchData();
+            // We can skip fetchData() since we updated local state, or keep it to be safe. 
+            // Removing it makes the UI update instant.
         } catch (error: any) {
             toast.error(error.message || "Failed to save event");
         } finally {
@@ -687,11 +706,27 @@ export default function AdminDashboard() {
                                                     <td className="py-3 px-2 text-white">{reg.user?.email}</td>
                                                     <td className="py-3 px-2 text-white">{reg.user?.username || "-"}</td>
                                                     <td className="py-3 px-2 text-[#BBC5F2]/70">
-                                                        {Object.entries(reg.formData || {}).map(([key, val]) => (
-                                                            <span key={key} className="mr-2">
-                                                                <span className="text-[#B488FF]">{key}:</span> {String(val)}
-                                                            </span>
-                                                        ))}
+                                                        {Object.entries(reg.formData || {}).map(([key, val]) => {
+                                                            const valueStr = String(val);
+                                                            const isUrl = valueStr.trim().startsWith('http');
+                                                            return (
+                                                                <span key={key} className="mr-2 inline-block">
+                                                                    <span className="text-[#B488FF] font-medium">{key}:</span>{' '}
+                                                                    {isUrl ? (
+                                                                        <a
+                                                                            href={valueStr}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="text-blue-400 hover:text-blue-300 underline"
+                                                                        >
+                                                                            View Link
+                                                                        </a>
+                                                                    ) : (
+                                                                        <span className="text-gray-300">{valueStr}</span>
+                                                                    )}
+                                                                </span>
+                                                            );
+                                                        })}
                                                     </td>
                                                     <td className="py-3 px-2 text-[#BBC5F2]/50">
                                                         {new Date(reg.createdAt).toLocaleDateString()}
