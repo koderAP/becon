@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { apiRequest } from '../lib/api';
 import { toast } from 'sonner';
+import RichTextEditor from '../components/RichTextEditor';
 import {
     DndContext, closestCenter, KeyboardSensor, PointerSensor,
     useSensor, useSensors, DragEndEvent,
@@ -532,12 +533,10 @@ export default function AdminFormEditorPage() {
                     <div className="bg-[#1A1425] border border-[#7A32E0]/20 rounded-2xl p-6 space-y-6">
                         <div>
                             <label className="text-sm text-[#BBC5F2] mb-1 block">Form Description</label>
-                            <textarea
+                            <RichTextEditor
                                 value={form.description || ""}
-                                onChange={(e) => setForm({ ...form, description: e.target.value })}
-                                rows={4}
-                                className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white resize-none"
-                                placeholder="Add description..."
+                                onChange={(val) => setForm({ ...form, description: val })}
+                                preventDrag
                             />
                         </div>
 

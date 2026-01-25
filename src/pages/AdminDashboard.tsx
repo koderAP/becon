@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-    LogOut, Users, FileText, Calendar, Settings, Plus, Edit2, Trash2,
-    Eye, EyeOff, Star, Loader2, X, Save, Download, Upload, Image
-} from 'lucide-react';
+import { Trash2, Plus, Calendar, MapPin, Type, Image, Link as LinkIcon, Edit, Upload, X, CheckCircle, ExternalLink, RefreshCw, QrCode, LogOut, Users, FileText, Settings, Edit2, Eye, EyeOff, Star, Loader2, Save, Download, HelpCircle, Copy, Check } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import RichTextEditor from '../components/RichTextEditor';
+
+// Helper to strip HTML tags for plain text display
+const stripHtml = (html: string): string => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&[a-z]+;/gi, ' ').trim();
+};
 import { toast } from 'sonner';
 import { apiRequest, clearAuthToken } from '../lib/api';
+
 
 interface FormField {
     name: string;
@@ -69,6 +75,7 @@ export default function AdminDashboard() {
         minPassLevel: "silver",
         linkedFormId: "", // Add linkedFormId
     });
+
 
     useEffect(() => {
         fetchData();
@@ -422,7 +429,7 @@ export default function AdminDashboard() {
 
                                 <h3 className="text-white font-semibold text-lg mb-2">{event.name}</h3>
                                 <p className="text-[#BBC5F2]/60 text-sm mb-3 line-clamp-2">
-                                    {event.description || "No description"}
+                                    {stripHtml(event.description || "No description")}
                                 </p>
 
                                 <div className="text-[#BBC5F2]/50 text-xs mb-4">
@@ -459,12 +466,13 @@ export default function AdminDashboard() {
             </main>
 
             {/* Create/Edit Modal */}
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+            {showModal && createPortal(
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowModal(false)} />
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-[#1A1425] border border-[#7A32E0]/20 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+                        className="bg-[#1A1425] border border-[#7A32E0]/20 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative shadow-2xl"
                     >
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold text-white">
@@ -491,12 +499,9 @@ export default function AdminDashboard() {
                             {/* Description */}
                             <div>
                                 <label className="text-sm text-[#BBC5F2] mb-1 block">Description</label>
-                                <textarea
+                                <RichTextEditor
                                     value={formData.description}
-                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                    rows={3}
-                                    className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white resize-none focus:outline-none focus:border-[#7A32E0]"
-                                    placeholder="Event description..."
+                                    onChange={(newContent) => setFormData({ ...formData, description: newContent })}
                                 />
                             </div>
 
@@ -578,25 +583,67 @@ export default function AdminDashboard() {
                                 <p className="text-xs text-[#BBC5F2]/50 mt-1">If selected, the default fields below will be ignored.</p>
                             </div>
 
-                            {/* Image URL */}
+                            {/* Image Upload */}
                             <div>
                                 <label className="text-sm text-[#BBC5F2] mb-1 block flex items-center gap-2">
-                                    <Image className="w-4 h-4" /> Event Image URL
+                                    <Image className="w-4 h-4" /> Event Image
                                 </label>
-                                <input
-                                    type="url"
-                                    value={formData.imageUrl}
-                                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                                    className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#7A32E0]"
-                                    placeholder="https://example.com/image.jpg"
-                                />
-                                {formData.imageUrl && (
-                                    <div className="mt-2 rounded-lg overflow-hidden border border-[#7A32E0]/20">
-                                        <img src={formData.imageUrl} alt="Preview" className="w-full h-32 object-cover" />
-                                    </div>
-                                )}
-                            </div>
+                                <div className="flex flex-col gap-3">
+                                    {/* Upload Input */}
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files?.[0];
+                                                if (!file) return;
 
+                                                if (file.size > 2 * 1024 * 1024) {
+                                                    toast.error("Image too large. Please use an image under 2MB.");
+                                                    return;
+                                                }
+
+                                                const reader = new FileReader();
+                                                reader.readAsDataURL(file);
+                                                reader.onload = () => {
+                                                    setFormData({ ...formData, imageUrl: reader.result as string });
+                                                    toast.success("Image loaded!");
+                                                };
+                                                reader.onerror = () => {
+                                                    toast.error("Failed to read image");
+                                                };
+                                            }}
+                                            className="w-full bg-[#0F0C1A] border border-[#7A32E0]/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#7A32E0]"
+                                        />
+                                    </div>
+
+                                    {/* URL Input (Fallback/Direct) */}
+                                    <input
+                                        type="url"
+                                        placeholder="Or enter Image URL manually"
+                                        value={formData.imageUrl}
+                                        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                                        className="w-full bg-[#0F0C1A]/50 border border-[#7A32E0]/10 rounded-lg px-4 py-2 text-sm text-gray-400 focus:outline-none focus:border-[#7A32E0] transition-colors"
+                                    />
+
+                                    {/* Preview */}
+                                    {formData.imageUrl && (
+                                        <div className="mt-2 relative w-full h-48 rounded-lg overflow-hidden border border-[#7A32E0]/20 group">
+                                            <img
+                                                src={formData.imageUrl}
+                                                alt="Preview"
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <button
+                                                onClick={() => setFormData({ ...formData, imageUrl: '' })}
+                                                className="absolute top-2 right-2 p-1 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500/80"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                             {/* Toggles */}
                             <div className="flex gap-6">
                                 <label className="flex items-center gap-2 cursor-pointer">
@@ -660,7 +707,8 @@ export default function AdminDashboard() {
                             </div>
                         </div>
                     </motion.div>
-                </div>
+                </div>,
+                document.body
             )}
 
             {/* Registrations Modal */}

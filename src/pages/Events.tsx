@@ -11,6 +11,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { apiRequest } from '../lib/api';
 import { EventFormPopup } from '../../components/EventFormPopup';
 
+// Helper to strip HTML tags for plain text display
+const stripHtml = (html: string): string => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&[a-z]+;/gi, ' ').trim();
+};
+
 
 // Event types for filtering
 type EventType = 'strategy' | 'main' | 'showcase' | 'sessions' | 'other';
@@ -519,278 +525,7 @@ const eventsData: EventCard[] = [
             { text: 'Register as Audience', action: 'register', type: 'primary' }
         ]
     },
-    // --- FIRESIDE CHATS ---
-    {
-        id: 'fireside-veteran-leader',
-        title: 'Fireside Chat with a Veteran Tech Leader & Growth Strategist',
-        description: "Join an in-depth conversation with a seasoned tech industry leader and a growth strategist as they discuss what it takes to build, scale and sustain multi-vertical digital platforms. They’ll share firsthand insights on adapting technology, fostering innovation and leading teams through evolving markets.",
-        whyJoin: [
-            'Digital platform evolution',
-            'Strategic leadership',
-            'Technology-led growth'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-1.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'fireside-fintech',
-        title: 'Fireside Chat with Fintech Innovators',
-        description: "Experience a high-energy fireside with leaders from the financial technology space as they explore how emerging fintech trends are democratizing access to credit and payments. They will unpack product design thinking, market challenges, and approaches to expanding financial inclusion at scale.",
-        whyJoin: [
-            'Fintech disruption',
-            'Digital payments',
-            'Consumer credit access',
-            'Regulation and innovation'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-2.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'fireside-consumer-tech',
-        title: 'Fireside Chat with a Consumer Technology Leader',
-        description: "A conversation with a consumer tech executive who has driven large-scale adoption and brand growth. Topics will span product strategy, regional market leadership, community building, and lessons on creating consumer-first technology products.",
-        whyJoin: [
-            'Product strategy',
-            'Consumer engagement',
-            'Leadership in competitive markets'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-3.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'fireside-entrepreneurial-trailblazer',
-        title: 'Fireside Chat with an Entrepreneurial Trailblazer',
-        description: "Hear from a pioneering entrepreneur about the realities of starting and scaling consumer-focused ventures. This session will dive into entrepreneurial mindset, team building, operational challenges, and insights from navigating multiple successful ventures.",
-        whyJoin: [
-            'Startup storytelling',
-            'Growth strategy',
-            'Building resilient ventures'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-4.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'fireside-marketplace-transformation',
-        title: 'Fireside Chat with a Marketplace Transformation Leader',
-        description: "Join a conversation with innovators who reimagined a traditional industry by leveraging digital transparency, trust, and customer-first operations. They will share experiences on creating seamless user experiences and breaking entrenched market norms using technology.",
-        whyJoin: [
-            'Disruptive marketplaces',
-            'Customer experience',
-            'Digital transformation'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-5.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'fireside-creative-visionary',
-        title: 'Fireside Chat with a Creative Technology Visionary',
-        description: "An engaging dialogue with a leader from the creative and media technology world about blending storytelling with innovation. Expect discussions on scaling creative enterprises internationally, driving visionary projects, and balancing business leadership with artistic ambition.",
-        whyJoin: [
-            'Creative tech leadership',
-            'Global scaling strategies',
-            'Innovation in media'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-6.avif',
-        eventType: 'sessions',
-    },
 
-    // --- PANELS ---
-    {
-        id: 'panel-aerospace',
-        title: 'Aerospace Panel',
-        description: "Experts and leaders from aerospace engineering, commercial aviation, space launch systems, and defense aviation converge to discuss the future of flight and aerospace innovation. The panel will explore emerging technologies, sustainability, and strategic trends shaping global aerospace capabilities. Why Attend: Attendees will gain insights into how aerospace innovation is evolving — from eco-efficient aircraft to autonomous systems — and understand key engineering and market drivers impacting the next decade.",
-        whyJoin: [
-            'Sustainable aviation & green propulsion technologies',
-            'Additive manufacturing and advanced materials',
-            'AI/ML for predictive maintenance and avionics optimization',
-            'Challenges in supply chains & global operations'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/events/aerospace.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'panel-biotech',
-        title: 'Biotech Panel',
-        description: "Leading voices in biotechnology — spanning research, healthcare, agriculture, and industrial biotech — share their perspectives on breakthroughs that are redefining human health and biological systems. Why Attend: This panel highlights the intersection of life sciences and technology, offering a roadmap for young engineers and entrepreneurs seeking to impact biotech industries.",
-        whyJoin: [
-            'Precision medicine and genomic engineering',
-            'Bioengineering for sustainable agriculture',
-            'Translational research & regulatory pathways',
-            'Commercialization of biotech breakthroughs'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/events/biotech.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'panel-spacetech',
-        title: 'SpaceTech Panel',
-        description: "Visionaries from the space ecosystem — including startups, investors, researchers, and technologists — discuss how space technologies are evolving beyond Earth’s orbit into commercial, scientific, and societal domains. Why Attend: Participants will gain a 360° view of how SpaceTech is distributed geographically, technologically, and economically, including its ripple effects across other deep tech domains.",
-        whyJoin: [
-            'Emerging trends in commercial space ventures',
-            'Satellite technologies and data services',
-            'Challenges of scaling in a high-capital industry',
-            'Broader impacts of space innovation on Earth industries'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/events/spacetech.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'panel-ai',
-        title: 'AI Panel',
-        description: "Top AI leaders from industry and academia engage in a forward-looking discussion on artificial intelligence — its innovations, ethical considerations, and real-world impacts across sectors. Why Attend: Get insider perspectives on where AI is heading, how ethical and regulatory frameworks are evolving, and what skills future builders need to lead in AI.",
-        whyJoin: [
-            'Responsible AI & governance',
-            'AI deployment in real-world systems',
-            'Emerging AI research frontiers',
-            'Cross-domain AI applications'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/events/aipanel.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'panel-semiconductor',
-        title: 'Semiconductor Panel',
-        description: "Industry leaders and technologists in semiconductors explore the strategic significance of microchips, advanced fabrication, and global semiconductor supply ecosystems. Why Attend: Semiconductors are the cornerstone of modern technology — this panel decodes what’s next in design, processing nodes, and international competitiveness.",
-        whyJoin: [
-            'Chip design trends and manufacturing challenges',
-            'Foundry ecosystems and global supply resilience',
-            'Role of semiconductors in AI, edge compute, and IoT',
-            'National policy and innovation incentives'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/events/semiconductor.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'panel-deeptech-vc',
-        title: 'DeepTech VC Panel',
-        description: "A compelling discussion featuring venture capitalists specializing in deep tech. Panelists explore investment strategies, frontier technologies with scaling potential, and the unique challenges and rewards of funding deep tech startups. Why Attend: Understand how deep tech gets funded, what investors look for, and how founders can navigate technical risk and long development cycles.",
-        whyJoin: [
-            'Principles of deep tech investing',
-            'High-impact sectors: AI, semiconductors, biotech, spacetech',
-            'Evaluating science-driven startups',
-            'Bridging the gap from lab to market'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/events/deeptech.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'panel-iitd-effect',
-        title: 'IITD Effect Panel',
-        description: "An exclusive gathering of IIT Delhi alumni who are leading as venture capitalists, founders, researchers, and domain experts. They discuss how their IITD experience shaped their paths and how they drive innovation across sectors. Why Attend: Inspiration meets strategy: students and professionals hear firsthand how IITD’s ecosystem creates leaders who influence technology and markets.",
-        whyJoin: [
-            'Translating academic excellence into industry impact',
-            'Alumni stories: challenges, lessons, and success',
-            'Building high-growth ventures from technical roots',
-            'Navigating global tech ecosystems'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/gallery-new-3.avif',
-        eventType: 'sessions',
-    },
-
-    // --- KEYNOTES ---
-    {
-        id: 'keynote-visionary-entrepreneur',
-        title: 'Keynote Session: Visionary Entrepreneur & Industry Pioneer',
-        description: "This keynote session features a trailblazing visionary entrepreneur whose journey from early career beginnings to becoming a driving force in the digital ecosystem reflects resilience, foresight, and transformative impact. The speaker will share insights on building thriving platforms from the ground up, navigating the challenges of innovation, and shaping ecosystems that empower millions to achieve their aspirations. Attendees will gain first-hand perspectives on leadership in times of disruption, strategies for scaling with purpose, and how to turn bold ideas into enduring institutions.",
-        whyJoin: [
-            'Foundational mindset of successful innovators',
-            'Navigating entrepreneurial uncertainty',
-            'Creating sustainable impact in technology-driven markets',
-            'Lessons on scaling vision into reality'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/DSC02587.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'keynote-leadership-talent',
-        title: 'Keynote Session: Leadership & Talent in the Innovation Era',
-        description: "In this keynote, a distinguished leadership strategist and talent architect will unpack what it means to lead in an era defined by rapid technological change and evolving learning paradigms. With decades of experience guiding human capital and industry transformation, the speaker will explore how visionary leaders can cultivate adaptive talent ecosystems, foster meaningful learning journeys, and align organizational purpose with future skills needs. This session will provide actionable insights for students, emerging professionals, and founders seeking to thrive in the innovation economy.",
-        whyJoin: [
-            'Reimagining talent development for future-fit careers',
-            'Leadership frameworks for innovation-first organizations',
-            'Building adaptive learning cultures',
-            'Strategic thinking in times of flux'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/DSC01157.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'keynote-growth-brand',
-        title: 'Keynote Session: Growth Strategy & Brand Leadership',
-        description: "Join a strategic growth and brand leadership expert as they share the art and science of building meaningful connections between organizations and their audiences. Drawing from a multifaceted career spanning brand building, consumer engagement, and market expansion, this session will delve into how leaders craft compelling narratives, scale brand influence, and stay agile in dynamic competitive landscapes. Expect deep reflections on creativity in strategy, growth-oriented leadership, and leveraging brand as a catalyst for long-term impact.",
-        whyJoin: [
-            'Strategic building of brand identity and culture',
-            'The role of storytelling in organizational growth',
-            'Aligning brand vision with market and societal trends',
-            'Leadership insights from scaling dynamic teams and products'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/DSC07026.avif',
-        eventType: 'sessions',
-    },
-    {
-        id: 'keynote-scaling-impact',
-        title: 'Keynote Session: Scaling Impact & Transformational Leadership',
-        description: "This keynote invites you to engage with a global growth architect and transformational leader whose career has shaped high-impact organizations across sectors and continents. The session will explore how leaders drive next-level growth, cultivate high-performance cultures, and navigate large-scale transformations with clarity and integrity. Attendees will learn frameworks for scaling products, people, and vision — as well as strategic mindsets vital for leadership in complex environments.",
-        whyJoin: [
-            'Leadership strategies for scaling organizations globally',
-            'Managing transformation across diverse contexts',
-            'Building strong cultures that sustain growth',
-            'Integrating innovation, governance, and execution'
-        ],
-        date: 'Jan 30 - Feb 1, 2026',
-        location: 'Dogra Hall',
-        category: 'keynote',
-        image: '/gallery/DSC02517.avif',
-        eventType: 'sessions',
-    }
 ];
 
 const categoryConfig = {
@@ -909,9 +644,10 @@ const EventCardComponent: React.FC<{ event: EventCard; index: number; animate?: 
                 )}
 
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    {event.description.length > 100
-                        ? `${event.description.substring(0, 100)}...`
-                        : event.description}
+                    {(() => {
+                        const plainText = stripHtml(event.description);
+                        return plainText.length > 100 ? `${plainText.substring(0, 100)}...` : plainText;
+                    })()}
                 </p>
 
                 <Link
@@ -1383,7 +1119,7 @@ export const Events: React.FC = () => {
 
                                                     {/* Description */}
                                                     <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-5">
-                                                        {event!.description}
+                                                        {stripHtml(event!.description)}
                                                     </p>
 
                                                     {/* Why Join */}
@@ -1521,11 +1257,8 @@ export const Events: React.FC = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-50px" }}
                                     transition={{ duration: 0.3, delay: i * 0.05 }}
-                                    onClick={() => {
-                                        if (event.category === 'workshop' || event.eventType === 'sessions') return;
-                                        setSelectedEvent(event);
-                                    }}
-                                    className={`${event.category === 'workshop' || event.eventType === 'sessions' ? 'cursor-default' : 'cursor-pointer'} group relative bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6`}
+                                    onClick={() => setSelectedEvent(event)}
+                                    className="cursor-pointer group relative bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6"
 
                                 >
                                     <div className="space-y-3 flex-1">
@@ -1533,7 +1266,7 @@ export const Events: React.FC = () => {
                                             {event.title}
                                         </h3>
                                         <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-3xl line-clamp-2">
-                                            {event.description}
+                                            {stripHtml(event.description)}
                                         </p>
                                     </div>
 
@@ -1563,91 +1296,7 @@ export const Events: React.FC = () => {
                                             )}
                                         </AnimatePresence>
 
-                                        {(event.category === 'workshop' || event.eventType === 'sessions') ? (
-                                            event.customButtons ? (
-                                                <div className="flex flex-col gap-2 w-full md:w-auto">
-                                                    {event.customButtons.map((btn, idx) => {
-                                                        const isReg = btn.action === 'register' && isRegistered(event.id) && !unstopEvents[event.id];
-                                                        return (
-                                                            <button
-                                                                key={idx}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    if (isReg) return;
-                                                                    if (btn.url) {
-                                                                        window.open(btn.url, '_blank');
-                                                                    } else if (btn.action === 'register') {
-                                                                        handleAction(event);
-                                                                    }
-                                                                }}
-                                                                className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
-                                                                    ${isReg
-                                                                        ? 'bg-green-500/10 text-green-400 border-green-500/20 cursor-default hover:bg-green-500/10'
-                                                                        : btn.type === 'secondary'
-                                                                            ? 'bg-transparent text-white border-white/30 hover:bg-white/10'
-                                                                            : 'bg-white text-black border-white hover:bg-gray-200 hover:scale-105'
-                                                                    }`}
-                                                            >
-                                                                {isReg ? (
-                                                                    <>
-                                                                        <CheckCircle size={14} />
-                                                                        <span>Registered</span>
-                                                                    </>
-                                                                ) : (
-                                                                    <>
-                                                                        {btn.text}
-                                                                        {btn.url && <ExternalLink size={14} />}
-                                                                    </>
-                                                                )}
-                                                            </button>
-                                                        );
-                                                    })}
-                                                </div>
-                                            ) : (
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        if (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || (noRegistrationEvents.has(event.id) && !event.linkedFormId)) return;
-
-                                                        handleAction(event);
-                                                    }}
-                                                    disabled={
-                                                        registering === event.id ||
-                                                        isRegistered(event.id) ||
-                                                        closedEvents.has(event.id) ||
-                                                        inviteOnlyEvents.has(event.id) ||
-                                                        noRegistrationEvents.has(event.id)
-                                                    }
-                                                    className={`inline-flex items-center justify-center gap-2 font-semibold text-sm md:text-base border px-6 py-2 rounded-full transition-all duration-300 min-w-[140px]
-                                                    ${(isRegistered(event.id) && !unstopEvents[event.id])
-                                                            ? 'bg-green-500/10 text-green-400 border-green-500/20 cursor-default hover:bg-green-500/10'
-                                                            : (closedEvents.has(event.id) || inviteOnlyEvents.has(event.id) || noRegistrationEvents.has(event.id))
-                                                                ? 'bg-gray-800 text-gray-400 border-gray-700 cursor-not-allowed opacity-70'
-                                                                : 'bg-white text-black border-white hover:bg-gray-200 hover:border-gray-200 hover:scale-105'
-                                                        } ${registering === event.id ? 'opacity-80 cursor-wait' : ''}`}
-                                                >
-                                                    {registering === event.id ? (
-                                                        <>
-                                                            <Loader2 className="animate-spin" size={16} />
-                                                            <span>Registering...</span>
-                                                        </>
-                                                    ) : isRegistered(event.id) && !unstopEvents[event.id] ? (
-                                                        <>
-                                                            <CheckCircle size={16} />
-                                                            <span>Registered</span>
-                                                        </>
-                                                    ) : closedEvents.has(event.id) ? (
-                                                        <span>Closed</span>
-                                                    ) : inviteOnlyEvents.has(event.id) ? (
-                                                        <span>Invite Only</span>
-                                                    ) : noRegistrationEvents.has(event.id) ? (
-                                                        <span>Open Entry</span>
-                                                    ) : (
-                                                        <span>Register Now</span>
-                                                    )}
-                                                </button>
-                                            )
-                                        ) : (
+                                        <div className="flex flex-col gap-3 items-center">
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
@@ -1658,7 +1307,7 @@ export const Events: React.FC = () => {
                                                 Know More
                                                 <ArrowRight className="w-4 h-4" />
                                             </button>
-                                        )}
+                                        </div>
                                     </div>
                                 </motion.div>
                             )))}
@@ -1727,7 +1376,18 @@ export const Events: React.FC = () => {
                                                 <div className="space-y-4 mb-8">
                                                     <div className="flex items-center gap-3 text-gray-300">
                                                         <Calendar className="text-purple-400" />
-                                                        <span className="text-lg">{selectedEvent.date}</span>
+                                                        <span className="text-lg">
+                                                            {new Date(selectedEvent.date).toString() !== 'Invalid Date' && !isNaN(Date.parse(selectedEvent.date))
+                                                                ? new Date(selectedEvent.date).toLocaleDateString(undefined, {
+                                                                    weekday: 'long',
+                                                                    year: 'numeric',
+                                                                    month: 'long',
+                                                                    day: 'numeric',
+                                                                    hour: '2-digit',
+                                                                    minute: '2-digit'
+                                                                })
+                                                                : selectedEvent.date}
+                                                        </span>
                                                     </div>
                                                     <div className="flex items-center gap-3 text-gray-300">
                                                         <MapPin className="text-blue-400" />
@@ -1735,9 +1395,10 @@ export const Events: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="prose prose-invert prose-lg max-w-none text-gray-400 mb-6">
-                                                    <p>{selectedEvent.description}</p>
-                                                </div>
+                                                <div
+                                                    className="prose prose-invert prose-lg max-w-none text-gray-400 mb-6"
+                                                    dangerouslySetInnerHTML={{ __html: selectedEvent.description }}
+                                                />
 
                                                 {selectedEvent.whyJoin && selectedEvent.whyJoin.length > 0 && (
                                                     <div className="mb-10">

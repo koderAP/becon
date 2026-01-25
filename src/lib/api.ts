@@ -10,17 +10,22 @@ export async function apiRequest(
 ) {
     const token = customToken || localStorage.getItem('adminToken');
 
+    const headers: Record<string, string> = {
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+    };
+
+    if (!(body instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+    }
+
     const options: RequestInit = {
         method,
-        headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-        },
+        headers,
         credentials: 'include',
     };
 
     if (body && method !== 'GET') {
-        options.body = JSON.stringify(body);
+        options.body = body instanceof FormData ? body : JSON.stringify(body);
     }
 
     const response = await fetch(`${API_URL}${endpoint}`, options);
