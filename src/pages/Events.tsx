@@ -753,7 +753,7 @@ export const Events: React.FC = () => {
     React.useEffect(() => {
         const fetchDynamicEvents = async () => {
             try {
-                const res = await apiRequest('/api/events/public');
+                const res = await apiRequest('/api/dashboard/events/all');
                 if (res.events) {
                     const mapped: EventCard[] = res.events.map((e: any) => ({
                         id: e.id,

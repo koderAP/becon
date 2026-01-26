@@ -30,6 +30,7 @@ const AdminLogin = lazy(() => import('./src/pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('./src/pages/AdminDashboard'));
 const AdminFormsPage = lazy(() => import('./src/pages/AdminFormsPage'));
 const AdminFormEditorPage = lazy(() => import('./src/pages/AdminFormEditorPage'));
+const AdminLinks = lazy(() => import('./src/pages/AdminLinks'));
 const PublicFormPage = lazy(() => import('./src/pages/PublicFormPage'));
 const InviteAdminPage = lazy(() => import('./src/pages/InviteAdminPage'));
 const ScannerPage = lazy(() => import('./src/pages/ScannerPage'));
@@ -79,6 +80,7 @@ const AnimatedRoutes: React.FC = () => {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/forms" element={<AdminFormsPage />} />
             <Route path="/admin/forms/:id" element={<AdminFormEditorPage />} />
+            <Route path="/admin/links" element={<AdminLinks />} />
             <Route path="/admin/invites" element={<InviteAdminPage />} />
             <Route path="/admin/scan" element={<ScannerPage />} />
             {/* Public Form Routes */}

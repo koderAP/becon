@@ -32,6 +32,7 @@ export async function apiRequest(
     const data = await response.json();
 
     if (!response.ok) {
+        console.error("API Request Failed:", data); // Log full details for debugging
         throw new Error(data.message || data.error || 'Request failed');
     }
 

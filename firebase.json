@@ -12,6 +12,14 @@
                 "function": "api"
             },
             {
+                "source": "/go/**",
+                "function": "api"
+            },
+            {
+                "source": "/track/**",
+                "function": "api"
+            },
+            {
                 "source": "**",
                 "destination": "/index.html"
             }

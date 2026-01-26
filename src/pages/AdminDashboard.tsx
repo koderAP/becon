@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Trash2, Plus, Calendar, MapPin, Type, Image, Link as LinkIcon, Edit, Upload, X, CheckCircle, ExternalLink, RefreshCw, QrCode, LogOut, Users, FileText, Settings, Edit2, Eye, EyeOff, Star, Loader2, Save, Download, HelpCircle, Copy, Check } from 'lucide-react';
+import { Trash2, Plus, Calendar, MapPin, Type, Image, Link as LinkIcon, Edit, Upload, X, CheckCircle, ExternalLink, RefreshCw, QrCode, LogOut, Users, FileText, Settings, Edit2, Eye, EyeOff, Star, Loader2, Save, Download, HelpCircle, Copy, Check, GripVertical } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy, rectSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import RichTextEditor from '../components/RichTextEditor';
 
 // Helper to strip HTML tags for plain text display
@@ -33,11 +36,90 @@ interface Event {
     imageUrl: string | null;
     isFeatured: boolean;
     isPublished: boolean;
-    formFields: string;
-    linkedFormId?: string; // Add this too for type safety
+    formFields: any;
     minPassLevel?: string;
+    linkedFormId?: string;
+    order?: number;
     _count: { registrations: number };
 }
+
+// Sortable Event Card Component
+const SortableEventCard = ({ event, viewRegistrations, openEditModal, handleDelete }: { event: Event, viewRegistrations: (id: string) => void, openEditModal: (e: Event) => void, handleDelete: (id: string) => void }) => {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id: event.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
+
+    return (
+        <div ref={setNodeRef} style={style} {...attributes}>
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-[#1A1425] border border-[#7A32E0]/20 rounded-xl p-5 relative group"
+            >
+                {/* Drag Handle */}
+                <div {...listeners} className="absolute top-5 right-3 cursor-grab opacity-50 hover:opacity-100 p-1">
+                    <GripVertical className="w-5 h-5 text-[#BBC5F2]" />
+                </div>
+
+                <div className="flex items-start justify-between mb-3 pr-8">
+                    <div className="flex items-center gap-2">
+                        {event.isFeatured && <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />}
+                        {event.isPublished ? (
+                            <Eye className="w-4 h-4 text-green-400" />
+                        ) : (
+                            <EyeOff className="w-4 h-4 text-red-400" />
+                        )}
+                    </div>
+                    <span className="px-2 py-0.5 bg-[#7A32E0]/20 text-[#B488FF] text-xs rounded-full capitalize">
+                        {event.type}
+                    </span>
+                </div>
+
+                <h3 className="text-white font-semibold text-lg mb-2">{event.name}</h3>
+                <p className="text-[#BBC5F2]/60 text-sm mb-3 line-clamp-2">
+                    {stripHtml(event.description || "No description")}
+                </p>
+
+                <div className="text-[#BBC5F2]/50 text-xs mb-4">
+                    <p>{new Date(event.date).toLocaleDateString()} • {event.location || "TBD"}</p>
+                    <p className="mt-1 flex items-center gap-1">
+                        <Users className="w-3 h-3" /> {event._count?.registrations || 0} registrations
+                    </p>
+                </div>
+
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => viewRegistrations(event.id)}
+                        className="flex-1 flex items-center justify-center gap-1 px-3 py-2 border border-[#7A32E0]/30 text-[#B488FF] rounded-lg hover:bg-[#7A32E0]/20 transition text-sm"
+                    >
+                        <Users className="w-3 h-3" /> View
+                    </button>
+                    <button
+                        onClick={() => openEditModal(event)}
+                        className="px-3 py-2 border border-[#7A32E0]/30 text-[#B488FF] rounded-lg hover:bg-[#7A32E0]/20 transition"
+                    >
+                        <Edit2 className="w-3 h-3" />
+                    </button>
+                    <button
+                        onClick={() => handleDelete(event.id)}
+                        className="px-3 py-2 border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/20 transition"
+                    >
+                        <Trash2 className="w-3 h-3" />
+                    </button>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
 
 const defaultFormFields: FormField[] = [
     { name: "phone", label: "Phone Number", type: "tel", required: true },
@@ -59,7 +141,43 @@ export default function AdminDashboard() {
     const [registrations, setRegistrations] = useState<any[]>([]);
     const [saving, setSaving] = useState(false);
     const [uploadingImage, setUploadingImage] = useState(false);
+
     const navigate = useNavigate();
+
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    const handleDragEnd = async (event: DragEndEvent) => {
+        const { active, over } = event;
+
+        if (active.id !== over?.id) {
+            setEvents((items) => {
+                const oldIndex = items.findIndex((item) => item.id === active.id);
+                const newIndex = items.findIndex((item) => item.id === over?.id);
+
+                const newItems = arrayMove(items, oldIndex, newIndex);
+
+                // Prepare backend update with new order
+                const updates = newItems.map((item, index) => ({
+                    id: item.id,
+                    order: index
+                }));
+
+                // Call backend (fire and forget or await)
+                apiRequest('/api/admin/events/reorder', 'PUT', { events: updates })
+                    .catch(err => {
+                        console.error("Failed to save order", err);
+                        toast.error("Failed to save new order");
+                    });
+
+                return newItems;
+            });
+        }
+    };
 
     const [formData, setFormData] = useState({
         name: "",
@@ -194,7 +312,7 @@ export default function AdminDashboard() {
 
             let savedEvent;
             if (editingEvent) {
-                const res = await apiRequest(`/api/admin/events/${editingEvent.id}`, "PUT", payload);
+                const res = await apiRequest(`/ api / admin / events / ${editingEvent.id} `, "PUT", payload);
                 savedEvent = res.event;
                 toast.success("Event updated successfully");
 
@@ -225,7 +343,7 @@ export default function AdminDashboard() {
         }
 
         try {
-            await apiRequest(`/api/admin/events/${eventId}`, "DELETE");
+            await apiRequest(`/ api / admin / events / ${eventId} `, "DELETE");
             toast.success("Event deleted");
             fetchData();
         } catch (error: any) {
@@ -235,7 +353,7 @@ export default function AdminDashboard() {
 
     const viewRegistrations = async (eventId: string) => {
         try {
-            const res = await apiRequest(`/api/admin/events/${eventId}/registrations`);
+            const res = await apiRequest(`/ api / admin / events / ${eventId}/registrations`);
             setRegistrations(res.registrations || []);
             setShowRegistrations(eventId);
         } catch (error: any) {
@@ -357,6 +475,12 @@ export default function AdminDashboard() {
                             >
                                 Forms
                             </button>
+                            <button
+                                onClick={() => navigate('/admin/links')}
+                                className="px-4 py-1.5 text-[#BBC5F2] hover:text-white hover:bg-white/5 rounded-md text-sm font-medium transition"
+                            >
+                                Links
+                            </button>
                         </nav>
                     </div>
 
@@ -405,63 +529,28 @@ export default function AdminDashboard() {
                         <p className="text-[#BBC5F2]/70">No events yet. Create your first event!</p>
                     </div>
                 ) : (
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {events.map((event) => (
-                            <motion.div
-                                key={event.id}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="bg-[#1A1425] border border-[#7A32E0]/20 rounded-xl p-5"
-                            >
-                                <div className="flex items-start justify-between mb-3">
-                                    <div className="flex items-center gap-2">
-                                        {event.isFeatured && <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />}
-                                        {event.isPublished ? (
-                                            <Eye className="w-4 h-4 text-green-400" />
-                                        ) : (
-                                            <EyeOff className="w-4 h-4 text-red-400" />
-                                        )}
-                                    </div>
-                                    <span className="px-2 py-0.5 bg-[#7A32E0]/20 text-[#B488FF] text-xs rounded-full capitalize">
-                                        {event.type}
-                                    </span>
-                                </div>
-
-                                <h3 className="text-white font-semibold text-lg mb-2">{event.name}</h3>
-                                <p className="text-[#BBC5F2]/60 text-sm mb-3 line-clamp-2">
-                                    {stripHtml(event.description || "No description")}
-                                </p>
-
-                                <div className="text-[#BBC5F2]/50 text-xs mb-4">
-                                    <p>{new Date(event.date).toLocaleDateString()} • {event.location || "TBD"}</p>
-                                    <p className="mt-1 flex items-center gap-1">
-                                        <Users className="w-3 h-3" /> {event._count?.registrations || 0} registrations
-                                    </p>
-                                </div>
-
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => viewRegistrations(event.id)}
-                                        className="flex-1 flex items-center justify-center gap-1 px-3 py-2 border border-[#7A32E0]/30 text-[#B488FF] rounded-lg hover:bg-[#7A32E0]/20 transition text-sm"
-                                    >
-                                        <Users className="w-3 h-3" /> View
-                                    </button>
-                                    <button
-                                        onClick={() => openEditModal(event)}
-                                        className="px-3 py-2 border border-[#7A32E0]/30 text-[#B488FF] rounded-lg hover:bg-[#7A32E0]/20 transition"
-                                    >
-                                        <Edit2 className="w-3 h-3" />
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(event.id)}
-                                        className="px-3 py-2 border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/20 transition"
-                                    >
-                                        <Trash2 className="w-3 h-3" />
-                                    </button>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        onDragEnd={handleDragEnd}
+                    >
+                        <SortableContext
+                            items={events.map(e => e.id)}
+                            strategy={rectSortingStrategy}
+                        >
+                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                                {events.map((event) => (
+                                    <SortableEventCard
+                                        key={event.id}
+                                        event={event}
+                                        viewRegistrations={viewRegistrations}
+                                        openEditModal={openEditModal}
+                                        handleDelete={handleDelete}
+                                    />
+                                ))}
+                            </div>
+                        </SortableContext>
+                    </DndContext>
                 )}
             </main>
 
