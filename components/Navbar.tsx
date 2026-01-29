@@ -19,7 +19,7 @@ const getNavItems = (isLoggedIn: boolean): NavItem[] => [
   { label: 'Sponsors', path: '/sponsors' },
   { label: 'Team', path: '/team' },
   { label: 'Contact', path: '/contact' },
-  { label: 'Merch', path: 'https://thedopaminestore.in/collections/becon-iit-delhi', isExternal: true },
+  { label: 'Shop', path: 'https://thedopaminestore.in/collections/becon-iit-delhi', isExternal: true },
   { label: isLoggedIn ? 'Dashboard' : 'Sign In', path: isLoggedIn ? '/dashboard' : '/login', isButton: true },
 ];
 
@@ -318,7 +318,7 @@ export const Navbar: React.FC = () => {
                 >
                   <span className="flex items-center gap-2">
                     <ShoppingBag size={18} />
-                    Merch
+                    Shop
                   </span>
                   <ArrowUpRight size={16} className="opacity-50" />
                 </a>
