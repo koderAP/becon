@@ -32,20 +32,20 @@ const EVENT_NAMES: Record<string, string> = {
 };
 
 const EVENT_DATES: Record<string, string> = {
-    'e-raksha-hackathon': 'Jan 30 - Feb 1, 2026',
+    'e-raksha-hackathon': 'Jan 31 - Feb 1, 2026',
     'moonshot-main': 'Jan 31, 2026',
-    'innoverse': 'Jan 30 - Feb 1, 2026',
-    'autospark': 'Jan 30 - Feb 1, 2026',
+    'innoverse': 'Jan 31 - Feb 1, 2026',
+    'autospark': 'Jan 31 - Feb 1, 2026',
     'blueprint': 'Feb 1, 2026',
-    'launchpad': 'Jan 30 - Feb 1, 2026',
+    'launchpad': 'Jan 31 - Feb 1, 2026',
     'startup-clinic': 'Feb 1, 2026',
     'policysphere': 'Feb 2, 2026',
     'colab': 'Jan 31, 2026',
     'strategy-competitions': 'Jan 31, 2026',
-    'bootcamp': 'Jan 30 - 31, 2026',
-    'workshops': 'Jan 30 - Feb 1, 2026',
+    'bootcamp': 'Jan 31 - 31, 2026',
+    'workshops': 'Jan 31 - Feb 1, 2026',
     'grand-moonshot': 'Feb 2, 2026',
-    'keynotes-panels': 'Jan 30 - Feb 1, 2026',
+    'keynotes-panels': 'Jan 31 - Feb 1, 2026',
 };
 
 import { createPortal } from 'react-dom';
@@ -391,7 +391,7 @@ const YourPassCard: React.FC<{ user?: any; userId?: string }> = ({ user, userId 
                                         Purchased {new Date(userPass.purchased_at).toLocaleDateString()}
                                     </p>
                                     <p className="text-xs text-white/50 mt-2">
-                                        Valid for BECon 2026 • Jan 30 - Feb 1
+                                        Valid for BECon 2026 • Jan 31 - Feb 1
                                     </p>
                                 </div>
                             </div>
@@ -695,7 +695,7 @@ export const DashboardPage: React.FC = () => {
         const dynamic = dynamicEventsMap[reg.event_id];
         const dateStr = dynamic?.date
             ? new Date(dynamic.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-            : (EVENT_DATES[reg.event_id] || 'Jan 30 - Feb 1, 2026');
+            : (EVENT_DATES[reg.event_id] || 'Jan 31 - Feb 1, 2026');
 
         return {
             id: reg.event_id,
@@ -912,6 +912,36 @@ export const DashboardPage: React.FC = () => {
                                 </div>
                                 <Trophy className="text-purple-400" size={32} />
                             </div>
+                        </motion.div>
+
+                        {/* Merch Partner Widget */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.35 }}
+                            className="lg:col-span-12"
+                        >
+                            <a
+                                href="https://thedopaminestore.in/collections/becon-iit-delhi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block bg-gradient-to-r from-orange-600/20 via-pink-600/20 to-purple-600/20 border border-orange-500/20 rounded-2xl p-4 hover:border-orange-500/40 transition-all group"
+                            >
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-pink-500/30 flex items-center justify-center">
+                                            <span className="text-2xl">🛍️</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-semibold text-white group-hover:text-orange-400 transition-colors">BECon Merchandise</h4>
+                                            <p className="text-sm text-gray-400">T-Shirts, Hoodies, Tote Bags & more from ₹229!</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white text-sm font-medium group-hover:bg-white/20 transition-colors">
+                                        Shop Now <ArrowRight size={14} />
+                                    </div>
+                                </div>
+                            </a>
                         </motion.div>
 
                         {/* Your Pass Card - Full Width with Upgrade Options */}

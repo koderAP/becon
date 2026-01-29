@@ -150,7 +150,9 @@ export default function AdminFormsPage() {
 
                                 <h3 className="text-white font-semibold text-lg mb-2">{form.title}</h3>
                                 <p className="text-[#BBC5F2]/60 text-sm mb-4 line-clamp-2">
-                                    {form.description || 'No description'}
+                                    {form.description
+                                        ? form.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim() || 'No description'
+                                        : 'No description'}
                                 </p>
 
                                 <div className="flex items-center gap-2 text-[#BBC5F2]/50 text-xs mb-4">

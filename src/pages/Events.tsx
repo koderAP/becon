@@ -217,7 +217,7 @@ const eventsData: EventCard[] = [
             'Understand real-world applications of deep-tech innovation',
             'Explore careers and pathways in future-focused technologies'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Lane, IIT Delhi',
         category: 'exhibition',
         image: '/events/innoverse.avif',
@@ -238,7 +238,7 @@ const eventsData: EventCard[] = [
             'Explore collaboration and career opportunities',
             "Be part of conversations shaping tomorrow's mobility"
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'Wind Tunnel Lane, IIT Delhi',
         category: 'exhibition',
         image: '/events/autospark.avif',
@@ -260,7 +260,7 @@ const eventsData: EventCard[] = [
             'Opportunities for collaboration and partnerships',
             'A credible platform to accelerate growth'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'Exhibition Grounds',
         category: 'exhibition',
         image: '/events/launchpad.avif',
@@ -285,7 +285,7 @@ const eventsData: EventCard[] = [
             'Scope for collaboration and institutional support',
             'A platform that aligns innovation with national and sectoral priorities'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'Senate Hall',
         category: 'networking',
         image: '/events/Policysphere.avif',
@@ -322,7 +322,7 @@ const eventsData: EventCard[] = [
             'Collaborate with DebSoc IIT Delhi and BECon’26',
             'Gain recognition for analytical and communication excellence'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/startupdebate.avif',
@@ -342,7 +342,7 @@ const eventsData: EventCard[] = [
             'Enhance strategic thinking and decision-making',
             'Win recognition in a flagship BECon quiz event'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/biz.avif',
@@ -359,7 +359,7 @@ const eventsData: EventCard[] = [
             'Gain exposure to social entrepreneurship frameworks',
             'Compete under a nationally relevant theme'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/purposetoprofit.avif',
@@ -376,7 +376,7 @@ const eventsData: EventCard[] = [
             'Test team-building and valuation skills',
             'Engage with sports-business intersections'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/iplauction.avif',
@@ -393,7 +393,7 @@ const eventsData: EventCard[] = [
             'Develop financial and analytical thinking',
             'Present to and network with industry professionals'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/midastouch.avif',
@@ -410,7 +410,7 @@ const eventsData: EventCard[] = [
             'Compete in a fast-paced simulation environment',
             'Learn practical startup execution dynamics'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/twodayceo.avif',
@@ -427,7 +427,7 @@ const eventsData: EventCard[] = [
             'Compete in an investor-style simulation',
             'Sharpen analytical and forecasting skills'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'competition',
         image: '/events/startupauction.avif',
@@ -461,7 +461,7 @@ const eventsData: EventCard[] = [
             'Strengthen technical clarity and problem-solving',
             'Step into the future of deep-tech innovation'
         ],
-        date: 'Jan 30 - 31, 2026',
+        date: 'Jan 31 - 31, 2026',
         location: 'Maker Space',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800',
@@ -478,7 +478,7 @@ const eventsData: EventCard[] = [
             'Tools and methods to improve everyday work',
             'A bridge between emerging tech and real professional impact'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'LHC Classrooms',
         category: 'workshop',
         image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800',
@@ -496,7 +496,7 @@ const eventsData: EventCard[] = [
             'Clear next steps toward incubation, acceleration, pilots, and funding',
             'Founder-first format focused on real outcomes, not just discussions'
         ],
-        date: 'Jan 30 - Feb 1, 2026',
+        date: 'Jan 31 - Feb 1, 2026',
         location: 'Red Square, IIT Delhi',
         category: 'networking',
         image: '/events/incubator.avif',
@@ -704,7 +704,7 @@ export const Events: React.FC = () => {
     const unstopEvents: Record<string, string> = {
         'moonshot-main': 'https://becon.edciitd.com/forms/6934558c6b959ada62127360',
         'blueprint': 'https://becon.edciitd.com/forms/6932c9fab6b260b21594aaad',
-        'startup-clinic': 'https://becon.edciitd.com/forms/6939cf5892c07ad44e06e259',
+        'startup-clinic': 'https://becon.edciitd.com/forms/257a172b-1f19-45c6-800f-b851b722bbd7',
         // New External Links
         'colab': 'https://docs.google.com/forms/d/e/1FAIpQLSe1HoV9eEnE1E_2Rd21i8tCZC9cCu0QeaXT6Yka_-qNlvjYCQ/viewform?usp=publish-editor',
         'startup-debate': 'https://unstop.com/competitions/startup-the-debate-40-iit-delhi-1615531',
@@ -720,9 +720,7 @@ export const Events: React.FC = () => {
     // Special Event States
     const closedEvents = new Set([
         'moonshot-regional',
-        'startup-clinic-regional',
-        'e-raksha-hackathon',
-        'startup-clinic-main'
+        'e-raksha-hackathon'
     ]);
 
     const inviteOnlyEvents = new Set(['policysphere']);

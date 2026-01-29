@@ -252,9 +252,20 @@ export default function PublicFormPage() {
                             {form.title}
                         </h1>
                         {form.description && (
-                            <div className="text-[#BBC5F2]/70">
-                                {renderFormattedText(form.description)}
-                            </div>
+                            <div
+                                className="text-[#BBC5F2]/70 text-sm leading-relaxed [&_p]:mb-3 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1 [&_strong]:font-semibold [&_a]:text-blue-400 [&_a]:underline"
+                                style={{
+                                    wordBreak: 'keep-all',
+                                    overflowWrap: 'anywhere',
+                                    WebkitHyphens: 'none',
+                                    hyphens: 'none'
+                                }}
+                                dangerouslySetInnerHTML={{
+                                    __html: form.description.startsWith('<')
+                                        ? form.description.replace(/(\w)-(\w)/g, '$1\u2011$2')
+                                        : form.description.replace(/\n/g, '<br>').replace(/(\w)-(\w)/g, '$1\u2011$2')
+                                }}
+                            />
                         )}
                     </div>
 

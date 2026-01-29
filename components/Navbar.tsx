@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Menu, X, User, Download, Building } from 'lucide-react';
+import { ArrowUpRight, Menu, X, User, Download, Building, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../src/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -9,6 +9,7 @@ interface NavItem {
   label: string;
   path: string;
   isButton?: boolean;
+  isExternal?: boolean;
 }
 
 const getNavItems = (isLoggedIn: boolean): NavItem[] => [
@@ -18,6 +19,7 @@ const getNavItems = (isLoggedIn: boolean): NavItem[] => [
   { label: 'Sponsors', path: '/sponsors' },
   { label: 'Team', path: '/team' },
   { label: 'Contact', path: '/contact' },
+  { label: 'Merch', path: 'https://thedopaminestore.in/collections/becon-iit-delhi', isExternal: true },
   { label: isLoggedIn ? 'Dashboard' : 'Sign In', path: isLoggedIn ? '/dashboard' : '/login', isButton: true },
 ];
 
@@ -187,6 +189,17 @@ export const Navbar: React.FC = () => {
                       <ArrowUpRight size={10} />
                     </div>
                   </Link>
+                ) : item.isExternal ? (
+                  <a
+                    key={item.path}
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative px-2 lg:px-3 py-1.5 text-sm font-medium transition-colors rounded-full whitespace-nowrap text-gray-400 hover:text-purple-400 flex items-center gap-1"
+                  >
+                    <ShoppingBag size={14} />
+                    <span>{item.label}</span>
+                  </a>
                 ) : (
                   <button
                     key={item.path}
@@ -292,6 +305,20 @@ export const Navbar: React.FC = () => {
                   <span className="flex items-center gap-2">
                     <Building size={18} />
                     Accommodation
+                  </span>
+                  <ArrowUpRight size={16} className="opacity-50" />
+                </a>
+
+                {/* Merch Link (Mobile Only) */}
+                <a
+                  href='https://thedopaminestore.in/collections/becon-iit-delhi'
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/5 hover:text-purple-400 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <ShoppingBag size={18} />
+                    Merch
                   </span>
                   <ArrowUpRight size={16} className="opacity-50" />
                 </a>

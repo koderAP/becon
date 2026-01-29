@@ -105,6 +105,17 @@ export const Footer: React.FC = () => {
                                         </Link>
                                     </li>
                                 ))}
+                                <li>
+                                    <a
+                                        href="https://thedopaminestore.in/collections/becon-iit-delhi"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-400 text-sm hover:text-white transition-all duration-300 hover:translate-x-2 inline-flex items-center gap-2 group"
+                                    >
+                                        <span className="w-1 h-1 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                        Merch ↗
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 

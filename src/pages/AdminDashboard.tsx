@@ -312,7 +312,7 @@ export default function AdminDashboard() {
 
             let savedEvent;
             if (editingEvent) {
-                const res = await apiRequest(`/ api / admin / events / ${editingEvent.id} `, "PUT", payload);
+                const res = await apiRequest(`/api/admin/events/${editingEvent.id}`, "PUT", payload);
                 savedEvent = res.event;
                 toast.success("Event updated successfully");
 
@@ -343,7 +343,7 @@ export default function AdminDashboard() {
         }
 
         try {
-            await apiRequest(`/ api / admin / events / ${eventId} `, "DELETE");
+            await apiRequest(`/api/admin/events/${eventId}`, "DELETE");
             toast.success("Event deleted");
             fetchData();
         } catch (error: any) {
@@ -353,7 +353,7 @@ export default function AdminDashboard() {
 
     const viewRegistrations = async (eventId: string) => {
         try {
-            const res = await apiRequest(`/ api / admin / events / ${eventId}/registrations`);
+            const res = await apiRequest(`/api/admin/events/${eventId}/registrations`);
             setRegistrations(res.registrations || []);
             setShowRegistrations(eventId);
         } catch (error: any) {

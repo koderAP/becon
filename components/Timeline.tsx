@@ -5,7 +5,7 @@ import { Calendar, Clock, MapPin } from 'lucide-react';
 const scheduleData = [
     {
         day: "Day 1",
-        date: "Jan 30",
+        date: "Jan 31",
         events: [
             { time: "09:00 AM", title: "Registration & Welcome Kit", location: "Main Foyer", type: "General" },
             { time: "10:30 AM", title: "Opening Ceremony", location: "Grand Hall", type: "Keynote" },
