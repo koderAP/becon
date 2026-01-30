@@ -17,9 +17,10 @@ export const SponsorsPage: React.FC = () => {
                 <SponsorsGrid />
 
                 <div className="border-t border-white/10 pt-20 mt-20">
-                    <div className="flex items-center gap-4 mb-12">
-                        <div className="w-12 h-[2px] bg-white"></div>
-                        <span className="text-lg text-gray-300 uppercase tracking-widest">Previous Partners</span>
+                    <div className="flex items-center justify-center gap-4 mb-12">
+                        <div className="w-12 h-[2px] bg-white opacity-20"></div>
+                        <span className="text-lg text-gray-300 uppercase tracking-widest text-center">Previous Partners</span>
+                        <div className="w-12 h-[2px] bg-white opacity-20"></div>
                     </div>
                     {/* We pass showHeader=false because we added our own header above */}
                     <Sponsors showHeader={false} className="bg-transparent !p-0" />

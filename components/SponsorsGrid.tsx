@@ -94,11 +94,12 @@ const TierSection: React.FC<TierSectionProps> = ({ title, sponsors }) => {
 
     return (
         <div className="mb-20 last:mb-0">
-            <div className="flex items-center gap-4 mb-8">
-                <h3 className="text-sm font-bold text-purple-400 tracking-[0.2em] uppercase whitespace-nowrap">
+            <div className="flex items-center gap-4 mb-8 justify-center">
+                <div className="h-[1px] w-full max-w-[100px] bg-gradient-to-r from-transparent to-purple-500/50"></div>
+                <h3 className="text-sm font-bold text-purple-400 tracking-[0.2em] uppercase whitespace-nowrap text-center">
                     {title}
                 </h3>
-                <div className="h-[1px] w-full bg-gradient-to-r from-purple-500/50 to-transparent"></div>
+                <div className="h-[1px] w-full max-w-[100px] bg-gradient-to-l from-transparent to-purple-500/50"></div>
             </div>
 
             <div className={`grid gap-6 ${getGridClasses()}`}>

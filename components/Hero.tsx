@@ -200,7 +200,7 @@ export const Hero: React.FC = () => {
         {/* LOGO - BECon Logo - Responsive sizing */}
         <div className="relative flex items-center justify-center mb-4 md:mb-6">
           <img
-            src="/logo1.avif"
+            src="/logo.avif"
             alt="BECon 2026"
             className="w-[260px] md:w-[400px] lg:w-[520px] xl:w-[640px] 2xl:w-[720px] h-auto object-contain"
           />
