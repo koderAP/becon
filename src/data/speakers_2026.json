@@ -1,5 +1,11 @@
 [
   {
+      "id": 23,
+      "name": "Tanmay Bhat",
+      "designation": "Comedian & Investor",
+      "img": "/speakers/TanmayBhat.avif"
+    },
+  {
     "id": 118,
     "name": "Mr. Sanjeev Bikhchandani",
     "designation": "Founder at Info Edge (India) Ltd",

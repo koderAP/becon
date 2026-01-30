@@ -173,6 +173,20 @@ const scheduleData: DaySchedule[] = [
                 type: 'full',
                 venues: [
                     {
+                        venue: 'Grand Finale @ OAT',
+                        events: [
+                            { time: '18:00 - 19:00', title: 'Grand Moonshot', description: '' },
+                            { time: '19:00 - 19:45', title: 'Convergence of Silicon Valley & Cinema', description: '(Actor Nikita Dutta)' },
+                            { time: '20:00 - 20:30', title: 'Standup Comedy', description: '' },
+                            { time: '20:45 - 21:30', title: 'Talk show by Tanmay Bhat', description: '' },
+                        ]
+                    }
+                ]
+            },
+            {
+                type: 'grid',
+                venues: [
+                    {
                         venue: 'Lecture Hall Complex (LHC)',
                         events: [
                             { time: '11:00 - 17:00', title: 'Blueprint Finals', description: 'LH 413.1-5 & LH 408' },
@@ -180,26 +194,18 @@ const scheduleData: DaySchedule[] = [
                             { time: '11:00 - 13:00\n& 15:00- 17:00', title: 'PolicySphere', description: 'LH 212' },
                             { time: '10:00 - 15:00', title: 'Startup Auction', description: 'LH 310' },
                             { time: '15:00 - 17:00', title: 'Mad4AD', description: 'LH 121' },
+
+                        ]
+                    },
+                    {
+                        venue: 'Lecture Hall Complex (LHC)',
+                        events: [
                             { time: '15:00 - 17:00', title: 'Workshop: Microsoft', description: 'Building Blocks of a Successful Tech Startup - LH 418' },
                             { time: '13:00 - 15:00', title: 'Vajiram', description: 'LH 108' },
                             { time: '11:00 - 12:00', title: 'Sukoon Health', description: 'LH 416' },
                             { time: '11:00 - 15:00', title: 'Biz-E 4.0', description: 'LH 114' },
                             { time: '10:00 - 16:00', title: 'Purpose to Profit', description: 'LH 408' },
                             { time: '10:00 - 17:00', title: 'Two Day CEO Challenge', description: 'LH 410' },
-                        ]
-                    }
-                ]
-            },
-            {
-                type: 'full',
-                venues: [
-                    {
-                        venue: 'Grand Finale @ OAT',
-                        events: [
-                            { time: '18:00 - 19:00', title: 'Grand Moonshot', description: '' },
-                            { time: '19:00 - 19:45', title: 'Convergence of Silicon Valley & Cinema', description: '(Actor Nikita Dutta)' },
-                            { time: '20:00 - 20:30', title: 'Standup Comedy', description: '' },
-                            { time: '20:45 - 21:30', title: 'Talk show by Tanmay Bhat', description: '' },
                         ]
                     }
                 ]
@@ -282,7 +288,7 @@ export const Schedule: React.FC = () => {
             <PageHeader
                 title="SCHEDULE"
                 badge="Detailed Timeline"
-                description="Join us for 3 days of innovation, entrepreneurship, and inspiration"
+                description="Join us for 2 days of innovation, entrepreneurship, and inspiration"
             />
 
             <div className="relative z-20 px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-16">
@@ -351,11 +357,48 @@ export const Schedule: React.FC = () => {
                             {scheduleData[activeTab].sections.map((section, secIndex) => (
                                 <div key={secIndex}>
                                     {section.type === 'grid' && section.venues && (
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                            {section.venues.map((venue, vIndex) => (
-                                                <VenueCard key={vIndex} {...venue} />
-                                            ))}
-                                        </div>
+                                        (() => {
+                                            const hasDuplicates = new Set(section.venues.map(v => v.venue)).size !== section.venues.length;
+
+                                            if (!hasDuplicates) {
+                                                return (
+                                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                                        {section.venues.map((venue, vIndex) => (
+                                                            <VenueCard key={vIndex} {...venue} />
+                                                        ))}
+                                                    </div>
+                                                );
+                                            }
+
+                                            // Merge duplicates for mobile view
+                                            const mergedVenues = section.venues.reduce<VenueSchedule[]>((acc, curr) => {
+                                                const existing = acc.find(v => v.venue === curr.venue);
+                                                if (existing) {
+                                                    existing.events = [...existing.events, ...curr.events];
+                                                } else {
+                                                    acc.push({ ...curr, events: [...curr.events] });
+                                                }
+                                                return acc;
+                                            }, []);
+
+                                            return (
+                                                <>
+                                                    {/* Desktop View: Keep original split */}
+                                                    <div className="hidden lg:grid lg:grid-cols-2 gap-8">
+                                                        {section.venues.map((venue, vIndex) => (
+                                                            <VenueCard key={vIndex} {...venue} />
+                                                        ))}
+                                                    </div>
+
+                                                    {/* Mobile View: Merged */}
+                                                    <div className="flex flex-col gap-8 lg:hidden">
+                                                        {mergedVenues.map((venue, vIndex) => (
+                                                            <VenueCard key={vIndex} {...venue} />
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            );
+                                        })()
                                     )}
                                     {section.type === 'full' && section.venues && (
                                         <div className="max-w-4xl mx-auto">

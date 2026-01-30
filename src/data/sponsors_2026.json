@@ -1,0 +1,360 @@
+{
+    "becon_2026_sponsors": [
+        {
+            "category": "Title Sponsor",
+            "partner_title": "Title Sponsor",
+            "company": "SBI",
+            "logo_size": "Large",
+            "logo_image": "/assets/logos/sbi.avif"
+        },
+        {
+            "category": "Co-Title Sponsor",
+            "partner_title": "Co-Title Sponsor",
+            "company": "FITT",
+            "logo_size": "Large",
+            "logo_image": "/assets/logos/fitt.avif"
+        },
+        {
+            "category": "Associate Sponsor",
+            "partner_title": "Associate Sponsor",
+            "company": "WestBridge Capital",
+            "logo_size": "Large",
+            "logo_image": "/assets/logos/westbridgecapital.avif"
+        },
+        {
+            "category": "Powered By Sponsor",
+            "partner_title": "Powered By Sponsor",
+            "company": "Seorse",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/seorce.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "AI Storytelling Partner",
+            "company": "Pocket FM",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/pocket-fm.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Official Premium Partner",
+            "company": "Plum",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/plum.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Official Hydration Partner",
+            "company": "CAMPA SURE",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/campa-sure.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Startup Accelerator",
+            "company": "SwiftSeed Ventures",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/swiftseedventures.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Official Style & Comfort Partner",
+            "company": "Snitch",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/snitch.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Media Partner",
+            "company": "Your Story",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/yourstory.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Platform Partner",
+            "company": "Unstop",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/unstop.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Official Bold and Beautiful Partner",
+            "company": "Louis Stitch",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/louis-stitch.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Banking Partner",
+            "company": "HDFC",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/hdfc.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Finance Partner",
+            "company": "FinChartered Company",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/finchartered.avif"
+        },
+        {
+            "category": "Official Partners",
+            "partner_title": "Partner",
+            "company": "Tetr",
+            "logo_size": "Medium",
+            "logo_image": "/assets/logos/tetr.avif"
+        },
+        {
+            "category": "Mid-Tier Partners",
+            "partner_title": "Official Healthcare Partner",
+            "company": "HS Foundation",
+            "logo_size": "Mid",
+            "logo_image": "/assets/logos/hs-foundation.avif"
+        },
+        {
+            "category": "Mid-Tier Partners",
+            "partner_title": "Official Business School",
+            "company": "SDA Bocconi",
+            "logo_size": "Mid",
+            "logo_image": "/assets/logos/sda-bocconi.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Mental Health Partner",
+            "company": "Sukoon Health",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/sukoon.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Fragrance Partner",
+            "company": "MYOP (Make Your Own Pizza)",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/myop-logo.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Freshness Partner",
+            "company": "Nutribs",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/nutribs.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Gelato Partner",
+            "company": "1.5 Degree",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/1-5degree.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Education Partner",
+            "company": "Gahna Kalyan Pathshala",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/gahna-edupath.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Snack Partner",
+            "company": "Lotte India",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/lotte.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Merchandise Partner",
+            "company": "The Dopamine Store",
+            "logo_size": "Small",
+            "invert_logo": true,
+            "logo_image": "/assets/logos/the-dopamine-store.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Winter Wear Partner",
+            "company": "Doon Merchand",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/doonmerchandisecompany.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Kathi Roll Partner",
+            "company": "The Kathi's",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/thekathis.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Certification Partner",
+            "company": "Wingfotech",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/wingfotech.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Technology Partner",
+            "company": "Lenovo",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/lenovo.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Premium Partner",
+            "company": "Rent-O-click",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/rentoclick.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Co-Partner of Innovation",
+            "company": "Helleo Media",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/helloomedia.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Sustainability Partner",
+            "company": "Green Panel",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/greenpanel.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Official Communication Partner",
+            "company": "TrustSignal",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/trustsignal.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Smart Choices Partner",
+            "company": "Grest",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/grest.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Journey Partner",
+            "company": "Capture A Trip",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/captureatrip.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Pitch Infrastructure Partner",
+            "company": "Hackingly",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/hackingly.avif"
+        },
+        {
+            "category": "Category Partners",
+            "partner_title": "Tech Platform",
+            "company": "Hack Daily",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/hackdaily.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Campaigning Square",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/campaigningsourcepvtltd.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Startup Pedia",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/startuppedia.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Startup News.fyi",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/startupnews.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Indian Startup Times",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/indianstartuptimes.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Bharatsey",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/bharatsey.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Ziroh Labs",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/zirohlabs.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Vajiram & Ravi",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/vajiramandravi.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "Umeed Foundation",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/umeedfoundation.avif"
+        },
+        {
+            "category": "Media Partners",
+            "partner_title": "Media Partner",
+            "company": "RedBull",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/redbull.avif"
+        },
+        {
+            "category": "Supporting Partners",
+            "partner_title": "Official Gelato Partner",
+            "company": "1.5 Degree",
+            "logo_size": "Small",
+            "logo_image": "/assets/logos/1-5degree.avif"
+        },
+        {
+            "category": "Supporting Partners",
+            "partner_title": "Invoicing Partner",
+            "company": "Swipe",
+            "logo_size": "Very Small",
+            "logo_image": "/assets/logos/swipe.avif"
+        },
+        {
+            "category": "Supporting Partners",
+            "partner_title": "Campus Ambassador Partner",
+            "company": "Interview Buddy",
+            "logo_size": "Very Small",
+            "logo_image": "/assets/logos/interviewbuddy.avif"
+        },
+        {
+            "category": "Supporting Partners",
+            "partner_title": "Work-Readiness Partner",
+            "company": "Talerang",
+            "logo_size": "Very Small",
+            "invert_logo": true,
+            "logo_image": "/assets/logos/talerang.avif"
+        },
+        {
+            "category": "Supporting Partners",
+            "partner_title": "Official Food Partner",
+            "company": "Yu FoodLabs",
+            "logo_size": "Very Small",
+            "logo_image": "/assets/logos/yufoodlabs.avif"
+        }
+    ],
+    "metadata": {
+        "event": "BECon 2026",
+        "last_updated": "2026-01-30"
+    }
+}
